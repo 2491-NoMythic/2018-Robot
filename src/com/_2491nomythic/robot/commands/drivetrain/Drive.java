@@ -6,7 +6,7 @@ import com._2491nomythic.robot.settings.ControllerMap;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
+ * Drives the robot with linear acceleration as according to input from a driver's controller
  */
 public class Drive extends CommandBase {
 	private double turnSpeed, leftSpeed, rightSpeed, rawLeftSpeed, rawRightSpeed, accelerationInterval, time, timeAddition;
