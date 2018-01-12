@@ -27,7 +27,7 @@ public class TuneDerivativeDriveStraight extends CommandBase {
 	 * @param numberOfTrials The number of times the robot should tune itself. Average trials to tune: unknown
 	 */
 	
-    public TuneDerivativeDriveStraight(double distance, double maximumAcceptedTime, int numberOfTrials) {
+    public TuneDerivativeDriveStraight(double distance, double maximumAcceptedTime, double absoluteError, int numberOfTrials) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(drivetrain);
@@ -35,6 +35,7 @@ public class TuneDerivativeDriveStraight extends CommandBase {
     	this.distance = distance;
     	this.maximumAcceptedTime = maximumAcceptedTime;
     	this.numberOfTrials = numberOfTrials;
+    	this.absoluteError = absoluteError;
     	derivative = new double[numberOfTrials];
     	timeToReachDestination = new double[numberOfTrials];
     	maximumTimer = new Timer();
