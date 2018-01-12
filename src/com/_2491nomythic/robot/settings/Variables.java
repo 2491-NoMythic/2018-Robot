@@ -5,9 +5,11 @@ package com._2491nomythic.robot.settings;
  */
 public class Variables {
 	
-	//PID Constants
-	public static double drivetrainPID_P = 0.016;
-	public static double drivetrainPID_I = 0.0;
-	public static double drivetrainPID_D = 0.007;
-	
+	//PID Constants from Watt
+	public static double proportional = 0.016;
+	public static double integral = 0.0;
+	public static double derivative = 0.007;
+	public static double proportionalForward = 0;
+	public static double integralForward = 0;
+	public static double derivativeForward = 0;
 }
