@@ -81,7 +81,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveLeft(double speed){
-		left1.set(ControlMode.PercentOutput, -speed);
+		left1.set(ControlMode.PercentOutput, speed);
 	}
 	
 	/**
