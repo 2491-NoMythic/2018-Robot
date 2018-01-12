@@ -21,7 +21,6 @@ public class TuneDerivative extends CommandBase {
      * @param absoluteError The maximum acceptable error in degrees.
      * @param numberOfTrials The number of times the robot should tune itself.
      */
-    
     public TuneDerivative(double angle, double maximumAcceptedTime, double absoluteError, int numberOfTrials) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);'
@@ -57,7 +56,7 @@ public class TuneDerivative extends CommandBase {
         	errorTimer.stop();
         	errorTimer.reset();
         	
-        	if(drivetrain.getPosition() < targetAngle + absoluteError || drivetrain.getPosition() > targetAngle - absoluteError) {
+        	while(drivetrain.getPosition() < targetAngle + absoluteError || drivetrain.getPosition() > targetAngle - absoluteError) {
         		errorTimer.start();
         		
         		if(errorTimer.get() > 1) {

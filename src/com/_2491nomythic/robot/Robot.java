@@ -8,6 +8,8 @@
 package com._2491nomythic.robot;
 
 import com._2491nomythic.robot.commands.CommandBase;
+import com._2491nomythic.robot.commands.drivetrain.TuneDerivative;
+import com._2491nomythic.robot.commands.drivetrain.TuneProportional;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -39,6 +41,9 @@ public class Robot extends TimedRobot {
 		CommandBase.init();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
+		
+		SmartDashboard.putData("TuneProportional", new TuneProportional(45, 15));
+		SmartDashboard.putData("TuneDerivative", new TuneDerivative(45, 5, 5, 15));
 	}
 
 	/**
