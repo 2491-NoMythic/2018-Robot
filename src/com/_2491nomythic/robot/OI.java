@@ -7,11 +7,35 @@
 
 package com._2491nomythic.robot;
 
+import com._2491nomythic.robot.settings.ControllerMap;
+
+import edu.wpi.first.wpilibj.Joystick;
+
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+	private final Joystick[] controllers = new Joystick[1];
+	
+	public void init() {
+		controllers[0] = new Joystick(ControllerMap.controllerOnePort);
+	}
+	
+	/**
+	 * Get an axis from a controller that is automatically squared and deadzoned
+	 * 
+	 * @param joystickID
+	 *            The id of the controller. 0 = left or driver, 1 = right or driver
+	 * @param axisID
+	 *            The id of the axis (for use in getRawAxis)
+	 * @return the squared, deadzoned result from running getRawAxis
+	 */
+	public double getAxisDeadzonedSquared(int joystickID, int axisID, double deadzone) {
+		double result = controllers[joystickID].getRawAxis(axisID);
+		result = result * Math.abs(result);
+		return Math.abs(result) > deadzone ? result : 0;
+	}
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.

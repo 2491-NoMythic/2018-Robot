@@ -5,9 +5,7 @@ package com._2491nomythic.robot.settings;
  */
 public class Constants {
 	
-	//Controllers
-	public static final int ControllerOnePort = 0;
-	public static final int ControllerTwoPort = 1;
+
 	
 	//Drive
 	public static final int driveTalonLeft1Channel = 11;
