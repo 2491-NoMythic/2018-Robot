@@ -35,7 +35,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * The system of motors, solenoids, encoders, and a gyro that allows us to drive the robot
 	 */
 	private Drivetrain() {
-		super("Drive", Variables.drivetrainPID_P, Variables.drivetrainPID_I, Variables.drivetrainPID_D);
+		super("Drive", Variables.proportional, Variables.integral, Variables.derivative);
 		setAbsoluteTolerance(2);
 		setInputRange(0, 360);
 		getPIDController().setContinuous(true);
@@ -81,7 +81,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveLeft(double speed){
-		left1.set(ControlMode.PercentOutput, -speed);
+		left1.set(ControlMode.PercentOutput, speed);
 	}
 	
 	/**
