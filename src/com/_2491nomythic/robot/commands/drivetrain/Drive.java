@@ -12,7 +12,11 @@ public class Drive extends CommandBase {
 	private double turnSpeed, leftSpeed, rightSpeed, rawLeftSpeed, rawRightSpeed, accelerationInterval, time, timeAddition;
 	int state;
 	Timer timer;
-
+	
+	
+	/**
+	 * Drives the robot with linear acceleration as according to input from a driver's controller
+	 */
     public Drive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);

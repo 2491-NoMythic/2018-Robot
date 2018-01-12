@@ -1,5 +1,6 @@
 package com._2491nomythic.robot.subsystems;
 
+import com._2491nomythic.robot.commands.drivetrain.Drive;
 import com._2491nomythic.robot.settings.Constants;
 import com._2491nomythic.robot.settings.Variables;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -188,6 +189,7 @@ public class Drivetrain extends PIDSubsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	setDefaultCommand(new Drive());
     }
 
 	@Override
