@@ -164,14 +164,14 @@ public class Drivetrain extends PIDSubsystem {
 	}
 	
 	/**
-	 * Resets the value of the gyro to 0°
+	 * Resets the value of the gyro to 0
 	 */
 	public void resetGyro() {
 		gyro.reset();
 	}
 	
 	/**
-	 * @return The value of the gyro, corrected to a 0-360° range
+	 * @return The value of the gyro, corrected to a 0-360 range
 	 */
 	public double getGyroAngle(){
 		return (gyro.getAngle()  % 360 + 360) % 360;
