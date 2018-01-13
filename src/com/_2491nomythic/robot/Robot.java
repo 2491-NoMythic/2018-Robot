@@ -46,6 +46,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 		CommandBase.init();
+		updateDriverstation = new UpdateDriverstation();
 		updateDriverstation.start();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		m_chooser.addObject("Cross AutoLine", new CrossAutoLine());
