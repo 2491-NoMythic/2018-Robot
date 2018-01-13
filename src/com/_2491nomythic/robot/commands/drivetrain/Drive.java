@@ -2,6 +2,7 @@ package com._2491nomythic.robot.commands.drivetrain;
 
 import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.settings.ControllerMap;
+import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -9,10 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
  * Drives the robot with linear acceleration as according to input from a driver's controller
  */
 public class Drive extends CommandBase {
-	private double turnSpeed, leftSpeed, rightSpeed, rawLeftSpeed, rawRightSpeed, accelerationInterval, time, timeAddition;
-	int state;
-	Timer timer;
-	
+	private double turnSpeed, leftSpeed, rightSpeed, currentLeftSpeed, currentRightSpeed, lastLeftSpeed, lastRightSpeed;	
 	
 	/**
 	 * Drives the robot with linear acceleration as according to input from a driver's controller
@@ -21,93 +19,43 @@ public class Drive extends CommandBase {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(drivetrain);
-    	timer = new Timer();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	state = 0;
-    	timer.start();
-    	timer.reset();
-    	accelerationInterval = .5;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	turnSpeed = 0.5 * oi.getAxisDeadzonedSquared(ControllerMap.controllerOnePort, ControllerMap.driveTurnAxis, 0.1);
-    	rawLeftSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.controllerOnePort, ControllerMap.driveMainAxis, .05);
-    	rawRightSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.controllerOnePort, ControllerMap.driveMainAxis, .05);
+    	turnSpeed = 0.5 * oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveTurnAxis, 0.1);
     	
-    	if (Math.abs(oi.getAxisDeadzonedSquared(ControllerMap.controllerOnePort, ControllerMap.driveMainAxis, .1)) <= .1) {
-    		timer.reset();
-    	}
+    	lastLeftSpeed = currentLeftSpeed;
+		lastRightSpeed = currentRightSpeed;
+		
+		currentLeftSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveMainAxis, 0.05) + turnSpeed;
+		currentRightSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveMainAxis, 0.05) - turnSpeed;
     	
-    	switch (state) {
-    	case 0:
-    		time = timer.get() + timeAddition;
-    		timeAddition = 0;
-    		leftSpeed = .2 * rawLeftSpeed;
-    		rightSpeed = .2 * rawRightSpeed;
-    		if (time < accelerationInterval) {
-    			state++;
-    		}
-    		if (Math.abs(rawLeftSpeed) < .2 * rawLeftSpeed && Math.abs(rawRightSpeed) < .2 * rawRightSpeed) {
-    			timer.reset();
-    		}
-    		break;
-    	case 1:
-    		time = timer.get() + timeAddition;
-    		timeAddition = 0;
-    		leftSpeed = .4 * rawLeftSpeed;
-    		rightSpeed = .4 * rawRightSpeed;
-    		if (time > (accelerationInterval) && timer.get() < (2*accelerationInterval)) {
-    			state++;
-    		}
-    		if (Math.abs(rawLeftSpeed) < .4 * rawLeftSpeed && Math.abs(rawRightSpeed) < .4 * rawRightSpeed) {
-    			timer.reset();
-    			state = 0;
-    		}
-    		break;
-    	case 2:
-    		time = timer.get() + timeAddition;
-    		timeAddition = 0;
-    		leftSpeed = .6 * rawLeftSpeed;
-    		rightSpeed = .6 * rawRightSpeed;
-    		if (time > (2*accelerationInterval) && timer.get() < (3*accelerationInterval)) {
-    			state++;
-    		}
-    		if (Math.abs(rawLeftSpeed) < .6 * rawLeftSpeed && Math.abs(rawRightSpeed) < .6 * rawRightSpeed) {
-    			timer.reset();
-    			state = 1;
-    			timeAddition = .5*accelerationInterval;
-    		}
-    		break;
-    	case 3:
-    		time = timer.get() + timeAddition;
-    		timeAddition = 0;
-    		leftSpeed = .8 * rawLeftSpeed;
-    		rightSpeed = .8 * rawRightSpeed;
-    	   	if (time > (3*accelerationInterval) && timer.get() < (4*accelerationInterval)) {
-    	   		state++;
-    	   	}
-    		if (Math.abs(rawLeftSpeed) < .8 * rawLeftSpeed && Math.abs(rawRightSpeed) < .8 * rawRightSpeed) {
-    			timer.reset();
-    			state = 2;
-    			timeAddition = accelerationInterval;
-    		}
-    		break;
-    	case 4:
-    		time = timer.get() + timeAddition;
-    		timeAddition = 0;
-    		leftSpeed = rawLeftSpeed;
-    		rightSpeed = rawRightSpeed;
-    		if (Math.abs(rawLeftSpeed) < rawLeftSpeed && Math.abs(rawRightSpeed) < rawRightSpeed) {
-    			timer.reset();
-    			state = 3;
-    			timeAddition = 2*accelerationInterval;
-    		}
-    		break;
-    	}
+    	if (Variables.useLinearAcceleration) {
+			double leftAcceleration = (currentLeftSpeed - lastLeftSpeed);
+			double signOfLeftAcceleration = leftAcceleration / Math.abs(leftAcceleration);
+			if (Math.abs(leftAcceleration) > Variables.accelerationSpeed) { // otherwise the power is below accel and is fine
+				if (Math.abs(currentLeftSpeed) - Math.abs(lastLeftSpeed) > 0) {
+					System.out.println(currentLeftSpeed + " was too high, setting to " + (lastLeftSpeed + (Variables.accelerationSpeed * signOfLeftAcceleration)));
+					currentLeftSpeed = lastLeftSpeed + (Variables.accelerationSpeed * signOfLeftAcceleration);
+					
+				}
+				// if the difference between the numbers is positive it is going up
+			}
+			double rightAcceleration = (currentRightSpeed - lastRightSpeed);
+			double signOfRightAcceleration = rightAcceleration / Math.abs(rightAcceleration);
+			if (Math.abs(rightAcceleration) > Variables.accelerationSpeed) { // otherwise the power is below 0.05 accel and is fine
+				if (Math.abs(currentRightSpeed) - Math.abs(lastRightSpeed) > 0) {
+					System.out.println(currentRightSpeed + " was too high, setting to " + (lastRightSpeed + (Variables.accelerationSpeed * signOfRightAcceleration)));
+					currentRightSpeed = lastRightSpeed + (Variables.accelerationSpeed * signOfRightAcceleration);
+				}
+				// if the difference between the numbers is positive it is going up
+			}
+		}
     	
     	
     	drivetrain.drive(leftSpeed + turnSpeed, rightSpeed - turnSpeed);
@@ -120,7 +68,7 @@ public class Drive extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    	drivetrain.drive(0);
+    	drivetrain.stop();
     	timer.stop();
     }
 

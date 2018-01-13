@@ -5,6 +5,10 @@ package com._2491nomythic.robot.settings;
  */
 public class Variables {
 	
+	//Drive
+	public static boolean useLinearAcceleration = true;
+	public static double accelerationSpeed = 0.05;
+	
 	//PID Constants from Watt
 	public static double proportional = 0.016;
 	public static double integral = 0.0;

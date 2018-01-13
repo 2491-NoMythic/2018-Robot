@@ -19,7 +19,7 @@ public class OI {
 	private final Joystick[] controllers = new Joystick[1];
 	
 	public void init() {
-		controllers[0] = new Joystick(ControllerMap.controllerOnePort);
+		controllers[0] = new Joystick(ControllerMap.driveController);
 	}
 	
 	/**
