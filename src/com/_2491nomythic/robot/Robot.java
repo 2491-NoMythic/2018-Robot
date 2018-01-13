@@ -9,6 +9,8 @@ package com._2491nomythic.robot;
 
 import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.commands.autonomous.CrossAutoLine;
+import com._2491nomythic.robot.commands.autonomous.DoNothing;
+import com._2491nomythic.robot.commands.autonomous.PlaceOnScale;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnSwitch;
 import com._2491nomythic.robot.commands.drivetrain.TuneDerivative;
 import com._2491nomythic.robot.commands.drivetrain.TuneProportional;
@@ -43,7 +45,9 @@ public class Robot extends TimedRobot {
 		CommandBase.init();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		m_chooser.addObject("Cross AutoLine", new CrossAutoLine());
-		m_chooser.addObject("PlaceCubeOnSwitch", new PlaceOnSwitch());
+		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
+		m_chooser.addObject("PlaceOnScale", new PlaceOnScale());
+		m_chooser.addDefault("Do Nothing", new DoNothing());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
 		SmartDashboard.putData("TuneProportional", new TuneProportional(45, 15));
