@@ -10,7 +10,7 @@ public class CrossAutoLine extends CommandBase {
 	DriveStraightToPosition crossLine;
 
 	/**
-	 * Attempts to cross the AuutoLine during autonomous.
+	 * Attempts to cross the AutoLine during autonomous.
 	 */
     public CrossAutoLine() {
         // Use requires() here to declare subsystem dependencies
