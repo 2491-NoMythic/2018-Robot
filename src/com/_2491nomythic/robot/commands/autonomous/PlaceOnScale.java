@@ -60,7 +60,7 @@ public class PlaceOnScale extends CommandBase {
     		}
     		break;
     	default:
-    		System.out.println("Unexpected Value for GameSpecificMessage. gameData: " + gameData);
+    		System.out.println("Unexpected Value for GameSpecificMessage: " + gameData);
     		break;
     	}
     }

@@ -46,7 +46,7 @@ public class PlaceOnSwitch extends CommandBase {
     		turnTowardsSwitch = new RotateDrivetrainWithGyroPID(-90, false);
     		break;
     	default:
-    		System.out.println("Unexpected value for GameSpecificMessage. gameData: " + gameData);
+    		System.out.println("Unexpected value for GameSpecificMessage: " + gameData);
     		break;
     	}
     }
