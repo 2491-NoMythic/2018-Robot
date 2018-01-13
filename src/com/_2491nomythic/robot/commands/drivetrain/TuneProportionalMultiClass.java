@@ -6,7 +6,7 @@ import com._2491nomythic.robot.settings.Variables;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
+ * Tunes the proportional value of the robot to be optimal while rotating. The rotation occurs in a separate class.
  */
 public class TuneProportionalMultiClass extends CommandBase {
 	private double[] proportional, averageAngle;
@@ -16,6 +16,11 @@ public class TuneProportionalMultiClass extends CommandBase {
 	private Timer timer;
 	private boolean[] higher;
 
+	/**
+	 * Tunes the proportional value of the robot to be optimal while rotating. The rotation occurs in a separate class.
+	 * @param relativeAngle The distance in degrees that the robot should attempt to rotate each trial, where a negative value rotates to the left.
+	 * @param numberOfTrials The number of times the robot should tune itself. Average trials to tune: unknown
+	 */
     public TuneProportionalMultiClass(double relativeAngle, int numberOfTrials) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
