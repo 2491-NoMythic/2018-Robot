@@ -51,4 +51,4 @@ Temporary Items
 # Project Specific Files
 # =========================
 
-.class
+*.class
