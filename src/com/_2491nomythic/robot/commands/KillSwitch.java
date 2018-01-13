@@ -1,10 +1,14 @@
 package com._2491nomythic.robot.commands;
 
 /**
+ * Interrupts any other commands running on the robot that require any subsystems
  *
  */
 public class KillSwitch extends CommandBase {
-
+	
+	/**
+	 * Interrupts any other commands running on the robot that require any subsystems
+	 */
     public KillSwitch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
