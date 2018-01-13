@@ -22,7 +22,7 @@ public class Constants {
 	public static final int driveEncoderRightChannel2 = 8;
 		
 	//Computation
-	public static final double driveEncoderToFeet = 1.0 / 670 / 256; //TODO update for 2018
+	public static final double driveEncoderToFeet = 12.0 / 670 / 256; //TODO update for 2018. Currently in 2017 inches.
 	
 }
 

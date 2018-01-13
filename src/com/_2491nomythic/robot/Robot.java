@@ -8,6 +8,8 @@
 package com._2491nomythic.robot;
 
 import com._2491nomythic.robot.commands.CommandBase;
+import com._2491nomythic.robot.commands.autonomous.CrossAutoLine;
+import com._2491nomythic.robot.commands.autonomous.PlaceOnSwitch;
 import com._2491nomythic.robot.commands.drivetrain.TuneDerivative;
 import com._2491nomythic.robot.commands.drivetrain.TuneProportional;
 
@@ -40,6 +42,8 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		CommandBase.init();
 		// chooser.addObject("My Auto", new MyAutoCommand());
+		m_chooser.addObject("Cross AutoLine", new CrossAutoLine());
+		m_chooser.addObject("PlaceCubeOnSwitch", new PlaceOnSwitch());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
 		SmartDashboard.putData("TuneProportional", new TuneProportional(45, 15));
