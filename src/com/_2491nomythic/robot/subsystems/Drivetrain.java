@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SerialPort;
 
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
@@ -53,7 +54,7 @@ public class Drivetrain extends PIDSubsystem {
 		left1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 				
-//		gyro = new AHRS(SerialPort.Port.kUSB);
+		gyro = new AHRS(SerialPort.Port.kUSB);
 	}
 	
 	/**

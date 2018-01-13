@@ -15,8 +15,8 @@ public abstract class CommandBase extends Command {
 	
 	public static void init() {
 		oi = new OI();
-		oi.init();
 		drivetrain = Drivetrain.getInstance();
+		oi.init();
 		// This MUST be here. If the OI creates Commands (which it very likely
 		// will), constructing it during the construction of CommandBase (from
 		// which commands extend), subsystems are not guaranteed to be

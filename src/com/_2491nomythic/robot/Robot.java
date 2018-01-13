@@ -13,6 +13,8 @@ import com._2491nomythic.robot.commands.autonomous.CrossAutoLine;
 import com._2491nomythic.robot.commands.autonomous.DoNothing;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnScale;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnSwitch;
+import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
+import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.robot.commands.drivetrain.TuneDerivative;
 import com._2491nomythic.robot.commands.drivetrain.TuneProportional;
 import com._2491nomythic.robot.settings.Variables;
@@ -52,6 +54,8 @@ public class Robot extends TimedRobot {
 		m_chooser.addDefault("Do Nothing", new DoNothing());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		
+		SmartDashboard.putData("DriveStraightToPosition", new DriveStraightToPosition(0.3, 10));
+		SmartDashboard.putData("RotateDrivetrain45", new RotateDrivetrainWithGyroPID(45, false));
 		SmartDashboard.putData("TuneProportional", new TuneProportional(45, 15));
 		SmartDashboard.putData("TuneDerivative", new TuneDerivative(45, 5, 5, 15));
 		SmartDashboard.putBoolean("Use Linear Acceleration", Variables.useLinearAcceleration);

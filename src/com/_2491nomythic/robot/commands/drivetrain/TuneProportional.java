@@ -125,10 +125,10 @@ public class TuneProportional extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    	drivetrain.disable();
+    	//drivetrain.disable();
     	drivetrain.stop();
     	
-    	if(!(i < numberOfTrials)) {
+    	if(i >= numberOfTrials) {
     		i = 1;
     	    
     		while(i <= numberOfTrials) {
