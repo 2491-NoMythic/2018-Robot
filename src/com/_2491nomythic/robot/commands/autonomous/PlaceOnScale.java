@@ -18,6 +18,8 @@ public class PlaceOnScale extends CommandBase {
 	 * Attempts to place a cube on the correct side of the scale during autonomous.
 	 */
     public PlaceOnScale() {
+    	//Use this command if the robot is in front of either DriverStation 1 or 3.
+    	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(drivetrain);

@@ -18,6 +18,8 @@ public class PlaceOnSwitch extends CommandBase {
 	 * Attempts to place a cube on the correct side of the switch during autonomous.
 	 */
     public PlaceOnSwitch() {
+    	//Use this command if the robot is in front of DriverStation 2.
+    	
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(drivetrain);
