@@ -142,28 +142,28 @@ public class Drivetrain extends PIDSubsystem {
 	 * @return The value of the left drive encoder in feet
 	 */
 	public double getLeftEncoderDistance() {
-		return left1.getSelectedSensorPosition(0) * Constants.driveEncoderToFeet;
+		return left1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
 	}
 	
 	/**
 	 * @return The value of the right drive encoder in feet
 	 */
 	public double getRightEncoderDistance() {
-		return right1.getSelectedSensorPosition(0) * Constants.driveEncoderToFeet;
+		return right1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
 	}
 	
 	/**
 	 * @return The speed of the left motor in feet per second
 	 */
 	public double getLeftEncoderRate() {
-		return left1.getSelectedSensorVelocity(0) * 10 * Constants.driveEncoderToFeet;
+		return left1.getSelectedSensorVelocity(0) * 10 * Constants.driveEncoderToInches;
 	}
 	
 	/**
 	 * @return The speed of the right motor in feet per second
 	 */
 	public double getRightEncoderRate() {
-		return right1.getSelectedSensorVelocity(0) * 10 * Constants.driveEncoderToFeet;
+		return right1.getSelectedSensorVelocity(0) * 10 * Constants.driveEncoderToInches;
 	}
 	
 	/**
