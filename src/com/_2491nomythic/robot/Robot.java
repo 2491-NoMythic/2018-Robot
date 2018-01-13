@@ -8,6 +8,7 @@
 package com._2491nomythic.robot;
 
 import com._2491nomythic.robot.commands.CommandBase;
+import com._2491nomythic.robot.commands.UpdateDriverstation;
 import com._2491nomythic.robot.commands.autonomous.CrossAutoLine;
 import com._2491nomythic.robot.commands.autonomous.DoNothing;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnScale;
@@ -33,6 +34,7 @@ public class Robot extends TimedRobot {
 	public static OI m_oi;
 
 	Command m_autonomousCommand;
+	UpdateDriverstation updateDriverstation;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
 	/**
@@ -43,6 +45,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		m_oi = new OI();
 		CommandBase.init();
+		updateDriverstation.start();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		m_chooser.addObject("Cross AutoLine", new CrossAutoLine());
 		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
