@@ -32,8 +32,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot {
 
-	public static OI m_oi;
-
 	Command m_autonomousCommand;
 	UpdateDriverstation updateDriverstation;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -43,8 +41,7 @@ public class Robot extends TimedRobot {
 	 * used for any initialization code.
 	 */
 	@Override
-	public void robotInit() {
-		m_oi = new OI();
+	public void robotInit() { 
 		CommandBase.init();
 		updateDriverstation = new UpdateDriverstation();
 		updateDriverstation.start();
