@@ -5,8 +5,6 @@ package com._2491nomythic.robot.settings;
  */
 public class Constants {
 	
-
-	
 	//Drive
 	public static final int driveTalonLeft1Channel = 11;
 	public static final int driveTalonLeft2Channel = 19;
