@@ -15,6 +15,7 @@ import com._2491nomythic.robot.commands.autonomous.PlaceOnScale;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnSwitch;
 import com._2491nomythic.robot.commands.drivetrain.TuneDerivative;
 import com._2491nomythic.robot.commands.drivetrain.TuneProportional;
+import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -55,6 +56,7 @@ public class Robot extends TimedRobot {
 		
 		SmartDashboard.putData("TuneProportional", new TuneProportional(45, 15));
 		SmartDashboard.putData("TuneDerivative", new TuneDerivative(45, 5, 5, 15));
+		SmartDashboard.putBoolean("Use Linear Acceleration", Variables.useLinearAcceleration);
 	}
 
 	/**

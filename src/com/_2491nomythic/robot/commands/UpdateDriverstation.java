@@ -35,6 +35,9 @@ public class UpdateDriverstation extends CommandBase {
     protected void execute() {
     	if (timer.get() > nextRun) {
 			nextRun = nextRun + 0.1;
+			
+			Variables.useLinearAcceleration = SmartDashboard.getBoolean("Use Linear Acceleration", true);
+			
 		}
 			
     	
