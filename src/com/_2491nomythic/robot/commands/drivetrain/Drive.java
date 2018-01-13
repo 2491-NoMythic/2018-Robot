@@ -8,7 +8,7 @@ import com._2491nomythic.robot.settings.Variables;
  * Drives the robot with linear acceleration as according to input from a driver's controller
  */
 public class Drive extends CommandBase {
-	private double turnSpeed, leftSpeed, rightSpeed, currentLeftSpeed, currentRightSpeed, lastLeftSpeed, lastRightSpeed;	
+	private double turnSpeed, currentLeftSpeed, currentRightSpeed, lastLeftSpeed, lastRightSpeed;	
 	
 	/**
 	 * Drives the robot with linear acceleration as according to input from a driver's controller
@@ -56,7 +56,7 @@ public class Drive extends CommandBase {
 		}
     	
     	
-    	drivetrain.drive(leftSpeed + turnSpeed, rightSpeed - turnSpeed);
+    	drivetrain.drive(currentLeftSpeed + turnSpeed, currentRightSpeed - turnSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
