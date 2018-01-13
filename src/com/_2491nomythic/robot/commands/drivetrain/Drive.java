@@ -4,8 +4,6 @@ import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.settings.ControllerMap;
 import com._2491nomythic.robot.settings.Variables;
 
-import edu.wpi.first.wpilibj.Timer;
-
 /**
  * Drives the robot with linear acceleration as according to input from a driver's controller
  */
