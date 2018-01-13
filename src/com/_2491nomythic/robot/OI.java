@@ -7,9 +7,14 @@
 
 package com._2491nomythic.robot;
 
+import com._2491nomythic.robot.commands.KillSwitch;
+import com._2491nomythic.robot.commands.drivetrain.TuneDerivative;
+import com._2491nomythic.robot.commands.drivetrain.TuneProportional;
 import com._2491nomythic.robot.settings.ControllerMap;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.Button;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -17,9 +22,18 @@ import edu.wpi.first.wpilibj.Joystick;
  */
 public class OI {
 	private final Joystick[] controllers = new Joystick[1];
-	
+	Button tuneP, tuneD, killSwitch;
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
+		
+		tuneP = new JoystickButton(controllers[ControllerMap.driveController], 3);
+		tuneP.whenPressed(new TuneProportional(45, 15));
+		
+		tuneD = new JoystickButton(controllers[ControllerMap.driveController], 4);
+		tuneD.whenPressed(new TuneDerivative(45, 5, 5, 15));
+		
+		killSwitch = new JoystickButton(controllers[ControllerMap.driveController], 1);
+		killSwitch.whenPressed(new KillSwitch());
 	}
 	
 	/**
