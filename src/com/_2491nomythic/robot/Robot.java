@@ -49,8 +49,8 @@ public class Robot extends TimedRobot {
 		updateDriverstation.start();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		m_chooser.addObject("Cross AutoLine", new CrossAutoLine());
-		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
-		m_chooser.addObject("PlaceOnScale", new PlaceOnScale());
+		m_chooser.addObject("PlaceOnSwitch: DS 2", new PlaceOnSwitch());
+		m_chooser.addObject("PlaceOnScale: DS 1 or 3", new PlaceOnScale());
 		m_chooser.addDefault("Do Nothing", new DoNothing());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		

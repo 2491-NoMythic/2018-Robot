@@ -24,8 +24,8 @@ public class PlaceOnSwitch extends CommandBase {
         // eg. requires(chassis);
     	requires(drivetrain);
     	
-    	approachCubes = new DriveStraightToPosition(0.8, 50);
-    	approachSwitch = new DriveStraightToPosition(0.8, 50);
+    	approachCubes = new DriveStraightToPosition(0.8, 98);
+    	approachSwitch = new DriveStraightToPosition(0.8, 76);
     }
 
     // Called just before this Command runs the first time
@@ -36,12 +36,12 @@ public class PlaceOnSwitch extends CommandBase {
     	
     	switch(gameData.substring(0, 1)) {
     	case "L":
-    		moveTowardsWall = new DriveStraightToPosition(0.8, 50);
+    		moveTowardsWall = new DriveStraightToPosition(0.8, 58);
     		turnTowardsWall = new RotateDrivetrainWithGyroPID(-90, false);
     		turnTowardsSwitch = new RotateDrivetrainWithGyroPID(90, false);
     		break;
     	case "R":
-    		moveTowardsWall = new DriveStraightToPosition(0.8, 70);
+    		moveTowardsWall = new DriveStraightToPosition(0.8, 50.5);
     		turnTowardsWall = new RotateDrivetrainWithGyroPID(90, false);
     		turnTowardsSwitch = new RotateDrivetrainWithGyroPID(-90, false);
     		break;

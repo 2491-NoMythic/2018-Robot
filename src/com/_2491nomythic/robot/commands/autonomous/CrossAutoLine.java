@@ -17,7 +17,7 @@ public class CrossAutoLine extends CommandBase {
         // eg. requires(chassis);
     	requires(drivetrain);
     	
-    	crossLine = new DriveStraightToPosition(1, 80);
+    	crossLine = new DriveStraightToPosition(1, 130);
     }
 
     // Called just before this Command runs the first time
