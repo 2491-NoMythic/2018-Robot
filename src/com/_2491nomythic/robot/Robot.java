@@ -14,6 +14,7 @@ import com._2491nomythic.robot.commands.autonomous.DoNothing;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnScale;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnSwitch;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
+import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.robot.commands.drivetrain.TuneDerivative;
 import com._2491nomythic.robot.commands.drivetrain.TuneProportional;
@@ -53,9 +54,10 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("PlaceOnScale: DS 1 or 3", new PlaceOnScale());
 		m_chooser.addDefault("Do Nothing", new DoNothing());
 		SmartDashboard.putData("Auto mode", m_chooser);
-		
+
 		SmartDashboard.putData("DriveStraightToPosition", new DriveStraightToPosition(0.3, 10));
-		SmartDashboard.putData("RotateDrivetrain45", new RotateDrivetrainWithGyroPID(45, false));
+		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(10));
+		SmartDashboard.putData("RotateDrivetrainAbsolute90", new RotateDrivetrainWithGyroPID(90, true));
 		SmartDashboard.putData("TuneProportional", new TuneProportional(45, 15));
 		SmartDashboard.putData("TuneDerivative", new TuneDerivative(45, 5, 5, 15));
 		SmartDashboard.putBoolean("Use Linear Acceleration", Variables.useLinearAcceleration);
