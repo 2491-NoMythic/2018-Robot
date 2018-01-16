@@ -20,6 +20,12 @@ import com._2491nomythic.robot.commands.CommandBase;
 public class DriveStraightToPositionPID extends CommandBase {
 	private PIDController pid;
 
+	/**
+	 * Drive the given distance straight (negative values go backwards). Uses a
+	 * local PID controller to run a simple PID loop that is only enabled while this
+	 * command is running. The input is the averaged values of the left and right encoders.
+	 * @param distance The distance for the robot to drive. Negative values go backwards.
+	 */
 	public DriveStraightToPositionPID(double distance) {
 		requires(drivetrain);
 		pid = new PIDController(4, 0, 0, new PIDSource() {
