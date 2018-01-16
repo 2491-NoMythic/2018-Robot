@@ -137,17 +137,24 @@ public class Drivetrain extends PIDSubsystem {
 	}
 	
 	/**
-	 * @return The value of the left drive encoder in feet
+	 * @return The value of the left drive encoder in inches
 	 */
 	public double getLeftEncoderDistance() {
 		return left1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
 	}
 	
 	/**
-	 * @return The value of the right drive encoder in feet
+	 * @return The value of the right drive encoder in inches
 	 */
 	public double getRightEncoderDistance() {
 		return right1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
+	}
+	
+	/**
+	 * @return The average value of the two encoders in inches
+	 */
+	public double getDistance() {
+		return (getRightEncoderDistance() + getLeftEncoderDistance()) / 2;
 	}
 	
 	/**
