@@ -24,8 +24,8 @@ public class PlaceOnScale extends CommandBase {
         // eg. requires(chassis);
     	requires(drivetrain);
     	
-    	driveDownField = new DriveStraightToPosition(0.8, 150);
-    	approachScale = new DriveStraightToPosition(0.8, 30);
+    	driveDownField = new DriveStraightToPosition(0.8, 230);
+    	approachScale = new DriveStraightToPosition(0.8, 60);
     }
 
     // Called just before this Command runs the first time
@@ -39,24 +39,24 @@ public class PlaceOnScale extends CommandBase {
     		if(DriverStation.getInstance().getLocation() == 1) {
     			rotateTowardsCenter = new RotateDrivetrainWithGyroPID(90, false);
     			rotateTowardsScale = new RotateDrivetrainWithGyroPID (-90, false);
-    			moveToCorrectSide = new DriveStraightToPosition(0.8, 10);
+    			moveToCorrectSide = new DriveStraightToPosition(0.8, 51);
     		}
     		else {
     			rotateTowardsCenter = new RotateDrivetrainWithGyroPID(-90, false);
     			rotateTowardsScale = new RotateDrivetrainWithGyroPID(90, false);
-    			moveToCorrectSide = new DriveStraightToPosition(0.8, 70);
+    			moveToCorrectSide = new DriveStraightToPosition(0.8, 190);
     		}
     		break;
     	case "R":
     		if(DriverStation.getInstance().getLocation() == 1) {
     			rotateTowardsCenter = new RotateDrivetrainWithGyroPID(90, false);
     			rotateTowardsScale = new RotateDrivetrainWithGyroPID (-90, false);
-    			moveToCorrectSide = new DriveStraightToPosition(0.8, 70);
+    			moveToCorrectSide = new DriveStraightToPosition(0.8, 190);
     		}
     		else {
     			rotateTowardsCenter = new RotateDrivetrainWithGyroPID(-90, false);
     			rotateTowardsScale = new RotateDrivetrainWithGyroPID(90, false);
-    			moveToCorrectSide = new DriveStraightToPosition(0.8, 10);
+    			moveToCorrectSide = new DriveStraightToPosition(0.8, 51);
     		}
     		break;
     	default:
