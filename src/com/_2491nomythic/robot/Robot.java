@@ -11,7 +11,8 @@ import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.commands.UpdateDriverstation;
 import com._2491nomythic.robot.commands.autonomous.CrossAutoLine;
 import com._2491nomythic.robot.commands.autonomous.DoNothing;
-import com._2491nomythic.robot.commands.autonomous.PlaceOnScale;
+import com._2491nomythic.robot.commands.autonomous.PlaceOnScaleLeft;
+import com._2491nomythic.robot.commands.autonomous.PlaceOnScaleRight;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnSwitch;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
@@ -51,7 +52,8 @@ public class Robot extends TimedRobot {
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		m_chooser.addObject("Cross AutoLine", new CrossAutoLine());
 		m_chooser.addObject("PlaceOnSwitch: DS 2", new PlaceOnSwitch());
-		m_chooser.addObject("PlaceOnScale: DS 1 or 3", new PlaceOnScale());
+		m_chooser.addObject("PlaceOnScaleLeft", new PlaceOnScaleLeft());
+		m_chooser.addObject("PlaceOnScaleRight", new PlaceOnScaleRight());
 		m_chooser.addDefault("Do Nothing", new DoNothing());
 		SmartDashboard.putData("Auto mode", m_chooser);
 
