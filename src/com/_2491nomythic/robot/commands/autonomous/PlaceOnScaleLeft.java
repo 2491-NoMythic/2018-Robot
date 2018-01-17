@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
+ * Attempts to place a cube on the correct side of the Scale during autonomous, starting in front of DriverStation 1.
  */
 public class PlaceOnScaleLeft extends CommandBase {
 	private DriveStraightToPosition driveToCenter, driveToNullZone, approachScale, driveToCorrectSide;

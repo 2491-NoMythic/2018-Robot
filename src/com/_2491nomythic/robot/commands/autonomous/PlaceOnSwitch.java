@@ -98,7 +98,7 @@ public class PlaceOnSwitch extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !approachSwitch.isRunning();
+        return !approachSwitch.isRunning() || state == 6;
     }
 
     // Called once after isFinished returns true
