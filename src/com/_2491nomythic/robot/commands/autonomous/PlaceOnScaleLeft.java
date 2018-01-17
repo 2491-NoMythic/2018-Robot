@@ -18,6 +18,9 @@ public class PlaceOnScaleLeft extends CommandBase {
 	private boolean left;
 	String gameData;
 
+	/**
+	 * Attempts to place a cube on the correct side of the Scale during autonomous, starting in front of DriverStation 1.
+	 */
     public PlaceOnScaleLeft() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
