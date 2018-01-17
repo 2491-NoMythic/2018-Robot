@@ -33,7 +33,7 @@ public class DriveStraightToPositionPID extends CommandBase {
 
 			@Override
 			public double pidGet() {
-				return drivetrain.getLeftEncoderDistance();
+				return drivetrain.getDistance();
 			}
 
 			@Override
@@ -60,7 +60,7 @@ public class DriveStraightToPositionPID extends CommandBase {
 	@Override
 	protected void initialize() {
 		// Get everything in a safe starting state.
-		drivetrain.resetLeftEncoder();
+		drivetrain.resetEncoders();
 		drivetrain.resetGyro();
 		pid.reset();
 		pid.enable();

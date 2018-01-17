@@ -23,7 +23,8 @@ public class DriveStraightToPosition extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	initialPosition = drivetrain.getLeftEncoderDistance();
+    	drivetrain.resetEncoders();
+    	initialPosition = drivetrain.getDistance();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -33,7 +34,7 @@ public class DriveStraightToPosition extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return drivetrain.getLeftEncoderDistance() >= initialPosition + distance;
+        return drivetrain.getDistance() >= initialPosition + distance;
     }
 
     // Called once after isFinished returns true

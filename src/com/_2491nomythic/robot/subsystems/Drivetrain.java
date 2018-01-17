@@ -133,7 +133,15 @@ public class Drivetrain extends PIDSubsystem {
 	 * Resets the right drive encoder value to 0
 	 */
 	public void resetRightEncoder() {
-		right1.getSelectedSensorPosition(0);
+		right1.setSelectedSensorPosition(0, 0, 0);
+	}
+	
+	/**
+	 * Resets the left and right encoders
+	 */
+	public void resetEncoders() {
+		resetLeftEncoder();
+		resetRightEncoder();
 	}
 	
 	/**
