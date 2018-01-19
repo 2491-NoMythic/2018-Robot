@@ -3,6 +3,7 @@ package com._2491nomythic.robot.commands.autonomous;
 import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
+import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -15,7 +16,7 @@ public class RightScaleOrSwitch extends CommandBase {
 	private CrossAutoLine crossLine;
 	private RotateDrivetrainWithGyroPID turnTowardsSwitchOrScale;
 	private int state;
-	private Timer timer;
+	private Timer timer, delay;
 	private boolean scaleSide, switchSide;
 
 	/**
@@ -27,6 +28,7 @@ public class RightScaleOrSwitch extends CommandBase {
     	requires(drivetrain);
     	
     	timer = new Timer();
+    	delay = new Timer();
     	crossLine = new CrossAutoLine();
     	turnTowardsSwitchOrScale = new RotateDrivetrainWithGyroPID(-90, false);
     	driveToScale = new DriveStraightToPosition(0.9, 150);
@@ -41,6 +43,12 @@ public class RightScaleOrSwitch extends CommandBase {
     	
     	scaleSide = DriverStation.getInstance().getGameSpecificMessage().substring(1, 2) == "R";
     	switchSide = DriverStation.getInstance().getGameSpecificMessage().substring(0, 1) == "R";
+    	
+    	delay.start();
+    	
+    	if(delay.get() < Variables.autoDelay) {
+    		
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run

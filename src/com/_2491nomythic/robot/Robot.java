@@ -12,10 +12,12 @@ import com._2491nomythic.robot.commands.UpdateDriverstation;
 import com._2491nomythic.robot.commands.autonomous.CrossAutoLine;
 import com._2491nomythic.robot.commands.autonomous.DoNothing;
 import com._2491nomythic.robot.commands.autonomous.LeftScaleOrSwitch;
+import com._2491nomythic.robot.commands.autonomous.LeftSwitchOrScale;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnScaleLeft;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnScaleRight;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnSwitch;
 import com._2491nomythic.robot.commands.autonomous.RightScaleOrSwitch;
+import com._2491nomythic.robot.commands.autonomous.RightSwitchOrScale;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
@@ -52,12 +54,14 @@ public class Robot extends TimedRobot {
 		updateDriverstation = new UpdateDriverstation();
 		updateDriverstation.start();
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		m_chooser.addObject("Cross AutoLine", new CrossAutoLine());
+		m_chooser.addObject("Cross Auto Line", new CrossAutoLine());
 		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
 		m_chooser.addObject("PlaceOnScaleLeft", new PlaceOnScaleLeft());
 		m_chooser.addObject("PlaceOnScaleRight", new PlaceOnScaleRight());
-		m_chooser.addObject("LeftSwitchORScale", new LeftScaleOrSwitch());
-		m_chooser.addObject("RightSwitchORScale", new RightScaleOrSwitch());
+		m_chooser.addObject("LeftPrioritizeScale", new LeftScaleOrSwitch());
+		m_chooser.addObject("RightPrioritizeScale", new RightScaleOrSwitch());
+		m_chooser.addObject("LeftPrioritizeSwitch", new LeftSwitchOrScale());
+		m_chooser.addObject("RightPrioritizeSwitch", new RightSwitchOrScale());
 		m_chooser.addDefault("Do Nothing", new DoNothing());
 		SmartDashboard.putData("Auto mode", m_chooser);
 
@@ -67,6 +71,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("TuneProportional", new TuneProportional(45, 15));
 		SmartDashboard.putData("TuneDerivative", new TuneDerivative(45, 5, 5, 15));
 		SmartDashboard.putBoolean("Use Linear Acceleration", Variables.useLinearAcceleration);
+		SmartDashboard.putNumber("AutonomousDelay", Variables.autoDelay);
 	}
 
 	/**

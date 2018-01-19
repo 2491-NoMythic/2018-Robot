@@ -2,6 +2,7 @@ package com._2491nomythic.robot.commands.autonomous;
 
 import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
+import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -10,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class CrossAutoLine extends CommandBase {
 	DriveStraightToPosition crossLine;
-	Timer timer;
+	Timer timer, delay;
 
 	/**
 	 * Attempts to cross the AutoLine during autonomous.
@@ -21,11 +22,18 @@ public class CrossAutoLine extends CommandBase {
     	requires(drivetrain);
     	
     	timer = new Timer();
+    	delay = new Timer();
     	crossLine = new DriveStraightToPosition(1, 130);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	delay.start();
+    	
+    	while(delay.get() < Variables.autoDelay) {
+    		
+    	}
+    	
     	crossLine.start();
     	timer.start();
     }

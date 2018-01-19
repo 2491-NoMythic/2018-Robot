@@ -16,4 +16,7 @@ public class Variables {
 	public static double proportionalForward = 0;
 	public static double integralForward = 0;
 	public static double derivativeForward = 0;
+	
+	//Autonomous
+	public static double autoDelay;
 }

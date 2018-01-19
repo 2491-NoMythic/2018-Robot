@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  * Attempts to place a cube on either the left scale OR switch, prioritizing scale. If both scale and switch are on the right, the robot crosses the auto line.
  */
-public class LeftScaleOrSwitch extends CommandBase {
+public class LeftSwitchOrScale extends CommandBase {
 	private DriveStraightToPosition driveToSwitch, driveToScale, approachSwitch, approachScale;
 	private CrossAutoLine crossLine;
 	private RotateDrivetrainWithGyroPID turnTowardsSwitchOrScale;
@@ -22,7 +22,7 @@ public class LeftScaleOrSwitch extends CommandBase {
 	/**
 	 * Attempts to place a cube on either the left scale OR switch, prioritizing scale. If both scale and switch are on the right, the robot crosses the auto line.
 	 */
-    public LeftScaleOrSwitch() {
+    public LeftSwitchOrScale() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(drivetrain);
@@ -55,40 +55,7 @@ public class LeftScaleOrSwitch extends CommandBase {
     protected void execute() {
     	timer.start();
     	
-    	if(scaleSide) {
-    		switch(state) {
-    		case 0:
-    			driveToScale.start();
-    			state++;
-    			break;
-    		case 1:
-    			if(!driveToScale.isRunning()) {
-    				timer.reset();
-    				turnTowardsSwitchOrScale.start();
-    				state++;
-    			}
-    			break;
-    		case 2:
-    			if(!turnTowardsSwitchOrScale.isRunning() || timer.get() > 1.5) {
-    				turnTowardsSwitchOrScale.cancel();
-    				approachScale.start();
-    				state++;
-    			}
-    			break;
-    		case 3:
-    			if(!approachScale.isRunning()) {
-    				//Drop cube here
-    				state++;
-    			}
-    			break;
-    		case 4:
-    			break;
-    		default:
-    			System.out.println("Unexpected state in LeftScaleOrSwitch.java State: " + state);
-    			break;
-    		}
-    	}
-    	else if(switchSide) {
+    	if(switchSide) {
     		switch(state) {
     		case 0:
     			driveToSwitch.start();
@@ -110,6 +77,39 @@ public class LeftScaleOrSwitch extends CommandBase {
     			break;
     		case 3:
     			if(!approachSwitch.isRunning()) {
+    				//Drop cube here
+    				state++;
+    			}
+    			break;
+    		case 4:
+    			break;
+    		default:
+    			System.out.println("Unexpected state in LeftScaleOrSwitch.java State: " + state);
+    			break;
+    		}
+    	}
+    	else if(scaleSide) {
+    		switch(state) {
+    		case 0:
+    			driveToScale.start();
+    			state++;
+    			break;
+    		case 1:
+    			if(!driveToScale.isRunning()) {
+    				timer.reset();
+    				turnTowardsSwitchOrScale.start();
+    				state++;
+    			}
+    			break;
+    		case 2:
+    			if(!turnTowardsSwitchOrScale.isRunning() || timer.get() > 1.5) {
+    				turnTowardsSwitchOrScale.cancel();
+    				approachScale.start();
+    				state++;
+    			}
+    			break;
+    		case 3:
+    			if(!approachScale.isRunning()) {
     				//Drop cube here
     				state++;
     			}
@@ -152,5 +152,7 @@ public class LeftScaleOrSwitch extends CommandBase {
     // subsystems is scheduled to run
     protected void interrupted() {
     	end();
+    	
+    	
     }
 }

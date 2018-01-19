@@ -3,8 +3,10 @@ package com._2491nomythic.robot.commands.autonomous;
 import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
+import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Attempts to place a cube on the correct side of the switch during autonomous.
@@ -13,6 +15,7 @@ public class PlaceOnSwitch extends CommandBase {
 	private DriveStraightToPosition approachCubes, moveTowardsWall, approachSwitch;
 	private RotateDrivetrainWithGyroPID turnTowardsWall, turnTowardsSwitch;
 	private int state;
+	private Timer delay;
 	
 	/**
 	 * Attempts to place a cube on the correct side of the switch during autonomous.
@@ -24,6 +27,7 @@ public class PlaceOnSwitch extends CommandBase {
         // eg. requires(chassis);
     	requires(drivetrain);
     	
+    	delay = new Timer();
     	approachCubes = new DriveStraightToPosition(0.8, 98);
     	approachSwitch = new DriveStraightToPosition(0.8, 76);
     }
@@ -48,6 +52,12 @@ public class PlaceOnSwitch extends CommandBase {
     	default:
     		System.out.println("Unexpected value for GameSpecificMessage: " + gameData);
     		break;
+    	}
+    	
+    	delay.start();
+    	
+    	while(delay.get() < Variables.autoDelay) {
+    		
     	}
     }
 
