@@ -31,10 +31,10 @@ public class RightPrioritizeSwitch extends CommandBase {
     	delay = new Timer();
     	crossLine = new CrossAutoLine();
     	turnTowardsSwitchOrScale = new RotateDrivetrainWithGyroPID(-90, false);
-    	driveToScale = new DriveStraightToPosition(0.9, 150);
-    	driveToSwitch = new DriveStraightToPosition(0.9, 70);
-    	approachScale = new DriveStraightToPosition(0.9, 30);
-    	approachSwitch = new DriveStraightToPosition(0.9, 60);
+    	driveToScale = new DriveStraightToPosition(0.9, 323.6);
+    	driveToSwitch = new DriveStraightToPosition(0.9, 168);
+    	approachScale = new DriveStraightToPosition(0.9, 28.14);
+    	approachSwitch = new DriveStraightToPosition(0.9, 42);
     }
 
     // Called just before this Command runs the first time
