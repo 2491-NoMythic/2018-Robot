@@ -66,7 +66,7 @@ public class Drivetrain extends PIDSubsystem {
 	}
 	
 	/**
-	 * Drives the robot with each set of motors recieving an individual specific speed
+	 * Drives the robot with each set of motors receiving an individual specific speed
 	 * @param leftSpeed The power fed to the left drive motors, ranging from -1 to 1, where negative values run the motors backwards
 	 * @param rightSpeed The power fed to the right drive motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
