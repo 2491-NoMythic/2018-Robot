@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * Attempts to place a cube on either the right scale OR switch, prioritizing scale. If both the scale and the switch are on the left, the robot crosses the auto line.
+ * Attempts to place a cube on either the left scale OR switch, prioritizing scale. If both scale and switch are on the right, the robot crosses the auto line.
  */
-public class RightSwitchOrScale extends CommandBase {
+public class LeftPrioritizeScale extends CommandBase {
 	private DriveStraightToPosition driveToSwitch, driveToScale, approachSwitch, approachScale;
 	private CrossAutoLine crossLine;
 	private RotateDrivetrainWithGyroPID turnTowardsSwitchOrScale;
@@ -20,9 +20,9 @@ public class RightSwitchOrScale extends CommandBase {
 	private boolean scaleSide, switchSide;
 
 	/**
-	 * Attempts to place a cube on either the right scale OR switch, prioritizing scale. If both the scale and the switch are on the left, the robot crosses the auto line.
+	 * Attempts to place a cube on either the left scale OR switch, prioritizing scale. If both scale and switch are on the right, the robot crosses the auto line.
 	 */
-    public RightSwitchOrScale() {
+    public LeftPrioritizeScale() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(drivetrain);
@@ -30,7 +30,7 @@ public class RightSwitchOrScale extends CommandBase {
     	timer = new Timer();
     	delay = new Timer();
     	crossLine = new CrossAutoLine();
-    	turnTowardsSwitchOrScale = new RotateDrivetrainWithGyroPID(-90, false);
+    	turnTowardsSwitchOrScale = new RotateDrivetrainWithGyroPID(90, false);
     	driveToScale = new DriveStraightToPosition(0.9, 150);
     	driveToSwitch = new DriveStraightToPosition(0.9, 70);
     	approachScale = new DriveStraightToPosition(0.9, 30);
@@ -41,12 +41,12 @@ public class RightSwitchOrScale extends CommandBase {
     protected void initialize() {
     	state = 0;
     	
-    	scaleSide = DriverStation.getInstance().getGameSpecificMessage().substring(1, 2) == "R";
-    	switchSide = DriverStation.getInstance().getGameSpecificMessage().substring(0, 1) == "R";
+    	scaleSide = DriverStation.getInstance().getGameSpecificMessage().substring(1, 2) == "L";
+    	switchSide = DriverStation.getInstance().getGameSpecificMessage().substring(0, 1) == "L";
     	
     	delay.start();
     	
-    	if(delay.get() < Variables.autoDelay) {
+    	while(delay.get() < Variables.autoDelay) {
     		
     	}
     }
@@ -55,40 +55,7 @@ public class RightSwitchOrScale extends CommandBase {
     protected void execute() {
     	timer.start();
     	
-    	if(switchSide) {
-    		switch(state) {
-    		case 0:
-    			driveToSwitch.start();
-    			state++;
-    			break;
-    		case 1:
-    			if(!driveToSwitch.isRunning()) {
-    				turnTowardsSwitchOrScale.start();
-    				timer.reset();
-    				state++;
-    			}
-    			break;
-    		case 2:
-    			if(!turnTowardsSwitchOrScale.isRunning() || timer.get() > 1.5) {
-    				turnTowardsSwitchOrScale.cancel();
-    				approachSwitch.start();
-    				state++;
-    			}
-    			break;
-    		case 3:
-    			if(!approachSwitch.isRunning()) {
-    				//Drop cube here
-    				state++;
-    			}
-    			break;
-    		case 4:
-    			break;
-    		default:
-    			System.out.println("Unexpected state in RightScaleOrSwitch.java State: " + state);
-    			break;
-    		}
-    	}
-    	else if(scaleSide) {
+    	if(scaleSide) {
     		switch(state) {
     		case 0:
     			driveToScale.start();
@@ -117,7 +84,40 @@ public class RightSwitchOrScale extends CommandBase {
     		case 4:
     			break;
     		default:
-    			System.out.println("Unexpected state in RightScaleOrSwitch.java State: " + state);
+    			System.out.println("Unexpected state in LeftScaleOrSwitch.java State: " + state);
+    			break;
+    		}
+    	}
+    	else if(switchSide) {
+    		switch(state) {
+    		case 0:
+    			driveToSwitch.start();
+    			state++;
+    			break;
+    		case 1:
+    			if(!driveToSwitch.isRunning()) {
+    				turnTowardsSwitchOrScale.start();
+    				timer.reset();
+    				state++;
+    			}
+    			break;
+    		case 2:
+    			if(!turnTowardsSwitchOrScale.isRunning() || timer.get() > 1.5) {
+    				turnTowardsSwitchOrScale.cancel();
+    				approachSwitch.start();
+    				state++;
+    			}
+    			break;
+    		case 3:
+    			if(!approachSwitch.isRunning()) {
+    				//Drop cube here
+    				state++;
+    			}
+    			break;
+    		case 4:
+    			break;
+    		default:
+    			System.out.println("Unexpected state in LeftScaleOrSwitch.java State: " + state);
     			break;
     		}
     	}
