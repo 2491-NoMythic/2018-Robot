@@ -27,7 +27,7 @@ public class PlaceOnScaleLeft extends CommandBase {
     	requires(drivetrain);
     	
     	timer = new Timer();
-    	approachScale = new DriveStraightToPosition(0.9, 50);
+    	approachScale = new DriveStraightToPosition(0.9, 28.14);
     }
 
     // Called just before this Command runs the first time
@@ -38,13 +38,13 @@ public class PlaceOnScaleLeft extends CommandBase {
     	left = gameData.substring(1, 2) == "L";
     	
     	if(left) {
-    		driveToNullZone = new DriveStraightToPosition(0.8, 180);
+    		driveToNullZone = new DriveStraightToPosition(0.8, 323.6);
     		turnTowardsScale = new RotateDrivetrainWithGyroPID(90, false);
     	}
     	else if(!left) {
-    		driveToCenter = new DriveStraightToPosition(0.9, 140);
-    		driveToNullZone = new DriveStraightToPosition(0.9, 40);
-    		driveToCorrectSide = new DriveStraightToPosition(0.9, 80);
+    		driveToCenter = new DriveStraightToPosition(0.9, 235.4);
+    		driveToNullZone = new DriveStraightToPosition(0.9, 88.2);
+    		driveToCorrectSide = new DriveStraightToPosition(0.9, 218.63);
     		turnTowardsCenter = new RotateDrivetrainWithGyroPID(90, false);
     		turnTowardsNullZone = new RotateDrivetrainWithGyroPID(-90, false);
     		turnTowardsScale = new RotateDrivetrainWithGyroPID(-90, false);
