@@ -39,7 +39,8 @@ public class UpdateDriverstation extends CommandBase {
 			Variables.useLinearAcceleration = SmartDashboard.getBoolean("Use Linear Acceleration", true);
 			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
 			SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
-			
+			SmartDashboard.putNumber("RightEncoder", drivetrain.getRightEncoderDistance());
+			SmartDashboard.putNumber("Avg. Encoder Distance", drivetrain.getDistance());
 		}
 			
     	

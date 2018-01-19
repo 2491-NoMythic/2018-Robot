@@ -155,7 +155,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * @return The value of the right drive encoder in inches
 	 */
 	public double getRightEncoderDistance() {
-		return right1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
+		return -right1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
 	}
 	
 	/**
@@ -176,7 +176,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * @return The speed of the right motor in feet per second
 	 */
 	public double getRightEncoderRate() {
-		return right1.getSelectedSensorVelocity(0) * 10 * Constants.driveEncoderToInches;
+		return -right1.getSelectedSensorVelocity(0) * 10 * Constants.driveEncoderToInches;
 	}
 	
 	/**
