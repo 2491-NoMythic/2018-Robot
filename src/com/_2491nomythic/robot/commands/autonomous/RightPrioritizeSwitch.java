@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * Attempts to place a cube on either the right scale OR switch, prioritizing scale. If both the scale and the switch are on the left, the robot crosses the auto line.
+ * Attempts to place a cube on either the right scale OR switch, prioritizing switch. If both the scale and the switch are on the left, the robot crosses the auto line.
  */
 public class RightPrioritizeSwitch extends CommandBase {
 	private DriveStraightToPosition driveToSwitch, driveToScale, approachSwitch, approachScale;
@@ -20,7 +20,7 @@ public class RightPrioritizeSwitch extends CommandBase {
 	private boolean scaleSide, switchSide;
 
 	/**
-	 * Attempts to place a cube on either the right scale OR switch, prioritizing scale. If both the scale and the switch are on the left, the robot crosses the auto line.
+	 * Attempts to place a cube on either the right scale OR switch, prioritizing switch. If both the scale and the switch are on the left, the robot crosses the auto line.
 	 */
     public RightPrioritizeSwitch() {
         // Use requires() here to declare subsystem dependencies
