@@ -1,12 +1,13 @@
 package com._2491nomythic.robot.commands;
 
-import edu.wpi.first.wpilibj.command.Command;
-
 /**
- *
+ * Runs during Teleop for safety reasons.
  */
-public class FunPolice extends Command {
-
+public class FunPolice extends CommandBase {
+	
+/**
+ * Runs during Teleop for safety reasons.
+ */
     public FunPolice() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
@@ -18,6 +19,7 @@ public class FunPolice extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
