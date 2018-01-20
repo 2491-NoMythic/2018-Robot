@@ -71,7 +71,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("TuneProportional", new TuneProportional(45, 15));
 		SmartDashboard.putData("TuneDerivative", new TuneDerivative(45, 5, 5, 15));
 		SmartDashboard.putBoolean("Use Linear Acceleration", Variables.useLinearAcceleration);
-		SmartDashboard.putNumber("AutonomousDelay", Variables.autoDelay);
+		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);
 	}
 
 	/**
@@ -102,6 +102,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		Variables.autoDelay = SmartDashboard.getNumber("AutoDelay", 0);
+		
 		m_autonomousCommand = m_chooser.getSelected();
 
 		/*

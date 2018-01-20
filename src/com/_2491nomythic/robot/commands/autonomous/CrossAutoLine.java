@@ -23,12 +23,13 @@ public class CrossAutoLine extends CommandBase {
     	
     	timer = new Timer();
     	delay = new Timer();
-    	crossLine = new DriveStraightToPosition(1, 130);
+    	crossLine = new DriveStraightToPosition(1, 130 / 13);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	delay.start();
+    	System.out.println(Variables.autoDelay);
     	
     	while(delay.get() < Variables.autoDelay) {
     		
