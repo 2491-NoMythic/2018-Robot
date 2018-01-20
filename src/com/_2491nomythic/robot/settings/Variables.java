@@ -10,9 +10,9 @@ public class Variables {
 	public static double accelerationSpeed = 0.05;
 	
 	//PID Constants from Watt
-	public static double proportional = 0.016;
+	public static double proportional = /*0.016*/ 0.2;
 	public static double integral = 0.0;
-	public static double derivative = 0.007;
+	public static double derivative = /*0.007*/ 0.0;
 	public static double proportionalForward = 0;
 	public static double integralForward = 0;
 	public static double derivativeForward = 0;

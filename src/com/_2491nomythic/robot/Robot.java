@@ -24,6 +24,7 @@ import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.robot.commands.drivetrain.TuneDerivative;
 import com._2491nomythic.robot.commands.drivetrain.TuneProportional;
+import com._2491nomythic.robot.commands.drivetrain.TuneProportionalMultiClass;
 import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -72,7 +73,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("DriveStraightToPosition", new DriveStraightToPosition(0.3, 10));
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(10));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
-		SmartDashboard.putData("TuneProportional", new TuneProportional(45, 15));
+		SmartDashboard.putData("TuneProportional", new TuneProportional(90, 5));
+		SmartDashboard.putData("TuneProportionalMultiClass", new TuneProportionalMultiClass(45, 15));
 		SmartDashboard.putData("TuneDerivative", new TuneDerivative(45, 5, 5, 15));
 		SmartDashboard.putBoolean("Use Linear Acceleration", Variables.useLinearAcceleration);
 		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);

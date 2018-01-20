@@ -35,7 +35,6 @@ public class Drivetrain extends PIDSubsystem {
 	 */
 	private Drivetrain() {
 		super("Drive", Variables.proportional, Variables.integral, Variables.derivative);
-		setAbsoluteTolerance(2);
 		setInputRange(0, 360);
 		getPIDController().setContinuous(true);
 		
