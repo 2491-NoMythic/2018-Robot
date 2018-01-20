@@ -67,7 +67,7 @@ public class Robot extends TimedRobot {
 
 		SmartDashboard.putData("DriveStraightToPosition", new DriveStraightToPosition(0.3, 10));
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(10));
-		SmartDashboard.putData("RotateDrivetrainAbsolute90", new RotateDrivetrainWithGyroPID(90, true));
+		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
 		SmartDashboard.putData("TuneProportional", new TuneProportional(45, 15));
 		SmartDashboard.putData("TuneDerivative", new TuneDerivative(45, 5, 5, 15));
 		SmartDashboard.putBoolean("Use Linear Acceleration", Variables.useLinearAcceleration);

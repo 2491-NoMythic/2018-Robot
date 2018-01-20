@@ -30,7 +30,6 @@ public class DriveStraightToPosition extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	drivetrain.drive(speed);
-    	System.out.println("Current Encoder Value: " + drivetrain.getDistance());
     }
 
     // Make this return true when this Command no longer needs to run execute()

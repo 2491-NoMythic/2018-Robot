@@ -18,9 +18,7 @@ public class CrossAutoLine extends CommandBase {
 	 */
     public CrossAutoLine() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(drivetrain);
-    	
+        // eg. requires(chassis);    	
     	timer = new Timer();
     	delay = new Timer();
     	crossLine = new DriveStraightToPosition(1, 130 / 13);

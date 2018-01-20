@@ -24,12 +24,10 @@ public class PlaceOnScaleRight extends CommandBase {
 	 */
     public PlaceOnScaleRight() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(drivetrain);
-    	
+        // eg. requires(chassis);    	
     	timer = new Timer();
     	delay = new Timer();
-    	approachScale = new DriveStraightToPosition(0.9, 28.14);
+    	approachScale = new DriveStraightToPosition(0.9, 28.14 / 2);
     }
 
     // Called just before this Command runs the first time
@@ -40,13 +38,13 @@ public class PlaceOnScaleRight extends CommandBase {
     	right = gameData.substring(1, 2) == "R";
     	
     	if(right) {
-    		driveToNullZone = new DriveStraightToPosition(0.8, 323.6);
+    		driveToNullZone = new DriveStraightToPosition(0.8, 323.6 / 2);
     		turnTowardsScale = new RotateDrivetrainWithGyroPID(-90, false);
     	}
     	else if(!right) {
-    		driveToCenter = new DriveStraightToPosition(0.9, 235.4);
-    		driveToNullZone = new DriveStraightToPosition(0.9, 88.2);
-    		driveToCorrectSide = new DriveStraightToPosition(0.9, 218.63);
+    		driveToCenter = new DriveStraightToPosition(0.9, 235.4 / 2);
+    		driveToNullZone = new DriveStraightToPosition(0.9, 88.2 / 2);
+    		driveToCorrectSide = new DriveStraightToPosition(0.9, 218.63 / 2);
     		turnTowardsCenter = new RotateDrivetrainWithGyroPID(-90, false);
     		turnTowardsNullZone = new RotateDrivetrainWithGyroPID(90, false);
     		turnTowardsScale = new RotateDrivetrainWithGyroPID(90, false);

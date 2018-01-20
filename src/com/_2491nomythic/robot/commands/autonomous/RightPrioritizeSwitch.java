@@ -24,9 +24,7 @@ public class RightPrioritizeSwitch extends CommandBase {
 	 */
     public RightPrioritizeSwitch() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(drivetrain);
-    	
+        // eg. requires(chassis);    	
     	timer = new Timer();
     	delay = new Timer();
     	crossLine = new CrossAutoLine();
