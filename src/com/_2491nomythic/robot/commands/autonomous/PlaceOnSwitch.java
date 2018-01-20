@@ -15,7 +15,7 @@ public class PlaceOnSwitch extends CommandBase {
 	private DriveStraightToPosition approachCubes, moveTowardsWall, approachSwitch;
 	private RotateDrivetrainWithGyroPID turnTowardsWall, turnTowardsSwitch;
 	private int state;
-	private Timer delay;
+	private Timer timer, delay;
 	
 	/**
 	 * Attempts to place a cube on the correct side of the switch during autonomous.
@@ -27,9 +27,10 @@ public class PlaceOnSwitch extends CommandBase {
         // eg. requires(chassis);
     	requires(drivetrain);
     	
+    	timer = new Timer();
     	delay = new Timer();
-    	approachCubes = new DriveStraightToPosition(0.8, 98);
-    	approachSwitch = new DriveStraightToPosition(0.8, 76);
+    	approachCubes = new DriveStraightToPosition(0.8, 98 / 2);
+    	approachSwitch = new DriveStraightToPosition(0.8, 76 / 2);
     }
 
     // Called just before this Command runs the first time
@@ -40,12 +41,12 @@ public class PlaceOnSwitch extends CommandBase {
     	
     	switch(gameData.substring(0, 1)) {
     	case "L":
-    		moveTowardsWall = new DriveStraightToPosition(0.8, 58);
+    		moveTowardsWall = new DriveStraightToPosition(0.8, 58 / 2);
     		turnTowardsWall = new RotateDrivetrainWithGyroPID(-90, false);
     		turnTowardsSwitch = new RotateDrivetrainWithGyroPID(90, false);
     		break;
     	case "R":
-    		moveTowardsWall = new DriveStraightToPosition(0.8, 50.5);
+    		moveTowardsWall = new DriveStraightToPosition(0.8, 50.5 / 2);
     		turnTowardsWall = new RotateDrivetrainWithGyroPID(90, false);
     		turnTowardsSwitch = new RotateDrivetrainWithGyroPID(-90, false);
     		break;
@@ -70,24 +71,28 @@ public class PlaceOnSwitch extends CommandBase {
     		break;
     	case 1:
     		if(!approachCubes.isRunning()) {
+    			timer.start();
     			turnTowardsWall.start();
     			state++;
     		}
     		break;
     	case 2:
-    		if(!turnTowardsWall.isRunning()) {
+    		if(!turnTowardsWall.isRunning() || timer.get() < 1.5) {
+    			turnTowardsWall.cancel();
     			moveTowardsWall.start();
     			state++;
     		}
     		break;
     	case 3:
     		if(!moveTowardsWall.isRunning()) {
+    			timer.reset();
     			turnTowardsSwitch.start();
     			state++;
     		}
     		break;
     	case 4:
-    		if(!turnTowardsSwitch.isRunning()) {
+    		if(!turnTowardsSwitch.isRunning() || timer.get() < 1.5) {
+    			turnTowardsSwitch.cancel();
     			approachSwitch.start();
     			state++;
     		}
