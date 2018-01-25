@@ -226,7 +226,7 @@ public class Drivetrain extends PIDSubsystem {
     		return getGyroAngle();
     	}
     	else {
-    		return getDistance();
+    		return getLeftEncoderDistance();
     	}
     }
     
