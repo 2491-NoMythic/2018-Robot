@@ -3,8 +3,10 @@ package com._2491nomythic.robot.commands.autonomous;
 import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
+import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Attempts to place a cube on the correct side of the switch during autonomous.
@@ -13,19 +15,19 @@ public class PlaceOnSwitch extends CommandBase {
 	private DriveStraightToPosition approachCubes, moveTowardsWall, approachSwitch;
 	private RotateDrivetrainWithGyroPID turnTowardsWall, turnTowardsSwitch;
 	private int state;
+	private Timer timer, delay;
 	
 	/**
 	 * Attempts to place a cube on the correct side of the switch during autonomous.
 	 */
     public PlaceOnSwitch() {
     	//Use this command if the robot is in front of DriverStation 2.
-    	
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(drivetrain);
-    	
-    	approachCubes = new DriveStraightToPosition(0.8, 98);
-    	approachSwitch = new DriveStraightToPosition(0.8, 76);
+        // eg. requires(chassis);    	
+    	timer = new Timer();
+    	delay = new Timer();
+    	approachCubes = new DriveStraightToPosition(0.8, 98 / 98);
+    	approachSwitch = new DriveStraightToPosition(0.8, 76 / 76);
     }
 
     // Called just before this Command runs the first time
@@ -36,18 +38,24 @@ public class PlaceOnSwitch extends CommandBase {
     	
     	switch(gameData.substring(0, 1)) {
     	case "L":
-    		moveTowardsWall = new DriveStraightToPosition(0.8, 58);
+    		moveTowardsWall = new DriveStraightToPosition(0.8, 58 / 58);
     		turnTowardsWall = new RotateDrivetrainWithGyroPID(-90, false);
     		turnTowardsSwitch = new RotateDrivetrainWithGyroPID(90, false);
     		break;
     	case "R":
-    		moveTowardsWall = new DriveStraightToPosition(0.8, 50.5);
+    		moveTowardsWall = new DriveStraightToPosition(0.8, 50.5 / 50.5);
     		turnTowardsWall = new RotateDrivetrainWithGyroPID(90, false);
     		turnTowardsSwitch = new RotateDrivetrainWithGyroPID(-90, false);
     		break;
     	default:
     		System.out.println("Unexpected value for GameSpecificMessage: " + gameData);
     		break;
+    	}
+    	
+    	delay.start();
+    	
+    	while(delay.get() < Variables.autoDelay) {
+    		
     	}
     }
 
@@ -56,33 +64,44 @@ public class PlaceOnSwitch extends CommandBase {
     	switch(state) {
     	case 0:
     		approachCubes.start();
+    		System.out.println("Case 0");
     		state++;
+    		System.out.println("State: " + state);
     		break;
     	case 1:
+    		System.out.println("Case 1");
     		if(!approachCubes.isRunning()) {
+    			timer.start();
     			turnTowardsWall.start();
     			state++;
     		}
     		break;
     	case 2:
-    		if(!turnTowardsWall.isRunning()) {
+    		System.out.println("Case 2");
+    		if(!turnTowardsWall.isRunning() || timer.get() > 1.5) {
+    			turnTowardsWall.cancel();
     			moveTowardsWall.start();
     			state++;
     		}
     		break;
     	case 3:
+    		System.out.println("Case 3");
     		if(!moveTowardsWall.isRunning()) {
+    			timer.reset();
     			turnTowardsSwitch.start();
     			state++;
     		}
     		break;
     	case 4:
-    		if(!turnTowardsSwitch.isRunning()) {
+    		System.out.println("Case 4");
+    		if(!turnTowardsSwitch.isRunning() || timer.get() > 1.5) {
+    			turnTowardsSwitch.cancel();
     			approachSwitch.start();
     			state++;
     		}
     		break;
     	case 5:
+    		System.out.println("Case 5");
     		if(!approachSwitch.isRunning()) {
     			//Drop cube here
     			state++;
@@ -98,7 +117,7 @@ public class PlaceOnSwitch extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !approachSwitch.isRunning();
+        return !approachSwitch.isRunning() && state == 6;
     }
 
     // Called once after isFinished returns true
