@@ -8,8 +8,8 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
-import edu.wpi.first.wpilibj.SerialPort;
 
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -17,8 +17,8 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  */
 public class Drivetrain extends PIDSubsystem {
 	private TalonSRX left1, left2, left3, right1, right2, right3;
-	private double currentPIDOutput;
 	private AHRS gyro;
+	private double currentPIDOutput;
 	
 	private static Drivetrain instance;
 	
@@ -35,9 +35,8 @@ public class Drivetrain extends PIDSubsystem {
 	 */
 	private Drivetrain() {
 		super("Drive", Variables.proportional, Variables.integral, Variables.derivative);
-		setAbsoluteTolerance(2);
 		setInputRange(0, 360);
-		getPIDController().setContinuous(true);
+		getPIDController().setContinuous();
 		
 		left1 = new TalonSRX(Constants.driveTalonLeft1Channel);
 		left2 = new TalonSRX(Constants.driveTalonLeft2Channel);
@@ -199,6 +198,19 @@ public class Drivetrain extends PIDSubsystem {
 	public double getRawGyroAngle(){
 		return gyro.getAngle();
 	}
+	
+	public TalonSRX getLeftTalon() {
+		return left1;
+	}
+	
+	public TalonSRX getRightTalon() {
+		return right1;
+	}
+	
+	public AHRS getGyro() {
+		return gyro;
+	}
+	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -207,22 +219,25 @@ public class Drivetrain extends PIDSubsystem {
         //setDefaultCommand(new MySpecialCommand());
     	setDefaultCommand(new Drive());
     }
-
-	@Override
-	protected double returnPIDInput() {
-		return getGyroAngle();
-	}
-
-	@Override
-	protected void usePIDOutput(double output) {
-		drive(output, -output);
-	}
-	
-	/**
-	 * @return The output for the PID loop
-	 */
-	public double getPIDOutput() {
-		return currentPIDOutput;
-	}
+    
+    @Override
+    protected double returnPIDInput() {
+    	if (Variables.useGyroPID) {
+    		return getGyroAngle();
+    	}
+    	else {
+    		return getDistance();
+    	}
+    }
+    
+    @Override
+    protected void usePIDOutput(double output) {
+    	drive(output, -output);
+    }
+    
+    public double getPIDOutput() {
+    	return currentPIDOutput;
+    }
+    
 }
 

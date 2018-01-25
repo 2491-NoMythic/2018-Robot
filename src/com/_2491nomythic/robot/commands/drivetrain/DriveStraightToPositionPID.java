@@ -4,12 +4,8 @@
  */
 package com._2491nomythic.robot.commands.drivetrain;
 
-import edu.wpi.first.wpilibj.PIDController;
-import edu.wpi.first.wpilibj.PIDOutput;
-import edu.wpi.first.wpilibj.PIDSource;
-import edu.wpi.first.wpilibj.PIDSourceType;
-
 import com._2491nomythic.robot.commands.CommandBase;
+import com._2491nomythic.robot.settings.Variables;
 
 /**
  * Drive the given distance straight (negative values go backwards). Uses a
@@ -18,7 +14,7 @@ import com._2491nomythic.robot.commands.CommandBase;
  * encoders.
  */
 public class DriveStraightToPositionPID extends CommandBase {
-	private PIDController pid;
+	private double target;
 
 	/**
 	 * Drive the given distance straight (negative values go backwards). Uses a
@@ -27,56 +23,26 @@ public class DriveStraightToPositionPID extends CommandBase {
 	 * @param distance The distance for the robot to drive. Negative values go backwards.
 	 */
 	public DriveStraightToPositionPID(double distance) {
+		target = distance;
 		requires(drivetrain);
-		pid = new PIDController(4, 0, 0, new PIDSource() {
-			PIDSourceType m_sourceType = PIDSourceType.kDisplacement;
-
-			@Override
-			public double pidGet() {
-				return drivetrain.getDistance();
-			}
-
-			@Override
-			public void setPIDSourceType(PIDSourceType pidSource) {
-				m_sourceType = pidSource;
-			}
-
-			@Override
-			public PIDSourceType getPIDSourceType() {
-				return m_sourceType;
-			}
-		}, new PIDOutput() {
-			@Override
-			public void pidWrite(double d) {
-				drivetrain.drive(d, d);
-			}
-		});
-		pid.setAbsoluteTolerance(0.01);
-		pid.setSetpoint(distance);
-		
 	}
 
 	// Called just before this Command runs the first time
-	@Override
 	protected void initialize() {
-		// Get everything in a safe starting state.
-		drivetrain.resetEncoders();
-		drivetrain.resetGyro();
-		pid.reset();
-		pid.enable();
+		Variables.useGyroPID = false;
+		drivetrain.setSetpoint(target);
+		drivetrain.enable();
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
-	@Override
 	protected boolean isFinished() {
-		return pid.onTarget();
+		return false;
 	}
 
 	// Called once after isFinished returns true
-	@Override
 	protected void end() {
 		// Stop PID and the wheels
-		pid.disable();
+		drivetrain.disable();
 		drivetrain.stop();
 	}
 	

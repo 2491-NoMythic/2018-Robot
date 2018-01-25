@@ -1,13 +1,16 @@
 package com._2491nomythic.robot.commands.drivetrain;
 
 import com._2491nomythic.robot.commands.CommandBase;
+import com._2491nomythic.robot.settings.Variables;
 
 /**
  * Rotates the drivetrain to a specified angle using PID
  */
 public class RotateDrivetrainWithGyroPID extends CommandBase {
-	private double  target, relative;
+	private double target;
 	private boolean type;
+	private double relative;
+	
 
 	/**
 	 * Rotates the drivetrain to a specified angle using PID
@@ -15,20 +18,21 @@ public class RotateDrivetrainWithGyroPID extends CommandBase {
 	 * @param absolute Set true for absolute, false for relative 
 	 */
     public RotateDrivetrainWithGyroPID(double angle, boolean absolute) {
+    	type = absolute;
+    	target = angle;
         // Use requires() here to declare subsystem dependencies
       	requires(drivetrain);
-      	target = angle;
-    	type = absolute;
+      	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	Variables.useGyroPID = true;
     	relative = ((drivetrain.getGyroAngle() + target) % 360 + 360) % 360;
-    	System.out.println(relative);
-    	if (type) { //absolute
+    	if(type) {
     		drivetrain.setSetpoint(target);
     	}
-    	else { //relative
+    	else {
     		drivetrain.setSetpoint(relative);
     	}
     	drivetrain.enable();
@@ -45,9 +49,9 @@ public class RotateDrivetrainWithGyroPID extends CommandBase {
     }
 
     // Called once after isFinished returns true
-    protected void end() {
+    protected void end() {	
     	drivetrain.stop();
-    	drivetrain.disable(); 	
+    	drivetrain.disable();
     }
 
     // Called when another command which requires one or more of the same
