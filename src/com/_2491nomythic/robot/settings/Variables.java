@@ -13,9 +13,9 @@ public class Variables {
 	public static double proportional = 0.016;
 	public static double integral = 0.0;
 	public static double derivative = 0.007;
-	public static double proportionalForward = .5;
+	public static double proportionalForward = 0.017;
 	public static double integralForward = 0;
-	public static double derivativeForward = .05;
+	public static double derivativeForward = 0.000;
 	
 	public static double autoDelay;
 	public static boolean useGyroPID;

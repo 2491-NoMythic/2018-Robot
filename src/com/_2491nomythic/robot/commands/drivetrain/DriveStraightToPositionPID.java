@@ -30,6 +30,8 @@ public class DriveStraightToPositionPID extends CommandBase {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Variables.useGyroPID = false;
+		drivetrain.setInputRange(-100000000, 100000000);
+		drivetrain.getPIDController().setContinuous(false);
 		drivetrain.getPIDController().setPID(Variables.proportionalForward, Variables.integralForward, Variables.derivativeForward);
 		
 		drivetrain.setSetpoint(target);

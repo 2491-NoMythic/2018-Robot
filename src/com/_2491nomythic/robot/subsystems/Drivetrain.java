@@ -35,8 +35,6 @@ public class Drivetrain extends PIDSubsystem {
 	 */
 	private Drivetrain() {
 		super("Drive", Variables.proportional, Variables.integral, Variables.derivative);
-		setInputRange(0, 360);
-		getPIDController().setContinuous();
 		
 		left1 = new TalonSRX(Constants.driveTalonLeft1Channel);
 		left2 = new TalonSRX(Constants.driveTalonLeft2Channel);
@@ -226,13 +224,18 @@ public class Drivetrain extends PIDSubsystem {
     		return getGyroAngle();
     	}
     	else {
-    		return getLeftEncoderDistance();
+    		return getDistance();
     	}
     }
     
     @Override
     protected void usePIDOutput(double output) {
-    	drive(output, -output);
+    	if(Variables.useGyroPID) {
+    		drive(output, -output);
+    	}
+    	else {
+    		drive(-output, -output);
+    	}
     }
     
     public double getPIDOutput() {
