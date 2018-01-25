@@ -17,7 +17,7 @@ public class Variables {
 	public static double integralForward = 0;
 	public static double derivativeForward = .05;
 	
-	
+	public static double autoDelay;
 	public static boolean useGyroPID;
 
 }
