@@ -41,6 +41,7 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
 			SmartDashboard.putNumber("RightEncoder", drivetrain.getRightEncoderDistance());
 			SmartDashboard.putNumber("Avg. Encoder Distance", drivetrain.getDistance());
+			SmartDashboard.putNumber("Current PID Input", drivetrain.returnPIDInput());
 		}
 			
     	

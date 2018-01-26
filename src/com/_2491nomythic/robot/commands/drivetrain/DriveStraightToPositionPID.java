@@ -8,8 +8,8 @@ import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.settings.Variables;
 
 /**
- * Drive the given distance straight (negative values go backwards). Uses a
- * local PID controller to run a simple PID loop that is only enabled while this
+ * Drive the given distance straight (negative values go backwards). 
+ * Which runs a simple PID loop that is only enabled while this
  * command is running. The input is the averaged values of the left and right
  * encoders.
  */
@@ -34,7 +34,7 @@ public class DriveStraightToPositionPID extends CommandBase {
 		drivetrain.getPIDController().setContinuous(false);
 		drivetrain.getPIDController().setPID(Variables.proportionalForward, Variables.integralForward, Variables.derivativeForward);
 		
-		drivetrain.setSetpoint(target);
+		drivetrain.setSetpoint(drivetrain.getDistance() + target);
 		drivetrain.enable();
 	}
 

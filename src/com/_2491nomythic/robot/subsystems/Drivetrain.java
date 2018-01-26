@@ -219,7 +219,7 @@ public class Drivetrain extends PIDSubsystem {
     }
     
     @Override
-    protected double returnPIDInput() {
+    public double returnPIDInput() {
     	if (Variables.useGyroPID) {
     		return getGyroAngle();
     	}
@@ -234,7 +234,7 @@ public class Drivetrain extends PIDSubsystem {
     		drive(output, -output);
     	}
     	else {
-    		drive(-output, -output);
+    		drive(output, output);
     	}
     }
     

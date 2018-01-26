@@ -67,7 +67,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auto mode", m_chooser);
 
 		SmartDashboard.putData("DriveStraightToPosition", new DriveStraightToPosition(0.3, 10));
-		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(10));
+		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-10));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
 		SmartDashboard.putData("TuneProportional", new TuneProportional(90, 5));
 		SmartDashboard.putData("TuneProportionalMultiClass", new TuneProportionalMultiClass(45, 15));
