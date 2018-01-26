@@ -1,7 +1,7 @@
 package com._2491nomythic.robot.commands.autonomous;
 
 import com._2491nomythic.robot.commands.CommandBase;
-import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
+import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.robot.settings.Variables;
 
@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Timer;
  * Attempts to place a cube on either the left scale OR switch, prioritizing scale. If both scale and switch are on the right, the robot crosses the auto line.
  */
 public class LeftPrioritizeScale extends CommandBase {
-	private DriveStraightToPosition driveToSwitch, driveToScale, approachSwitch, approachScale;
+	private DriveStraightToPositionPID driveToSwitch, driveToScale, approachSwitch, approachScale;
 	private CrossAutoLine crossLine;
 	private RotateDrivetrainWithGyroPID turnTowardsSwitchOrScale;
 	private int state;
@@ -29,10 +29,10 @@ public class LeftPrioritizeScale extends CommandBase {
     	delay = new Timer();
     	crossLine = new CrossAutoLine();
     	turnTowardsSwitchOrScale = new RotateDrivetrainWithGyroPID(90, false);
-    	driveToScale = new DriveStraightToPosition(0.9, 323.6);
-    	driveToSwitch = new DriveStraightToPosition(0.9, 168);
-    	approachScale = new DriveStraightToPosition(0.9, 28.14);
-    	approachSwitch = new DriveStraightToPosition(0.9, 42);
+    	driveToScale = new DriveStraightToPositionPID(323.6);
+    	driveToSwitch = new DriveStraightToPositionPID(168);
+    	approachScale = new DriveStraightToPositionPID(-44);
+    	approachSwitch = new DriveStraightToPositionPID(42);
     }
 
     // Called just before this Command runs the first time

@@ -1,7 +1,7 @@
 package com._2491nomythic.robot.commands.autonomous;
 
 import com._2491nomythic.robot.commands.CommandBase;
-import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
+import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.robot.settings.Variables;
 
@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Timer;
  * Attempts to place a cube on the correct side of the Scale during autonomous, starting in front of DriverStation 1.
  */
 public class PlaceOnScaleLeft extends CommandBase {
-	private DriveStraightToPosition driveToCenter, driveToNullZone, approachScale, driveToCorrectSide;
+	private DriveStraightToPositionPID driveToCenter, driveToNullZone, approachScale, driveToCorrectSide;
 	private RotateDrivetrainWithGyroPID turnTowardsCenter, turnTowardsNullZone, turnTowardsScale;
 	private Timer timer, delay;
 	private int state;
@@ -27,7 +27,7 @@ public class PlaceOnScaleLeft extends CommandBase {
         // eg. requires(chassis);    	
     	timer = new Timer();
     	delay = new Timer();
-    	approachScale = new DriveStraightToPosition(0.9, 28.14 / 2);
+    	approachScale = new DriveStraightToPositionPID(-44);
     }
 
     // Called just before this Command runs the first time
@@ -38,13 +38,13 @@ public class PlaceOnScaleLeft extends CommandBase {
     	left = gameData.substring(1, 2) == "L";
     	
     	if(left) {
-    		driveToNullZone = new DriveStraightToPosition(0.8, 323.6 / 2);
+    		driveToNullZone = new DriveStraightToPositionPID(323.6);
     		turnTowardsScale = new RotateDrivetrainWithGyroPID(90, false);
     	}
     	else if(!left) {
-    		driveToCenter = new DriveStraightToPosition(0.9, 235.4 / 2);
-    		driveToNullZone = new DriveStraightToPosition(0.9, 88.2 / 2);
-    		driveToCorrectSide = new DriveStraightToPosition(0.9, 218.63 / 2);
+    		driveToCenter = new DriveStraightToPositionPID(235.4);
+    		driveToNullZone = new DriveStraightToPositionPID(88.2);
+    		driveToCorrectSide = new DriveStraightToPositionPID(218.63);
     		turnTowardsCenter = new RotateDrivetrainWithGyroPID(90, false);
     		turnTowardsNullZone = new RotateDrivetrainWithGyroPID(-90, false);
     		turnTowardsScale = new RotateDrivetrainWithGyroPID(-90, false);

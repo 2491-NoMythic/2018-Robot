@@ -1,7 +1,7 @@
 package com._2491nomythic.robot.commands.autonomous;
 
 import com._2491nomythic.robot.commands.CommandBase;
-import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
+import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.robot.settings.Variables;
 
@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.Timer;
  * Attempts to place a cube on the correct side of the switch during autonomous.
  */
 public class PlaceOnSwitch extends CommandBase {
-	private DriveStraightToPosition approachCubes, moveTowardsWall, approachSwitch;
+	private DriveStraightToPositionPID approachCubes, moveTowardsWall, approachSwitch;
 	private RotateDrivetrainWithGyroPID turnTowardsWall, turnTowardsSwitch;
 	private int state;
 	private Timer timer, delay;
@@ -26,8 +26,8 @@ public class PlaceOnSwitch extends CommandBase {
         // eg. requires(chassis);    	
     	timer = new Timer();
     	delay = new Timer();
-    	approachCubes = new DriveStraightToPosition(0.8, 98 / 98);
-    	approachSwitch = new DriveStraightToPosition(0.8, 76 / 76);
+    	approachCubes = new DriveStraightToPositionPID(98);
+    	approachSwitch = new DriveStraightToPositionPID(76);
     }
 
     // Called just before this Command runs the first time
@@ -38,12 +38,12 @@ public class PlaceOnSwitch extends CommandBase {
     	
     	switch(gameData.substring(0, 1)) {
     	case "L":
-    		moveTowardsWall = new DriveStraightToPosition(0.8, 58 / 58);
+    		moveTowardsWall = new DriveStraightToPositionPID(58);
     		turnTowardsWall = new RotateDrivetrainWithGyroPID(-90, false);
     		turnTowardsSwitch = new RotateDrivetrainWithGyroPID(90, false);
     		break;
     	case "R":
-    		moveTowardsWall = new DriveStraightToPosition(0.8, 50.5 / 50.5);
+    		moveTowardsWall = new DriveStraightToPositionPID(50.5);
     		turnTowardsWall = new RotateDrivetrainWithGyroPID(90, false);
     		turnTowardsSwitch = new RotateDrivetrainWithGyroPID(-90, false);
     		break;
