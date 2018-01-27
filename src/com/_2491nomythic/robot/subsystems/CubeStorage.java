@@ -37,6 +37,9 @@ public class CubeStorage extends Subsystem {
 		right.set(ControlMode.PercentOutput, power);
 	}
 	
+	/**
+	 * Stops all movement of the cube storage motors.
+	 */
 	public void stop() {
 		run(0);
 	}
