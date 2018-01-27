@@ -26,8 +26,8 @@ public class PlaceOnSwitch extends CommandBase {
         // eg. requires(chassis);    	
     	timer = new Timer();
     	delay = new Timer();
-    	approachCubes = new DriveStraightToPositionPID(98);
-    	approachSwitch = new DriveStraightToPositionPID(76);
+    	approachCubes = new DriveStraightToPositionPID(-98);
+    	approachSwitch = new DriveStraightToPositionPID(-76);
     }
 
     // Called just before this Command runs the first time
@@ -38,12 +38,12 @@ public class PlaceOnSwitch extends CommandBase {
     	
     	switch(gameData.substring(0, 1)) {
     	case "L":
-    		moveTowardsWall = new DriveStraightToPositionPID(58);
+    		moveTowardsWall = new DriveStraightToPositionPID(-58);
     		turnTowardsWall = new RotateDrivetrainWithGyroPID(-90, false);
     		turnTowardsSwitch = new RotateDrivetrainWithGyroPID(90, false);
     		break;
     	case "R":
-    		moveTowardsWall = new DriveStraightToPositionPID(50.5);
+    		moveTowardsWall = new DriveStraightToPositionPID(-50.5);
     		turnTowardsWall = new RotateDrivetrainWithGyroPID(90, false);
     		turnTowardsSwitch = new RotateDrivetrainWithGyroPID(-90, false);
     		break;

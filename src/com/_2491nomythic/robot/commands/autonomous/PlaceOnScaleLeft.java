@@ -39,7 +39,7 @@ public class PlaceOnScaleLeft extends CommandBase {
     	
     	if(left) {
     		driveToNullZone = new DriveStraightToPositionPID(323.6);
-    		turnTowardsScale = new RotateDrivetrainWithGyroPID(90, false);
+    		turnTowardsScale = new RotateDrivetrainWithGyroPID(-90, false);
     	}
     	else if(!left) {
     		driveToCenter = new DriveStraightToPositionPID(235.4);
@@ -47,7 +47,7 @@ public class PlaceOnScaleLeft extends CommandBase {
     		driveToCorrectSide = new DriveStraightToPositionPID(218.63);
     		turnTowardsCenter = new RotateDrivetrainWithGyroPID(90, false);
     		turnTowardsNullZone = new RotateDrivetrainWithGyroPID(-90, false);
-    		turnTowardsScale = new RotateDrivetrainWithGyroPID(-90, false);
+    		turnTowardsScale = new RotateDrivetrainWithGyroPID(90, false);
     	}
     	else {
     		System.out.println("Unexpected GameSpecificMessage in PlaceOnScaleLeft. gameData: " + gameData);
