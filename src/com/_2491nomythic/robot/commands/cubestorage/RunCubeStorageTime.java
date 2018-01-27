@@ -12,6 +12,11 @@ public class RunCubeStorageTime extends CommandBase {
 	public double time;
 	Timer timer;
 
+	/**
+	 * Runs cube storage system for specified period of time at specified speed.
+	 * @param speed the speed at which the cube storage system runs.
+	 * @param time the time for which the cube storage system runs.
+	 */
     public RunCubeStorageTime(double speed, double time) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
