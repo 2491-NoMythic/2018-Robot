@@ -1,5 +1,6 @@
 package com._2491nomythic.robot.commands.autonomous;
 
+import com._2491nomythic.robot.commands.AutomaticShoot;
 import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class PlaceOnScaleLeft extends CommandBase {
 	private DriveStraightToPositionPID driveToCenter, driveToNullZone, approachScale, driveToCorrectSide;
 	private RotateDrivetrainWithGyroPID turnTowardsCenter, turnTowardsNullZone, turnTowardsScale;
+	private AutomaticShoot launchCube;
 	private Timer timer, delay;
 	private int state;
 	private boolean left;
@@ -28,6 +30,7 @@ public class PlaceOnScaleLeft extends CommandBase {
     	timer = new Timer();
     	delay = new Timer();
     	approachScale = new DriveStraightToPositionPID(-44);
+    	launchCube = new AutomaticShoot(true);
     }
 
     // Called just before this Command runs the first time
@@ -85,7 +88,7 @@ public class PlaceOnScaleLeft extends CommandBase {
     			break;
     		case 3:
     			if(!approachScale.isRunning() || timer.get() > 2) {
-    				//Drop powercube here!
+    				launchCube.start();
     				state++;
     			}
     			break;
@@ -146,7 +149,7 @@ public class PlaceOnScaleLeft extends CommandBase {
     			break;
     		case 7:
     			if(!approachScale.isRunning()) {
-    				//Drop powercube here
+    				launchCube.start();
     				state++;
     			}
     			break;
@@ -162,10 +165,10 @@ public class PlaceOnScaleLeft extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         if(left) {
-        	return !approachScale.isRunning() && state == 4;
+        	return !launchCube.isRunning() && state == 4;
         }
         else {
-        	return !approachScale.isRunning() && state == 8;
+        	return !launchCube.isRunning() && state == 8;
         }
     }
 
@@ -177,6 +180,7 @@ public class PlaceOnScaleLeft extends CommandBase {
     	turnTowardsCenter.cancel();
     	turnTowardsNullZone.cancel();
     	turnTowardsScale.cancel();
+    	launchCube.cancel();
     	
     	drivetrain.stop();
     }

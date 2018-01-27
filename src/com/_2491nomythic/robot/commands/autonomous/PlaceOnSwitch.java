@@ -1,5 +1,6 @@
 package com._2491nomythic.robot.commands.autonomous;
 
+import com._2491nomythic.robot.commands.AutomaticShoot;
 import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class PlaceOnSwitch extends CommandBase {
 	private DriveStraightToPositionPID approachCubes, moveTowardsWall, approachSwitch;
 	private RotateDrivetrainWithGyroPID turnTowardsWall, turnTowardsSwitch;
+	private AutomaticShoot launchCube;
 	private int state;
 	private Timer timer, delay;
 	
@@ -28,6 +30,7 @@ public class PlaceOnSwitch extends CommandBase {
     	delay = new Timer();
     	approachCubes = new DriveStraightToPositionPID(-98);
     	approachSwitch = new DriveStraightToPositionPID(-76);
+    	launchCube = new AutomaticShoot(false);
     }
 
     // Called just before this Command runs the first time
@@ -103,7 +106,7 @@ public class PlaceOnSwitch extends CommandBase {
     	case 5:
     		System.out.println("Case 5");
     		if(!approachSwitch.isRunning()) {
-    			//Drop cube here
+    			launchCube.start();
     			state++;
     		}
     		break;
@@ -117,7 +120,7 @@ public class PlaceOnSwitch extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !approachSwitch.isRunning() && state == 6;
+        return !launchCube.isRunning() && state == 6;
     }
 
     // Called once after isFinished returns true
@@ -128,6 +131,7 @@ public class PlaceOnSwitch extends CommandBase {
     	moveTowardsWall.cancel();
     	turnTowardsSwitch.cancel();
     	approachSwitch.cancel();
+    	launchCube.cancel();
     }
 
     // Called when another command which requires one or more of the same

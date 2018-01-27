@@ -1,5 +1,6 @@
 package com._2491nomythic.robot.commands.autonomous;
 
+import com._2491nomythic.robot.commands.AutomaticShoot;
 import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
@@ -15,6 +16,7 @@ public class RightPrioritizeScale extends CommandBase {
 	private DriveStraightToPositionPID driveToSwitch, driveToScale, approachSwitch, approachScale;
 	private CrossAutoLine crossLine;
 	private RotateDrivetrainWithGyroPID turnTowardsSwitchOrScale;
+	private AutomaticShoot launchCubeScale, launchCubeSwitch;
 	private int state;
 	private Timer timer, delay;
 	private boolean scaleSide, switchSide;
@@ -33,6 +35,8 @@ public class RightPrioritizeScale extends CommandBase {
     	driveToSwitch = new DriveStraightToPositionPID(168);
     	approachScale = new DriveStraightToPositionPID(44);
     	approachSwitch = new DriveStraightToPositionPID(-42);
+    	launchCubeSwitch = new AutomaticShoot(false);
+    	launchCubeScale = new AutomaticShoot(true);
     }
 
     // Called just before this Command runs the first time
@@ -75,7 +79,7 @@ public class RightPrioritizeScale extends CommandBase {
     			break;
     		case 3:
     			if(!approachScale.isRunning()) {
-    				//Drop cube here
+    				launchCubeScale.start();
     				state++;
     			}
     			break;
@@ -108,7 +112,7 @@ public class RightPrioritizeScale extends CommandBase {
     			break;
     		case 3:
     			if(!approachSwitch.isRunning()) {
-    				//Drop cube here
+    				launchCubeSwitch.start();
     				state++;
     			}
     			break;
@@ -126,8 +130,11 @@ public class RightPrioritizeScale extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(switchSide || scaleSide) {
-            return !approachSwitch.isRunning() && state == 4;
+    	if(scaleSide) {
+            return !launchCubeScale.isRunning() && state == 4;
+    	}
+    	else if(switchSide) {
+    		return !launchCubeSwitch.isRunning() && state == 4;
     	}
     	else {
     		return !crossLine.isRunning() && timer.get() > 1;
@@ -142,6 +149,8 @@ public class RightPrioritizeScale extends CommandBase {
     	driveToScale.cancel();
     	approachScale.cancel();
     	turnTowardsSwitchOrScale.cancel();
+    	launchCubeScale.cancel();
+    	launchCubeSwitch.cancel();
     	
     	drivetrain.stop();
     }
