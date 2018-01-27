@@ -11,16 +11,19 @@ import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.commands.UpdateDriverstation;
 import com._2491nomythic.robot.commands.autonomous.CrossAutoLine;
 import com._2491nomythic.robot.commands.autonomous.DoNothing;
-import com._2491nomythic.robot.commands.autonomous.LeftScaleOrSwitch;
+import com._2491nomythic.robot.commands.autonomous.LeftPrioritizeScale;
+import com._2491nomythic.robot.commands.autonomous.LeftPrioritizeSwitch;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnScaleLeft;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnScaleRight;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnSwitch;
-import com._2491nomythic.robot.commands.autonomous.RightScaleOrSwitch;
+import com._2491nomythic.robot.commands.autonomous.RightPrioritizeScale;
+import com._2491nomythic.robot.commands.autonomous.RightPrioritizeSwitch;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.robot.commands.drivetrain.TuneDerivative;
 import com._2491nomythic.robot.commands.drivetrain.TuneProportional;
+import com._2491nomythic.robot.commands.drivetrain.TuneProportionalMultiClass;
 import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -52,21 +55,25 @@ public class Robot extends TimedRobot {
 		updateDriverstation = new UpdateDriverstation();
 		updateDriverstation.start();
 		// chooser.addObject("My Auto", new MyAutoCommand());
-		m_chooser.addObject("Cross AutoLine", new CrossAutoLine());
+		m_chooser.addObject("Cross Auto Line", new CrossAutoLine());
 		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
 		m_chooser.addObject("PlaceOnScaleLeft", new PlaceOnScaleLeft());
 		m_chooser.addObject("PlaceOnScaleRight", new PlaceOnScaleRight());
-		m_chooser.addObject("LeftSwitchORScale", new LeftScaleOrSwitch());
-		m_chooser.addObject("RightSwitchORScale", new RightScaleOrSwitch());
+		m_chooser.addObject("LeftPrioritizeScale", new LeftPrioritizeScale());
+		m_chooser.addObject("RightPrioritizeScale", new RightPrioritizeScale());
+		m_chooser.addObject("LeftPrioritizeSwitch", new LeftPrioritizeSwitch());
+		m_chooser.addObject("RightPrioritizeSwitch", new RightPrioritizeSwitch());
 		m_chooser.addDefault("Do Nothing", new DoNothing());
 		SmartDashboard.putData("Auto mode", m_chooser);
 
 		SmartDashboard.putData("DriveStraightToPosition", new DriveStraightToPosition(0.3, 10));
-		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(10));
-		SmartDashboard.putData("RotateDrivetrainAbsolute90", new RotateDrivetrainWithGyroPID(90, true));
-		SmartDashboard.putData("TuneProportional", new TuneProportional(45, 15));
+		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-10));
+		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
+		SmartDashboard.putData("TuneProportional", new TuneProportional(90, 5));
+		SmartDashboard.putData("TuneProportionalMultiClass", new TuneProportionalMultiClass(45, 15));
 		SmartDashboard.putData("TuneDerivative", new TuneDerivative(45, 5, 5, 15));
 		SmartDashboard.putBoolean("Use Linear Acceleration", Variables.useLinearAcceleration);
+		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);
 	}
 
 	/**
@@ -97,6 +104,8 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		Variables.autoDelay = SmartDashboard.getNumber("AutoDelay", 0);
+		
 		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
@@ -129,6 +138,7 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.cancel();
 		}
+		
 	}
 
 	/**

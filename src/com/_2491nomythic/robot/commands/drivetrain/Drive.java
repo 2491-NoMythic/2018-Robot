@@ -38,7 +38,7 @@ public class Drive extends CommandBase {
 			double signOfLeftAcceleration = leftAcceleration / Math.abs(leftAcceleration);
 			if (Math.abs(leftAcceleration) > Variables.accelerationSpeed) { // otherwise the power is below accel and is fine
 				if (Math.abs(currentLeftSpeed) - Math.abs(lastLeftSpeed) > 0) {
-					System.out.println(currentLeftSpeed + " was too high, setting to " + (lastLeftSpeed + (Variables.accelerationSpeed * signOfLeftAcceleration)));
+					//System.out.println(currentLeftSpeed + " was too high, setting to " + (lastLeftSpeed + (Variables.accelerationSpeed * signOfLeftAcceleration)));
 					currentLeftSpeed = lastLeftSpeed + (Variables.accelerationSpeed * signOfLeftAcceleration);
 					
 				}
@@ -48,7 +48,7 @@ public class Drive extends CommandBase {
 			double signOfRightAcceleration = rightAcceleration / Math.abs(rightAcceleration);
 			if (Math.abs(rightAcceleration) > Variables.accelerationSpeed) { // otherwise the power is below 0.05 accel and is fine
 				if (Math.abs(currentRightSpeed) - Math.abs(lastRightSpeed) > 0) {
-					System.out.println(currentRightSpeed + " was too high, setting to " + (lastRightSpeed + (Variables.accelerationSpeed * signOfRightAcceleration)));
+					//System.out.println(currentRightSpeed + " was too high, setting to " + (lastRightSpeed + (Variables.accelerationSpeed * signOfRightAcceleration)));
 					currentRightSpeed = lastRightSpeed + (Variables.accelerationSpeed * signOfRightAcceleration);
 				}
 				// if the difference between the numbers is positive it is going up

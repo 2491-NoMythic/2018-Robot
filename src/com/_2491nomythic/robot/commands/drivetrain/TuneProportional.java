@@ -45,38 +45,27 @@ public class TuneProportional extends CommandBase {
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	System.out.println("Execute is running");
-    	
+    protected void execute() {    	
     	drivetrain.setSetpointRelative(relativeAngle);
     	//drivetrain.setSetpoint((drivetrain.getGyroAngle() + relativeAngle) % 360);
     	
     	destinationAngle = (drivetrain.getGyroAngle() + relativeAngle) % 360;
-    	System.out.println("Destination Angle: " + destinationAngle);
     	
     	drivetrain.enable();
     	
     	timer.reset();
     	
-    	while(timer.get() < 20) {
-    		//This prints fine
-    		System.out.println(drivetrain.getPosition());
-    		
+    	while(timer.get() < 12) {
+    		//This prints fine    		
     		if(timer.get() > 5) {
     			//What does getPosition actually return? Could explain why they never print.
     			if(drivetrain.getPosition() < minimumAngle) {
     				//Why doesn't this print?
     				minimumAngle = drivetrain.getPosition();
-    				System.out.println("Set minimum to " + minimumAngle);
     			}
     			else if(drivetrain.getPosition() > maximumAngle) {
     				//Why doesn't this print?
     				maximumAngle = drivetrain.getPosition();
-    				System.out.println("Set maximum to " + maximumAngle);
-    			}
-    			else {
-    				//Because this prints fine.
-    				System.out.println("Measuring...");
     			}
     		}
     	}
@@ -112,7 +101,7 @@ public class TuneProportional extends CommandBase {
     	drivetrain.getPIDController().setPID(Variables.proportional, Variables.integral, Variables.derivative);
     	
     	while(timer.get() < 5) {
-    		System.out.println("Resetting...");
+    		
     	}
 
     	i++;
@@ -125,7 +114,7 @@ public class TuneProportional extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    	//drivetrain.disable();
+    	drivetrain.disable();
     	drivetrain.stop();
     	
     	if(i >= numberOfTrials) {

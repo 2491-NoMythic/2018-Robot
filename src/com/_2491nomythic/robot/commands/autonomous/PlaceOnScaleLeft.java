@@ -1,8 +1,9 @@
 package com._2491nomythic.robot.commands.autonomous;
 
 import com._2491nomythic.robot.commands.CommandBase;
-import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
+import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
+import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -11,9 +12,9 @@ import edu.wpi.first.wpilibj.Timer;
  * Attempts to place a cube on the correct side of the Scale during autonomous, starting in front of DriverStation 1.
  */
 public class PlaceOnScaleLeft extends CommandBase {
-	private DriveStraightToPosition driveToCenter, driveToNullZone, approachScale, driveToCorrectSide;
+	private DriveStraightToPositionPID driveToCenter, driveToNullZone, approachScale, driveToCorrectSide;
 	private RotateDrivetrainWithGyroPID turnTowardsCenter, turnTowardsNullZone, turnTowardsScale;
-	private Timer timer;
+	private Timer timer, delay;
 	private int state;
 	private boolean left;
 	String gameData;
@@ -23,11 +24,10 @@ public class PlaceOnScaleLeft extends CommandBase {
 	 */
     public PlaceOnScaleLeft() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(drivetrain);
-    	
+        // eg. requires(chassis);    	
     	timer = new Timer();
-    	approachScale = new DriveStraightToPosition(0.9, 50);
+    	delay = new Timer();
+    	approachScale = new DriveStraightToPositionPID(-44);
     }
 
     // Called just before this Command runs the first time
@@ -38,19 +38,25 @@ public class PlaceOnScaleLeft extends CommandBase {
     	left = gameData.substring(1, 2) == "L";
     	
     	if(left) {
-    		driveToNullZone = new DriveStraightToPosition(0.8, 180);
+    		driveToNullZone = new DriveStraightToPositionPID(323.6);
     		turnTowardsScale = new RotateDrivetrainWithGyroPID(90, false);
     	}
     	else if(!left) {
-    		driveToCenter = new DriveStraightToPosition(0.9, 140);
-    		driveToNullZone = new DriveStraightToPosition(0.9, 40);
-    		driveToCorrectSide = new DriveStraightToPosition(0.9, 80);
+    		driveToCenter = new DriveStraightToPositionPID(235.4);
+    		driveToNullZone = new DriveStraightToPositionPID(88.2);
+    		driveToCorrectSide = new DriveStraightToPositionPID(218.63);
     		turnTowardsCenter = new RotateDrivetrainWithGyroPID(90, false);
     		turnTowardsNullZone = new RotateDrivetrainWithGyroPID(-90, false);
     		turnTowardsScale = new RotateDrivetrainWithGyroPID(-90, false);
     	}
     	else {
     		System.out.println("Unexpected GameSpecificMessage in PlaceOnScaleLeft. gameData: " + gameData);
+    	}
+    	
+    	delay.start();
+    	
+    	while(delay.get() < Variables.autoDelay) {
+    		
     	}
     }
 

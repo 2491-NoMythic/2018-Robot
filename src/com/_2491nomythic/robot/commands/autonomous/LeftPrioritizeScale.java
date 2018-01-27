@@ -1,46 +1,52 @@
 package com._2491nomythic.robot.commands.autonomous;
 
 import com._2491nomythic.robot.commands.CommandBase;
-import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
+import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
+import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * Attempts to place a cube on either the right scale OR switch, prioritizing scale. If both the scale and the switch are on the left, the robot crosses the auto line.
+ * Attempts to place a cube on either the left scale OR switch, prioritizing scale. If both scale and switch are on the right, the robot crosses the auto line.
  */
-public class RightScaleOrSwitch extends CommandBase {
-	private DriveStraightToPosition driveToSwitch, driveToScale, approachSwitch, approachScale;
+public class LeftPrioritizeScale extends CommandBase {
+	private DriveStraightToPositionPID driveToSwitch, driveToScale, approachSwitch, approachScale;
 	private CrossAutoLine crossLine;
 	private RotateDrivetrainWithGyroPID turnTowardsSwitchOrScale;
 	private int state;
-	private Timer timer;
+	private Timer timer, delay;
 	private boolean scaleSide, switchSide;
 
 	/**
-	 * Attempts to place a cube on either the right scale OR switch, prioritizing scale. If both the scale and the switch are on the left, the robot crosses the auto line.
+	 * Attempts to place a cube on either the left scale OR switch, prioritizing scale. If both scale and switch are on the right, the robot crosses the auto line.
 	 */
-    public RightScaleOrSwitch() {
+    public LeftPrioritizeScale() {
         // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(drivetrain);
-    	
+        // eg. requires(chassis);    	
     	timer = new Timer();
+    	delay = new Timer();
     	crossLine = new CrossAutoLine();
-    	turnTowardsSwitchOrScale = new RotateDrivetrainWithGyroPID(-90, false);
-    	driveToScale = new DriveStraightToPosition(0.9, 150);
-    	driveToSwitch = new DriveStraightToPosition(0.9, 70);
-    	approachScale = new DriveStraightToPosition(0.9, 30);
-    	approachSwitch = new DriveStraightToPosition(0.9, 60);
+    	turnTowardsSwitchOrScale = new RotateDrivetrainWithGyroPID(90, false);
+    	driveToScale = new DriveStraightToPositionPID(323.6);
+    	driveToSwitch = new DriveStraightToPositionPID(168);
+    	approachScale = new DriveStraightToPositionPID(-44);
+    	approachSwitch = new DriveStraightToPositionPID(42);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	state = 0;
     	
-    	scaleSide = DriverStation.getInstance().getGameSpecificMessage().substring(1, 2) == "R";
-    	switchSide = DriverStation.getInstance().getGameSpecificMessage().substring(0, 1) == "R";
+    	scaleSide = DriverStation.getInstance().getGameSpecificMessage().substring(1, 2) == "L";
+    	switchSide = DriverStation.getInstance().getGameSpecificMessage().substring(0, 1) == "L";
+    	
+    	delay.start();
+    	
+    	while(delay.get() < Variables.autoDelay) {
+    		
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -76,7 +82,7 @@ public class RightScaleOrSwitch extends CommandBase {
     		case 4:
     			break;
     		default:
-    			System.out.println("Unexpected state in RightScaleOrSwitch.java State: " + state);
+    			System.out.println("Unexpected state in LeftScaleOrSwitch.java State: " + state);
     			break;
     		}
     	}
@@ -109,7 +115,7 @@ public class RightScaleOrSwitch extends CommandBase {
     		case 4:
     			break;
     		default:
-    			System.out.println("Unexpected state in RightScaleOrSwitch.java State: " + state);
+    			System.out.println("Unexpected state in LeftScaleOrSwitch.java State: " + state);
     			break;
     		}
     	}
