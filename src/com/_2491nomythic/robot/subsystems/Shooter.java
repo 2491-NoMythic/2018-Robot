@@ -8,7 +8,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- * The subsystem that takes Power Cubes from the field.
+ * The system of motors and encoders that is used to launch Power Cubes from the robot into the Switch and Scale
  */
 public class Shooter extends Subsystem {
 	private static Shooter instance;
@@ -21,6 +21,9 @@ public class Shooter extends Subsystem {
 		return instance;
 	}
 	
+	/**
+	 * The system of motors and encoders that is used to launch Power Cubes from the robot into the Switch and Scale
+	 */
 	private Shooter() {
 		leftHold = new TalonSRX(Constants.shooterTalonLeftHoldChannel);
 		rightHold = new TalonSRX(Constants.shooterTalonRightHoldChannel);
@@ -39,16 +42,28 @@ public class Shooter extends Subsystem {
 	
 	
 	//Motors
+	/**
+	 * Runs the motors used to hold and manipulate Power Cubes within the robot with a given power
+	 * @param power The power fed to the hold motors
+	 */
 	public void runHold(double power) {
 		leftHold.set(ControlMode.PercentOutput, power);
 		rightHold.set(ControlMode.PercentOutput, power);
 	}
 	
+	/**
+	 * Runs the motors used to initially speed up Power Cubes within the robot, readying them for launch, with a given power
+	 * @param power The power fed to the accelerate motors
+	 */
 	public void runAccelerate(double power) {
 		leftAccelerate.set(ControlMode.PercentOutput, power);
 		rightAccelerate.set(ControlMode.PercentOutput, power);
 	}
 	
+	/**
+	 * Runs the motors used to maintain momentum of and finally launch the Power Cubes from the robot with a given power
+	 * @param power The power fed to the shoot motors
+	 */
 	public void runShoot(double power) {
 		leftShoot.set(ControlMode.PercentOutput, power);
 		rightShoot.set(ControlMode.PercentOutput, power);
@@ -56,26 +71,51 @@ public class Shooter extends Subsystem {
 	
 	
 	//Encoders
+	
+	/**
+	 * Gets the encoder velocity of the left hold motor
+	 * @return The encoder velocity of the left hold motor
+	 */
 	public double getLeftHoldEncoder() {
 		return leftHold.getSelectedSensorVelocity(0);
 	}
 	
+	/**
+	 * Gets the encoder velocity of the right hold motor
+	 * @return The encoder velocity of the right hold motor
+	 */
 	public double getRightHoldEncoder() {
 		return rightHold.getSelectedSensorVelocity(0);
 	}
 	
+	/**
+	 * Gets the encoder velocity of the left accelerate motor
+	 * @return The encoder velocity of the left accelerate motor
+	 */
 	public double getLeftAccelerateEncoder() {
 		return leftAccelerate.getSelectedSensorVelocity(0);
 	}
 	
+	/**
+	 * Gets the encoder velocity of the right accelerate motor
+	 * @return The encoder velocity of the right accelerate motor
+	 */
 	public double getRightAccelerateEncoder() {
 		return rightAccelerate.getSelectedSensorVelocity(0);
 	}
 	
+	/**
+	 * Gets the encoder velocity of the left shoot motor
+	 * @return The encoder velocity of the left shoot motor
+	 */
 	public double getLeftShootEncoder() {
 		return leftShoot.getSelectedSensorVelocity(0);
 	}
 	
+	/**
+	 * Gets the encoder velocity of the right shoot motor
+	 * @return The encoder velocity of the right shoot motor
+	 */
 	public double getRightShootEncoder() {
 		return rightShoot.getSelectedSensorVelocity(0);
 	}
