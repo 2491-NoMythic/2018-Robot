@@ -61,7 +61,7 @@ public class Shooter extends Subsystem {
 	}
 	
 	/**
-	 * Runs the motors used to maintain momentum of and finally launch the Power Cubes from the robot with a given power
+	 * Runs the motors used to maintain momentum of, and finally launch, the Power Cubes from the robot with a given power
 	 * @param power The power fed to the shoot motors
 	 */
 	public void runShoot(double power) {
