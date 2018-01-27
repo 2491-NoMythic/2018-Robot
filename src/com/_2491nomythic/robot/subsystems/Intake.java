@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Intake extends Subsystem {
 	private static Intake instance;
 	private TalonSRX left, right;
-	private Solenoid rightSolenoid, LeftSolenoid; 
+	private Solenoid activateIntakeSolenoid, intakeOpenSolenoid; 
 	
 	public static Intake getInstance() {
 		if (instance == null) {
@@ -28,7 +28,8 @@ public class Intake extends Subsystem {
 	public Intake() {
 		left = new TalonSRX(Constants.intakeTalonLeftChannel);
 		right = new TalonSRX(Constants.intakeTalonRightChannel);
-		
+		activateIntakeSolenoid = new Solenoid(Constants.intakeSolenoidActivateChannel);
+		intakeOpenSolenoid = new Solenoid(Constants.intakeSolenoidOpenChannel);	
 	}
 	
 	/**
@@ -55,6 +56,36 @@ public class Intake extends Subsystem {
 	public void runRightIntake(double speed) {
 		right.set(ControlMode.PercentOutput, speed);
 	}
+	
+	/**
+	 * Sets the intake out of the frame perimeter.
+	 */
+	public void activateIntake() {
+		activateIntakeSolenoid.set(true);
+	}
+	
+	/**
+	 * Sets the intake in the frame perimeter.
+	 */
+	public void retractIntake() {
+		activateIntakeSolenoid.set(false);
+	}
+	
+	/**
+	 * Sets the intake to the open state.
+	 */
+	public void openIntake() {
+		intakeOpenSolenoid.set(true);
+	}
+	
+	/**
+	 * Sets the intake to the closed state.
+	 */
+	public void closeIntake() {
+		intakeOpenSolenoid.set(false);
+	}
+	
+	
 	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
