@@ -1,49 +1,39 @@
-package com._2491nomythic.robot.commands.shooter;
+package com._2491nomythic.robot.commands.intake;
 
 import com._2491nomythic.robot.commands.CommandBase;
-
-import edu.wpi.first.wpilibj.Timer;
+import com._2491nomythic.robot.settings.ControllerMap;
 
 /**
- *Runs the shooter system for a specified amount of time.
+ *Run intake system manually using the axis of operator controller.
  */
-public class RunShooterTime extends CommandBase {
-	private double speed;
-	private double time;
-	private Timer timer;
+public class RunIntakeManual extends CommandBase {
 
 	/**
-	 *Runs the shooter system for a specified amount of time.
+	 * Run intake system manually using the axis of operator controller.
 	 */
-    public RunShooterTime(double speed, double time) {
+    public RunIntakeManual() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(shooter);
-    	
-    	this.speed = speed;
-    	this.time = time;
-    	timer = new Timer();
+    	requires(intake);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	timer.start();
-    	timer.reset();
-    	shooter.run(speed);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	intake.run(oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.intakeAxis, 0.05));
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return timer.get() > time;
+        return false;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	shooter.stop();
+    	intake.stop();
     }
 
     // Called when another command which requires one or more of the same

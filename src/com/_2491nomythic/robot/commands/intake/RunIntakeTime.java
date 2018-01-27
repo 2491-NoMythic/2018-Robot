@@ -1,35 +1,34 @@
-package com._2491nomythic.robot.commands.shooter;
+package com._2491nomythic.robot.commands.intake;
 
 import com._2491nomythic.robot.commands.CommandBase;
 
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *Runs the shooter system for a specified amount of time.
+ * Runs intake motors for a specified amount of time
  */
-public class RunShooterTime extends CommandBase {
-	private double speed;
+public class RunIntakeTime extends CommandBase {
+	private double power;
 	private double time;
 	private Timer timer;
 
 	/**
-	 *Runs the shooter system for a specified amount of time.
+	 * Runs intake motors for a specified amount of time with a specified power
+	 * @param desiredPower The power fed to the intake motors
+	 * @param desiredTime The time for which the intake motors will run
 	 */
-    public RunShooterTime(double speed, double time) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(shooter);
-    	
-    	this.speed = speed;
-    	this.time = time;
-    	timer = new Timer();
+    public RunIntakeTime(double desiredPower, double desiredTime) {
+    	requires(intake);
+        power = desiredPower;
+        time = desiredTime;
+        timer = new Timer();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	timer.start();
     	timer.reset();
-    	shooter.run(speed);
+    	intake.run(power);
+    	timer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -38,12 +37,12 @@ public class RunShooterTime extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return timer.get() > time;
+        return timer.get() >= time;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	shooter.stop();
+    	intake.stop();
     }
 
     // Called when another command which requires one or more of the same

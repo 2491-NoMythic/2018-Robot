@@ -13,7 +13,6 @@ public class CloseIntake extends CommandBase {
     public CloseIntake() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(intake);
     }
 
     // Called just before this Command runs the first time
