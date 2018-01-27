@@ -18,6 +18,10 @@ public class Constants {
 	public static final int driveEncoderCenterChannel2 = 6;
 	public static final int driveEncoderRightChannel1 = 7;
 	public static final int driveEncoderRightChannel2 = 8;
+	
+	//Intake
+	public static final int intakeTalonLeftChannel = 2491; //TODO Change this to an actual talon
+	public static final int intakeTalonRightChannel = 2491; //TODO Change this to an actual talon
 		
 	//Computation
 	public static final double driveEncoderToInches = 1.066 * 2.4 * 1200.0 / 670 / 256; //TODO update for 2018. Currently in 2017 inches.

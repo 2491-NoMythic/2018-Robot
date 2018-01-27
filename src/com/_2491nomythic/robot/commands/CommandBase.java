@@ -12,10 +12,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public abstract class CommandBase extends Command {
 	protected static OI oi;
 	protected static Drivetrain drivetrain;
+	protected static Intake intake;
 	
 	public static void init() {
 		oi = new OI();
+		
 		drivetrain = Drivetrain.getInstance();
+		intake = Intake.getInstance();
+		
 		oi.init();
 		// This MUST be here. If the OI creates Commands (which it very likely
 		// will), constructing it during the construction of CommandBase (from
