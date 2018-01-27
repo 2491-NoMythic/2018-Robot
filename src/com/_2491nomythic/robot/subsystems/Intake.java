@@ -36,16 +36,16 @@ public class Intake extends Subsystem {
 	 * Runs both sides of the intake to intake Power Cubes.
 	 * @param speed The speed that the motors will run at.
 	 */
-	public void runIntake(double speed) {
-		runLeftIntake(speed);
-		runRightIntake(speed);
+	public void run(double speed) {
+		runLeft(speed);
+		runRight(speed);
 	}
 	
 	/**
 	 * Runs the left side of the intake to intake Power Cubes.
 	 * @param speed The speed that the motors will run at.
 	 */
-	public void runLeftIntake(double speed) {
+	public void runLeft(double speed) {
 		left.set(ControlMode.PercentOutput, speed);
 	}
 	
@@ -53,35 +53,35 @@ public class Intake extends Subsystem {
 	 * Runs the right side of the intake to intake Power Cubes.
 	 * @param speed the speed that the motors will run at.
 	 */
-	public void runRightIntake(double speed) {
+	public void runRight(double speed) {
 		right.set(ControlMode.PercentOutput, speed);
 	}
 	
 	/**
 	 * Sets the intake out of the frame perimeter.
 	 */
-	public void activateIntake() {
+	public void activate() {
 		activateIntakeSolenoid.set(true);
 	}
 	
 	/**
 	 * Sets the intake in the frame perimeter.
 	 */
-	public void retractIntake() {
+	public void retract() {
 		activateIntakeSolenoid.set(false);
 	}
 	
 	/**
 	 * Sets the intake to the open state.
 	 */
-	public void openIntake() {
+	public void open() {
 		intakeOpenSolenoid.set(true);
 	}
 	
 	/**
 	 * Sets the intake to the closed state.
 	 */
-	public void closeIntake() {
+	public void close() {
 		intakeOpenSolenoid.set(false);
 	}
 	
