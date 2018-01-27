@@ -41,20 +41,20 @@ public class Shooter extends Subsystem {
 	
 	/**
 	 * Runs the motors used to initially speed up Power Cubes within the robot, readying them for launch, with a given power
-	 * @param power The power fed to the accelerate motors
+	 * @param speed The speed in RPM that the motors are supposed to run at.
 	 */
-	public void runAccelerate(double power) {
-		leftAccelerate.set(ControlMode.PercentOutput, power);
-		rightAccelerate.set(ControlMode.PercentOutput, power);
+	public void runAccelerate(double speed) {
+		leftAccelerate.set(ControlMode.Velocity, speed / Constants.encoderTicsToRPM);
+		rightAccelerate.set(ControlMode.Velocity, speed / Constants.encoderTicsToRPM);
 	}
 	
 	/**
 	 * Runs the motors used to maintain momentum of, and finally launch, the Power Cubes from the robot with a given power
-	 * @param power The power fed to the shoot motors
+	 * @param speed The speed in RPM that the motors are supposed to run at.
 	 */
-	public void runShoot(double power) {
-		leftShoot.set(ControlMode.PercentOutput, power);
-		rightShoot.set(ControlMode.PercentOutput, power);
+	public void runShoot(double speed) {
+		leftShoot.set(ControlMode.Velocity, speed / Constants.encoderTicsToRPM);
+		rightShoot.set(ControlMode.Velocity, speed / Constants.encoderTicsToRPM);
 	}
 	
 	
@@ -66,7 +66,7 @@ public class Shooter extends Subsystem {
 	 * @return The encoder velocity of the left accelerate motor
 	 */
 	public double getLeftAccelerateEncoder() {
-		return leftAccelerate.getSelectedSensorVelocity(0);
+		return leftAccelerate.getSelectedSensorVelocity(0) * Constants.encoderTicsToRPM;
 	}
 	
 	/**
@@ -74,7 +74,7 @@ public class Shooter extends Subsystem {
 	 * @return The encoder velocity of the right accelerate motor
 	 */
 	public double getRightAccelerateEncoder() {
-		return rightAccelerate.getSelectedSensorVelocity(0);
+		return rightAccelerate.getSelectedSensorVelocity(0) * Constants.encoderTicsToRPM;
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class Shooter extends Subsystem {
 	 * @return The encoder velocity of the left shoot motor
 	 */
 	public double getLeftShootEncoder() {
-		return leftShoot.getSelectedSensorVelocity(0);
+		return leftShoot.getSelectedSensorVelocity(0) * Constants.encoderTicsToRPM;
 	}
 	
 	/**
@@ -90,7 +90,7 @@ public class Shooter extends Subsystem {
 	 * @return The encoder velocity of the right shoot motor
 	 */
 	public double getRightShootEncoder() {
-		return rightShoot.getSelectedSensorVelocity(0);
+		return rightShoot.getSelectedSensorVelocity(0) * Constants.encoderTicsToRPM;
 	}
 	
 
