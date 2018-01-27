@@ -110,5 +110,11 @@ public class Shooter extends Subsystem {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+    
+    public void stop() {
+    	runHold(0);
+    	runAccelerate(0);
+    	runShoot(0);
+    }
 }
 
