@@ -28,11 +28,11 @@ public class LeftPrioritizeScale extends CommandBase {
     	timer = new Timer();
     	delay = new Timer();
     	crossLine = new CrossAutoLine();
-    	turnTowardsSwitchOrScale = new RotateDrivetrainWithGyroPID(90, false);
+    	turnTowardsSwitchOrScale = new RotateDrivetrainWithGyroPID(-90, false);
     	driveToScale = new DriveStraightToPositionPID(323.6);
     	driveToSwitch = new DriveStraightToPositionPID(168);
-    	approachScale = new DriveStraightToPositionPID(-44);
-    	approachSwitch = new DriveStraightToPositionPID(42);
+    	approachScale = new DriveStraightToPositionPID(44);
+    	approachSwitch = new DriveStraightToPositionPID(-42);
     }
 
     // Called just before this Command runs the first time
