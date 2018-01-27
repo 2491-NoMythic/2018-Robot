@@ -5,6 +5,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Shooter extends Subsystem {
 	private static Shooter instance;
 	private TalonSRX leftAccelerate, rightAccelerate, leftShoot, rightShoot;
+	private Solenoid elevator;
 	
 	public static Shooter getInstance() {
 		if (instance == null) {
@@ -29,6 +31,8 @@ public class Shooter extends Subsystem {
 		rightAccelerate = new TalonSRX(Constants.shooterTalonRightAccelerateChannel);
 		leftShoot = new TalonSRX(Constants.shooterTalonLeftShootChannel);
 		rightShoot = new TalonSRX(Constants.shooterTalonRightShootChannel);
+		
+		elevator = new Solenoid(Constants.shooterElevatorChannel);
 		
 		leftAccelerate.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		rightAccelerate.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
@@ -102,6 +106,13 @@ public class Shooter extends Subsystem {
 		return rightShoot.getSelectedSensorVelocity(0) * Constants.encoderTicsToRPM;
 	}
 	
+	public void raiseShooter() {
+		elevator.set(true);
+	}
+	
+	public void lowerShooter() {
+		elevator.set(false);
+	}
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
