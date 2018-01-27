@@ -13,12 +13,14 @@ public abstract class CommandBase extends Command {
 	protected static OI oi;
 	protected static Drivetrain drivetrain;
 	protected static Intake intake;
+	protected static Shooter shooter;
 	
 	public static void init() {
 		oi = new OI();
 		
 		drivetrain = Drivetrain.getInstance();
 		intake = Intake.getInstance();
+		shooter = Shooter.getInstance();
 		
 		oi.init();
 		// This MUST be here. If the OI creates Commands (which it very likely

@@ -22,6 +22,14 @@ public class Constants {
 	//Intake
 	public static final int intakeTalonLeftChannel = 2491; //TODO Change this to an actual talon
 	public static final int intakeTalonRightChannel = 2491; //TODO Change this to an actual talon
+	
+	//Shooter
+	public static final int shooterTalonLeftHoldChannel = 2491; //TODO Change this to an actual talon
+	public static final int shooterTalonLeftAccelerateChannel = 2491; //TODO Change this to an actual talon
+	public static final int shooterTalonLeftShootChannel = 2491; //TODO Change this to an actual talon
+	public static final int shooterTalonRightHoldChannel = 2491; //TODO Change this to an actual talon
+	public static final int shooterTalonRightAccelerateChannel = 2491; //TODO Change this to an actual talon
+	public static final int shooterTalonRightShootChannel = 2491; //TODO Change this to an actual talon
 		
 	//Computation
 	public static final double driveEncoderToInches = 1.066 * 2.4 * 1200.0 / 670 / 256; //TODO update for 2018. Currently in 2017 inches.
