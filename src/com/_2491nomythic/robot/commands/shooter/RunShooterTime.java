@@ -2,25 +2,34 @@ package com._2491nomythic.robot.commands.shooter;
 
 import com._2491nomythic.robot.commands.CommandBase;
 
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.command.Command;
+
 /**
- *Runs the shooter system.
+ *Runs the shooter system for a specified amount of time.
  */
-public class RunShooter extends CommandBase {
-	public double speed;
+public class RunShooterTime extends CommandBase {
+	private double speed;
+	private double time;
+	private Timer timer;
 
 	/**
-	 * Runs the shooter system.
-	 * @param speed the speed at which to set the motors.
+	 *Runs the shooter system for a specified amount of time.
 	 */
-    public RunShooter(double speed) {
+    public RunShooterTime(double speed, double time) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(shooter);
+    	
     	this.speed = speed;
+    	this.time = time;
+    	timer = new Timer();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	timer.start();
+    	timer.reset();
     	shooter.run(speed);
     }
 
@@ -30,7 +39,7 @@ public class RunShooter extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return timer.get() > time;
     }
 
     // Called once after isFinished returns true
@@ -41,6 +50,6 @@ public class RunShooter extends CommandBase {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	shooter.stop();
+    	end();
     }
 }

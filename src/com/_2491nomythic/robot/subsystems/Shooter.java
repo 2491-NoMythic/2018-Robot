@@ -57,6 +57,15 @@ public class Shooter extends Subsystem {
 		rightShoot.set(ControlMode.Velocity, speed / Constants.encoderTicsToRPM);
 	}
 	
+	/**
+	 * 
+	 * @param speed Speed to set the motors in RPM
+	 */
+	public void run(double speed) {
+		runAccelerate(speed);
+		runShoot(speed);
+	}
+	
 	
 	//Encoders
 	
