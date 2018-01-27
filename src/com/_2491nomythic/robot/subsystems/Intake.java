@@ -85,6 +85,13 @@ public class Intake extends Subsystem {
 		intakeOpenSolenoid.set(false);
 	}
 	
+	/**
+	 * Stops the intake process.
+	 */
+	public void stop() {
+		run(0);
+	}
+	
 	
 	
     // Put methods for controlling this subsystem
