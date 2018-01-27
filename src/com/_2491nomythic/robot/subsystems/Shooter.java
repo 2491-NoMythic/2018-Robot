@@ -72,21 +72,6 @@ public class Shooter extends Subsystem {
 	
 	//Encoders
 	
-	/**
-	 * Gets the encoder velocity of the left hold motor
-	 * @return The encoder velocity of the left hold motor
-	 */
-	public double getLeftHoldEncoder() {
-		return leftHold.getSelectedSensorVelocity(0);
-	}
-	
-	/**
-	 * Gets the encoder velocity of the right hold motor
-	 * @return The encoder velocity of the right hold motor
-	 */
-	public double getRightHoldEncoder() {
-		return rightHold.getSelectedSensorVelocity(0);
-	}
 	
 	/**
 	 * Gets the encoder velocity of the left accelerate motor
