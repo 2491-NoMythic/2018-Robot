@@ -7,9 +7,9 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  *Runs cube storage system for specified period of time at specified speed.
  */
-public class RunCubeStorageTime extends CommandBase {
-	public double speed;
-	public double time;
+public class TransportCubeTime extends CommandBase {
+	private double speed;
+	private double time;
 	Timer timer;
 
 	/**
@@ -17,7 +17,7 @@ public class RunCubeStorageTime extends CommandBase {
 	 * @param speed the speed at which the cube storage system runs.
 	 * @param time the time for which the cube storage system runs.
 	 */
-    public RunCubeStorageTime(double speed, double time) {
+    public TransportCubeTime(double speed, double time) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(cubeStorage);
