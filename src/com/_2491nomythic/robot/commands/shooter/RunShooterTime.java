@@ -3,7 +3,6 @@ package com._2491nomythic.robot.commands.shooter;
 import com._2491nomythic.robot.commands.CommandBase;
 
 import edu.wpi.first.wpilibj.Timer;
-import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *Runs the shooter system for a specified amount of time.
