@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Shooter extends Subsystem {
 	private static Shooter instance;
-	private TalonSRX leftHold, rightHold, leftAccelerate, rightAccelerate, leftShoot, rightShoot;
+	private TalonSRX leftAccelerate, rightAccelerate, leftShoot, rightShoot;
 	
 	public static Shooter getInstance() {
 		if (instance == null) {
@@ -25,15 +25,11 @@ public class Shooter extends Subsystem {
 	 * The system of motors and encoders that is used to launch Power Cubes from the robot into the Switch and Scale
 	 */
 	private Shooter() {
-		leftHold = new TalonSRX(Constants.shooterTalonLeftHoldChannel);
-		rightHold = new TalonSRX(Constants.shooterTalonRightHoldChannel);
 		leftAccelerate = new TalonSRX(Constants.shooterTalonLeftAccelerateChannel);
 		rightAccelerate = new TalonSRX(Constants.shooterTalonRightAccelerateChannel);
 		leftShoot = new TalonSRX(Constants.shooterTalonLeftShootChannel);
 		rightShoot = new TalonSRX(Constants.shooterTalonRightShootChannel);
 		
-		leftHold.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		rightHold.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		leftAccelerate.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		rightAccelerate.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		leftShoot.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
@@ -42,14 +38,6 @@ public class Shooter extends Subsystem {
 	
 	
 	//Motors
-	/**
-	 * Runs the motors used to hold and manipulate Power Cubes within the robot with a given power
-	 * @param power The power fed to the hold motors
-	 */
-	public void runHold(double power) {
-		leftHold.set(ControlMode.PercentOutput, power);
-		rightHold.set(ControlMode.PercentOutput, power);
-	}
 	
 	/**
 	 * Runs the motors used to initially speed up Power Cubes within the robot, readying them for launch, with a given power
@@ -112,7 +100,6 @@ public class Shooter extends Subsystem {
     }
     
     public void stop() {
-    	runHold(0);
     	runAccelerate(0);
     	runShoot(0);
     }
