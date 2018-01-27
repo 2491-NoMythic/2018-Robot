@@ -14,6 +14,7 @@ public abstract class CommandBase extends Command {
 	protected static Drivetrain drivetrain;
 	protected static Intake intake;
 	protected static Shooter shooter;
+	protected static CubeStorage cubeStorage;
 	
 	public static void init() {
 		oi = new OI();
@@ -21,6 +22,7 @@ public abstract class CommandBase extends Command {
 		drivetrain = Drivetrain.getInstance();
 		intake = Intake.getInstance();
 		shooter = Shooter.getInstance();
+		cubeStorage = CubeStorage.getInstance();
 		
 		oi.init();
 		// This MUST be here. If the OI creates Commands (which it very likely
