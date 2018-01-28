@@ -13,6 +13,9 @@ public class KillSwitch extends CommandBase {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(drivetrain);
+    	requires(cubeStorage);
+    	requires(shooter);
+    	requires(intake);
     }
 
     // Called just before this Command runs the first time
