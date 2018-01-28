@@ -130,13 +130,27 @@ public class Shooter extends Subsystem {
 		return (getShootVelocity() + getAccelerateVelocity())/2;
 	}
 	
+	//Solenoid
 	
+	/**
+	 * Raises the shooter to shoot Power Cubes into the scale
+	 */
 	public void raiseShooter() {
 		elevator.set(true);
 	}
-	
+	/**
+	 * Lowers the shooter to shoot Power Cubes into the switch
+	 */
 	public void lowerShooter() {
 		elevator.set(false);
+	}
+	
+	/**
+	 * Checks whether the shooter is raised
+	 * @return The status of whether the shooter is raised
+	 */
+	public boolean isRaised() {
+		return elevator.get();
 	}
 
     public void initDefaultCommand() {

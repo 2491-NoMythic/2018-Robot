@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class AutomaticShoot extends CommandBase {
 	private int state;
 	private Timer timer;
-	private boolean scale;
+	private boolean scale, wasRaised;
 
 	/**
 	 * Shoots a cube from the CubeStorage automatically.
@@ -21,7 +21,6 @@ public class AutomaticShoot extends CommandBase {
         // eg. requires(chassis);
     	requires(shooter);
     	requires(cubeStorage);
-    	
     	this.scale = scale;
     	timer = new Timer();
     }
@@ -36,22 +35,52 @@ public class AutomaticShoot extends CommandBase {
     	switch(state) {
     	case 0:
     		if(scale) {
-    			shooter.raiseShooter();
+    			if(!shooter.isRaised()) {
+    				shooter.raiseShooter();
+    			}
+    			else {
+    				wasRaised = true;
+    			}
+    			
     		}
     		else {
-    			shooter.lowerShooter();
+    			if(shooter.isRaised()) {
+    				shooter.lowerShooter();
+    			}
+    			else {
+    				wasRaised = false;
+    			}
     		}
     		
     		timer.start();
     		state++;
     		break;
     	case 1:
-    		if(timer.get() > Constants.timeForShooterToSpinUp && timer.get() > Constants.timeForShooterToRaise) {
+    		if((scale && wasRaised) || (!scale && !wasRaised)) {
+    			if (scale) {
+    				shooter.run(Constants.shooterScaleSpeed);
+    			}
+    			else {
+    				shooter.run(Constants.shooterSwitchSpeed);
+    			}
+    			state++;
+    		}
+    		else if (timer.get() > Constants.timeForShooterToRaise) {
+    			if (scale) {
+    				shooter.run(Constants.shooterScaleSpeed);
+    			}
+    			else {
+    				shooter.run(Constants.shooterSwitchSpeed);
+    			}
+    			state++;
+    		}
+    		
+    		break;
+    	case 2:
+    		if(timer.get() > Constants.timeForShooterToSpinUp) {
     			cubeStorage.run(1);
     			state++;
     		}
-    		break;
-    	case 2:
     		break;
     	default:
     		System.out.println("Unexpected state in AutomaticShoot. State: " + state);
