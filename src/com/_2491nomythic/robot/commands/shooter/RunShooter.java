@@ -3,13 +3,13 @@ package com._2491nomythic.robot.commands.shooter;
 import com._2491nomythic.robot.commands.CommandBase;
 
 /**
- *Runs the shooter system.
+ *Runs the shooter system at a specified speed
  */
 public class RunShooter extends CommandBase {
 	public double speed;
 
 	/**
-	 * Runs the shooter system.
+	 * Runs the shooter system at a specified speed
 	 * @param speed the speed at which to set the motors.
 	 */
     public RunShooter(double speed) {

@@ -197,14 +197,26 @@ public class Drivetrain extends PIDSubsystem {
 		return gyro.getAngle();
 	}
 	
+	/**
+	 * Gets the lead left talon
+	 * @return The lead left talon
+	 */
 	public TalonSRX getLeftTalon() {
 		return left1;
 	}
 	
+	/**
+	 * Gets the lead right talon
+	 * @return The lead right talon
+	 */
 	public TalonSRX getRightTalon() {
 		return right1;
 	}
 	
+	/**
+	 * Gets the drivetrain gyro
+	 * @return The drivetrain gyro
+	 */
 	public AHRS getGyro() {
 		return gyro;
 	}
@@ -238,6 +250,10 @@ public class Drivetrain extends PIDSubsystem {
     	}
     }
     
+    /**
+     * Gets the value of the current PID output
+     * @return The current PID output
+     */
     public double getPIDOutput() {
     	return currentPIDOutput;
     }

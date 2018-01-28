@@ -158,6 +158,9 @@ public class Shooter extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     
+    /**
+     * Stops all motors within the shooter subsystem
+     */
     public void stop() {
     	runAccelerate(0);
     	runShoot(0);

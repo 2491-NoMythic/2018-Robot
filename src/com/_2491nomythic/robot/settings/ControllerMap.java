@@ -1,7 +1,7 @@
 package com._2491nomythic.robot.settings;
 
 /**
- * This class contains all data relating to controllers to keep it in a centralised and clean location
+ * Contains all variables affecting use of controllers, to keep it in a centralised and clean location
  */
 public class ControllerMap {
 	

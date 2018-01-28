@@ -34,7 +34,7 @@ public class Intake extends Subsystem {
 	}
 	
 	/**
-	 * Runs both sides of the intake to intake Power Cubes.
+	 * Runs both sides of the intake to retrieve Power Cubes.
 	 * @param speed The speed that the motors will run at.
 	 */
 	public void run(double speed) {
@@ -43,7 +43,7 @@ public class Intake extends Subsystem {
 	}
 	
 	/**
-	 * Runs the left side of the intake to intake Power Cubes.
+	 * Runs the left side of the intake to retrieve Power Cubes.
 	 * @param speed The speed that the motors will run at.
 	 */
 	public void runLeft(double speed) {
@@ -51,7 +51,7 @@ public class Intake extends Subsystem {
 	}
 	
 	/**
-	 * Runs the right side of the intake to intake Power Cubes.
+	 * Runs the right side of the intake to retrieve Power Cubes.
 	 * @param speed the speed that the motors will run at.
 	 */
 	public void runRight(double speed) {
@@ -87,7 +87,7 @@ public class Intake extends Subsystem {
 	}
 	
 	/**
-	 * Stops the intake process.
+	 * Stops the intake motors.
 	 */
 	public void stop() {
 		run(0);

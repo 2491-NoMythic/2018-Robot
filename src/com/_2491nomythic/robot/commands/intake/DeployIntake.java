@@ -3,12 +3,12 @@ package com._2491nomythic.robot.commands.intake;
 import com._2491nomythic.robot.commands.CommandBase;
 
 /**
- * Deploys the intake
+ * Deploys the intake from the robot
  */
 public class DeployIntake extends CommandBase {
 
 	/**
-	 * Deploys the intake
+	 * Deploys the intake from the robot
 	 */
     public DeployIntake() {
         // Use requires() here to declare subsystem dependencies

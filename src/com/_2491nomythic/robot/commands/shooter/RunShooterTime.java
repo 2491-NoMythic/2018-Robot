@@ -5,7 +5,7 @@ import com._2491nomythic.robot.commands.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *Runs the shooter system for a specified amount of time.
+ *Runs the shooter system for a specified amount of time, and at a specified speed
  */
 public class RunShooterTime extends CommandBase {
 	private double speed;
@@ -13,7 +13,7 @@ public class RunShooterTime extends CommandBase {
 	private Timer timer;
 
 	/**
-	 *Runs the shooter system for a specified amount of time.
+	 *Runs the shooter system for a specified amount of time, and at a specified speed
 	 */
     public RunShooterTime(double speed, double time) {
         // Use requires() here to declare subsystem dependencies

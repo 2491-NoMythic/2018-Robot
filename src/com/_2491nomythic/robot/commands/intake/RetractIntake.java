@@ -3,12 +3,12 @@ package com._2491nomythic.robot.commands.intake;
 import com._2491nomythic.robot.commands.CommandBase;
 
 /**
- * Retracts the shooter into the robot
+ * Retracts the intake into the robot
  */
 public class RetractIntake extends CommandBase {
 
 	/**
-	 * Retracts the shooter into the robot
+	 * Retracts the intake into the robot
 	 */
     public RetractIntake() {
         // Use requires() here to declare subsystem dependencies
