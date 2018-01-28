@@ -78,7 +78,7 @@ public class Shooter extends Subsystem {
 	 * Gets the encoder velocity of the left accelerate motor
 	 * @return The encoder velocity of the left accelerate motor in RPM
 	 */
-	public double getLeftAccelerateEncoder() {
+	public double getLeftAccelerateVelocity() {
 		return leftAccelerate.getSelectedSensorVelocity(0) * Constants.encoderTicsToRPM;
 	}
 	
@@ -86,7 +86,7 @@ public class Shooter extends Subsystem {
 	 * Gets the encoder velocity of the right accelerate motor
 	 * @return The encoder velocity of the right accelerate motor in RPM
 	 */
-	public double getRightAccelerateEncoder() {
+	public double getRightAccelerateVelocity() {
 		return rightAccelerate.getSelectedSensorVelocity(0) * Constants.encoderTicsToRPM;
 	}
 	
@@ -94,7 +94,7 @@ public class Shooter extends Subsystem {
 	 * Gets the encoder velocity of the left shoot motor
 	 * @return The encoder velocity of the left shoot motor in RPM
 	 */
-	public double getLeftShootEncoder() {
+	public double getLeftShootVelocity() {
 		return leftShoot.getSelectedSensorVelocity(0) * Constants.encoderTicsToRPM;
 	}
 	
@@ -102,9 +102,34 @@ public class Shooter extends Subsystem {
 	 * Gets the encoder velocity of the right shoot motor
 	 * @return The encoder velocity of the right shoot motor in RPM
 	 */
-	public double getRightShootEncoder() {
+	public double getRightShootVelocity() {
 		return rightShoot.getSelectedSensorVelocity(0) * Constants.encoderTicsToRPM;
 	}
+	
+	/**
+	 * Gets the average encoder velocity of the two accelerate motors
+	 * @return The average encoder velocity of the accelerate motors
+	 */
+	public double getAccelerateVelocity() {
+		return (getLeftAccelerateVelocity() + getRightAccelerateVelocity())/2;
+	}
+	
+	/**
+	 * Gets the average encoder velocity of the two shoot motors
+	 * @return The average encoder velocity of the shoot motors
+	 */
+	public double getShootVelocity() {
+		return (getLeftShootVelocity() + getRightShootVelocity())/2;
+	}
+	
+	/**
+	 * Gets the average encoder velocity of all motors within the shooter subsystem
+	 * @return The average encoder velocity of all shooter motors
+	 */
+	public double getAllMotorVelocity() {
+		return (getShootVelocity() + getAccelerateVelocity())/2;
+	}
+	
 	
 	public void raiseShooter() {
 		elevator.set(true);

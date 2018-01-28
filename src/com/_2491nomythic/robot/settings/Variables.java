@@ -19,5 +19,9 @@ public class Variables {
 	
 	public static double autoDelay;
 	public static boolean useGyroPID;
+	
+	//Shooter
+	public static boolean accelerateReady;
+	public static boolean shootReady;
 
 }
