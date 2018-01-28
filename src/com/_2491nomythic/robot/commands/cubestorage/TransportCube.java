@@ -3,16 +3,16 @@ package com._2491nomythic.robot.commands.cubestorage;
 import com._2491nomythic.robot.commands.CommandBase;
 
 /**
- *Runs cube storage system.
+ *Runs cube storage system at a specified speed
  */
-public class RunCubeStorage extends CommandBase {
+public class TransportCube extends CommandBase {
 	public double speed;
 
 	/**
-	 * Runs cube storage system.
+	 * Runs cube storage system at a specified speed
 	 * @param speed speed at which the cube storage system motors run.
 	 */
-    public RunCubeStorage(double speed) {
+    public TransportCube(double speed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	this.speed = speed;
