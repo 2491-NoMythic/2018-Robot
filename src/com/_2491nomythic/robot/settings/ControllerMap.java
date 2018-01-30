@@ -13,5 +13,6 @@ public class ControllerMap {
 	public static final int driveMainAxis = 1;
 	public static final int intakeAxis = 3;
 	public static final int shooterAxis = 4;
+	public static final int cubeStorageAxis = 1;
 
 }
