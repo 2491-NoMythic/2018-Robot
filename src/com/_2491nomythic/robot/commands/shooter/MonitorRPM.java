@@ -39,6 +39,9 @@ public class MonitorRPM extends CommandBase {
     		else {
     			Variables.shootReady = false;
     		}
+    		if (Variables.accelerateReady && Variables.shootReady) {
+    			Variables.readyToFire = true;
+    		}
     	}
     }
 

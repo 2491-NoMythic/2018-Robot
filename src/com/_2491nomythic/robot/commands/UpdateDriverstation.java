@@ -44,7 +44,7 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putNumber("Current PID Input", drivetrain.returnPIDInput());
 			SmartDashboard.putNumber("Left Shooter Speed", shooter.getLeftShootVelocity());
 			SmartDashboard.putNumber("Right Shooter Speed", shooter.getRightShootVelocity());
-			SmartDashboard.putBoolean("Shooter Ready To Fire", Variables.accelerateReady && Variables.shootReady);
+			SmartDashboard.putBoolean("Shooter Ready To Fire", Variables.readyToFire);
 		}
 			
     	

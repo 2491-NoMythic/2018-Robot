@@ -82,13 +82,13 @@ public class AutomaticShoot extends CommandBase {
     		break;
     	case 2:
     		if (Robot.isTeleop) {
-    			if(timer.get() > Constants.timeForShooterToSpinUp && oi.getButton(ControllerMap.driveController, ControllerMap.driverShootButton)) {
+    			if(Variables.readyToFire && oi.getButton(ControllerMap.driveController, ControllerMap.driverShootButton)) {
     				cubeStorage.run(1);
     				state++;
     			}
     		}
     		else {
-    			if(timer.get() > Constants.timeForShooterToSpinUp) {
+    			if(Variables.readyToFire) {
     				cubeStorage.run(1);
     				state++;
     			}
