@@ -7,12 +7,12 @@ import com._2491nomythic.robot.settings.ControllerMap;
 /**
  *Allows the cube storage to be run manually by the codriver.
  */
-public class CubeStorageManual extends CommandBase {
+public class TransportCubeManual extends CommandBase {
 	private double currentSpeed;
 	/**
 	 *Allows the cube storage to be run manually by the codriver.
 	 */
-    public CubeStorageManual() {
+    public TransportCubeManual() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(cubeStorage);
