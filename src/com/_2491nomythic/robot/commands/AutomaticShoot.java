@@ -1,6 +1,7 @@
 package com._2491nomythic.robot.commands;
 
 import com._2491nomythic.robot.settings.Constants;
+import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -53,12 +54,13 @@ public class AutomaticShoot extends CommandBase {
     		}
     		
     		timer.start();
+    		timer.reset();
     		state++;
     		break;
     	case 1:
     		if((scale && wasRaised) || (!scale && !wasRaised)) {
     			if (scale) {
-    				shooter.run(Constants.shooterMediumScaleSpeed);
+    				shooter.run(Variables.shooterSpeed);
     			}
     			else {
     				shooter.run(Constants.shooterSwitchSpeed);
@@ -67,7 +69,7 @@ public class AutomaticShoot extends CommandBase {
     		}
     		else if (timer.get() > Constants.timeForShooterToRaise) {
     			if (scale) {
-    				shooter.run(Constants.shooterMediumScaleSpeed);
+    				shooter.run(Variables.shooterSpeed);
     			}
     			else {
     				shooter.run(Constants.shooterSwitchSpeed);

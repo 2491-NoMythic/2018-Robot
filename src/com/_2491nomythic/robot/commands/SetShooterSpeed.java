@@ -6,13 +6,13 @@ import com._2491nomythic.robot.settings.Variables;
  *Sets the shooter power based on scale height.
  */
 public class SetShooterSpeed extends CommandBase {
-	public int shooterSpeed;
+	public double shooterSpeed;
 
 	/**
 	 * Sets the shooter power based on scale height.
 	 * @param shooterSpeed the height the scale is at during the time of the launch.
 	 */
-    public SetShooterSpeed(int shooterSpeed) {
+    public SetShooterSpeed(double shooterSpeed) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	

@@ -23,6 +23,6 @@ public class Variables {
 	//Shooter
 	public static boolean accelerateReady;
 	public static boolean shootReady;
-	public static int shooterSpeed;
+	public static double shooterSpeed = Constants.shooterMediumScaleSpeed;
 
 }
