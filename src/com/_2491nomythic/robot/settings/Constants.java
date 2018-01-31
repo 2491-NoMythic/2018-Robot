@@ -33,8 +33,10 @@ public class Constants {
 	public static final int shooterElevatorChannel = 12;
 	public static final int timeForShooterToSpinUp = 2;
 	public static final int timeForShooterToRaise = 4;
-	public static final double shooterScaleSpeed = 1; //TODO Find an actual value for this
-	public static final double shooterSwitchSpeed = .5; //TODO Find an actual value for this
+	public static final double shooterHighScaleSpeed = 1; //TODO Find an actual value for this
+	public static final double shooterMediumScaleSpeed = .8; //TODO Find an actual value for this
+	public static final double shooterLowScaleSpeed = .6; //TODO Find an actual value for this
+	public static final double shooterSwitchSpeed = .3; //TODO Find an actual value for this
 	
 	//CubeStorage
 	public static final int cubeStorageTalonLeftChannel = 2491; //TODO Change this to an actual talon
