@@ -24,6 +24,8 @@ import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.robot.commands.drivetrain.TuneDerivative;
 import com._2491nomythic.robot.commands.drivetrain.TuneProportional;
 import com._2491nomythic.robot.commands.drivetrain.TuneProportionalMultiClass;
+import com._2491nomythic.robot.commands.lights.TeleopLights;
+import com._2491nomythic.robot.commands.shooter.MonitorRPM;
 import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -43,6 +45,8 @@ public class Robot extends TimedRobot {
 
 	Command m_autonomousCommand;
 	UpdateDriverstation updateDriverstation;
+	TeleopLights lights;
+	MonitorRPM monitorRPM;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
 	public static boolean isTeleop;
@@ -55,7 +59,11 @@ public class Robot extends TimedRobot {
 	public void robotInit() { 
 		CommandBase.init();
 		updateDriverstation = new UpdateDriverstation();
+		monitorRPM = new MonitorRPM();
+		lights = new TeleopLights();
 		updateDriverstation.start();
+		lights.start();
+		monitorRPM.start();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		m_chooser.addObject("Cross Auto Line", new CrossAutoLine());
 		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
@@ -144,6 +152,7 @@ public class Robot extends TimedRobot {
 		}
 		
 		isTeleop = true;
+		
 	}
 
 	/**

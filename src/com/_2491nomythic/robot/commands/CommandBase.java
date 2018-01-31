@@ -15,6 +15,7 @@ public abstract class CommandBase extends Command {
 	protected static Intake intake;
 	protected static Shooter shooter;
 	protected static CubeStorage cubeStorage;
+	protected static Lights lights;
 	
 	public static void init() {
 		oi = new OI();
@@ -23,6 +24,7 @@ public abstract class CommandBase extends Command {
 		intake = Intake.getInstance();
 		shooter = Shooter.getInstance();
 		cubeStorage = CubeStorage.getInstance();
+		lights = Lights.getInstance();
 		
 		oi.init();
 		// This MUST be here. If the OI creates Commands (which it very likely
@@ -33,6 +35,7 @@ public abstract class CommandBase extends Command {
 		
 		// Show what command your subsystem is running on the SmartDashboard
 		SmartDashboard.putData(drivetrain);
+		SmartDashboard.putData(lights);
 	}
 	
 	/**

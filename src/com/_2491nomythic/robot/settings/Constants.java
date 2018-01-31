@@ -38,6 +38,9 @@ public class Constants {
 	public static final double shooterLowScaleSpeed = .6; //TODO Find an actual value for this
 	public static final double shooterSwitchSpeed = .3; //TODO Find an actual value for this
 	
+	//Lights
+	public static final int lightIC2Channel = 1;
+	
 	//CubeStorage
 	public static final int cubeStorageTalonLeftChannel = 2491; //TODO Change this to an actual talon
 	public static final int cubeStorageTalonRightChannel = 2491; //TODO Change this to an actual talon
