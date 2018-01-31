@@ -7,14 +7,14 @@ import com._2491nomythic.robot.settings.Variables;
  * Keeps track of the readiness of shooter motors for firing consistently
  */
 public class MonitorRPM extends CommandBase {
-	private double tolerance, minRPM;
+	private double tolerance, targetRPM;
 
 	/**
 	 * Keeps track of the readiness of shooter motors for firing consistently
 	 */
     public MonitorRPM() {
     	tolerance = 5; //TODO Find a reasonable tolerance value for checking shooter motor RPM
-    	minRPM = 2491; //TODO Find the minimum RPM needed to shoot into the scale
+    	targetRPM = Variables.shooterSpeed;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -25,7 +25,7 @@ public class MonitorRPM extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (shooter.getAllMotorVelocity() < minRPM) {
+    	if (shooter.getAllMotorVelocity() >= targetRPM) {
     		if (((shooter.getLeftAccelerateVelocity() + tolerance) > shooter.getRightAccelerateVelocity()) && ((shooter.getLeftAccelerateVelocity() - tolerance) < shooter.getRightAccelerateVelocity())) {
     			Variables.accelerateReady = true;
     		}
