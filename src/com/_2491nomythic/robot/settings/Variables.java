@@ -23,5 +23,6 @@ public class Variables {
 	//Shooter
 	public static boolean accelerateReady;
 	public static boolean shootReady;
+	public static int shooterSpeed;
 
 }
