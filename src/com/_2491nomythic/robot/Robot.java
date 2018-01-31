@@ -44,6 +44,8 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	UpdateDriverstation updateDriverstation;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	
+	public static boolean isTeleop;
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -83,7 +85,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
-
+		isTeleop = false;
 	}
 
 	@Override
@@ -119,6 +121,8 @@ public class Robot extends TimedRobot {
 		if (m_autonomousCommand != null) {
 			m_autonomousCommand.start();
 		}
+		
+		isTeleop = false;
 	}
 
 	/**
@@ -139,6 +143,7 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		
+		isTeleop = true;
 	}
 
 	/**

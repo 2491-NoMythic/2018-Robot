@@ -1,6 +1,8 @@
 package com._2491nomythic.robot.commands;
 
+import com._2491nomythic.robot.Robot;
 import com._2491nomythic.robot.settings.Constants;
+import com._2491nomythic.robot.settings.ControllerMap;
 import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -79,9 +81,17 @@ public class AutomaticShoot extends CommandBase {
     		
     		break;
     	case 2:
-    		if(timer.get() > Constants.timeForShooterToSpinUp) {
-    			cubeStorage.run(1);
-    			state++;
+    		if (Robot.isTeleop) {
+    			if(timer.get() > Constants.timeForShooterToSpinUp && oi.getButton(ControllerMap.driveController, ControllerMap.driverShootButton)) {
+    				cubeStorage.run(1);
+    				state++;
+    			}
+    		}
+    		else {
+    			if(timer.get() > Constants.timeForShooterToSpinUp) {
+    				cubeStorage.run(1);
+    				state++;
+    			}
     		}
     		break;
     	default:
