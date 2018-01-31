@@ -8,6 +8,7 @@ import com._2491nomythic.robot.settings.Variables;
  */
 public class MonitorRPM extends CommandBase {
 	private double tolerance, targetRPM;
+	private boolean accelerateReady, shootReady;
 
 	/**
 	 * Keeps track of the readiness of shooter motors for firing consistently
@@ -27,19 +28,19 @@ public class MonitorRPM extends CommandBase {
     protected void execute() {
     	if (shooter.getAllMotorVelocity() >= targetRPM) {
     		if (((shooter.getLeftAccelerateVelocity() + tolerance) > shooter.getRightAccelerateVelocity()) && ((shooter.getLeftAccelerateVelocity() - tolerance) < shooter.getRightAccelerateVelocity())) {
-    			Variables.accelerateReady = true;
+    			accelerateReady = true;
     		}
     		else {
-    			Variables.accelerateReady = false;
+    			accelerateReady = false;
     		}
     	
     		if (((shooter.getLeftShootVelocity() + tolerance) > shooter.getRightShootVelocity()) && ((shooter.getLeftShootVelocity() - tolerance) < shooter.getRightShootVelocity())) {
-    			Variables.shootReady = true;
+    			shootReady = true;
     		}
     		else {
-    			Variables.shootReady = false;
+    			shootReady = false;
     		}
-    		if (Variables.accelerateReady && Variables.shootReady) {
+    		if (accelerateReady && shootReady) {
     			Variables.readyToFire = true;
     		}
     	}
