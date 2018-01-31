@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 /**
  *
  */
-public class TeleopLights extends CommandBase {
+public class UpdateLights extends CommandBase {
 
-    public TeleopLights() {
+    public UpdateLights() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(lights);
