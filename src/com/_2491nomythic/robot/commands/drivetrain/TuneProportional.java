@@ -47,32 +47,24 @@ public class TuneProportional extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {    	
     	drivetrain.setSetpointRelative(relativeAngle);
-    	//drivetrain.setSetpoint((drivetrain.getGyroAngle() + relativeAngle) % 360);
-    	
     	destinationAngle = (drivetrain.getGyroAngle() + relativeAngle) % 360;
     	
     	drivetrain.enable();
-    	
     	timer.reset();
     	
     	while(timer.get() < 12) {
-    		//This prints fine    		
     		if(timer.get() > 5) {
-    			//What does getPosition actually return? Could explain why they never print.
     			if(drivetrain.getPosition() < minimumAngle) {
-    				//Why doesn't this print?
     				minimumAngle = drivetrain.getPosition();
     			}
     			else if(drivetrain.getPosition() > maximumAngle) {
-    				//Why doesn't this print?
     				maximumAngle = drivetrain.getPosition();
     			}
     		}
     	}
-    	//This does run somehow, because the oscillation does stop.
+
     	drivetrain.disable();
     	
-    	//Nothing here prints
     	System.out.println("Maximum Angle: " + maximumAngle);
     	System.out.println("Minimum Angle: " + minimumAngle);
     	avgAngle = (maximumAngle + minimumAngle) / 2;
