@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Intake extends Subsystem {
 	private static Intake instance;
-	private TalonSRX left, right, bottom;
+	private TalonSRX left1, left2, right1, right2, bottom;
 	private Solenoid activateIntakeSolenoid, intakeOpenSolenoid; 
 	
 	public static Intake getInstance() {
@@ -27,11 +27,16 @@ public class Intake extends Subsystem {
 	 * The subsystem that takes Power Cubes from the field
 	 */
 	public Intake() {
-		left = new TalonSRX(Constants.intakeTalonLeftChannel);
-		right = new TalonSRX(Constants.intakeTalonRightChannel);
+		left1 = new TalonSRX(Constants.intakeTalonLeft1Channel);
+		left2 = new TalonSRX(Constants.intakeTalonLeft2Channel);
+		right1 = new TalonSRX(Constants.intakeTalonRight1Channel);
+		right2 = new TalonSRX(Constants.intakeTalonRight2Channel);
 		bottom = new TalonSRX(Constants.intakeTalonBottomChannel);
 		activateIntakeSolenoid = new Solenoid(Constants.intakeSolenoidActivateChannel);
-		intakeOpenSolenoid = new Solenoid(Constants.intakeSolenoidOpenChannel);	
+		intakeOpenSolenoid = new Solenoid(Constants.intakeSolenoidOpenChannel);
+		
+		left2.follow(left1);
+		right2.follow(right2);
 	}
 	
 	/**
@@ -49,7 +54,7 @@ public class Intake extends Subsystem {
 	 * @param speed The speed that the motors will run at.
 	 */
 	public void runLeft(double speed) {
-		left.set(ControlMode.PercentOutput, speed);
+		left1.set(ControlMode.PercentOutput, speed);
 	}
 	
 	/**
@@ -57,7 +62,7 @@ public class Intake extends Subsystem {
 	 * @param speed the speed that the motors will run at.
 	 */
 	public void runRight(double speed) {
-		right.set(ControlMode.PercentOutput, speed);
+		right1.set(ControlMode.PercentOutput, speed);
 	}
 	
 	/**
