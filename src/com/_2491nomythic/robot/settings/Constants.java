@@ -22,6 +22,7 @@ public class Constants {
 	//Intake
 	public static final int intakeTalonLeftChannel = 2491; //TODO Change this to an actual talon
 	public static final int intakeTalonRightChannel = 2491; //TODO Change this to an actual talon
+	public static final int intakeTalonBottomChannel = 2491; //TODO Change this to an actual talon
 	public static final int intakeSolenoidActivateChannel = 2491; //TODO Change this to an actual solenoid channel.
 	public static final int intakeSolenoidOpenChannel = 2491; //TODO Change this to an actual solenoid channel.
 
