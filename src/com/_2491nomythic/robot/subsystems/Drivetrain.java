@@ -16,7 +16,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
  * The system of motors, solenoids, encoders, and a gyro that allows us to drive the robot
  */
 public class Drivetrain extends PIDSubsystem {
-	private TalonSRX left1, left2, left3, right1, right2, right3;
+	private TalonSRX left1, left2, right1, right2;
 	private AHRS gyro;
 	private double currentPIDOutput;
 	
@@ -38,15 +38,11 @@ public class Drivetrain extends PIDSubsystem {
 		
 		left1 = new TalonSRX(Constants.driveTalonLeft1Channel);
 		left2 = new TalonSRX(Constants.driveTalonLeft2Channel);
-		left3 = new TalonSRX(Constants.driveTalonLeft3Channel);
 		right1 = new TalonSRX(Constants.driveTalonRight1Channel);
 		right2 = new TalonSRX(Constants.driveTalonRight2Channel);
-		right3 = new TalonSRX(Constants.driveTalonRight3Channel);
 		
 		left2.follow(left1);
-		left3.follow(left1);
 		right2.follow(right1);
-		right3.follow(right1);
 		
 		left1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
@@ -101,10 +97,8 @@ public class Drivetrain extends PIDSubsystem {
 	public void enableCoastMode() {
 		left1.setNeutralMode(NeutralMode.Coast);
 		left2.setNeutralMode(NeutralMode.Coast);
-		left3.setNeutralMode(NeutralMode.Coast);
 		right1.setNeutralMode(NeutralMode.Coast);
 		right2.setNeutralMode(NeutralMode.Coast);
-		right3.setNeutralMode(NeutralMode.Coast);
 	}
 	
 	/**
@@ -113,10 +107,8 @@ public class Drivetrain extends PIDSubsystem {
 	public void enableBrakeMode() {
 		left1.setNeutralMode(NeutralMode.Brake);
 		left2.setNeutralMode(NeutralMode.Brake);
-		left3.setNeutralMode(NeutralMode.Brake);
 		right1.setNeutralMode(NeutralMode.Brake);
 		right2.setNeutralMode(NeutralMode.Brake);
-		right3.setNeutralMode(NeutralMode.Brake);
 	}
 	
 	/**

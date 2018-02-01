@@ -10,10 +10,6 @@ public class Constants {
 	public static final int driveTalonLeft2Channel = 2;
 	public static final int driveTalonRight1Channel = 3;
 	public static final int driveTalonRight2Channel = 4;
-	public static final int driveEncoderLeftChannel1 = 3;
-	public static final int driveEncoderLeftChannel2 = 4;
-	public static final int driveEncoderRightChannel1 = 7;
-	public static final int driveEncoderRightChannel2 = 8;
 	
 	//Intake
 	public static final int intakeTalonLeft1Channel = 5;
