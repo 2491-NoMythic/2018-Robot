@@ -16,5 +16,7 @@ public class ControllerMap {
 	public static final int cubeStorageAxis = 1;
 	
 	public static final int driverShootButton = 8;
+	public static final int killSwitchButton1 = 11;
+	public static final int killSwitchButton2 = 12;
 
 }
