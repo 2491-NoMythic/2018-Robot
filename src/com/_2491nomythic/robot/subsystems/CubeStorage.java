@@ -5,6 +5,7 @@ import com._2491nomythic.robot.settings.Constants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class CubeStorage extends Subsystem {
 	private static CubeStorage instance;
 	private TalonSRX left, right;
+	private Ultrasonic sonic;
 	
 	public static CubeStorage getInstance() {
 		if (instance == null) {
@@ -27,8 +29,11 @@ public class CubeStorage extends Subsystem {
 	private CubeStorage() {
 		left = new TalonSRX(Constants.cubeStorageTalonLeftChannel);
 		right = new TalonSRX(Constants.cubeStorageTalonRightChannel);
+		sonic = new Ultrasonic(Constants.ultrasonicDigitalOutput, Constants.ultrasonicDigitalInput);
 	}
 
+	
+	//Motors
 	/**
 	 * Runs the storage motors at a specified power
 	 * @param power The power at which the motors are run. Positive values push the cube into the shooter, negative values push it into the intake.
@@ -45,8 +50,25 @@ public class CubeStorage extends Subsystem {
 		run(0);
 	}
 	
-	// Put methods for controlling this subsystem
-	// here. Call these from Commands.
+	
+	//Ultrasonic
+	
+	/**
+	 * Finds the current range of the ultrasonic. If no target is within range, returns 0
+	 * @return The current range of objects detected by the ultrasonic
+	 */
+	public double getRange() {
+		return sonic.getRangeInches();
+	}
+	
+	/**
+	 * Checks if a cube is currently held within the CubeStorage system
+	 * @return True if a cube is held, else returns false
+	 */
+	public boolean isHeld() {
+		return (getRange() < Constants.heldCubeRange && getRange() != 0);
+	}
+	
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.

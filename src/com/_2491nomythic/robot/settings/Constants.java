@@ -40,6 +40,9 @@ public class Constants {
 	//CubeStorage
 	public static final int cubeStorageTalonLeftChannel = 10;
 	public static final int cubeStorageTalonRightChannel = 11;
+	public static final int ultrasonicDigitalInput = 2491;//TODO actual value needed
+	public static final int ultrasonicDigitalOutput = 2491;//TODO actual value needed
+	public static final double heldCubeRange = 2491;//TODO actual value needed
 		
 	//Computation
 	public static final double driveEncoderToInches = 1.066 * 2.4 * 1200.0 / 670 / 256; //TODO update for 2018. Currently in 2017 inches.
