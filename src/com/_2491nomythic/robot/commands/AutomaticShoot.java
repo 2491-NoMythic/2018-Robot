@@ -81,6 +81,7 @@ public class AutomaticShoot extends CommandBase {
     	case 2:
     		if(Variables.readyToFire) {
     			cubeStorage.run(1);
+    			timer.reset();
     			state++;
     		}
     		break;
@@ -92,7 +93,7 @@ public class AutomaticShoot extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return timer.get() > 5;
+        return timer.get() > Constants.timeForShooterToFire;
     }
 
     // Called once after isFinished returns true
