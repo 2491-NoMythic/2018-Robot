@@ -20,12 +20,15 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	private final Joystick[] controllers = new Joystick[1];
-	Button killSwitch;
+	Button killSwitch1, killSwitch2;
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		
-		killSwitch = new JoystickButton(controllers[ControllerMap.driveController], 1);
-		killSwitch.whenPressed(new KillSwitch());
+		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
+		killSwitch1.whenPressed(new KillSwitch());
+		
+		killSwitch2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton2);
+		killSwitch2.whenPressed(new KillSwitch());
 	}
 	
 	/**
