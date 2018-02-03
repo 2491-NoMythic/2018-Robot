@@ -3,11 +3,14 @@ package com._2491nomythic.robot.commands.cubestorage;
 import com._2491nomythic.robot.commands.CommandBase;
 
 /**
- *
+ *Feeds cube from cube storage to shooter.
  */
 public class FeedCube extends CommandBase {
 
-    public FeedCube() {
+    /**
+     * Feeds cube from cube storage to shooter.
+     */
+	public FeedCube() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(cubeStorage);
