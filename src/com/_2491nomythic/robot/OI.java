@@ -8,8 +8,6 @@
 package com._2491nomythic.robot;
 
 import com._2491nomythic.robot.commands.KillSwitch;
-import com._2491nomythic.robot.commands.drivetrain.TuneDerivative;
-import com._2491nomythic.robot.commands.drivetrain.TuneProportional;
 import com._2491nomythic.robot.settings.ControllerMap;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -22,7 +20,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	private final Joystick[] controllers = new Joystick[1];
-	Button tuneP, tuneD, killSwitch;
+	Button killSwitch;
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		
