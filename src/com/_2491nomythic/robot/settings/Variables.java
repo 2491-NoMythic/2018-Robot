@@ -21,7 +21,7 @@ public class Variables {
 	public static boolean useGyroPID;
 	
 	//Shooter
-	public static boolean readyToFire;
+	public static boolean readyToFire = false;
 	public static double shooterSpeed = Constants.shooterMediumScaleSpeed;
 
 }

@@ -1,8 +1,6 @@
 package com._2491nomythic.robot.commands;
 
-import com._2491nomythic.robot.Robot;
 import com._2491nomythic.robot.settings.Constants;
-import com._2491nomythic.robot.settings.ControllerMap;
 import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -62,7 +60,7 @@ public class AutomaticShoot extends CommandBase {
     	case 1:
     		if((scale && wasRaised) || (!scale && !wasRaised)) {
     			if (scale) {
-    				shooter.run(Variables.shooterSpeed);
+    				shooter.run(Constants.shooterMediumScaleSpeed);
     			}
     			else {
     				shooter.run(Constants.shooterSwitchSpeed);
@@ -71,7 +69,7 @@ public class AutomaticShoot extends CommandBase {
     		}
     		else if (timer.get() > Constants.timeForShooterToRaise) {
     			if (scale) {
-    				shooter.run(Variables.shooterSpeed);
+    				shooter.run(Constants.shooterMediumScaleSpeed);
     			}
     			else {
     				shooter.run(Constants.shooterSwitchSpeed);
@@ -81,17 +79,9 @@ public class AutomaticShoot extends CommandBase {
     		
     		break;
     	case 2:
-    		if (Robot.isTeleop) {
-    			if(Variables.readyToFire && oi.getButton(ControllerMap.driveController, ControllerMap.driverShootButton)) {
-    				cubeStorage.run(1);
-    				state++;
-    			}
-    		}
-    		else {
-    			if(Variables.readyToFire) {
-    				cubeStorage.run(1);
-    				state++;
-    			}
+    		if(Variables.readyToFire) {
+    			cubeStorage.run(1);
+    			state++;
     		}
     		break;
     	default:
