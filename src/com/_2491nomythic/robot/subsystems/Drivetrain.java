@@ -213,42 +213,42 @@ public class Drivetrain extends PIDSubsystem {
 		return gyro;
 	}
 	
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+	// Put methods for controlling this subsystem
+	// here. Call these from Commands.
 
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    	setDefaultCommand(new Drive());
-    }
-    
-    @Override
-    public double returnPIDInput() {
-    	if (Variables.useGyroPID) {
-    		return getGyroAngle();
-    	}
-    	else {
-    		return getDistance();
-    	}
-    }
-    
-    @Override
-    protected void usePIDOutput(double output) {
-    	if(Variables.useGyroPID) {
-    		drive(output, -output);
-    	}
-    	else {
-    		drive(output, output);
-    	}
-    }
-    
-    /**
-     * Gets the value of the current PID output
-     * @return The current PID output
-     */
-    public double getPIDOutput() {
-    	return currentPIDOutput;
-    }
-    
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		//setDefaultCommand(new MySpecialCommand());
+		setDefaultCommand(new Drive());
+	}
+	
+	@Override
+	public double returnPIDInput() {
+		if (Variables.useGyroPID) {
+			return getGyroAngle();
+		}
+		else {
+			return getDistance();
+		}
+	}
+	
+	@Override
+	protected void usePIDOutput(double output) {
+		if(Variables.useGyroPID) {
+			drive(output, -output);
+		}
+		else {
+			drive(output, output);
+		}
+	}
+	
+	/**
+	 * Gets the value of the current PID output
+	 * @return The current PID output
+	 */
+	public double getPIDOutput() {
+		return currentPIDOutput;
+	}
+	
 }
 

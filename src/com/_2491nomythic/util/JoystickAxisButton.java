@@ -22,11 +22,11 @@ public class JoystickAxisButton extends Button {
 	 * Creates a joystick button for triggering commands using an axis
 	 * 
 	 * @param joystick
-	 *            The GenericHID object that has the button (e.g. Joystick, KinectStick, etc)
+	 *			The GenericHID object that has the button (e.g. Joystick, KinectStick, etc)
 	 * @param buttonNumber
-	 *            The button number (see {@link GenericHID#getRawButton(int) })
+	 *			The button number (see {@link GenericHID#getRawButton(int) })
 	 * @param cutoff
-	 *            The cutoff point between off and on
+	 *			The cutoff point between off and on
 	 */
 	public JoystickAxisButton(GenericHID joystick, int buttonNumber, double cutoff) {
 		m_joystick = joystick;

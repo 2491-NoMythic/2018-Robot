@@ -14,70 +14,70 @@ public class ScaleShoot extends CommandBase {
 	int state;
 	boolean wasRaised;
 
-    /**
-     * Shoots a cube from CubeStorage using driver input
-     */
+	/**
+	 * Shoots a cube from CubeStorage using driver input
+	 */
 	public ScaleShoot() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
 		requires(shooter);
 		requires(cubeStorage);
 		timer = new Timer();
-    }
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	state = 0;
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		state = 0;
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	switch(state) {
-    	case 0:
-    		if(!shooter.isRaised()) {
-    			shooter.raiseShooter();
-    		}
-    		else {
-    			wasRaised = true;
-    		}
-    		
-    		timer.start();
-    		timer.reset();
-    		state++;
-    		break;
-    	case 1:
-    		if(wasRaised) {
-    			shooter.run(Variables.shooterSpeed);   			
-    			state++;
-    		}
-    		else if (timer.get() > Constants.timeForShooterToRaise) {
-    			shooter.run(Variables.shooterSpeed);
-    		}
-    		
-    		break;
-    	case 2:
-    		if(Variables.readyToFire && oi.getButton(ControllerMap.driveController, ControllerMap.driverShootButton)) {
-    			cubeStorage.run(1);
-    			state++;
-    		}
-    		break;
-    	default:
-    		System.out.println("Unexpected state in ScaleShoot. State: " + state);
-    		break;
-    	}
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+		switch(state) {
+		case 0:
+			if(!shooter.isRaised()) {
+				shooter.raiseShooter();
+			}
+			else {
+				wasRaised = true;
+			}
+			
+			timer.start();
+			timer.reset();
+			state++;
+			break;
+		case 1:
+			if(wasRaised) {
+				shooter.run(Variables.shooterSpeed);   			
+				state++;
+			}
+			else if (timer.get() > Constants.timeForShooterToRaise) {
+				shooter.run(Variables.shooterSpeed);
+			}
+			
+			break;
+		case 2:
+			if(Variables.readyToFire && oi.getButton(ControllerMap.driveController, ControllerMap.driverShootButton)) {
+				cubeStorage.run(1);
+				state++;
+			}
+			break;
+		default:
+			System.out.println("Unexpected state in ScaleShoot. State: " + state);
+			break;
+		}
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return false;
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+	}
 }

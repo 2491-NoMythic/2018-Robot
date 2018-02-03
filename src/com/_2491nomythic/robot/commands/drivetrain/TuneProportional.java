@@ -23,116 +23,116 @@ public class TuneProportional extends CommandBase {
 	 * @param numberOfTrials The number of times the robot should tune itself. Average trials to tune: unknown
 	 */
 	
-    public TuneProportional(double relativeAngle, int numberOfTrials) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(drivetrain);
+	public TuneProportional(double relativeAngle, int numberOfTrials) {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(drivetrain);
 
-    	this.relativeAngle = relativeAngle;
-    	this.numberOfTrials = numberOfTrials;
-    	proportional = new double[numberOfTrials];
-    	averageAngle = new double[numberOfTrials];
-    	higher = new boolean[numberOfTrials];
-    	timer = new Timer();
-    }
+		this.relativeAngle = relativeAngle;
+		this.numberOfTrials = numberOfTrials;
+		proportional = new double[numberOfTrials];
+		averageAngle = new double[numberOfTrials];
+		higher = new boolean[numberOfTrials];
+		timer = new Timer();
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	i = 1;
-    	minimumAngle = 600000;
-    	maximumAngle = -600000;
-    	timer.start();
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		i = 1;
+		minimumAngle = 600000;
+		maximumAngle = -600000;
+		timer.start();
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {    	
-    	drivetrain.setSetpointRelative(relativeAngle);
-    	destinationAngle = (drivetrain.getGyroAngle() + relativeAngle) % 360;
-    	
-    	drivetrain.enable();
-    	timer.reset();
-    	
-    	while(timer.get() < 12) {
-    		if(timer.get() > 5) {
-    			if(drivetrain.getPosition() < minimumAngle) {
-    				minimumAngle = drivetrain.getPosition();
-    			}
-    			else if(drivetrain.getPosition() > maximumAngle) {
-    				maximumAngle = drivetrain.getPosition();
-    			}
-    		}
-    	}
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {		
+		drivetrain.setSetpointRelative(relativeAngle);
+		destinationAngle = (drivetrain.getGyroAngle() + relativeAngle) % 360;
+		
+		drivetrain.enable();
+		timer.reset();
+		
+		while(timer.get() < 12) {
+			if(timer.get() > 5) {
+				if(drivetrain.getPosition() < minimumAngle) {
+					minimumAngle = drivetrain.getPosition();
+				}
+				else if(drivetrain.getPosition() > maximumAngle) {
+					maximumAngle = drivetrain.getPosition();
+				}
+			}
+		}
 
-    	drivetrain.disable();
-    	
-    	System.out.println("Maximum Angle: " + maximumAngle);
-    	System.out.println("Minimum Angle: " + minimumAngle);
-    	avgAngle = (maximumAngle + minimumAngle) / 2;
-    	higher[i] = avgAngle < destinationAngle;
-    	
-    	System.out.println("Average Angle: " + avgAngle);
-    	proportional[i] = Variables.proportional;
-    	System.out.println("Proportional Value: " + proportional[i]);
-       	averageAngle[i] = avgAngle;
-    	
-    	timer.reset();
-    	    		
-    	if(!higher[i] && higher[i - 1]) {
-    		Variables.proportional += 0.0001;
-    	}
+		drivetrain.disable();
+		
+		System.out.println("Maximum Angle: " + maximumAngle);
+		System.out.println("Minimum Angle: " + minimumAngle);
+		avgAngle = (maximumAngle + minimumAngle) / 2;
+		higher[i] = avgAngle < destinationAngle;
+		
+		System.out.println("Average Angle: " + avgAngle);
+		proportional[i] = Variables.proportional;
+		System.out.println("Proportional Value: " + proportional[i]);
+	   	averageAngle[i] = avgAngle;
+		
+		timer.reset();
+					
+		if(!higher[i] && higher[i - 1]) {
+			Variables.proportional += 0.0001;
+		}
    		else if(higher[i]  && !higher[i - 1]) {
    			Variables.proportional -= 0.0001;
    		}
    		else if(higher[i]) {
    			Variables.proportional -= 0.001;
-    	}
+		}
    		else {
    			Variables.proportional += 0.001;
-    	}
+		}
 
-    	drivetrain.getPIDController().setPID(Variables.proportional, Variables.integral, Variables.derivative);
-    	
-    	while(timer.get() < 5) {
-    		
-    	}
+		drivetrain.getPIDController().setPID(Variables.proportional, Variables.integral, Variables.derivative);
+		
+		while(timer.get() < 5) {
+			
+		}
 
-    	i++;
-    }
+		i++;
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-    	return i >= numberOfTrials;
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return i >= numberOfTrials;
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    	drivetrain.disable();
-    	drivetrain.stop();
-    	
-    	if(i >= numberOfTrials) {
-    		i = 1;
-    	    
-    		while(i <= numberOfTrials) {
-    			switch(i) {
-    			case 1:
-    				bestTrial = i;
-    				break;
-    			default:
-    				if(averageAngle[i] < averageAngle[bestTrial]) {
-            			bestTrial = i;
-            		}
-    			}
-        		i++;
-    		}
-    		
-    		System.out.println("Best Proportional Value: " + proportional[bestTrial]);
-        	System.out.println("Best Distance From Angle: " + (averageAngle[bestTrial] - destinationAngle));
-    	}
-    }	
+	// Called once after isFinished returns true
+	protected void end() {
+		drivetrain.disable();
+		drivetrain.stop();
+		
+		if(i >= numberOfTrials) {
+			i = 1;
+			
+			while(i <= numberOfTrials) {
+				switch(i) {
+				case 1:
+					bestTrial = i;
+					break;
+				default:
+					if(averageAngle[i] < averageAngle[bestTrial]) {
+						bestTrial = i;
+					}
+				}
+				i++;
+			}
+			
+			System.out.println("Best Proportional Value: " + proportional[bestTrial]);
+			System.out.println("Best Distance From Angle: " + (averageAngle[bestTrial] - destinationAngle));
+		}
+	}	
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	end();
-    }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		end();
+	}
 }

@@ -27,120 +27,120 @@ public class TuneDerivativeDriveStraight extends CommandBase {
 	 * @param numberOfTrials The number of times the robot should tune itself. Average trials to tune: unknown
 	 */
 	
-    public TuneDerivativeDriveStraight(double distance, double maximumAcceptedTime, double absoluteError, int numberOfTrials) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(drivetrain);
-    	
-    	this.distance = distance;
-    	this.maximumAcceptedTime = maximumAcceptedTime;
-    	this.numberOfTrials = numberOfTrials;
-    	this.absoluteError = absoluteError;
-    	derivative = new double[numberOfTrials];
-    	timeToReachDestination = new double[numberOfTrials];
-    	maximumTimer = new Timer();
-    	errorTimer = new Timer();
-    	rotate = new RotateDrivetrainWithGyroPID(180, false);
-    }
+	public TuneDerivativeDriveStraight(double distance, double maximumAcceptedTime, double absoluteError, int numberOfTrials) {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(drivetrain);
+		
+		this.distance = distance;
+		this.maximumAcceptedTime = maximumAcceptedTime;
+		this.numberOfTrials = numberOfTrials;
+		this.absoluteError = absoluteError;
+		derivative = new double[numberOfTrials];
+		timeToReachDestination = new double[numberOfTrials];
+		maximumTimer = new Timer();
+		errorTimer = new Timer();
+		rotate = new RotateDrivetrainWithGyroPID(180, false);
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	i = 1;
-    	maximumTimer.start();
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		i = 1;
+		maximumTimer.start();
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	targetDistance = drivetrain.getLeftEncoderDistance() + distance;
-    	
-    	drivetrain.setSetpoint(targetDistance);
-    	System.out.println("Target Distance: " + targetDistance);
-    	
-    	drivetrain.enable();
-    	errorTimer.start();
-    	maximumTimer.reset();
-    	
-    	while(maximumTimer.get() < 10) {
-        	errorTimer.stop();
-        	errorTimer.reset();
-        	
-        	while(drivetrain.getPosition() < targetDistance + absoluteError || drivetrain.getPosition() > targetDistance - absoluteError) {
-        		errorTimer.start();
-        		
-        		if(errorTimer.get() > 1) {
-        			maximumTimer.stop();
-        			timeToReachDestination[i] = maximumTimer.get();
-        			System.out.println("Time to Reach Destination: " + timeToReachDestination[i]);
-        		}	
-        	}
-        }
-        
-        drivetrain.disable();
-        maximumTimer.stop();
-        
-        //The first two make sense, but I'm not sure about the last one.
-        if(timeToReachDestination[i] > maximumAcceptedTime) {
-        	Variables.derivative -= 0.01;
-        }
-        else if(timeToReachDestination[i] > timeToReachDestination[i - 1]) {
-        	Variables.derivative -= 0.001;
-        }
-        else {
-        	Variables.derivative += 0.001;
-        }
-    	//This does run somehow, because the oscillation does stop.
-    	drivetrain.disable();
-    	    	
-    	drivetrain.getPIDController().setPID(Variables.proportionalForward, Variables.integralForward, Variables.derivativeForward);
-    	
-    	rotate.start();
-    	maximumTimer.reset();
-    	
-    	while(maximumTimer.get() < 5) {
-    		System.out.println("Resetting...");
-    	}
-    	
-    	rotate.cancel();
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+		targetDistance = drivetrain.getLeftEncoderDistance() + distance;
+		
+		drivetrain.setSetpoint(targetDistance);
+		System.out.println("Target Distance: " + targetDistance);
+		
+		drivetrain.enable();
+		errorTimer.start();
+		maximumTimer.reset();
+		
+		while(maximumTimer.get() < 10) {
+			errorTimer.stop();
+			errorTimer.reset();
+			
+			while(drivetrain.getPosition() < targetDistance + absoluteError || drivetrain.getPosition() > targetDistance - absoluteError) {
+				errorTimer.start();
+				
+				if(errorTimer.get() > 1) {
+					maximumTimer.stop();
+					timeToReachDestination[i] = maximumTimer.get();
+					System.out.println("Time to Reach Destination: " + timeToReachDestination[i]);
+				}	
+			}
+		}
+		
+		drivetrain.disable();
+		maximumTimer.stop();
+		
+		//The first two make sense, but I'm not sure about the last one.
+		if(timeToReachDestination[i] > maximumAcceptedTime) {
+			Variables.derivative -= 0.01;
+		}
+		else if(timeToReachDestination[i] > timeToReachDestination[i - 1]) {
+			Variables.derivative -= 0.001;
+		}
+		else {
+			Variables.derivative += 0.001;
+		}
+		//This does run somehow, because the oscillation does stop.
+		drivetrain.disable();
+				
+		drivetrain.getPIDController().setPID(Variables.proportionalForward, Variables.integralForward, Variables.derivativeForward);
+		
+		rotate.start();
+		maximumTimer.reset();
+		
+		while(maximumTimer.get() < 5) {
+			System.out.println("Resetting...");
+		}
+		
+		rotate.cancel();
 
-    	i++;
-    }
+		i++;
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return i >= numberOfTrials || Variables.proportionalForward == 0;
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return i >= numberOfTrials || Variables.proportionalForward == 0;
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    	//Any other specific lines to change back to normal rotate PID mode here:
-    	drivetrain.disable();
-    	rotate.cancel();
-    	drivetrain.stop();
-    	
-    	if(!(i < numberOfTrials)) {
-    		i = 1;
-    	    
-    		while(i <= numberOfTrials) {
-    			switch(i) {
-    			case 1:
-    				bestTrial = i;
-    				break;
-    			default:
-    				if(timeToReachDestination[i] < timeToReachDestination[bestTrial]) {
-            			bestTrial = i;
-            		}
-    			}
-        		i++;
-    		}
-    		
-    		System.out.println("Best Derivative Value: " + derivative[bestTrial]);
-        	System.out.println("Best Avg. Distance From Destination: " + (timeToReachDestination[bestTrial] - targetDistance));
-    	}
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+		//Any other specific lines to change back to normal rotate PID mode here:
+		drivetrain.disable();
+		rotate.cancel();
+		drivetrain.stop();
+		
+		if(!(i < numberOfTrials)) {
+			i = 1;
+			
+			while(i <= numberOfTrials) {
+				switch(i) {
+				case 1:
+					bestTrial = i;
+					break;
+				default:
+					if(timeToReachDestination[i] < timeToReachDestination[bestTrial]) {
+						bestTrial = i;
+					}
+				}
+				i++;
+			}
+			
+			System.out.println("Best Derivative Value: " + derivative[bestTrial]);
+			System.out.println("Best Avg. Distance From Destination: " + (timeToReachDestination[bestTrial] - targetDistance));
+		}
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	end();
-    }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		end();
+	}
 }

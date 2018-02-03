@@ -16,44 +16,44 @@ public class CrossAutoLine extends CommandBase {
 	/**
 	 * Attempts to cross the AutoLine during autonomous.
 	 */
-    public CrossAutoLine() {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);    	
-    	timer = new Timer();
-    	delay = new Timer();
-    	crossLine = new DriveStraightToPositionPID(130);
-    }
+	public CrossAutoLine() {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);		
+		timer = new Timer();
+		delay = new Timer();
+		crossLine = new DriveStraightToPositionPID(130);
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	delay.start();
-    	System.out.println(Variables.autoDelay);
-    	
-    	while(delay.get() < Variables.autoDelay) {
-    		
-    	}
-    	
-    	crossLine.start();
-    	timer.start();
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		delay.start();
+		System.out.println(Variables.autoDelay);
+		
+		while(delay.get() < Variables.autoDelay) {
+			
+		}
+		
+		crossLine.start();
+		timer.start();
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return !crossLine.isRunning() && timer.get() > 1;
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return !crossLine.isRunning() && timer.get() > 1;
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    	drivetrain.stop();
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+		drivetrain.stop();
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	end();
-    }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		end();
+	}
 }

@@ -35,9 +35,9 @@ public class OI {
 	 * Get a button from a controller
 	 * 
 	 * @param joystickID
-	 *            The id of the controller. 0 = left or driver, 1 = right or codriver.
+	 *			The id of the controller. 0 = left or driver, 1 = right or codriver.
 	 * @param axisID
-	 *            The id of the button (for use in getRawButton)
+	 *			The id of the button (for use in getRawButton)
 	 * @return the result from running getRawButton(button)
 	 */
 	public boolean getButton(int joystickID, int buttonID) {
@@ -48,9 +48,9 @@ public class OI {
 	 * Get an axis from a controller
 	 * 
 	 * @param joystickID
-	 *            The id of the controller. 0 = left or driver, 1 = right or codriver.
+	 *			The id of the controller. 0 = left or driver, 1 = right or codriver.
 	 * @param axisID
-	 *            The id of the axis (for use in getRawAxis)
+	 *			The id of the axis (for use in getRawAxis)
 	 * @return the result from running getRawAxis(axis)
 	 */
 	public double getAxis(int joystickID, int axisID) {
@@ -61,9 +61,9 @@ public class OI {
 	 * Get an axis from a controller that is automatically deadzoned
 	 * 
 	 * @param joystickID
-	 *            The id of the controller. 0 = left or driver, 1 = right or driver
+	 *			The id of the controller. 0 = left or driver, 1 = right or driver
 	 * @param axisID
-	 *            The id of the axis (for use in getRawAxis)
+	 *			The id of the axis (for use in getRawAxis)
 	 * @return the deadzoned result from running getRawAxis
 	 */
 	public double getAxisDeadzoned(int joystickID, int axisID, double deadzone) {
@@ -75,9 +75,9 @@ public class OI {
 	 * Get an axis from a controller that is automatically squared and deadzoned
 	 * 
 	 * @param joystickID
-	 *            The id of the controller. 0 = left or driver, 1 = right or driver
+	 *			The id of the controller. 0 = left or driver, 1 = right or driver
 	 * @param axisID
-	 *            The id of the axis (for use in getRawAxis)
+	 *			The id of the axis (for use in getRawAxis)
 	 * @return the squared, deadzoned result from running getRawAxis
 	 */
 	public double getAxisDeadzonedSquared(int joystickID, int axisID, double deadzone) {

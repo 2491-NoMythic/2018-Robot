@@ -15,9 +15,9 @@ public class JoystickPOVButton extends Button {
 	 * Creates a joystick button for triggering commands using the POV
 	 * 
 	 * @param joystick
-	 *            The GenericHID object that has the button (e.g. Joystick, KinectStick, etc)
+	 *			The GenericHID object that has the button (e.g. Joystick, KinectStick, etc)
 	 * @param POVNumber
-	 *            The POV number
+	 *			The POV number
 	 */
 	public JoystickPOVButton(GenericHID joystick, int POVNumber) {
 		m_joystick = joystick;

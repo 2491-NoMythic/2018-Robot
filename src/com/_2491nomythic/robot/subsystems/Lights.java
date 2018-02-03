@@ -20,8 +20,8 @@ public class Lights extends Subsystem {
 		return instance;
 	}
 
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
+	// Put methods for controlling this subsystem
+	// here. Call these from Commands.
 
 	public Lights() {
 		i2c = new I2C(I2C.Port.kOnboard, Constants.lightIC2Channel);
@@ -41,9 +41,9 @@ public class Lights extends Subsystem {
 		i2c.transaction(toSend, toSend.length, null, 0);
 	}
 	
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		//setDefaultCommand(new MySpecialCommand());
+	}
 }
 

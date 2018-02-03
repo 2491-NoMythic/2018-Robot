@@ -17,51 +17,51 @@ public class RotateDrivetrainWithGyroPID extends CommandBase {
 	 * @param angle The angle that the robot rotates to, where negative values rotate the robot counterclockwise
 	 * @param absolute Set true for an absolute turn, or, false for a relative turn
 	 */
-    public RotateDrivetrainWithGyroPID(double angle, boolean absolute) {
-    	type = absolute;
-    	target = angle;
-        // Use requires() here to declare subsystem dependencies
-      	requires(drivetrain);
-      	
-    }
+	public RotateDrivetrainWithGyroPID(double angle, boolean absolute) {
+		type = absolute;
+		target = angle;
+		// Use requires() here to declare subsystem dependencies
+	  	requires(drivetrain);
+	  	
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	Variables.useGyroPID = true;
-    	drivetrain.setInputRange(0, 360);
-    	drivetrain.getPIDController().setContinuous(true);
-    	drivetrain.setAbsoluteTolerance(2);
-    	drivetrain.getPIDController().setPID(Variables.proportional, Variables.integral, Variables.derivative);
-    	
-    	relative = ((drivetrain.getGyroAngle() + target) % 360 + 360) % 360;
-    	if(type) {
-    		drivetrain.setSetpoint(target);
-    	}
-    	else {
-    		drivetrain.setSetpoint(relative);
-    	}
-    	drivetrain.enable();
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		Variables.useGyroPID = true;
+		drivetrain.setInputRange(0, 360);
+		drivetrain.getPIDController().setContinuous(true);
+		drivetrain.setAbsoluteTolerance(2);
+		drivetrain.getPIDController().setPID(Variables.proportional, Variables.integral, Variables.derivative);
+		
+		relative = ((drivetrain.getGyroAngle() + target) % 360 + 360) % 360;
+		if(type) {
+			drivetrain.setSetpoint(target);
+		}
+		else {
+			drivetrain.setSetpoint(relative);
+		}
+		drivetrain.enable();
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
 
-    }
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return false;
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {	
-    	drivetrain.stop();
-    	drivetrain.disable();
-    }
+	// Called once after isFinished returns true
+	protected void end() {	
+		drivetrain.stop();
+		drivetrain.disable();
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	end();
-    }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		end();
+	}
 }

@@ -153,17 +153,17 @@ public class Shooter extends Subsystem {
 		return elevator.get();
 	}
 
-    public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
-    }
-    
-    /**
-     * Stops all motors within the shooter subsystem
-     */
-    public void stop() {
-    	runAccelerate(0);
-    	runShoot(0);
-    }
+	public void initDefaultCommand() {
+		// Set the default command for a subsystem here.
+		//setDefaultCommand(new MySpecialCommand());
+	}
+	
+	/**
+	 * Stops all motors within the shooter subsystem
+	 */
+	public void stop() {
+		runAccelerate(0);
+		runShoot(0);
+	}
 }
 

@@ -12,34 +12,34 @@ public class TransportCube extends CommandBase {
 	 * Runs cube storage system at a specified speed
 	 * @param speed speed at which the cube storage system motors run.
 	 */
-    public TransportCube(double speed) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	this.speed = speed;
-    }
+	public TransportCube(double speed) {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		this.speed = speed;
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	cubeStorage.run(speed);
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		cubeStorage.run(speed);
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return false;
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return false;
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    	cubeStorage.stop();
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+		cubeStorage.stop();
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	cubeStorage.stop();
-    }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		cubeStorage.stop();
+	}
 }

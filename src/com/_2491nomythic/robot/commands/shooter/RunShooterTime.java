@@ -15,40 +15,40 @@ public class RunShooterTime extends CommandBase {
 	/**
 	 *Runs the shooter system for a specified amount of time, and at a specified speed
 	 */
-    public RunShooterTime(double speed, double time) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
-    	requires(shooter);
-    	
-    	this.speed = speed;
-    	this.time = time;
-    	timer = new Timer();
-    }
+	public RunShooterTime(double speed, double time) {
+		// Use requires() here to declare subsystem dependencies
+		// eg. requires(chassis);
+		requires(shooter);
+		
+		this.speed = speed;
+		this.time = time;
+		timer = new Timer();
+	}
 
-    // Called just before this Command runs the first time
-    protected void initialize() {
-    	timer.start();
-    	timer.reset();
-    	shooter.run(speed);
-    }
+	// Called just before this Command runs the first time
+	protected void initialize() {
+		timer.start();
+		timer.reset();
+		shooter.run(speed);
+	}
 
-    // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    }
+	// Called repeatedly when this Command is scheduled to run
+	protected void execute() {
+	}
 
-    // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-        return timer.get() > time;
-    }
+	// Make this return true when this Command no longer needs to run execute()
+	protected boolean isFinished() {
+		return timer.get() > time;
+	}
 
-    // Called once after isFinished returns true
-    protected void end() {
-    	shooter.stop();
-    }
+	// Called once after isFinished returns true
+	protected void end() {
+		shooter.stop();
+	}
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
-    protected void interrupted() {
-    	end();
-    }
+	// Called when another command which requires one or more of the same
+	// subsystems is scheduled to run
+	protected void interrupted() {
+		end();
+	}
 }
