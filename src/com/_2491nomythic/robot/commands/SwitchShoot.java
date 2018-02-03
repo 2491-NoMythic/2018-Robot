@@ -36,6 +36,7 @@ public class SwitchShoot extends CommandBase {
 		case 0:
 			if(shooter.isRaised()) {
 				shooter.lowerShooter();
+				wasLowered = false;
 			}
 			else {
 				wasLowered = true;
