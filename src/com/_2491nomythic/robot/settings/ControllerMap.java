@@ -1,7 +1,7 @@
 package com._2491nomythic.robot.settings;
 
 /**
- * Contains all variables affecting use of controllers, to keep it in a centralised and clean location
+ * Contains all variables affecting use of controllers, to keep it in a centralized and clean location
  */
 public class ControllerMap {
 	
@@ -15,8 +15,10 @@ public class ControllerMap {
 	public static final int shooterAxis = 4;
 	public static final int cubeStorageAxis = 1;
 	
-	public static final int driverShootButton = 8;
+	public static final int driverScaleShootButton = 8;
 	public static final int killSwitchButton1 = 11;
 	public static final int killSwitchButton2 = 12;
+	public static final int driverSwitchShootButton = 7;
+	public static final int driverFeedCubeButton = 1;
 
 }

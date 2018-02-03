@@ -9,15 +9,15 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  * Shoots a cube from CubeStorage using driver input
  */
-public class ScaleShoot extends CommandBase {
+public class SwitchShoot extends CommandBase {
 	Timer timer;
 	int state;
-	boolean wasRaised;
+	boolean wasLowered;
 
 	/**
 	 * Shoots a cube from CubeStorage using driver input
 	 */
-	public ScaleShoot() {
+	public SwitchShoot() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(shooter);
@@ -34,11 +34,11 @@ public class ScaleShoot extends CommandBase {
 	protected void execute() {
 		switch(state) {
 		case 0:
-			if(!shooter.isRaised()) {
-				shooter.raiseShooter();
+			if(shooter.isRaised()) {
+				shooter.lowerShooter();
 			}
 			else {
-				wasRaised = true;
+				wasLowered = true;
 			}
 			
 			timer.start();
@@ -46,23 +46,23 @@ public class ScaleShoot extends CommandBase {
 			state++;
 			break;
 		case 1:
-			if(wasRaised) {
-				shooter.run(Variables.shooterSpeed);   			
+			if(wasLowered) {
+				shooter.run(Constants.shooterSwitchSpeed);   			
 				state++;
 			}
 			else if (timer.get() > Constants.timeForShooterToRaise) {
-				shooter.run(Variables.shooterSpeed);
+				shooter.run(Constants.shooterSwitchSpeed);
 			}
 			
 			break;
 		case 2:
-			if(Variables.readyToFire && oi.getButton(ControllerMap.driveController, ControllerMap.driverScaleShootButton)) {
+			if(Variables.readyToFire && oi.getButton(ControllerMap.driveController, ControllerMap.driverSwitchShootButton)) {
 				cubeStorage.run(1);
 				state++;
 			}
 			break;
 		default:
-			System.out.println("Unexpected state in ScaleShoot. State: " + state);
+			System.out.println("Unexpected state in SwitchShoot. State: " + state);
 			break;
 		}
 	}

@@ -8,6 +8,9 @@
 package com._2491nomythic.robot;
 
 import com._2491nomythic.robot.commands.KillSwitch;
+import com._2491nomythic.robot.commands.ScaleShoot;
+import com._2491nomythic.robot.commands.SwitchShoot;
+import com._2491nomythic.robot.commands.cubestorage.FeedCube;
 import com._2491nomythic.robot.settings.ControllerMap;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -20,7 +23,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	private final Joystick[] controllers = new Joystick[1];
-	Button killSwitch1, killSwitch2;
+	Button killSwitch1, killSwitch2, driverScaleShootButton, driverSwitchShootButton, driverFeedCubeButton;
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		
@@ -29,6 +32,15 @@ public class OI {
 		
 		killSwitch2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton2);
 		killSwitch2.whenPressed(new KillSwitch());
+		
+		driverScaleShootButton = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverScaleShootButton);
+		driverScaleShootButton.whenPressed(new ScaleShoot());
+		
+		driverSwitchShootButton = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverSwitchShootButton);
+		driverSwitchShootButton.whenPressed(new SwitchShoot());
+		
+		driverFeedCubeButton = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverFeedCubeButton);
+		driverFeedCubeButton.whenPressed(new FeedCube());
 	}
 	
 	/**
