@@ -48,6 +48,7 @@ public class AutomaticShoot extends CommandBase {
 			else {
 				if(shooter.isRaised()) {
 					shooter.lowerShooter();
+					wasRaised = true;
 				}
 				else {
 					wasRaised = false;
