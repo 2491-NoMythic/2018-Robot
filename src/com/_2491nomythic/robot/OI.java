@@ -26,12 +26,6 @@ public class OI {
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		
-		tuneP = new JoystickButton(controllers[ControllerMap.driveController], 3);
-		tuneP.whenPressed(new TuneProportional(45, 15));
-		
-		tuneD = new JoystickButton(controllers[ControllerMap.driveController], 4);
-		tuneD.whenPressed(new TuneDerivative(45, 5, 5, 15));
-		
 		killSwitch = new JoystickButton(controllers[ControllerMap.driveController], 1);
 		killSwitch.whenPressed(new KillSwitch());
 	}
