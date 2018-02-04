@@ -1,5 +1,6 @@
 package com._2491nomythic.robot.commands;
 
+import com._2491nomythic.robot.commands.cubestorage.TransportCubeTime;
 import com._2491nomythic.robot.settings.Constants;
 import com._2491nomythic.robot.settings.ControllerMap;
 import com._2491nomythic.robot.settings.Variables;
@@ -11,6 +12,7 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class ScaleShoot extends CommandBase {
 	Timer timer;
+	TransportCubeTime transportCube;
 	int state;
 	boolean wasRaised;
 
@@ -23,6 +25,7 @@ public class ScaleShoot extends CommandBase {
 		requires(shooter);
 		requires(cubeStorage);
 		timer = new Timer();
+		transportCube = new TransportCubeTime(1, 0.5);
 	}
 
 	// Called just before this Command runs the first time
@@ -58,7 +61,7 @@ public class ScaleShoot extends CommandBase {
 			break;
 		case 2:
 			if(Variables.readyToFire && oi.getButton(ControllerMap.driveController, ControllerMap.driverScaleShootButton)) {
-				cubeStorage.run(1);
+				transportCube.start();
 				state++;
 			}
 			break;
@@ -77,6 +80,7 @@ public class ScaleShoot extends CommandBase {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		transportCube.cancel();
 		cubeStorage.stop();
 		shooter.stop();
 	}
