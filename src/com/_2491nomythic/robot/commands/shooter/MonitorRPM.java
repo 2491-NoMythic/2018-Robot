@@ -26,6 +26,8 @@ public class MonitorRPM extends CommandBase {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		Variables.currentShooterRPM = shooter.getAllMotorVelocity();
+		
 		if (shooter.getAllMotorVelocity() >= targetRPM) {
 			if (((shooter.getLeftAccelerateVelocity() + tolerance) > shooter.getRightAccelerateVelocity()) && ((shooter.getLeftAccelerateVelocity() - tolerance) < shooter.getRightAccelerateVelocity())) {
 				accelerateReady = true;
