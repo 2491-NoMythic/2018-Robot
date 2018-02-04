@@ -63,7 +63,7 @@ public class Robot extends TimedRobot {
 		updateLights = new UpdateLights();
 		updateDriverstation.start();
 		monitorRPM.start();
-		updateLights.start();
+		//updateLights.start();
 		// chooser.addObject("My Auto", new MyAutoCommand());
 		m_chooser.addObject("Cross Auto Line", new CrossAutoLine());
 		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
