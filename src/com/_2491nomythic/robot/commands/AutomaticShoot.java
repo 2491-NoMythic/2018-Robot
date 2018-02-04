@@ -84,7 +84,6 @@ public class AutomaticShoot extends CommandBase {
 			if(Variables.readyToFire) {
 				cubeStorage.run(1);
 				timer.reset();
-				state++;
 			}
 			break;
 		default:

@@ -60,8 +60,10 @@ public class SwitchShoot extends CommandBase {
 		case 2:
 			if(Variables.readyToFire && oi.getButton(ControllerMap.driveController, ControllerMap.driverSwitchShootButton)) {
 				cubeStorage.run(1);
+				state++;
 			}
 			break;
+		case 3:	
 		default:
 			System.out.println("Unexpected state in SwitchShoot. State: " + state);
 			break;
