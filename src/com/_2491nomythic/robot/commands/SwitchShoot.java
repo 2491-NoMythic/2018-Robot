@@ -1,5 +1,6 @@
 package com._2491nomythic.robot.commands;
 
+import com._2491nomythic.robot.commands.cubestorage.TransportCubeTime;
 import com._2491nomythic.robot.settings.Constants;
 import com._2491nomythic.robot.settings.ControllerMap;
 import com._2491nomythic.robot.settings.Variables;
@@ -10,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
  * Shoots a cube from CubeStorage using driver input
  */
 public class SwitchShoot extends CommandBase {
+	TransportCubeTime transportCube;
 	Timer timer;
 	int state;
 	boolean wasLowered;
@@ -23,6 +25,7 @@ public class SwitchShoot extends CommandBase {
 		requires(shooter);
 		requires(cubeStorage);
 		timer = new Timer();
+		transportCube = new TransportCubeTime(1, 0.5);
 	}
 
 	// Called just before this Command runs the first time
@@ -59,7 +62,7 @@ public class SwitchShoot extends CommandBase {
 			break;
 		case 2:
 			if(Variables.readyToFire && oi.getButton(ControllerMap.driveController, ControllerMap.driverSwitchShootButton)) {
-				cubeStorage.run(1);
+				transportCube.start();
 				state++;
 			}
 			break;
@@ -78,6 +81,7 @@ public class SwitchShoot extends CommandBase {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		transportCube.cancel();
 		cubeStorage.stop();
 		shooter.stop();
 	}
