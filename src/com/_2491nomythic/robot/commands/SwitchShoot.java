@@ -64,6 +64,7 @@ public class SwitchShoot extends CommandBase {
 			}
 			break;
 		case 3:	
+			break;
 		default:
 			System.out.println("Unexpected state in SwitchShoot. State: " + state);
 			break;

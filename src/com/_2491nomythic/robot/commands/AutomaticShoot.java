@@ -84,7 +84,10 @@ public class AutomaticShoot extends CommandBase {
 			if(Variables.readyToFire) {
 				cubeStorage.run(1);
 				timer.reset();
+				state++;
 			}
+			break;
+		case 3:
 			break;
 		default:
 			System.out.println("Unexpected state in AutomaticShoot. State: " + state);
