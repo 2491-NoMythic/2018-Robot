@@ -53,13 +53,13 @@ public class SwitchShoot extends CommandBase {
 			}
 			else if (timer.get() > Constants.timeForShooterToRaise) {
 				shooter.run(Constants.shooterSwitchSpeed);
+				state++;
 			}
 			
 			break;
 		case 2:
 			if(Variables.readyToFire && oi.getButton(ControllerMap.driveController, ControllerMap.driverSwitchShootButton)) {
 				cubeStorage.run(1);
-				state++;
 			}
 			break;
 		default:
@@ -75,10 +75,13 @@ public class SwitchShoot extends CommandBase {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		cubeStorage.stop();
+		shooter.stop();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		end();
 	}
 }
