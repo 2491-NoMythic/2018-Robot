@@ -54,15 +54,15 @@ public class UpdateLights extends CommandBase {
         		}
         		break;
         	case 1:
-        		if(Variables.currentShooterRPM * 0.25 <= Constants.shooterMediumScaleSpeed * 0.25) {
+        		if(Variables.currentShooterRPM * 0.25 <= Variables.shooterSpeed * 0.25) {
         			//Slow strobe
         			data = "1";
         		}
-        		else if(Variables.currentShooterRPM * 0.5 <= Constants.shooterMediumScaleSpeed * 0.5) {
+        		else if(Variables.currentShooterRPM * 0.5 <= Variables.shooterSpeed * 0.5) {
         			//Medium strobe
         			data = "2";
         		}
-        		else if(Variables.currentShooterRPM * 0.75 <= Constants.shooterMediumScaleSpeed * 0.75) {
+        		else if(Variables.currentShooterRPM * 0.75 <= Variables.shooterSpeed * 0.75) {
         			//Fast strobe
         			data = "3";
         		}
