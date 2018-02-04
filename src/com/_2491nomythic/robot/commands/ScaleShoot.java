@@ -54,13 +54,16 @@ public class ScaleShoot extends CommandBase {
 			else if (timer.get() > Constants.timeForShooterToRaise) {
 				shooter.run(Variables.shooterSpeed);
 			}
-			
+			state++;
 			break;
 		case 2:
 			if(Variables.readyToFire && oi.getButton(ControllerMap.driveController, ControllerMap.driverScaleShootButton)) {
 				cubeStorage.run(1);
+				timer.reset();
 				state++;
 			}
+			break;
+		case 3:
 			break;
 		default:
 			System.out.println("Unexpected state in ScaleShoot. State: " + state);
@@ -75,10 +78,13 @@ public class ScaleShoot extends CommandBase {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		cubeStorage.stop();
+		shooter.stop();
 	}
 
 	// Called when another command which requires one or more of the same
 	// subsystems is scheduled to run
 	protected void interrupted() {
+		end();
 	}
 }
