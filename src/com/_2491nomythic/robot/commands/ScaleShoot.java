@@ -59,7 +59,6 @@ public class ScaleShoot extends CommandBase {
 		case 2:
 			if(Variables.readyToFire && oi.getButton(ControllerMap.driveController, ControllerMap.driverScaleShootButton)) {
 				cubeStorage.run(1);
-				timer.reset();
 				state++;
 			}
 			break;
