@@ -45,6 +45,6 @@ public class Constants {
 	public static final double heldCubeRange = 2491;//TODO actual value needed
 		
 	//Computation
-	public static final double driveEncoderToInches = 0.01789925/*1.066 * 2.4 * 1200.0 / 670 / 256*/;
+	public static final double driveEncoderToInches = 1.066 * 2.4 * 1200.0 / 670 / 256; //TODO update for 2018. Currently in 2017 inches.
 	public static final double encoderTicksToRPM = 2491;//TODO update with an actual value.
 }
