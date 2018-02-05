@@ -24,7 +24,7 @@ public class ArcadeOrTwinDrive extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(DriverStation.getInstance().getJoystickName(1) == "LOGITECH") {
+    	if(DriverStation.getInstance().getJoystickName(1) != "Logitech Extreme 3D") {
     		turnSpeed = 0.5 * oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveTurnAxis, 0.1);
     		
     		lastLeftSpeed = currentLeftSpeed;

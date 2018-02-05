@@ -7,8 +7,7 @@ public class ControllerMap {
 	
 	//Controllers
 	public static final int driveController = 0;
-	public static final int driveController2 = 1;
-	public static final int operatorController = 2;
+	public static final int operatorController = 1;;
 	
 	public static final int driveTurnAxis = 2;
 	public static final int driveMainAxis = 1;
