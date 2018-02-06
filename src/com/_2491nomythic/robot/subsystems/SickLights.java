@@ -10,8 +10,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class SickLights extends Subsystem {
 	private SerialPort serialPort;
 	private static SickLights instance;
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
 
 	public static SickLights getInstance() {
 		if(instance == null) {
@@ -46,8 +44,6 @@ public class SickLights extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-        // Set the default command for a subsystem here.
-        //setDefaultCommand(new MySpecialCommand());
     }
 }
 

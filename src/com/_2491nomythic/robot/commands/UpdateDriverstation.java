@@ -46,9 +46,7 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putNumber("Avg. Encoder Distance", drivetrain.getDistance());
 			SmartDashboard.putNumber("Current PID Input", drivetrain.returnPIDInput());
 			SmartDashboard.putBoolean("Shooter Ready To Fire", Variables.readyToFire);
-			SmartDashboard.putNumber("Drivetrain Left Speed", drivetrain.getLeftEncoderRate());
-			SmartDashboard.putNumber("Drivetrain Right Speed", drivetrain.getRightEncoderRate());
-			SmartDashboard.putNumber("Drivetrain Average Speed", drivetrain.getEncoderRate());
+			SmartDashboard.putNumber("Drivetrain Speed", drivetrain.getEncoderRate());
 			SmartDashboard.putNumber("Maximum Speed", maximumSpeed);
 		}
 			
