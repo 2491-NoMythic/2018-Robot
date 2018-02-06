@@ -7,6 +7,7 @@
 
 package com._2491nomythic.robot;
 
+import com._2491nomythic.robot.commands.AutomaticShoot;
 import com._2491nomythic.robot.commands.KillSwitch;
 import com._2491nomythic.robot.commands.ScaleShoot;
 import com._2491nomythic.robot.commands.SwitchShoot;
@@ -24,7 +25,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	private final Joystick[] controllers = new Joystick[2];
-	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, toggleCoastMode;
+	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, toggleCoastMode, driverAutoShoot;
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		controllers[1] = new Joystick(ControllerMap.operatorController);
@@ -46,6 +47,9 @@ public class OI {
 		
 		toggleCoastMode = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.toggleCoastModeButton);
 		toggleCoastMode.toggleWhenPressed(new ToggleCoastMode());
+		
+		driverAutoShoot = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverAutoShootButton);
+		driverAutoShoot.whenPressed(new AutomaticShoot(true));
 	}
 	
 	/**
