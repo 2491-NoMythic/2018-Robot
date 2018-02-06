@@ -1,6 +1,6 @@
 package com._2491nomythic.robot.subsystems;
 
-import com._2491nomythic.robot.commands.drivetrain.ArcadeOrTwinDrive;
+import com._2491nomythic.robot.commands.drivetrain.Drive;
 import com._2491nomythic.robot.settings.Constants;
 import com._2491nomythic.robot.settings.Variables;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -9,7 +9,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -41,13 +40,10 @@ public class Drivetrain extends PIDSubsystem {
 		right1 = new TalonSRX(Constants.driveTalonRight1Channel);
 		right2 = new TalonSRX(Constants.driveTalonRight2Channel);
 		
-		left2.follow(left1);
-		right2.follow(right1);
-		
-		left1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		left2.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 				
-		gyro = new AHRS(SerialPort.Port.kUSB);
+		//gyro = new AHRS(SerialPort.Port.kUSB);
 	}
 	
 	/**
@@ -73,7 +69,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveLeft(double speed){
-		left1.set(ControlMode.PercentOutput, -speed);
+		left1.set(ControlMode.Velocity, speed);
+		left2.set(ControlMode.Velocity, speed);
 	}
 	
 	/**
@@ -81,7 +78,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveRight(double speed){
-		right1.set(ControlMode.PercentOutput, speed);
+		right1.set(ControlMode.Velocity, -speed);
+		right2.set(ControlMode.Velocity, -speed);
 	}
 	
 	/**
@@ -115,7 +113,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * Resets the left drive encoder value to 0
 	 */
 	public void resetLeftEncoder() {
-		left1.setSelectedSensorPosition(0, 0, 0);
+		left2.setSelectedSensorPosition(0, 0, 0);
 	}
 	
 	/**
@@ -137,14 +135,14 @@ public class Drivetrain extends PIDSubsystem {
 	 * @return The value of the left drive encoder in inches
 	 */
 	public double getLeftEncoderDistance() {
-		return left1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
+		return -left2.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
 	}
 	
 	/**
 	 * @return The value of the right drive encoder in inches
 	 */
 	public double getRightEncoderDistance() {
-		return -right1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
+		return right1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
 	}
 	
 	/**
@@ -155,38 +153,46 @@ public class Drivetrain extends PIDSubsystem {
 	}
 	
 	/**
-	 * @return The speed of the left motor in feet per second
+	 * @return The speed of the left motor
 	 */
 	public double getLeftEncoderRate() {
-		return left1.getSelectedSensorVelocity(0) * 10 * Constants.driveEncoderToInches;
+		return -left2.getSelectedSensorVelocity(0);
 	}
 	
 	/**
-	 * @return The speed of the right motor in feet per second
+	 * @return The speed of the right motor
 	 */
 	public double getRightEncoderRate() {
-		return -right1.getSelectedSensorVelocity(0) * 10 * Constants.driveEncoderToInches;
+		return right1.getSelectedSensorVelocity(0);
+	}
+	
+	/**
+	 * 
+	 * @return The average speed of both motors
+	 */
+	public double getEncoderRate() {
+		return (getRightEncoderRate() + getLeftEncoderRate()) / 2;
 	}
 	
 	/**
 	 * Resets the value of the gyro to 0
 	 */
 	public void resetGyro() {
-		gyro.reset();
+		//gyro.reset();
 	}
 	
 	/**
 	 * @return The value of the gyro, corrected to a 0-360 range
 	 */
 	public double getGyroAngle(){
-		return (gyro.getAngle()  % 360 + 360) % 360;
+		return 10; //(gyro.getAngle()  % 360 + 360) % 360;
 	}	
 	
 	/**
 	 * @return The angle of the gyro, unmodified
 	 */
 	public double getRawGyroAngle(){
-		return gyro.getAngle();
+		return 10; //gyro.getAngle();
 	}
 	
 	/**
@@ -219,7 +225,7 @@ public class Drivetrain extends PIDSubsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		//setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new ArcadeOrTwinDrive());
+		setDefaultCommand(new Drive());
 	}
 	
 	@Override

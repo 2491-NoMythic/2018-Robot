@@ -24,9 +24,9 @@ public class SickLights extends Subsystem {
 	 * The system which controls the data sent to the lights.
 	 */
 	public SickLights() {
-		serialPort = new SerialPort(115200, SerialPort.Port.kOnboard);
-		serialPort.setWriteBufferMode(WriteBufferMode.kFlushOnAccess);
-		serialPort.setWriteBufferSize(1);
+		//serialPort = new SerialPort(115200, SerialPort.Port.kOnboard);
+		//serialPort.setWriteBufferMode(WriteBufferMode.kFlushOnAccess);
+		//serialPort.setWriteBufferSize(1);
 	}
 	
 	/**
@@ -34,15 +34,15 @@ public class SickLights extends Subsystem {
 	 * @param data The string to send.
 	 */
 	public void writeSignal(String data) {
-		int sentData = serialPort.writeString(data);
-		System.out.println("Sent data! " + sentData);
+		//int sentData = serialPort.writeString(data);
+		//System.out.println("Sent data! " + sentData);
 	}
 	
 	/**
 	 * Clears the buffer of the SerialPort.
 	 */
 	public void clearData() {
-		serialPort.reset();
+		//serialPort.reset();
 	}
 	
     public void initDefaultCommand() {
