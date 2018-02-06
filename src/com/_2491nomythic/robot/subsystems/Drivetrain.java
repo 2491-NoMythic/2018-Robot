@@ -189,22 +189,22 @@ public class Drivetrain extends PIDSubsystem {
 	}
 	
 	/**
-	 * @return The speed of the left motor
+	 * @return The speed of the left motor in RPS
 	 */
 	public double getLeftEncoderRate() {
-		return -left2.getSelectedSensorVelocity(0);
+		return -left2.getSelectedSensorVelocity(0) * Constants.driveEncoderVelocityToRPS;
 	}
 	
 	/**
-	 * @return The speed of the right motor
+	 * @return The speed of the right motor in RPS
 	 */
 	public double getRightEncoderRate() {
-		return right1.getSelectedSensorVelocity(0);
+		return right1.getSelectedSensorVelocity(0) * Constants.driveEncoderVelocityToRPS;
 	}
 	
 	/**
 	 * 
-	 * @return The average speed of both motors
+	 * @return The average speed of both motors in RPS
 	 */
 	public double getEncoderRate() {
 		return (getRightEncoderRate() + getLeftEncoderRate()) / 2;
