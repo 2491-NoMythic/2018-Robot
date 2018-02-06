@@ -50,8 +50,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * Drives the robot forward or backward only
 	 * @param speed The power fed to the vertical drive motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
-	public void drive(double speed){
-		drive(speed, speed);
+	public void drivePercentOutput(double speed){
+		drivePercentOutput(speed, speed);
 	}
 	
 	/**
@@ -59,34 +59,70 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param leftSpeed The power fed to the left drive motors, ranging from -1 to 1, where negative values run the motors backwards
 	 * @param rightSpeed The power fed to the right drive motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
-	public void drive(double leftSpeed, double rightSpeed){
-		driveLeft(leftSpeed);
-		driveRight(rightSpeed);
+	public void drivePercentOutput(double leftSpeed, double rightSpeed){
+		driveLeftPercentOutput(leftSpeed);
+		driveRightPercentOutput(rightSpeed);
 	}
 	
 	/**
 	 * Drives the left side of the robot
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
-	public void driveLeft(double speed){
-		left1.set(ControlMode.Velocity, speed);
-		left2.set(ControlMode.Velocity, speed);
+	public void driveLeftPercentOutput(double speed){
+		left1.set(ControlMode.PercentOutput, speed);
+		left2.set(ControlMode.PercentOutput, speed);
 	}
 	
 	/**
 	 * Drives the right side of the robot
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
-	public void driveRight(double speed){
-		right1.set(ControlMode.Velocity, -speed);
-		right2.set(ControlMode.Velocity, -speed);
+	public void driveRightPercentOutput(double speed){
+		right1.set(ControlMode.PercentOutput, -speed);
+		right2.set(ControlMode.PercentOutput, -speed);
+	}
+	
+	/**
+	 * Drives the robot forward or backward only
+	 * @param speed The speed of the wheels in RPS (rotations per second)
+	 */
+	public void driveVelocity(double speed){
+		driveVelocity(speed, speed);
+	}
+	
+	/**
+	 * Drives the robot with each set of motors receiving an individual specific speed
+	 * @param leftSpeed The speed of the left wheels in RPS (rotations per second)
+	 * @param rightSpeed The speed of the right wheels in RPS (rotations per second)
+	 */
+	public void driveVelocity(double leftSpeed, double rightSpeed){
+		driveLeftVelocity(leftSpeed);
+		driveRightVelocity(rightSpeed);
+	}
+	
+	/**
+	 * Drives the left side of the robot
+	 * @param speed The speed of the wheels in RPS (rotations per second)
+	 */
+	public void driveLeftVelocity(double speed){
+		left1.set(ControlMode.Velocity, speed * Constants.speedModeRPSToTalonOutput);
+		left2.set(ControlMode.Velocity, speed  * Constants.speedModeRPSToTalonOutput);
+	}
+	
+	/**
+	 * Drives the right side of the robot
+	 * @param speed The speed of the wheels in RPS (rotations per second)
+	 */
+	public void driveRightVelocity(double speed){
+		right1.set(ControlMode.Velocity, -speed * Constants.speedModeRPSToTalonOutput);
+		right2.set(ControlMode.Velocity, -speed * Constants.speedModeRPSToTalonOutput);
 	}
 	
 	/**
 	 * Stops all drive motion
 	 */
 	public void stop(){
-		drive(0, 0);
+		drivePercentOutput(0, 0);
 	}
 	
 	/**
@@ -241,10 +277,10 @@ public class Drivetrain extends PIDSubsystem {
 	@Override
 	protected void usePIDOutput(double output) {
 		if(Variables.useGyroPID) {
-			drive(output, -output);
+			drivePercentOutput(output, -output);
 		}
 		else {
-			drive(output, output);
+			drivePercentOutput(output, output);
 		}
 	}
 	

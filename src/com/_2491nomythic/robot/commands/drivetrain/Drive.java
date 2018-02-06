@@ -56,7 +56,7 @@ public class Drive extends CommandBase {
 		}
 		
 		
-		drivetrain.drive(currentLeftSpeed + turnSpeed, currentRightSpeed - turnSpeed);
+		drivetrain.drivePercentOutput(currentLeftSpeed + turnSpeed, currentRightSpeed - turnSpeed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

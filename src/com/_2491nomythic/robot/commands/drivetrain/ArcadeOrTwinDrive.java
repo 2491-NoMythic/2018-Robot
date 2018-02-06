@@ -56,7 +56,7 @@ public class ArcadeOrTwinDrive extends CommandBase {
     		}
     		
     		
-    		drivetrain.drive(currentLeftSpeed + turnSpeed, currentRightSpeed - turnSpeed);
+    		drivetrain.drivePercentOutput(currentLeftSpeed + turnSpeed, currentRightSpeed - turnSpeed);
     	}
     	else {
     		lastLeftSpeed = currentLeftSpeed;
@@ -88,7 +88,7 @@ public class ArcadeOrTwinDrive extends CommandBase {
     		}
     		
     		
-    		drivetrain.drive(currentLeftSpeed, currentRightSpeed);
+    		drivetrain.drivePercentOutput(currentLeftSpeed, currentRightSpeed);
     	}
     }
 

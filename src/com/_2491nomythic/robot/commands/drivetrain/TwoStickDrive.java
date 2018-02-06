@@ -52,7 +52,7 @@ public class TwoStickDrive extends CommandBase {
 		}
 		
 		
-		drivetrain.drive(currentLeftSpeed, currentRightSpeed);
+		drivetrain.drivePercentOutput(currentLeftSpeed, currentRightSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
