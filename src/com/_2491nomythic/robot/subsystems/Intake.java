@@ -32,8 +32,8 @@ public class Intake extends Subsystem {
 		right1 = new TalonSRX(Constants.intakeTalonRight1Channel);
 		right2 = new TalonSRX(Constants.intakeTalonRight2Channel);
 		bottom = new TalonSRX(Constants.intakeTalonBottomChannel);
-		activateIntakeSolenoid = new Solenoid(Constants.intakeSolenoidActivateChannel);
-		intakeOpenSolenoid = new Solenoid(Constants.intakeSolenoidOpenChannel);
+		//activateIntakeSolenoid = new Solenoid(Constants.intakeSolenoidActivateChannel);
+		//intakeOpenSolenoid = new Solenoid(Constants.intakeSolenoidOpenChannel);
 		
 		left2.follow(left1);
 		right2.follow(right2);
@@ -116,7 +116,7 @@ public class Intake extends Subsystem {
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
 		//setDefaultCommand(new MySpecialCommand());
-		setDefaultCommand(new RunIntakeManual());
+		//setDefaultCommand(new RunIntakeManual());
 	}
 }
 

@@ -22,10 +22,11 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	private final Joystick[] controllers = new Joystick[1];
+	private final Joystick[] controllers = new Joystick[2];
 	Button killSwitch1, killSwitch2, driverScaleShootButton, driverSwitchShootButton, driverFeedCubeButton;
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
+		controllers[1] = new Joystick(ControllerMap.operatorController);
 		
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
 		killSwitch1.whenPressed(new KillSwitch());

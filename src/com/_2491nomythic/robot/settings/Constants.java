@@ -6,17 +6,17 @@ package com._2491nomythic.robot.settings;
 public class Constants {
 	
 	//Drive
-	public static final int driveTalonLeft1Channel = 1;
-	public static final int driveTalonLeft2Channel = 2;
-	public static final int driveTalonRight1Channel = 3;
-	public static final int driveTalonRight2Channel = 4;
+	public static final int driveTalonLeft1Channel = 9;
+	public static final int driveTalonLeft2Channel = 10;
+	public static final int driveTalonRight1Channel = 4;
+	public static final int driveTalonRight2Channel = 5;
 	
 	//Intake
-	public static final int intakeTalonLeft1Channel = 5;
+	public static final int intakeTalonLeft1Channel = 21;
 	public static final int intakeTalonLeft2Channel = 6;
 	public static final int intakeTalonRight1Channel = 7;
 	public static final int intakeTalonRight2Channel = 8;
-	public static final int intakeTalonBottomChannel = 9;
+	public static final int intakeTalonBottomChannel = 22;
 	public static final int intakeSolenoidActivateChannel = 2491; //TODO Change this to an actual solenoid channel.
 	public static final int intakeSolenoidOpenChannel = 2491; //TODO Change this to an actual solenoid channel.
 
@@ -38,7 +38,7 @@ public class Constants {
 	public static final int lightSerialChannel = 1;
 	
 	//CubeStorage
-	public static final int cubeStorageTalonLeftChannel = 10;
+	public static final int cubeStorageTalonLeftChannel = 23;
 	public static final int cubeStorageTalonRightChannel = 11;
 	public static final int ultrasonicDigitalInput = 2491;//TODO actual value needed
 	public static final int ultrasonicDigitalOutput = 2491;//TODO actual value needed
