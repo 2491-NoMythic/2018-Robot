@@ -1,8 +1,6 @@
 package com._2491nomythic.robot.subsystems;
 
-import com._2491nomythic.robot.commands.drivetrain.ArcadeOrTwinDrive;
 import com._2491nomythic.robot.commands.drivetrain.Drive;
-import com._2491nomythic.robot.commands.drivetrain.TwoStickDrive;
 import com._2491nomythic.robot.settings.Constants;
 import com._2491nomythic.robot.settings.Variables;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -11,7 +9,6 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -72,8 +69,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveLeft(double speed){
-		left1.set(ControlMode.PercentOutput, speed);
-		left2.set(ControlMode.PercentOutput, speed);
+		left1.set(ControlMode.Velocity, speed);
+		left2.set(ControlMode.Velocity, speed);
 	}
 	
 	/**
@@ -81,8 +78,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveRight(double speed){
-		right1.set(ControlMode.PercentOutput, -speed);
-		right2.set(ControlMode.PercentOutput, -speed);
+		right1.set(ControlMode.Velocity, -speed);
+		right2.set(ControlMode.Velocity, -speed);
 	}
 	
 	/**
@@ -156,17 +153,25 @@ public class Drivetrain extends PIDSubsystem {
 	}
 	
 	/**
-	 * @return The speed of the left motor in feet per second
+	 * @return The speed of the left motor
 	 */
 	public double getLeftEncoderRate() {
-		return -left2.getSelectedSensorVelocity(0) * 10 * Constants.driveEncoderToInches;
+		return -left2.getSelectedSensorVelocity(0);
 	}
 	
 	/**
-	 * @return The speed of the right motor in feet per second
+	 * @return The speed of the right motor
 	 */
 	public double getRightEncoderRate() {
-		return right1.getSelectedSensorVelocity(0) * 10 * Constants.driveEncoderToInches;
+		return right1.getSelectedSensorVelocity(0);
+	}
+	
+	/**
+	 * 
+	 * @return The average speed of both motors
+	 */
+	public double getEncoderRate() {
+		return (getRightEncoderRate() + getLeftEncoderRate()) / 2;
 	}
 	
 	/**
