@@ -20,11 +20,8 @@ public class ControllerMap {
 	public static final int killSwitchButton1 = 11;
 	public static final int killSwitchButton2 = 12;
 	public static final int driverSwitchShootButton = 7;
-<<<<<<< HEAD
 	public static final int driverFeedCubeButton = 1; //Not currently used
 	public static final int toggleCoastModeButton = 6;
-=======
-	public static final int driverFeedCubeButton = 1;
->>>>>>> 05ca4883b2208a9888b0632e51b5e2846615a97d
+
 
 }

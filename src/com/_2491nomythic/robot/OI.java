@@ -12,6 +12,7 @@ import com._2491nomythic.robot.commands.KillSwitch;
 import com._2491nomythic.robot.commands.ScaleShoot;
 import com._2491nomythic.robot.commands.SwitchShoot;
 import com._2491nomythic.robot.commands.cubestorage.FeedCube;
+import com._2491nomythic.robot.commands.drivetrain.ToggleCoastMode;
 import com._2491nomythic.robot.settings.ControllerMap;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -24,11 +25,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  */
 public class OI {
 	private final Joystick[] controllers = new Joystick[2];
-<<<<<<< HEAD
+	
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, toggleCoastMode, driverAutoShoot;
-=======
-	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube;
->>>>>>> 05ca4883b2208a9888b0632e51b5e2846615a97d
+
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		controllers[1] = new Joystick(ControllerMap.operatorController);
@@ -47,15 +46,12 @@ public class OI {
 		
 		//driverFeedCube = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverFeedCubeButton);
 		//driverFeedCube.whenPressed(new FeedCube());
-<<<<<<< HEAD
 		
 		toggleCoastMode = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.toggleCoastModeButton);
 		toggleCoastMode.toggleWhenPressed(new ToggleCoastMode());
 		
 		driverAutoShoot = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverAutoShootButton);
 		driverAutoShoot.whenPressed(new AutomaticShoot(true));
-=======
->>>>>>> 05ca4883b2208a9888b0632e51b5e2846615a97d
 	}
 	
 	/**
