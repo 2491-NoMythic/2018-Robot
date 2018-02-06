@@ -20,5 +20,6 @@ public class ControllerMap {
 	public static final int killSwitchButton2 = 12;
 	public static final int driverSwitchShootButton = 7;
 	public static final int driverFeedCubeButton = 1;
+	public static final int toggleCoastModeButton = 6;
 
 }
