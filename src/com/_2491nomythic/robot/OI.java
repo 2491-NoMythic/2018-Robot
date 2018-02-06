@@ -34,14 +34,14 @@ public class OI {
 		killSwitch2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton2);
 		killSwitch2.whenPressed(new KillSwitch());
 		
-		driverScaleShootButton = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverScaleShootButton);
-		driverScaleShootButton.whileHeld(new ScaleShoot());
+		//driverScaleShootButton = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverScaleShootButton);
+		//driverScaleShootButton.whileHeld(new ScaleShoot());
 		
-		driverSwitchShootButton = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverSwitchShootButton);
-		driverSwitchShootButton.whileHeld(new SwitchShoot());
+		//driverSwitchShootButton = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverSwitchShootButton);
+		//driverSwitchShootButton.whileHeld(new SwitchShoot());
 		
-		driverFeedCubeButton = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverFeedCubeButton);
-		driverFeedCubeButton.whenPressed(new FeedCube());
+		//driverFeedCubeButton = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverFeedCubeButton);
+		//driverFeedCubeButton.whenPressed(new FeedCube());
 	}
 	
 	/**
