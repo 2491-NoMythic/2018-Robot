@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class UpdateDriverstation extends CommandBase {
 	private Timer timer;
-	private double nextRun;
+	private double nextRun, maximumSpeed;
 
 	/**
 	 * Updates values in the code from editable values on the SmartDashboard
@@ -35,7 +35,10 @@ public class UpdateDriverstation extends CommandBase {
 	protected void execute() {
 		if (timer.get() > nextRun) {
 			nextRun = nextRun + 0.1;
-			
+			if (drivetrain.getEncoderRate() > maximumSpeed) {
+				maximumSpeed = drivetrain.getEncoderRate();
+			}
+				
 			Variables.useLinearAcceleration = SmartDashboard.getBoolean("Use Linear Acceleration", true);
 			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
 			SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
@@ -46,6 +49,7 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putNumber("Drivetrain Left Speed", drivetrain.getLeftEncoderRate());
 			SmartDashboard.putNumber("Drivetrain Right Speed", drivetrain.getRightEncoderRate());
 			SmartDashboard.putNumber("Drivetrain Average Speed", drivetrain.getEncoderRate());
+			SmartDashboard.putNumber("Maximum Speed", maximumSpeed);
 		}
 			
 		
