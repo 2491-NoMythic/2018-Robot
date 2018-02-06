@@ -66,7 +66,7 @@ public class CubeStorage extends Subsystem {
 	 * @return True if a cube is held, else returns false
 	 */
 	public boolean isHeld() {
-		return (getRange() < Constants.heldCubeRange && getRange() != 0);
+		return (getRange() <= Constants.heldCubeRange && getRange() != 0);
 	}
 	
 
