@@ -18,7 +18,7 @@ public class DriveVelocity extends CommandBase {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(drivetrain);
-		velocityAccelerationSpeed = .05 * Constants.driveMaxSpeedRPS;
+		velocityAccelerationSpeed = Variables.accelerationSpeed * Constants.driveMaxSpeedRPS;
 	}
 
 	// Called just before this Command runs the first time
