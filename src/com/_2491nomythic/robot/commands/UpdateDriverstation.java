@@ -38,7 +38,8 @@ public class UpdateDriverstation extends CommandBase {
 			if (drivetrain.getEncoderRate() > maximumSpeed) {
 				maximumSpeed = drivetrain.getEncoderRate();
 			}
-				
+			
+			Variables.driveDefault = SmartDashboard.getNumber("Drive Default Command", 1);
 			Variables.useLinearAcceleration = SmartDashboard.getBoolean("Use Linear Acceleration", true);
 			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
 			SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
@@ -48,6 +49,7 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putBoolean("Shooter Ready To Fire", Variables.readyToFire);
 			SmartDashboard.putNumber("Drivetrain Speed", drivetrain.getEncoderRate());
 			SmartDashboard.putNumber("Maximum Speed", maximumSpeed);
+			drivetrain.chooseDefaultCommand(Variables.driveDefault);
 		}
 			
 		

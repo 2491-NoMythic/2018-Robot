@@ -25,12 +25,12 @@ public class SilasLinearDrive extends CommandBase {
     	state = 0;
     	timer.start();
     	timer.reset();
-    	accelerationInterval = .5;
+    	accelerationInterval = .6;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	turnSpeed = 0.5 * oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveTurnAxis, 0.1);
+    	turnSpeed =  0.75 * oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveTurnAxis, 0.1);
     	rawLeftSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveMainAxis, .05);
     	rawRightSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveMainAxis, .05);
     	

@@ -7,7 +7,8 @@ public class Variables {
 	
 	//Drive
 	public static boolean useLinearAcceleration = true;
-	public static double accelerationSpeed = 0.05 * Constants.driveMaxSpeedRPS;
+	public static double accelerationSpeed = 0.05;
+	public static double driveDefault = 1;
 	
 	//PID Constants from Watt
 	public static double proportional = 0.016;
