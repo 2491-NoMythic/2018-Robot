@@ -9,7 +9,7 @@ import com._2491nomythic.robot.settings.Variables;
  * Drives the robot with actual linear acceleration as according to input from a driver's controller
  */
 public class DriveVelocity extends CommandBase {
-	private double turnSpeed, currentLeftSpeed, currentRightSpeed, lastLeftSpeed, lastRightSpeed;	
+	private double turnSpeed, currentLeftSpeed, currentRightSpeed, lastLeftSpeed, lastRightSpeed, velocityAccelerationSpeed;
 	
 	/**
 	 * Drives the robot with actual linear acceleration as according to input from a driver's controller
@@ -18,6 +18,7 @@ public class DriveVelocity extends CommandBase {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(drivetrain);
+		velocityAccelerationSpeed = .05 * Constants.driveMaxSpeedRPS;
 	}
 
 	// Called just before this Command runs the first time
@@ -37,20 +38,20 @@ public class DriveVelocity extends CommandBase {
 		if (Variables.useLinearAcceleration) {
 			double leftAcceleration = (currentLeftSpeed - lastLeftSpeed);
 			double signOfLeftAcceleration = leftAcceleration / Math.abs(leftAcceleration);
-			if (Math.abs(leftAcceleration) > Variables.accelerationSpeed) { // otherwise the power is below accel and is fine
+			if (Math.abs(leftAcceleration) > velocityAccelerationSpeed) { // otherwise the power is below accel and is fine
 				if (Math.abs(currentLeftSpeed) - Math.abs(lastLeftSpeed) > 0) {
-					//System.out.println(currentLeftSpeed + " was too high, setting to " + (lastLeftSpeed + (Variables.accelerationSpeed * signOfLeftAcceleration)));
-					currentLeftSpeed = lastLeftSpeed + (Variables.accelerationSpeed * signOfLeftAcceleration);
+					//System.out.println(currentLeftSpeed + " was too high, setting to " + (lastLeftSpeed + (velocityAccelerationSpeed * signOfLeftAcceleration)));
+					currentLeftSpeed = lastLeftSpeed + (velocityAccelerationSpeed * signOfLeftAcceleration);
 					
 				}
 				// if the difference between the numbers is positive it is going up
 			}
 			double rightAcceleration = (currentRightSpeed - lastRightSpeed);
 			double signOfRightAcceleration = rightAcceleration / Math.abs(rightAcceleration);
-			if (Math.abs(rightAcceleration) > Variables.accelerationSpeed) { // otherwise the power is below 0.05 accel and is fine
+			if (Math.abs(rightAcceleration) > velocityAccelerationSpeed) { // otherwise the power is below 0.05 accel and is fine
 				if (Math.abs(currentRightSpeed) - Math.abs(lastRightSpeed) > 0) {
-					//System.out.println(currentRightSpeed + " was too high, setting to " + (lastRightSpeed + (Variables.accelerationSpeed * signOfRightAcceleration)));
-					currentRightSpeed = lastRightSpeed + (Variables.accelerationSpeed * signOfRightAcceleration);
+					//System.out.println(currentRightSpeed + " was too high, setting to " + (lastRightSpeed + (velocityAccelerationSpeed * signOfRightAcceleration)));
+					currentRightSpeed = lastRightSpeed + (velocityAccelerationSpeed * signOfRightAcceleration);
 				}
 				// if the difference between the numbers is positive it is going up
 			}
