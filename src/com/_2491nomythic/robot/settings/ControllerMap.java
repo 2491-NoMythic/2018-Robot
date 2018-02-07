@@ -16,7 +16,7 @@ public class ControllerMap {
 	public static final int cubeStorageAxis = 1;
 	
 	public static final int driverScaleShootButton = 8;
-	public static final int driverAutoShootButton = 2; //Add actual number
+	public static final int driverAutoShootButton = 2;
 	public static final int killSwitchButton1 = 11;
 	public static final int killSwitchButton2 = 12;
 	public static final int driverSwitchShootButton = 7;
