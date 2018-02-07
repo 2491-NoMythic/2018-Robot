@@ -1,7 +1,7 @@
 package com._2491nomythic.robot.subsystems;
 
 import com._2491nomythic.robot.commands.drivetrain.Drive;
-import com._2491nomythic.robot.commands.drivetrain.SilasLinearDrive;
+import com._2491nomythic.robot.commands.drivetrain.WhoLinearDrive;
 import com._2491nomythic.robot.commands.drivetrain.TwoStickDrive;
 import com._2491nomythic.robot.settings.Constants;
 import com._2491nomythic.robot.settings.Variables;
@@ -257,13 +257,16 @@ public class Drivetrain extends PIDSubsystem {
 		return gyro;
 	}
 	
-
+	/**
+	 * Sets the default command of the drivetrain subsystem
+	 * @param command The command to set. 1 = Drive, 2 = SilasLinearDrive, 3 = TwoStickDrive
+	 */
 	public void chooseDefaultCommand(double command) {
 		if (command == 1) {
 			setDefaultCommand(new Drive());
 		}
 		else if (command == 2) {
-			setDefaultCommand(new SilasLinearDrive());
+			setDefaultCommand(new WhoLinearDrive());
 		}
 		else {
 			setDefaultCommand(new TwoStickDrive());

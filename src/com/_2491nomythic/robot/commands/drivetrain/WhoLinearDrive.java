@@ -6,14 +6,17 @@ import com._2491nomythic.robot.settings.ControllerMap;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
+ * Controls the robot with linear acceleration as according to driver control input
  */
-public class SilasLinearDrive extends CommandBase {
+public class WhoLinearDrive extends CommandBase {
 	private double turnSpeed, leftSpeed, rightSpeed, rawLeftSpeed, rawRightSpeed, accelerationInterval, time, timeAddition;
 	int state;
 	Timer timer;
 
-    public SilasLinearDrive() {
+	/**
+	 * Controls the robot with linear acceleration as according to driver control input
+	 */
+    public WhoLinearDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(drivetrain);
