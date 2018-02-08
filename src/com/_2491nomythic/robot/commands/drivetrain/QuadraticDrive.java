@@ -6,7 +6,7 @@ import com._2491nomythic.robot.settings.ControllerMap;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * Controls the robot with linear acceleration as according to driver control input
+ * Controls the robot with quadratic acceleration as according to driver control input
  */
 public class QuadraticDrive extends CommandBase {
 	private double turnSpeed, leftSpeed, rightSpeed, rawLeftSpeed, rawRightSpeed, accelerationInterval, time, timeAddition, accelerationIncrease, quadraticCoefficient;
@@ -14,7 +14,7 @@ public class QuadraticDrive extends CommandBase {
 	Timer timer;
 
 	/**
-	 * Controls the robot with linear acceleration as according to driver control input
+	 * Controls the robot with quadratic acceleration as according to driver control input
 	 */
     public QuadraticDrive() {
         // Use requires() here to declare subsystem dependencies
