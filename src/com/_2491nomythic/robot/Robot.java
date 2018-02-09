@@ -27,6 +27,8 @@ import com._2491nomythic.robot.commands.drivetrain.TuneProportionalMultiClass;
 import com._2491nomythic.robot.commands.lights.UpdateLights;
 import com._2491nomythic.robot.commands.shooter.MonitorRPM;
 import com._2491nomythic.robot.settings.Variables;
+import com._2491nomythic.robot.subsystems.Shooter;
+
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -74,7 +76,6 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("RightPrioritizeSwitch", new RightPrioritizeSwitch());
 		m_chooser.addDefault("Do Nothing", new DoNothing());
 		SmartDashboard.putData("Auto mode", m_chooser);
-
 		SmartDashboard.putData("DriveStraightToPosition", new DriveStraightToPosition(0.3, 10));
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-10));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
@@ -159,6 +160,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
+		SmartDashboard.putNumber("UltrasonicDistance", Shooter.getInstance().getUltrasonicInches()); 
 	}
 
 	/**

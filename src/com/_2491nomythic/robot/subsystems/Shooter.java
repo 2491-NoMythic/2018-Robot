@@ -6,6 +6,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.Ultrasonic;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -15,6 +16,7 @@ public class Shooter extends Subsystem {
 	private static Shooter instance;
 	private TalonSRX leftAccelerate, rightAccelerate, leftShoot, rightShoot;
 	private Solenoid elevator;
+	private Ultrasonic ultrasonic; 
 	
 	public static Shooter getInstance() {
 		if (instance == null) {
@@ -31,6 +33,8 @@ public class Shooter extends Subsystem {
 		rightAccelerate = new TalonSRX(Constants.shooterTalonRightAccelerateChannel);
 		leftShoot = new TalonSRX(Constants.shooterTalonLeftShootChannel);
 		rightShoot = new TalonSRX(Constants.shooterTalonRightShootChannel);
+		ultrasonic = new Ultrasonic(1,0);
+		ultrasonic.setAutomaticMode(true);
 		
 		//elevator = new Solenoid(Constants.shooterElevatorChannel);
 		
@@ -151,6 +155,30 @@ public class Shooter extends Subsystem {
 	 */
 	public boolean isRaised() {
 		return elevator.get();
+	}
+	
+	/**
+	 * Gets the current range of the ultrasonic sensor.
+	 * @return Returns double of inches.
+	 */
+	public double getUltrasonicInches() {
+		return ultrasonic.getRangeInches();
+	}
+	
+	/**
+	 * Gets the current range of the ultrasonic sensor in millimeters;
+	 * @return Returns double of millimeters.
+	 */
+	public double getUltrasonicMillimeters() {
+		return ultrasonic.getRangeMM();
+	}
+	
+	/**
+	 * Gets the distance in centimeters rounded to the nearest centimeter.
+	 * @return ultrasonic distance in centimeters rounded to nearest centimeter.
+	 */
+	public int getUltrasonicCentimetersRounded() {
+		return (int) (ultrasonic.getRangeMM() / 10);
 	}
 
 	public void initDefaultCommand() {
