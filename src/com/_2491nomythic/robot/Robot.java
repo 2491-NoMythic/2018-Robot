@@ -83,6 +83,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("TuneProportionalMultiClass", new TuneProportionalMultiClass(45, 15));
 		SmartDashboard.putData("TuneDerivative", new TuneDerivative(45, 5, 5, 15));
 		SmartDashboard.putBoolean("Use Linear Acceleration", Variables.useLinearAcceleration);
+		SmartDashboard.putNumber("Drive Default Command", Variables.driveDefault);
 		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);
 	}
 

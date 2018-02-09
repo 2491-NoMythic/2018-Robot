@@ -6,14 +6,17 @@ import com._2491nomythic.robot.settings.ControllerMap;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
+ * Controls the robot with linear acceleration as according to driver control input
  */
-public class SilasLinearDrive extends CommandBase {
+public class WhoLinearDrive extends CommandBase {
 	private double turnSpeed, leftSpeed, rightSpeed, rawLeftSpeed, rawRightSpeed, accelerationInterval, time, timeAddition;
 	int state;
 	Timer timer;
 
-    public SilasLinearDrive() {
+	/**
+	 * Controls the robot with linear acceleration as according to driver control input
+	 */
+    public WhoLinearDrive() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(drivetrain);
@@ -25,12 +28,12 @@ public class SilasLinearDrive extends CommandBase {
     	state = 0;
     	timer.start();
     	timer.reset();
-    	accelerationInterval = .5;
+    	accelerationInterval = .6;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	turnSpeed = 0.5 * oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveTurnAxis, 0.1);
+    	turnSpeed =  0.75 * oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveTurnAxis, 0.1);
     	rawLeftSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveMainAxis, .05);
     	rawRightSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveMainAxis, .05);
     	
