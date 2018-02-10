@@ -29,7 +29,8 @@ public class CubeStorage extends Subsystem {
 	private CubeStorage() {
 		left = new TalonSRX(Constants.cubeStorageTalonLeftChannel);
 		right = new TalonSRX(Constants.cubeStorageTalonRightChannel);
-		//sonic = new Ultrasonic(Constants.ultrasonicDigitalOutput, Constants.ultrasonicDigitalInput);
+		sonic = new Ultrasonic(Constants.ultrasonicDigitalOutput, Constants.ultrasonicDigitalInput);
+		sonic.setAutomaticMode(true);
 	}
 
 	
@@ -57,8 +58,24 @@ public class CubeStorage extends Subsystem {
 	 * Finds the current range of the ultrasonic. If no target is within range, returns 0
 	 * @return The current range of objects detected by the ultrasonic
 	 */
-	public double getRange() {
+	public double getRangeInches() {
 		return sonic.getRangeInches();
+	}
+	
+	/**
+	 * Gets the current range of the ultrasonic sensor in millimeters;
+	 * @return Returns double of millimeters.
+	 */
+	public double getUltrasonicMillimeters() {
+		return sonic.getRangeMM();
+	}
+	
+	/**
+	 * Gets the distance in centimeters rounded to the nearest centimeter.
+	 * @return ultrasonic distance in centimeters rounded to nearest centimeter.
+	 */
+	public int getUltrasonicCentimetersRounded() {
+		return (int) (sonic.getRangeMM() / 10);
 	}
 	
 	/**
@@ -66,7 +83,7 @@ public class CubeStorage extends Subsystem {
 	 * @return True if a cube is held, else returns false
 	 */
 	public boolean isHeld() {
-		return (getRange() <= Constants.heldCubeRange && getRange() != 0);
+		return (getRangeInches() <= Constants.heldCubeRange && getRangeInches() != 0);
 	}
 	
 

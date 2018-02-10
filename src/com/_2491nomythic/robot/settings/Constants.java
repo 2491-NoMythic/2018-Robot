@@ -40,8 +40,8 @@ public class Constants {
 	//CubeStorage
 	public static final int cubeStorageTalonLeftChannel = 23;
 	public static final int cubeStorageTalonRightChannel = 11;
-	public static final int ultrasonicDigitalInput = 2491;//TODO actual value needed
-	public static final int ultrasonicDigitalOutput = 2491;//TODO actual value needed
+	public static final int ultrasonicDigitalInput = 1;
+	public static final int ultrasonicDigitalOutput = 0;
 	public static final double heldCubeRange = 2491;//TODO actual value needed
 		
 	//Computation
