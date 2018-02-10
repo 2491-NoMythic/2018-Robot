@@ -23,11 +23,11 @@ public class PlaceOnSwitchLeft extends CommandBase {
     public PlaceOnSwitchLeft() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	driveToSwitch = new DriveStraightToPositionPID(2491);
-    	drivePastSwitch = new DriveStraightToPositionPID(2491);
-    	driveToCorrectSide = new DriveStraightToPositionPID(2491);
-    	driveBackToWall = new DriveStraightToPositionPID(2491);
-    	approachSwitch = new DriveStraightToPositionPID(2491);
+    	driveToSwitch = new DriveStraightToPositionPID(-168);
+    	drivePastSwitch = new DriveStraightToPositionPID(-235.4);
+    	driveToCorrectSide = new DriveStraightToPositionPID(-218.63);
+    	driveBackToWall = new DriveStraightToPositionPID(-67.4);
+    	approachSwitch = new DriveStraightToPositionPID(-42);
     	aimForCorrectSide = new RotateDrivetrainWithGyroPID(90, false);
     	aimForWall = new RotateDrivetrainWithGyroPID(90, false);
     	aimForSwitch = new RotateDrivetrainWithGyroPID(90, false);
