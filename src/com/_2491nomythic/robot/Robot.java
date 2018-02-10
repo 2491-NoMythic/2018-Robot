@@ -27,8 +27,7 @@ import com._2491nomythic.robot.commands.drivetrain.TuneProportionalMultiClass;
 import com._2491nomythic.robot.commands.lights.UpdateLights;
 import com._2491nomythic.robot.commands.shooter.MonitorRPM;
 import com._2491nomythic.robot.settings.Variables;
-import com._2491nomythic.robot.subsystems.Shooter;
-
+import com._2491nomythic.robot.subsystems.CubeStorage;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -161,7 +160,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
-		SmartDashboard.putNumber("UltrasonicDistance", Shooter.getInstance().getUltrasonicInches()); 
+		SmartDashboard.putNumber("UltrasonicDistance", CubeStorage.getInstance().getRangeInches());
 	}
 
 	/**
