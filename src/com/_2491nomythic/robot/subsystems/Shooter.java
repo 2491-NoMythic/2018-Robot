@@ -45,25 +45,25 @@ public class Shooter extends Subsystem {
 	
 	/**
 	 * Runs the motors used to initially speed up Power Cubes within the robot, readying them for launch, with a given power
-	 * @param speed The speed in RPM that the motors are supposed to run at.
+	 * @param speed The speed that the motors are set to run at.
 	 */
 	public void runAccelerate(double speed) {
-		leftAccelerate.set(ControlMode.Velocity, speed / Constants.shootEncoderTicksToRPM);
-		rightAccelerate.set(ControlMode.Velocity, speed / Constants.shootEncoderTicksToRPM);
+		leftAccelerate.set(ControlMode.PercentOutput, speed);
+		rightAccelerate.set(ControlMode.PercentOutput, speed);
 	}
 	
 	/**
 	 * Runs the motors used to maintain momentum of, and finally launch, the Power Cubes from the robot with a given power
-	 * @param speed The speed in RPM that the motors are supposed to run at.
+	 * @param speed The speed that the motors are set to run at.
 	 */
 	public void runShoot(double speed) {
-		leftShoot.set(ControlMode.Velocity, speed / Constants.shootEncoderTicksToRPM);
-		rightShoot.set(ControlMode.Velocity, speed / Constants.shootEncoderTicksToRPM);
+		leftShoot.set(ControlMode.PercentOutput, speed);
+		rightShoot.set(ControlMode.PercentOutput, speed);
 	}
 	
 	/**
 	 * 
-	 * @param speed Speed to set the motors in RPM
+	 * @param speed Speed to set the motors
 	 */
 	public void run(double speed) {
 		runAccelerate(speed);
@@ -76,34 +76,34 @@ public class Shooter extends Subsystem {
 	
 	/**
 	 * Gets the encoder velocity of the left accelerate motor
-	 * @return The encoder velocity of the left accelerate motor in RPM
+	 * @return The encoder velocity of the left accelerate motor in RPS
 	 */
 	public double getLeftAccelerateVelocity() {
-		return 0;// leftAccelerate.getSelectedSensorVelocity(0) * Constants.shootEncoderTicksToRPM;
+		return 0;// leftAccelerate.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
 	}
 	
 	/**
 	 * Gets the encoder velocity of the right accelerate motor
-	 * @return The encoder velocity of the right accelerate motor in RPM
+	 * @return The encoder velocity of the right accelerate motor in RPS
 	 */
 	public double getRightAccelerateVelocity() {
-		return 0;//rightAccelerate.getSelectedSensorVelocity(0) * Constants.shootEncoderTicksToRPM;
+		return 0;//rightAccelerate.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
 	}
 	
 	/**
 	 * Gets the encoder velocity of the left shoot motor
-	 * @return The encoder velocity of the left shoot motor in RPM
+	 * @return The encoder velocity of the left shoot motor in RPS
 	 */
 	public double getLeftShootVelocity() {
-		return 0;//leftShoot.getSelectedSensorVelocity(0) * Constants.shootEncoderTicksToRPM;
+		return 0;//leftShoot.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
 	}
 	
 	/**
 	 * Gets the encoder velocity of the right shoot motor
-	 * @return The encoder velocity of the right shoot motor in RPM
+	 * @return The encoder velocity of the right shoot motor in RPS
 	 */
 	public double getRightShootVelocity() {
-		return 0;//rightShoot.getSelectedSensorVelocity(0) * Constants.shootEncoderTicksToRPM;
+		return 0;//rightShoot.getSelectedSensorVelocity(0) * Constants.shootEncoderTicksToRPS;
 	}
 	
 	/**
