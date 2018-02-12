@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -45,7 +46,7 @@ public class Drivetrain extends PIDSubsystem {
 		left2.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 				
-		//gyro = new AHRS(SerialPort.Port.kUSB);
+		gyro = new AHRS(SerialPort.Port.kUSB);
 	}
 	
 	/**
@@ -216,21 +217,21 @@ public class Drivetrain extends PIDSubsystem {
 	 * Resets the value of the gyro to 0
 	 */
 	public void resetGyro() {
-		//gyro.reset();
+		gyro.reset();
 	}
 	
 	/**
 	 * @return The value of the gyro, corrected to a 0-360 range
 	 */
 	public double getGyroAngle(){
-		return 10; //(gyro.getAngle()  % 360 + 360) % 360;
+		return (gyro.getAngle()  % 360 + 360) % 360;
 	}	
 	
 	/**
 	 * @return The angle of the gyro, unmodified
 	 */
 	public double getRawGyroAngle(){
-		return 10; //gyro.getAngle();
+		return gyro.getAngle();
 	}
 	
 	/**
