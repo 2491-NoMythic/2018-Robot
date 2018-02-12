@@ -31,6 +31,8 @@ public class CubeStorage extends Subsystem {
 		right = new TalonSRX(Constants.cubeStorageTalonRightChannel);
 		sonic = new Ultrasonic(Constants.ultrasonicDigitalOutput, Constants.ultrasonicDigitalInput);
 		sonic.setAutomaticMode(true);
+		sonic.setEnabled(true);
+		System.out.println("Sonic Status: " + sonic.isEnabled());
 	}
 
 	
@@ -60,6 +62,13 @@ public class CubeStorage extends Subsystem {
 	 */
 	public double getRangeInches() {
 		return sonic.getRangeInches();
+	}
+	
+	/**
+	 * Returns the Ultrasonic sensor of the robot.
+	 */
+	public boolean getValidMeasurement() {
+		return sonic.isRangeValid();
 	}
 	
 	/**

@@ -38,6 +38,10 @@ public class UpdateDriverstation extends CommandBase {
 			if (drivetrain.getEncoderRate() > maximumSpeed) {
 				maximumSpeed = drivetrain.getEncoderRate();
 			}
+			Variables.derivative = SmartDashboard.getNumber("Derivate Rotate", Variables.derivative);
+			Variables.proportional = SmartDashboard.getNumber("Proportional Rotate", Variables.proportional);
+			Variables.proportionalForward = SmartDashboard.getNumber("Proportional Forward", Variables.proportionalForward);
+			Variables.derivativeForward = SmartDashboard.getNumber("Derivate Forward", Variables.derivativeForward);
 			Variables.driveDefault = SmartDashboard.getNumber("Drive Default Command", 1);
 			Variables.useLinearAcceleration = SmartDashboard.getBoolean("Use Linear Acceleration", true);
 			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
@@ -49,6 +53,7 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putNumber("Drivetrain Speed", drivetrain.getEncoderRate());
 			SmartDashboard.putNumber("Maximum Speed", maximumSpeed);
 			SmartDashboard.putNumber("Ultrasonic Distance", cubeStorage.getRangeInches());
+			SmartDashboard.putBoolean("Ultrasonic Valid", cubeStorage.getValidMeasurement());
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
 		}
 			
