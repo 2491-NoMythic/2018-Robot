@@ -35,7 +35,8 @@ public class Constants {
 	public static final double shooterSwitchSpeed = .3; //TODO Find an actual value for this
 	
 	//Lights
-	public static final int lightSerialChannel = 1;
+	public static final int underglowPWM = 1;
+	public static final int shooterLights = 2;
 	
 	//CubeStorage
 	public static final int cubeStorageTalonLeftChannel = 23;
