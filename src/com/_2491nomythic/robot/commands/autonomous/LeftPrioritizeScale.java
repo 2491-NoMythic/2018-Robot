@@ -43,8 +43,9 @@ public class LeftPrioritizeScale extends CommandBase {
 	protected void initialize() {
 		state = 0;
 		
-		scaleSide = DriverStation.getInstance().getGameSpecificMessage().substring(1, 2) == "L";
-		switchSide = DriverStation.getInstance().getGameSpecificMessage().substring(0, 1) == "L";
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
+		scaleSide = gameData.substring(1, 2).contentEquals("L");
+		switchSide = gameData.substring(0, 1).contentEquals("L");
 		
 		
 		delay.start();
@@ -80,7 +81,7 @@ public class LeftPrioritizeScale extends CommandBase {
 				break;
 			case 3:
 				if(!approachScale.isRunning()) {
-					launchCubeScale.start();
+					//launchCubeScale.start();
 					state++;
 				}
 				break;
@@ -113,7 +114,7 @@ public class LeftPrioritizeScale extends CommandBase {
 				break;
 			case 3:
 				if(!approachSwitch.isRunning()) {
-					launchCubeSwitch.start();
+					//launchCubeSwitch.start();
 					state++;
 				}
 				break;

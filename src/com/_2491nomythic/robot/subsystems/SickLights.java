@@ -8,8 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class SickLights extends Subsystem {
 	private static SickLights instance;
-	private PWM underglow;
-	private PWM shooter;
+	private PWM underglow, shooter;
 
 	public static SickLights getInstance() {
 		if(instance == null) {
@@ -22,9 +21,6 @@ public class SickLights extends Subsystem {
 	 * The system which controls the data sent to the lights.
 	 */
 	public SickLights() {
-		//serialPort = new SerialPort(115200, SerialPort.Port.kOnboard);
-		//serialPort.setWriteBufferMode(WriteBufferMode.kFlushOnAccess);
-		//serialPort.setWriteBufferSize(1);
 		underglow = new PWM(0);
 		shooter = new PWM(1);
 	}
@@ -35,8 +31,6 @@ public class SickLights extends Subsystem {
 	 * @param feather The feather to be addressed.
 	 */
 	public void writeSignal(int data, int feather) {
-		//int sentData = serialPort.writeString(data);
-		//System.out.println("Sent data! " + sentData);
 		if (feather == 1) {
 			underglow.setRaw(data);
 		}

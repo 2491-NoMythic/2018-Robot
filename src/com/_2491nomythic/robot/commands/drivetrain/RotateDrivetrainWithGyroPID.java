@@ -27,7 +27,8 @@ public class RotateDrivetrainWithGyroPID extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		initialAngle = drivetrain.getGyroAngle();
+		drivetrain.resetGyro();
+		initialAngle = drivetrain.getRawGyroAngle();
 		Variables.useGyroPID = true;
 		drivetrain.setInputRange(0, 360);
 		drivetrain.getPIDController().setContinuous(true);
@@ -51,7 +52,7 @@ public class RotateDrivetrainWithGyroPID extends CommandBase {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return drivetrain.onTarget();
 	}
 
 	// Called once after isFinished returns true
@@ -59,7 +60,7 @@ public class RotateDrivetrainWithGyroPID extends CommandBase {
 		drivetrain.stop();
 		drivetrain.disable();
 		
-		System.out.println("Delta Theta: " + (drivetrain.getGyroAngle() - initialAngle));
+		System.out.println("Delta Theta: " + (drivetrain.getRawGyroAngle() - initialAngle));
 	}
 
 	// Called when another command which requires one or more of the same

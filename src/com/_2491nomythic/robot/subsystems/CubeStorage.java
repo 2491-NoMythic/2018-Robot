@@ -65,7 +65,7 @@ public class CubeStorage extends Subsystem {
 	}
 	
 	/**
-	 * Returns the Ultrasonic sensor of the robot.
+	 * Returns whether or not the last measurement made by the ultrasonic was valid/expected.
 	 */
 	public boolean getValidMeasurement() {
 		return sonic.isRangeValid();
