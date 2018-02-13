@@ -23,6 +23,7 @@ import com._2491nomythic.robot.commands.autonomous.RightPrioritizeSwitch;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
+import com._2491nomythic.robot.commands.lights.Underglow;
 import com._2491nomythic.robot.commands.shooter.MonitorRPM;
 import com._2491nomythic.robot.settings.Variables;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -42,6 +43,7 @@ public class Robot extends TimedRobot {
 
 	Command m_autonomousCommand;
 	UpdateDriverstation updateDriverstation;
+	Underglow underglow;
 	MonitorRPM monitorRPM;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
@@ -55,8 +57,10 @@ public class Robot extends TimedRobot {
 	public void robotInit() { 
 		CommandBase.init();
 		updateDriverstation = new UpdateDriverstation();
+		underglow = new Underglow();
 		monitorRPM = new MonitorRPM();
-		updateDriverstation.start();
+		updateDriverstation.start();	
+		underglow.start();
 		monitorRPM.start();
 		m_chooser.addObject("Cross Auto Line", new CrossAutoLine());
 		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
