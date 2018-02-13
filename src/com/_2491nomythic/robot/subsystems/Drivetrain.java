@@ -291,7 +291,7 @@ public class Drivetrain extends PIDSubsystem {
 	@Override
 	protected void usePIDOutput(double output) {
 		if(Variables.useGyroPID) {
-			drivePercentOutput(output, -output);
+			drivePercentOutput(0.8 * output, 0.8 * -output);
 		}
 		else {
 			drivePercentOutput(output, output);

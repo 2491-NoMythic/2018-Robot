@@ -28,25 +28,26 @@ public class PlaceOnSwitch extends CommandBase {
 		// eg. requires(chassis);		
 		timer = new Timer();
 		delay = new Timer();
-		approachCubes = new DriveStraightToPositionPID(1/*-98*/);
-		approachSwitch = new DriveStraightToPositionPID(1/*-76*/);
+		approachCubes = new DriveStraightToPositionPID(-98);
+		approachSwitch = new DriveStraightToPositionPID(-76);
 		launchCube = new AutomaticShoot(false);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		drivetrain.resetEncoders();
 		state = 0;
 		
-		String gameData = new String(DriverStation.getInstance().getGameSpecificMessage());
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
 		switch(gameData.substring(0, 1)) {
 		case "L":
-			moveTowardsWall = new DriveStraightToPositionPID(1/*-58*/);
+			moveTowardsWall = new DriveStraightToPositionPID(-58);
 			turnTowardsWall = new RotateDrivetrainWithGyroPID(-90, false);
 			turnTowardsSwitch = new RotateDrivetrainWithGyroPID(90, false);
 			break;
 		case "R":
-			moveTowardsWall = new DriveStraightToPositionPID(1/*-50.5*/);
+			moveTowardsWall = new DriveStraightToPositionPID(-50.5);
 			turnTowardsWall = new RotateDrivetrainWithGyroPID(90, false);
 			turnTowardsSwitch = new RotateDrivetrainWithGyroPID(-90, false);
 			break;
@@ -54,7 +55,7 @@ public class PlaceOnSwitch extends CommandBase {
 			System.out.println("Unexpected value for GameSpecificMessage: " + gameData);
 			break;
 		}
-		
+				
 		delay.start();
 		
 		while(delay.get() < Variables.autoDelay) {
@@ -67,12 +68,9 @@ public class PlaceOnSwitch extends CommandBase {
 		switch(state) {
 		case 0:
 			approachCubes.start();
-			System.out.println("Case 0");
 			state++;
-			System.out.println("State: " + state);
 			break;
 		case 1:
-			System.out.println("Case 1");
 			if(!approachCubes.isRunning()) {
 				timer.start();
 				turnTowardsWall.start();
@@ -80,7 +78,6 @@ public class PlaceOnSwitch extends CommandBase {
 			}
 			break;
 		case 2:
-			System.out.println("Case 2");
 			if(!turnTowardsWall.isRunning() || timer.get() > 1.5) {
 				turnTowardsWall.cancel();
 				moveTowardsWall.start();
@@ -88,7 +85,6 @@ public class PlaceOnSwitch extends CommandBase {
 			}
 			break;
 		case 3:
-			System.out.println("Case 3");
 			if(!moveTowardsWall.isRunning()) {
 				timer.reset();
 				turnTowardsSwitch.start();
@@ -96,7 +92,6 @@ public class PlaceOnSwitch extends CommandBase {
 			}
 			break;
 		case 4:
-			System.out.println("Case 4");
 			if(!turnTowardsSwitch.isRunning() || timer.get() > 1.5) {
 				turnTowardsSwitch.cancel();
 				approachSwitch.start();
@@ -104,9 +99,8 @@ public class PlaceOnSwitch extends CommandBase {
 			}
 			break;
 		case 5:
-			System.out.println("Case 5");
 			if(!approachSwitch.isRunning()) {
-				launchCube.start();
+				//launchCube.start();
 				state++;
 			}
 			break;

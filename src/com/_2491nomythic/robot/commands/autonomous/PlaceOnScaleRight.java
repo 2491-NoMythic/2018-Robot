@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * Attempts to place a cube on the correct side of the Scale during autonomous, starting in front of DriverStation 3.
+ * Attempts to place a cube on the correct side of the Scale during autonomous, starting in front of DriverStation 1.
  */
 public class PlaceOnScaleRight extends CommandBase {
 	private DriveStraightToPositionPID driveToCenter, driveToNullZone, approachScale, driveToCorrectSide;
@@ -18,18 +18,21 @@ public class PlaceOnScaleRight extends CommandBase {
 	private AutomaticShoot launchCube;
 	private Timer timer, delay;
 	private int state;
-	private boolean right;
-	String gameData;
+	private boolean left;
 
 	/**
-	 * Attempts to place a cube on the correct side of the Scale during autonomous, starting in front of DriverStation 3.
+	 * Attempts to place a cube on the correct side of the Scale during autonomous, starting in front of DriverStation 1.
 	 */
 	public PlaceOnScaleRight() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);		
 		timer = new Timer();
 		delay = new Timer();
-		approachScale = new DriveStraightToPositionPID(-44);
+		driveToCenter = new DriveStraightToPositionPID(235.4);
+		approachScale = new DriveStraightToPositionPID(44);
+		driveToCorrectSide = new DriveStraightToPositionPID(218.63);
+		turnTowardsCenter = new RotateDrivetrainWithGyroPID(-90, false);
+		turnTowardsNullZone = new RotateDrivetrainWithGyroPID(90, false);
 		launchCube = new AutomaticShoot(true);
 	}
 
@@ -37,23 +40,22 @@ public class PlaceOnScaleRight extends CommandBase {
 	protected void initialize() {
 		state = 0;
 		
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		right = gameData.substring(1, 2) == "R";
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
-		if(right) {
+		switch(gameData.substring(1, 2)) {
+		case "R":
+			left = false;
 			driveToNullZone = new DriveStraightToPositionPID(323.6);
 			turnTowardsScale = new RotateDrivetrainWithGyroPID(90, false);
-		}
-		else if(!right) {
-			driveToCenter = new DriveStraightToPositionPID(235.4);
+			break;
+		case "L":
 			driveToNullZone = new DriveStraightToPositionPID(88.2);
-			driveToCorrectSide = new DriveStraightToPositionPID(218.63);
-			turnTowardsCenter = new RotateDrivetrainWithGyroPID(-90, false);
-			turnTowardsNullZone = new RotateDrivetrainWithGyroPID(90, false);
 			turnTowardsScale = new RotateDrivetrainWithGyroPID(-90, false);
-		}
-		else {
+			left = true;
+			break;
+		default:
 			System.out.println("Unexpected GameSpecificMessage in PlaceOnScaleLeft. gameData: " + gameData);
+			break;
 		}
 		
 		delay.start();
@@ -65,7 +67,7 @@ public class PlaceOnScaleRight extends CommandBase {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if(right) {
+		if(!left) {
 			switch(state) {
 			case 0:
 				driveToNullZone.start();
@@ -95,7 +97,7 @@ public class PlaceOnScaleRight extends CommandBase {
 			case 4:
 				break;
 			default:
-				System.out.println("Unexpected state in PlaceOnScaleRight.java State: " + state);
+				System.out.println("Unexpected state in PlaceOnScaleLeft.java State: " + state);
 				break;
 			}
 		}
@@ -149,14 +151,14 @@ public class PlaceOnScaleRight extends CommandBase {
 				break;
 			case 7:
 				if(!approachScale.isRunning()) {
-					launchCube.start();
+					//launchCube.start();
 					state++;
 				}
 				break;
 			case 8:
 				break;
 			default:
-				System.out.println("Unexpected state in PlaceOnScaleRight.java State: " + state);
+				System.out.println("Unexpected state in PlaceOnScaleLeft.java State: " + state);
 				break;
 			}
 		}
@@ -164,7 +166,7 @@ public class PlaceOnScaleRight extends CommandBase {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		if(right) {
+		if(!left) {
 			return !launchCube.isRunning() && state == 4;
 		}
 		else {

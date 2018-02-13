@@ -21,7 +21,8 @@ public class DriveStraightToPositionPID extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		initialPosition = drivetrain.getGyroAngle();
+		drivetrain.resetEncoders();
+		initialPosition = drivetrain.getLeftEncoderDistance();
 		Variables.useGyroPID = false;
 		drivetrain.setInputRange(-100000000, 100000000);
 		drivetrain.getPIDController().setContinuous(false);
@@ -34,7 +35,7 @@ public class DriveStraightToPositionPID extends CommandBase {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return drivetrain.onTarget();
 	}
 
 	// Called once after isFinished returns true
@@ -42,7 +43,7 @@ public class DriveStraightToPositionPID extends CommandBase {
 		drivetrain.disable();
 		drivetrain.stop();
 		
-		System.out.println("Delta Position: " + (drivetrain.getDistance() - initialPosition));
+		System.out.println("Delta Position: " + (drivetrain.getLeftEncoderDistance() - initialPosition));
 	}
 	
 	protected void interrupted() {

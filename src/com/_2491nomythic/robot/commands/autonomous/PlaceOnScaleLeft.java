@@ -19,7 +19,6 @@ public class PlaceOnScaleLeft extends CommandBase {
 	private Timer timer, delay;
 	private int state;
 	private boolean left;
-	String gameData;
 
 	/**
 	 * Attempts to place a cube on the correct side of the Scale during autonomous, starting in front of DriverStation 1.
@@ -29,7 +28,11 @@ public class PlaceOnScaleLeft extends CommandBase {
 		// eg. requires(chassis);		
 		timer = new Timer();
 		delay = new Timer();
-		approachScale = new DriveStraightToPositionPID(-44);
+		driveToCenter = new DriveStraightToPositionPID(235.4);
+		approachScale = new DriveStraightToPositionPID(44);
+		driveToCorrectSide = new DriveStraightToPositionPID(218.63);
+		turnTowardsCenter = new RotateDrivetrainWithGyroPID(90, false);
+		turnTowardsNullZone = new RotateDrivetrainWithGyroPID(-90, false);
 		launchCube = new AutomaticShoot(true);
 	}
 
@@ -37,23 +40,22 @@ public class PlaceOnScaleLeft extends CommandBase {
 	protected void initialize() {
 		state = 0;
 		
-		gameData = DriverStation.getInstance().getGameSpecificMessage();
-		left = gameData.substring(1, 2) == "L";
+		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		
-		if(left) {
+		switch(gameData.substring(1, 2)) {
+		case "L":
+			left = true;
 			driveToNullZone = new DriveStraightToPositionPID(323.6);
 			turnTowardsScale = new RotateDrivetrainWithGyroPID(-90, false);
-		}
-		else if(!left) {
-			driveToCenter = new DriveStraightToPositionPID(235.4);
+			break;
+		case "R":
 			driveToNullZone = new DriveStraightToPositionPID(88.2);
-			driveToCorrectSide = new DriveStraightToPositionPID(218.63);
-			turnTowardsCenter = new RotateDrivetrainWithGyroPID(90, false);
-			turnTowardsNullZone = new RotateDrivetrainWithGyroPID(-90, false);
 			turnTowardsScale = new RotateDrivetrainWithGyroPID(90, false);
-		}
-		else {
+			left = false;
+			break;
+		default:
 			System.out.println("Unexpected GameSpecificMessage in PlaceOnScaleLeft. gameData: " + gameData);
+			break;
 		}
 		
 		delay.start();
@@ -149,7 +151,7 @@ public class PlaceOnScaleLeft extends CommandBase {
 				break;
 			case 7:
 				if(!approachScale.isRunning()) {
-					launchCube.start();
+					//launchCube.start();
 					state++;
 				}
 				break;

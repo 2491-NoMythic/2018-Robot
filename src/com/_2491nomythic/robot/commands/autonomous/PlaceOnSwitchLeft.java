@@ -39,7 +39,7 @@ public class PlaceOnSwitchLeft extends CommandBase {
     	state = 0;
     	
     	String gameData = DriverStation.getInstance().getGameSpecificMessage();
-    	left = gameData.substring(0, 1) == "L";
+    	left = gameData.substring(0, 1).contentEquals("L");
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -64,7 +64,7 @@ public class PlaceOnSwitchLeft extends CommandBase {
     			break;
     		case 3:
     			if(!approachSwitch.isRunning()) {
-    				launchCube.start();
+    				//launchCube.start();
     				state++;
     			}
     			break;
@@ -119,7 +119,7 @@ public class PlaceOnSwitchLeft extends CommandBase {
     			break;
     		case 7:
     			if(!approachSwitch.isRunning()) {
-    				launchCube.start();
+    				//launchCube.start();
     				state++;
     			}
     			break;
