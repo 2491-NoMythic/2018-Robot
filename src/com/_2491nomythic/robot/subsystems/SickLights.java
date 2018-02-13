@@ -1,15 +1,12 @@
 package com._2491nomythic.robot.subsystems;
 
 import edu.wpi.first.wpilibj.PWM;
-import edu.wpi.first.wpilibj.SerialPort;
-import edu.wpi.first.wpilibj.SerialPort.WriteBufferMode;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
  * The system which controls the data sent to the lights.
  */
 public class SickLights extends Subsystem {
-	private SerialPort serialPort;
 	private static SickLights instance;
 	private PWM underglow;
 	private PWM shooter;
