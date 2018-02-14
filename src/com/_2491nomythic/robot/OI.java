@@ -11,7 +11,6 @@ import com._2491nomythic.robot.commands.AutomaticShoot;
 import com._2491nomythic.robot.commands.KillSwitch;
 import com._2491nomythic.robot.commands.ScaleShoot;
 import com._2491nomythic.robot.commands.SwitchShoot;
-import com._2491nomythic.robot.commands.cubestorage.FeedCube;
 import com._2491nomythic.robot.settings.ControllerMap;
 
 import edu.wpi.first.wpilibj.Joystick;
