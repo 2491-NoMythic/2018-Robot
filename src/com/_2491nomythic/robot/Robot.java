@@ -23,6 +23,7 @@ import com._2491nomythic.robot.commands.autonomous.RightPrioritizeSwitch;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
+import com._2491nomythic.robot.commands.lights.Underglow;
 import com._2491nomythic.robot.commands.shooter.MonitorRPM;
 import com._2491nomythic.robot.settings.Variables;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -80,6 +81,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putBoolean("Use Linear Acceleration", Variables.useLinearAcceleration);
 		SmartDashboard.putNumber("Drive Default Command", Variables.driveDefault);
 		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);
+		SmartDashboard.putData("LightsSet", new Underglow());
 	}
 
 	/**
