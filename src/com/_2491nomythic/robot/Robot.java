@@ -26,6 +26,8 @@ import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.robot.commands.lights.Underglow;
 import com._2491nomythic.robot.commands.shooter.MonitorRPM;
 import com._2491nomythic.robot.settings.Variables;
+
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -152,6 +154,7 @@ public class Robot extends TimedRobot {
 		}
 		
 		isTeleop = true;
+		System.out.println(DriverStation.getInstance().getAlliance().toString());
 	}
 
 	/**
