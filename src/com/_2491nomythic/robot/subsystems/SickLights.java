@@ -64,7 +64,7 @@ public class SickLights extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
-    	setDefaultCommand(new Underglow());
+    	
     }
 }
 
