@@ -26,10 +26,10 @@ public class Underglow extends CommandBase {
     protected void execute() {
     	Alliance teamColor = DriverStation.getInstance().getAlliance();
     	String teamColorString = teamColor.toString();
-    	if(teamColorString.length() == 3) {
+    	if(teamColor == DriverStation.Alliance.Red) {
     		SickLights.getInstance().writeSignal(25, Constants.underglowPWM);
     	}
-    	else if (teamColorString.length() == 4) {
+    	else if (teamColor == DriverStation.Alliance.Blue) {
     		SickLights.getInstance().writeSignal(100, Constants.underglowPWM);
     	}
     	else
