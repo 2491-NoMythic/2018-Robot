@@ -1,5 +1,7 @@
 package com._2491nomythic.robot.subsystems;
 
+import com._2491nomythic.robot.commands.lights.Underglow;
+
 import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -62,6 +64,7 @@ public class SickLights extends Subsystem {
 	}
 	
     public void initDefaultCommand() {
+    	setDefaultCommand(new Underglow());
     }
 }
 
