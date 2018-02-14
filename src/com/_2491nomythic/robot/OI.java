@@ -11,7 +11,7 @@ import com._2491nomythic.robot.commands.AutomaticShoot;
 import com._2491nomythic.robot.commands.KillSwitch;
 import com._2491nomythic.robot.commands.ScaleShoot;
 import com._2491nomythic.robot.commands.SwitchShoot;
-import com._2491nomythic.robot.commands.cubestorage.FeedCube;
+import com._2491nomythic.robot.commands.cubestorage.TransportCube;
 import com._2491nomythic.robot.commands.drivetrain.ToggleCoastMode;
 import com._2491nomythic.robot.settings.ControllerMap;
 
@@ -45,7 +45,7 @@ public class OI {
 		//driverSwitchShoot.whileHeld(new SwitchShoot());
 		
 		//driverFeedCube = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverFeedCubeButton);
-		//driverFeedCube.whenPressed(new FeedCube());
+		//driverFeedCube.whenPressed(new TransportCube(1));
 		
 		toggleCoastMode = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.toggleCoastModeButton);
 		toggleCoastMode.toggleWhenPressed(new ToggleCoastMode());
