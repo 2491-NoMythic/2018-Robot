@@ -15,6 +15,7 @@ public class TransportCube extends CommandBase {
 	public TransportCube(double speed) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
+		requires(cubeStorage);
 		this.speed = speed;
 	}
 
