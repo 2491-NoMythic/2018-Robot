@@ -1,5 +1,6 @@
-package com._2491nomythic.robot.commands;
+package com._2491nomythic.robot.commands.shooter;
 
+import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.settings.Variables;
 
 /**

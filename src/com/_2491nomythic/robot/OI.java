@@ -10,10 +10,11 @@ package com._2491nomythic.robot;
 import com._2491nomythic.robot.commands.KillSwitch;
 import com._2491nomythic.robot.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.robot.commands.intake.ToggleIntakeOpening;
-import com._2491nomythic.robot.commands.shooter.SetScaleRPM;
-import com._2491nomythic.robot.commands.shooter.SetSwitchRPM;
+import com._2491nomythic.robot.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.robot.commands.shooter.ToggleShooterPosition;
+import com._2491nomythic.robot.settings.Constants;
 import com._2491nomythic.robot.settings.ControllerMap;
+import com._2491nomythic.robot.settings.Variables;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -39,10 +40,10 @@ public class OI {
 		killSwitch2.whenPressed(new KillSwitch());
 		
 		setSwitchRPM = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setSwitchRPM);
-		setSwitchRPM.whenPressed(new SetSwitchRPM());
+		setSwitchRPM.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed));
 		
 		setScaleRPM = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setScaleRPM);
-		setScaleRPM.whenPressed(new SetScaleRPM());
+		setScaleRPM.whenPressed(new SetShooterSpeed(Constants.shooterHighScaleSpeed));
 		
 		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);
 		deployIntake.whenPressed(new ToggleIntakeDeployment());
