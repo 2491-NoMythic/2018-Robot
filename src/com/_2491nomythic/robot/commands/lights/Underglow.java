@@ -20,7 +20,7 @@ public class Underglow extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Alliance teamColor = DriverStation.getInstance().getAlliance();
+    	/*Alliance teamColor = DriverStation.getInstance().getAlliance();
     	String teamColorString = teamColor.toString();
     	if(teamColor == DriverStation.Alliance.Red) {
     		SickLights.getInstance().writeSignal(25, Constants.underglowPWM);
@@ -32,11 +32,13 @@ public class Underglow extends CommandBase {
     	{
     		SickLights.getInstance().writeSignal(255, Constants.underglowPWM);
     	}
-    	
+    	*/
+    	SickLights.getInstance().writeSignal(255, 1);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	SickLights.getInstance().writeSignal(255, 1);
     }
 
     // Make this return true when this Command no longer needs to run execute()

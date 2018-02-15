@@ -2,6 +2,7 @@ package com._2491nomythic.robot.subsystems;
 
 import com._2491nomythic.robot.commands.lights.Underglow;
 
+import edu.wpi.first.wpilibj.DigitalOutput;
 import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -10,7 +11,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class SickLights extends Subsystem {
 	private static SickLights instance;
-	private PWM underglow, shooter;
+	private DigitalOutput underglow, shooter;
 
 	public static SickLights getInstance() {
 		if(instance == null) {
@@ -23,8 +24,8 @@ public class SickLights extends Subsystem {
 	 * The system which controls the data sent to the lights.
 	 */
 	public SickLights() {
-		underglow = new PWM(0);
-		shooter = new PWM(1);
+		underglow = new DigitalOutput(3);
+		shooter = new DigitalOutput(9);
 	}
 	
 	/**
@@ -34,10 +35,10 @@ public class SickLights extends Subsystem {
 	 */
 	public void writeSignal(int data, int feather) {
 		if (feather == 1) {
-			underglow.setRaw(data);
+			underglow.set(true);
 		}
 		else if(feather == 2) {
-			shooter.setRaw(data);
+			shooter.set(true);;
 		}
 	}
 	
@@ -53,14 +54,12 @@ public class SickLights extends Subsystem {
 	 * Resets underglow light system
 	 */
 	public void resetUnderglow(){
-		underglow.setRaw(0);
 	}
 	
 	/**
 	 * Resets shooter light system
 	 */
 	public void resetShooter() {
-		shooter.setRaw(0);
 	}
 	
     public void initDefaultCommand() {
