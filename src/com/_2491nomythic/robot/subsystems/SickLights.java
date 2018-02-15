@@ -1,12 +1,6 @@
 package com._2491nomythic.robot.subsystems;
 
-<<<<<<< HEAD
-import com._2491nomythic.robot.commands.lights.Underglow;
-
 import edu.wpi.first.wpilibj.DigitalOutput;
-=======
->>>>>>> c88d1118e35a948160a7858e8ab6afd76fe1b054
-import edu.wpi.first.wpilibj.PWM;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
