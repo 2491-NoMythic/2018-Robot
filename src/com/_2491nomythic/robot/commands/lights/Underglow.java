@@ -2,8 +2,6 @@ package com._2491nomythic.robot.commands.lights;
 
 import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.settings.Constants;
-import com._2491nomythic.robot.subsystems.SickLights;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
@@ -20,17 +18,21 @@ public class Underglow extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+<<<<<<< HEAD
     	/*Alliance teamColor = DriverStation.getInstance().getAlliance();
     	String teamColorString = teamColor.toString();
+=======
+    	Alliance teamColor = DriverStation.getInstance().getAlliance();
+>>>>>>> c88d1118e35a948160a7858e8ab6afd76fe1b054
     	if(teamColor == DriverStation.Alliance.Red) {
-    		SickLights.getInstance().writeSignal(25, Constants.underglowPWM);
+    		sickLights.writeSignal(25, Constants.underglowPWM);
     	}
     	else if (teamColor == DriverStation.Alliance.Blue) {
-    		SickLights.getInstance().writeSignal(100, Constants.underglowPWM);
+    		sickLights.writeSignal(100, Constants.underglowPWM);
     	}
     	else
     	{
-    		SickLights.getInstance().writeSignal(255, Constants.underglowPWM);
+    		sickLights.writeSignal(255, Constants.underglowPWM);
     	}
     	*/
     	SickLights.getInstance().writeSignal(255, 1);
