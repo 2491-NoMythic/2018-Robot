@@ -14,7 +14,6 @@ public class Underglow extends CommandBase {
     public Underglow() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(sickLights);
     }
 
     // Called just before this Command runs the first time
