@@ -9,19 +9,27 @@ public class ControllerMap {
 	public static final int driveController = 0;
 	public static final int operatorController = 1;;
 	
+	//Driver
 	public static final int driveTurnAxis = 2;
 	public static final int driveMainAxis = 1;
-	public static final int intakeAxis = 3;
-	public static final int shooterAxis = 4; //Not currently used
-	public static final int cubeStorageAxis = 1;
-	
-	public static final int driverScaleShootButton = 8;
-	public static final int driverAutoShootButton = 2;
 	public static final int killSwitchButton1 = 11;
 	public static final int killSwitchButton2 = 12;
-	public static final int driverSwitchShootButton = 7;
-	public static final int driverFeedCubeButton = 1; //Not currently used
-	public static final int toggleCoastModeButton = 6;
+	
+	//Operator
+	
+	public static final int setSwitchRPM = 2;
+	public static final int setScaleRPM = 4;
+	public static final int deployIntake = 8;
+	public static final int openIntake = 9;
+	public static final int raiseShooter = 10;
+	public static final int intakeAxis = 3;
+	public static final int cubeStorageAxis = 1;
+	
+	//Probably not going to be used
 
+	public static final int driverScaleShootButton = 8;
+	public static final int driverAutoShootButton = 2;
+	public static final int driverSwitchShootButton = 7;
+	public static final int shooterAxis = 4;
 
 }

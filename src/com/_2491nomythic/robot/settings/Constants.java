@@ -12,10 +12,8 @@ public class Constants {
 	public static final int driveTalonRight2Channel = 5;
 	
 	//Intake
-	public static final int intakeTalonLeft1Channel = 21;
-	public static final int intakeTalonLeft2Channel = 6;
-	public static final int intakeTalonRight1Channel = 7;
-	public static final int intakeTalonRight2Channel = 8;
+	public static final int intakeTalonLeftChannel = 21;
+	public static final int intakeTalonRightChannel = 7;
 	public static final int intakeTalonBottomChannel = 22;
 	public static final int intakeSolenoidActivateChannel = 2491; //TODO Change this to an actual solenoid channel.
 	public static final int intakeSolenoidOpenChannel = 2491; //TODO Change this to an actual solenoid channel.

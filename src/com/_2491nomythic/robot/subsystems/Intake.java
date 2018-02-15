@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Intake extends Subsystem {
 	private static Intake instance;
-	private TalonSRX left1, left2, right1, right2, bottom;
+	private TalonSRX left, right, bottom;
 	private Solenoid activateIntakeSolenoid, intakeOpenSolenoid; 
 	
 	public static Intake getInstance() {
@@ -27,16 +27,11 @@ public class Intake extends Subsystem {
 	 * The subsystem that takes Power Cubes from the field
 	 */
 	public Intake() {
-		left1 = new TalonSRX(Constants.intakeTalonLeft1Channel);
-		left2 = new TalonSRX(Constants.intakeTalonLeft2Channel);
-		right1 = new TalonSRX(Constants.intakeTalonRight1Channel);
-		right2 = new TalonSRX(Constants.intakeTalonRight2Channel);
+		left = new TalonSRX(Constants.intakeTalonLeftChannel);
+		right = new TalonSRX(Constants.intakeTalonRightChannel);
 		bottom = new TalonSRX(Constants.intakeTalonBottomChannel);
 		//activateIntakeSolenoid = new Solenoid(Constants.intakeSolenoidActivateChannel);
 		//intakeOpenSolenoid = new Solenoid(Constants.intakeSolenoidOpenChannel);
-		
-		left2.follow(left1);
-		right2.follow(right2);
 	}
 	
 	/**
@@ -54,7 +49,7 @@ public class Intake extends Subsystem {
 	 * @param speed The speed that the motors will run at.
 	 */
 	public void runLeft(double speed) {
-		left1.set(ControlMode.PercentOutput, speed);
+		left.set(ControlMode.PercentOutput, speed);
 	}
 	
 	/**
@@ -62,7 +57,7 @@ public class Intake extends Subsystem {
 	 * @param speed the speed that the motors will run at.
 	 */
 	public void runRight(double speed) {
-		right1.set(ControlMode.PercentOutput, speed);
+		right.set(ControlMode.PercentOutput, speed);
 	}
 	
 	/**
@@ -99,6 +94,22 @@ public class Intake extends Subsystem {
 	 */
 	public void close() {
 		intakeOpenSolenoid.set(false);
+	}
+	
+	/**
+	 * Returns whether or not the intake is extended.
+	 * @return Whether or not the intake is extended.
+	 */
+	public boolean isDeployed() {
+		return activateIntakeSolenoid.get();
+	}
+	
+	/**
+	 * Returns whether or not the intake is open.
+	 * @return Whether or not the intake is open.
+	 */
+	public boolean isOpened() {
+		return intakeOpenSolenoid.get();
 	}
 	
 	/**

@@ -7,10 +7,12 @@
 
 package com._2491nomythic.robot;
 
-import com._2491nomythic.robot.commands.AutomaticShoot;
 import com._2491nomythic.robot.commands.KillSwitch;
-import com._2491nomythic.robot.commands.ScaleShoot;
-import com._2491nomythic.robot.commands.SwitchShoot;
+import com._2491nomythic.robot.commands.intake.ToggleIntakeDeployment;
+import com._2491nomythic.robot.commands.intake.ToggleIntakeOpening;
+import com._2491nomythic.robot.commands.shooter.SetScaleRPM;
+import com._2491nomythic.robot.commands.shooter.SetSwitchRPM;
+import com._2491nomythic.robot.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.robot.settings.ControllerMap;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -24,7 +26,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	private final Joystick[] controllers = new Joystick[2];
 	
-	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot;
+	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, setSwitchRPM, setScaleRPM, deployIntake, openIntake, raiseShooter;
 
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
@@ -35,6 +37,21 @@ public class OI {
 		
 		killSwitch2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton2);
 		killSwitch2.whenPressed(new KillSwitch());
+		
+		setSwitchRPM = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setSwitchRPM);
+		setSwitchRPM.whenPressed(new SetSwitchRPM());
+		
+		setScaleRPM = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setScaleRPM);
+		setScaleRPM.whenPressed(new SetScaleRPM());
+		
+		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);
+		deployIntake.whenPressed(new ToggleIntakeDeployment());
+		
+		openIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.openIntake);
+		openIntake.whenPressed(new ToggleIntakeOpening());
+		
+		raiseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.raiseShooter);
+		raiseShooter.whenPressed(new ToggleShooterPosition());
 		
 		//driverScaleShoot = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverScaleShootButton);
 		//driverScaleShoot.whileHeld(new ScaleShoot());
