@@ -23,7 +23,7 @@ import com._2491nomythic.robot.commands.autonomous.RightPrioritizeSwitch;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
-import com._2491nomythic.robot.commands.lights.Underglow;
+import com._2491nomythic.robot.commands.lights.LightTest;
 import com._2491nomythic.robot.commands.shooter.MonitorRPM;
 import com._2491nomythic.robot.settings.Variables;
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -74,6 +74,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("DriveStraightToPosition", new DriveStraightToPosition(0.3, 10));
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(20));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
+		SmartDashboard.putData("LightTest", new LightTest());
 		SmartDashboard.putNumber("Proportional Rotate", Variables.proportional);
 		SmartDashboard.putNumber("Derivative Rotate", Variables.derivative);
 		SmartDashboard.putNumber("Proportional Forward", Variables.proportionalForward);
@@ -81,7 +82,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putBoolean("Use Linear Acceleration", Variables.useLinearAcceleration);
 		SmartDashboard.putNumber("Drive Default Command", Variables.driveDefault);
 		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);
-		SmartDashboard.putData("LightsSet", new Underglow());
 	}
 
 	/**
