@@ -23,8 +23,7 @@ public class Constants {
 	public static final int shooterTalonLeftShootChannel = 14;
 	public static final int shooterTalonRightAccelerateChannel = 13;
 	public static final int shooterTalonRightShootChannel = 15;
-	public static final int shooterSolenoid1Channel = 1;
-	public static final int shooterSolenoid2Channel = 2;
+	public static final int shooterElevatorChannel = 12;
 	public static final int timeForShooterToSpinUp = 2; //TODO time this
 	public static final int timeForShooterToRaise = 4; //TODO time this
 	public static final int timeForShooterToFire = 2; //TODO Time this

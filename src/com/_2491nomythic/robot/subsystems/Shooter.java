@@ -14,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Shooter extends Subsystem {
 	private static Shooter instance;
 	private TalonSRX leftAccelerate, rightAccelerate, leftShoot, rightShoot;
-	private Solenoid solenoid1, solenoid2;
+	private Solenoid elevator;
 	
 	public static Shooter getInstance() {
 		if (instance == null) {
@@ -32,8 +32,7 @@ public class Shooter extends Subsystem {
 		leftShoot = new TalonSRX(Constants.shooterTalonLeftShootChannel);
 		rightShoot = new TalonSRX(Constants.shooterTalonRightShootChannel);
 		
-		solenoid1 = new Solenoid(Constants.shooterSolenoid1Channel);
-		solenoid2 = new Solenoid(Constants.shooterSolenoid2Channel);
+		//elevator = new Solenoid(Constants.shooterElevatorChannel);
 		
 		leftAccelerate.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		rightAccelerate.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
@@ -137,15 +136,13 @@ public class Shooter extends Subsystem {
 	 * Raises the shooter to shoot Power Cubes into the scale
 	 */
 	public void raiseShooter() {
-		solenoid1.set(true);
-		solenoid2.set(true);
+		elevator.set(true);
 	}
 	/**
 	 * Lowers the shooter to shoot Power Cubes into the switch
 	 */
 	public void lowerShooter() {
-		solenoid1.set(false);
-		solenoid2.set(false);
+		elevator.set(false);
 	}
 	
 	/**
@@ -153,7 +150,7 @@ public class Shooter extends Subsystem {
 	 * @return The status of whether the shooter is raised
 	 */
 	public boolean isRaised() {
-		return solenoid1.get();
+		return elevator.get();
 	}
 
 	public void initDefaultCommand() {
