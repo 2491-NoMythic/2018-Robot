@@ -13,8 +13,6 @@ import com._2491nomythic.robot.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.robot.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.robot.settings.Constants;
 import com._2491nomythic.robot.settings.ControllerMap;
-import com._2491nomythic.robot.settings.Variables;
-
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
