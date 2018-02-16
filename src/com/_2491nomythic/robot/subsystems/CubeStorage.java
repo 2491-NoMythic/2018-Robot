@@ -1,6 +1,5 @@
 package com._2491nomythic.robot.subsystems;
 
-import com._2491nomythic.robot.commands.cubestorage.TransportCubeManual;
 import com._2491nomythic.robot.settings.Constants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -29,10 +28,8 @@ public class CubeStorage extends Subsystem {
 	private CubeStorage() {
 		left = new TalonSRX(Constants.cubeStorageTalonLeftChannel);
 		right = new TalonSRX(Constants.cubeStorageTalonRightChannel);
-		sonic = new Ultrasonic(Constants.ultrasonicDigitalOutput, Constants.ultrasonicDigitalInput);
+		sonic = new Ultrasonic(Constants.ultrasonicPingChannel, Constants.ultrasonicEchoChannel);
 		sonic.setAutomaticMode(true);
-		sonic.setEnabled(true);
-		System.out.println("Sonic Status: " + sonic.isEnabled());
 	}
 
 	
@@ -72,27 +69,11 @@ public class CubeStorage extends Subsystem {
 	}
 	
 	/**
-	 * Gets the current range of the ultrasonic sensor in millimeters;
-	 * @return Returns double of millimeters.
-	 */
-	public double getUltrasonicMillimeters() {
-		return sonic.getRangeMM();
-	}
-	
-	/**
-	 * Gets the distance in centimeters rounded to the nearest centimeter.
-	 * @return ultrasonic distance in centimeters rounded to nearest centimeter.
-	 */
-	public int getUltrasonicCentimetersRounded() {
-		return (int) (sonic.getRangeMM() / 10);
-	}
-	
-	/**
 	 * Checks if a cube is currently held within the CubeStorage system
 	 * @return True if a cube is held, else returns false
 	 */
 	public boolean isHeld() {
-		return (getRangeInches() <= Constants.heldCubeRange && getRangeInches() != 0);
+		return (getRangeInches() <= (Constants.heldCubeRange + Constants.heldCubeTolerance) && getValidMeasurement());
 	}
 	
 

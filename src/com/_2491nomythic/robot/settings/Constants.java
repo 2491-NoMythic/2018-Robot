@@ -39,9 +39,10 @@ public class Constants {
 	//CubeStorage
 	public static final int cubeStorageTalonLeftChannel = 23;
 	public static final int cubeStorageTalonRightChannel = 11;
-	public static final int ultrasonicDigitalInput = 1;
-	public static final int ultrasonicDigitalOutput = 0;
+	public static final int ultrasonicPingChannel = 1;
+	public static final int ultrasonicEchoChannel = 0;
 	public static final double heldCubeRange = 2491;//TODO actual value needed
+	public static final double heldCubeTolerance = .5;
 		
 	//Computation
 	public static final double driveEncoderToInches = 1.0 / 4096.0 * 6.0 * Math.PI; 

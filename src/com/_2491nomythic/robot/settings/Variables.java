@@ -25,5 +25,4 @@ public class Variables {
 	public static boolean readyToFire = false;
 	public static double shooterSpeed = Constants.shooterMediumScaleSpeed;
 	public static double currentShooterRPM;
-
 }

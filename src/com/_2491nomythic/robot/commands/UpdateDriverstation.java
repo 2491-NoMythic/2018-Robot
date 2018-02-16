@@ -53,7 +53,6 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putNumber("Drivetrain Speed", drivetrain.getEncoderRate());
 			SmartDashboard.putNumber("Maximum Speed", maximumSpeed);
 			SmartDashboard.putNumber("Ultrasonic Distance", cubeStorage.getRangeInches());
-			SmartDashboard.putBoolean("Ultrasonic Valid", cubeStorage.getValidMeasurement());
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
 		}
 			
