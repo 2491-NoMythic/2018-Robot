@@ -8,6 +8,7 @@
 package com._2491nomythic.robot;
 
 import com._2491nomythic.robot.commands.KillSwitch;
+import com._2491nomythic.robot.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.robot.commands.intake.ToggleIntakeOpening;
 import com._2491nomythic.robot.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.robot.commands.shooter.ToggleShooterPosition;
@@ -41,6 +42,9 @@ public class OI {
 		
 		setScaleRPM = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setScaleRPM);
 		setScaleRPM.whenPressed(new SetShooterSpeed(Constants.shooterHighScaleSpeed));
+		
+		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);
+		deployIntake.whenPressed(new ToggleIntakeDeployment());
 		
 		openIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.openIntake);
 		openIntake.whenPressed(new ToggleIntakeOpening());

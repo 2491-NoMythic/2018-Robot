@@ -1,5 +1,6 @@
 package com._2491nomythic.robot.subsystems;
 
+import com._2491nomythic.robot.commands.intake.RunIntakeManual;
 import com._2491nomythic.robot.settings.Constants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -13,7 +14,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Intake extends Subsystem {
 	private static Intake instance;
 	private TalonSRX left, right, bottom;
-	private Solenoid solenoid1, solenoid2; 
+	private Solenoid activateIntakeSolenoid, intakeOpenSolenoid; 
 	
 	public static Intake getInstance() {
 		if (instance == null) {
@@ -29,8 +30,8 @@ public class Intake extends Subsystem {
 		left = new TalonSRX(Constants.intakeTalonLeftChannel);
 		right = new TalonSRX(Constants.intakeTalonRightChannel);
 		bottom = new TalonSRX(Constants.intakeTalonBottomChannel);
-		solenoid1 = new Solenoid(Constants.intakeSolenoid1Channel);
-		solenoid2 = new Solenoid(Constants.intakeSolenoid2Channel);
+		//activateIntakeSolenoid = new Solenoid(Constants.intakeSolenoidActivateChannel);
+		//intakeOpenSolenoid = new Solenoid(Constants.intakeSolenoidOpenChannel);
 	}
 	
 	/**
@@ -68,19 +69,39 @@ public class Intake extends Subsystem {
 	}
 	
 	/**
+	 * Sets the intake out of the frame perimeter.
+	 */
+	public void activate() {
+		activateIntakeSolenoid.set(true);
+	}
+	
+	/**
+	 * Sets the intake in the frame perimeter.
+	 */
+	public void retract() {
+		activateIntakeSolenoid.set(false);
+	}
+	
+	/**
 	 * Sets the intake to the open state.
 	 */
 	public void open() {
-		solenoid1.set(true);
-		solenoid2.set(true);
+		intakeOpenSolenoid.set(true);
 	}
 	
 	/**
 	 * Sets the intake to the closed state.
 	 */
 	public void close() {
-		solenoid1.set(false);
-		solenoid2.set(false);
+		intakeOpenSolenoid.set(false);
+	}
+	
+	/**
+	 * Returns whether or not the intake is extended.
+	 * @return Whether or not the intake is extended.
+	 */
+	public boolean isDeployed() {
+		return activateIntakeSolenoid.get();
 	}
 	
 	/**
@@ -88,7 +109,7 @@ public class Intake extends Subsystem {
 	 * @return Whether or not the intake is open.
 	 */
 	public boolean isOpened() {
-		return solenoid1.get();
+		return intakeOpenSolenoid.get();
 	}
 	
 	/**
