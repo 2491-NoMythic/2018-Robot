@@ -1,6 +1,5 @@
 package com._2491nomythic.robot.subsystems;
 
-import com._2491nomythic.robot.commands.intake.RunIntakeManual;
 import com._2491nomythic.robot.settings.Constants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -30,8 +29,8 @@ public class Intake extends Subsystem {
 		left = new TalonSRX(Constants.intakeTalonLeftChannel);
 		right = new TalonSRX(Constants.intakeTalonRightChannel);
 		bottom = new TalonSRX(Constants.intakeTalonBottomChannel);
-		//activateIntakeSolenoid = new Solenoid(Constants.intakeSolenoidActivateChannel);
-		//intakeOpenSolenoid = new Solenoid(Constants.intakeSolenoidOpenChannel);
+		activateIntakeSolenoid = new Solenoid(Constants.intakeSolenoidActivateChannel);
+		intakeOpenSolenoid = new Solenoid(Constants.intakeSolenoidOpenChannel);
 	}
 	
 	/**

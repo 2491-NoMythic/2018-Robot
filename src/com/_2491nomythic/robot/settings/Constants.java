@@ -15,15 +15,15 @@ public class Constants {
 	public static final int intakeTalonLeftChannel = 21;
 	public static final int intakeTalonRightChannel = 7;
 	public static final int intakeTalonBottomChannel = 22;
-	public static final int intakeSolenoidActivateChannel = 2491; //TODO Change this to an actual solenoid channel.
-	public static final int intakeSolenoidOpenChannel = 2491; //TODO Change this to an actual solenoid channel.
+	public static final int intakeSolenoidActivateChannel = 2;
+	public static final int intakeSolenoidOpenChannel = 3;
 
 	//Shooter
 	public static final int shooterTalonLeftAccelerateChannel = 12;
 	public static final int shooterTalonLeftShootChannel = 14;
 	public static final int shooterTalonRightAccelerateChannel = 13;
 	public static final int shooterTalonRightShootChannel = 15;
-	public static final int shooterElevatorChannel = 12;
+	public static final int shooterElevatorChannel = 1;
 	public static final int timeForShooterToSpinUp = 2; //TODO time this
 	public static final int timeForShooterToRaise = 4; //TODO time this
 	public static final int timeForShooterToFire = 2; //TODO Time this

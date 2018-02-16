@@ -32,7 +32,7 @@ public class Shooter extends Subsystem {
 		leftShoot = new TalonSRX(Constants.shooterTalonLeftShootChannel);
 		rightShoot = new TalonSRX(Constants.shooterTalonRightShootChannel);
 		
-		//elevator = new Solenoid(Constants.shooterElevatorChannel);
+		elevator = new Solenoid(Constants.shooterElevatorChannel);
 		
 		leftAccelerate.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		rightAccelerate.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
