@@ -28,8 +28,8 @@ public class QuadraticDrive extends CommandBase {
     	state = 0;
     	timer.start();
     	timer.reset();
-    	accelerationInterval = .5;
-    	accelerationIncrease = .2;
+    	accelerationInterval = .2;
+    	accelerationIncrease = .08;
     	quadraticCoefficient = 1.5;
     	
     }
