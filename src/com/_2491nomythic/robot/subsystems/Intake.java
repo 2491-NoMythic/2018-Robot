@@ -29,8 +29,8 @@ public class Intake extends Subsystem {
 		left = new TalonSRX(Constants.intakeTalonLeftChannel);
 		right = new TalonSRX(Constants.intakeTalonRightChannel);
 		bottom = new TalonSRX(Constants.intakeTalonBottomChannel);
-		//activateIntakeSolenoid = new Solenoid(Constants.intakeSolenoidActivateChannel);
-		//intakeOpenSolenoid = new Solenoid(Constants.intakeSolenoidOpenChannel);
+		activateIntakeSolenoid = new Solenoid(Constants.intakeSolenoidActivateChannel);
+		intakeOpenSolenoid = new Solenoid(Constants.intakeSolenoidOpenChannel);
 	}
 	
 	/**
