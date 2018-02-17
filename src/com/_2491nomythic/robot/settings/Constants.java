@@ -15,8 +15,10 @@ public class Constants {
 	public static final int intakeTalonLeftChannel = 6;
 	public static final int intakeTalonRightChannel = 2;
 	public static final int intakeTalonBottomChannel = 1;
-	public static final int intakeSolenoidActivateChannel = 2;
-	public static final int intakeSolenoidOpenChannel = 3;
+	public static final int intakeSolenoidActivateChannelForward = 2;
+	public static final int intakeSolenoidActivateChannelReverse = 4;
+	public static final int intakeSolenoidOpenChannelForward = 3;
+	public static final int intakeSolenoidOpenChannelReverse = 6;
 
 	//Shooter
 	public static final int shooterTalonLeftAccelerateChannel = 13;

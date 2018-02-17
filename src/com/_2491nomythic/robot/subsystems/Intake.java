@@ -5,7 +5,8 @@ import com._2491nomythic.robot.settings.Variables;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.Solenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -14,7 +15,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Intake extends Subsystem {
 	private static Intake instance;
 	private TalonSRX left, right, bottom;
-	private Solenoid activateIntakeSolenoid, intakeOpenSolenoid; 
+	private DoubleSolenoid activateIntakeSolenoid, intakeOpenSolenoid; 
 	
 	public static Intake getInstance() {
 		if (instance == null) {
@@ -30,8 +31,8 @@ public class Intake extends Subsystem {
 		left = new TalonSRX(Constants.intakeTalonLeftChannel);
 		right = new TalonSRX(Constants.intakeTalonRightChannel);
 		bottom = new TalonSRX(Constants.intakeTalonBottomChannel);
-		activateIntakeSolenoid = new Solenoid(Constants.intakeSolenoidActivateChannel);
-		intakeOpenSolenoid = new Solenoid(Constants.intakeSolenoidOpenChannel);
+		activateIntakeSolenoid = new DoubleSolenoid(Constants.intakeSolenoidActivateChannelForward, Constants.intakeSolenoidActivateChannelReverse);
+		intakeOpenSolenoid = new DoubleSolenoid(Constants.intakeSolenoidOpenChannelForward, Constants.intakeSolenoidOpenChannelReverse);
 	}
 	
 	/**
@@ -72,7 +73,7 @@ public class Intake extends Subsystem {
 	 * Sets the intake out of the frame perimeter.
 	 */
 	public void activate() {
-		activateIntakeSolenoid.set(true);
+		activateIntakeSolenoid.set(Value.kForward);
 		Variables.isDeployed = true;
 	}
 	
@@ -84,7 +85,8 @@ public class Intake extends Subsystem {
 			
 		}
 		else {
-			activateIntakeSolenoid.set(false);
+			activateIntakeSolenoid.set(Value.kReverse);
+			close();
 			Variables.isDeployed = false;
 		}
 	}
@@ -93,14 +95,14 @@ public class Intake extends Subsystem {
 	 * Sets the intake to the open state.
 	 */
 	public void open() {
-		intakeOpenSolenoid.set(true);
+		intakeOpenSolenoid.set(Value.kForward);
 	}
 	
 	/**
 	 * Sets the intake to the closed state.
 	 */
 	public void close() {
-		intakeOpenSolenoid.set(false);
+		intakeOpenSolenoid.set(Value.kReverse);
 	}
 	
 	/**
@@ -108,7 +110,7 @@ public class Intake extends Subsystem {
 	 * @return Whether or not the intake is extended.
 	 */
 	public boolean isDeployed() {
-		return activateIntakeSolenoid.get();
+		return activateIntakeSolenoid.get() == Value.kForward;
 	}
 	
 	/**
@@ -116,7 +118,7 @@ public class Intake extends Subsystem {
 	 * @return Whether or not the intake is open.
 	 */
 	public boolean isOpened() {
-		return intakeOpenSolenoid.get();
+		return intakeOpenSolenoid.get() == Value.kForward;
 	}
 	
 	/**
