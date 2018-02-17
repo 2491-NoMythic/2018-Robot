@@ -1,7 +1,6 @@
 package com._2491nomythic.robot.subsystems;
 
-import edu.wpi.first.wpilibj.I2C;
-import edu.wpi.first.wpilibj.I2C.Port;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -9,7 +8,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class SickLights extends Subsystem {
 	private static SickLights instance;
-	private I2C shooter;
+	private Solenoid shooter1, shooter2;
 
 	public static SickLights getInstance() {
 		if(instance == null) {
@@ -22,23 +21,40 @@ public class SickLights extends Subsystem {
 	 * The system which controls the data sent to the lights.
 	 */
 	public SickLights() {
-		shooter = new I2C(Port.kOnboard, 1);
+		shooter1 = new Solenoid(4);
+		shooter2 = new Solenoid(5);
 	}
 	
 	/**
-	 * Returns whether or not there is a device connected to the I2C port at the correct address.
-	 * @return Whether or not it is connected.
+	 * Updates the solenoids to be recognized by the Arduino.
+	 * @param pattern Which light pattern to use from 1-4.
+	 * Pattern 1: Static Purple
+	 * Pattern 2: Shooter Spinning Up
+	 * Pattern 3: Ready to Fire
+	 * Pattern 4: Picked up Cube (Detected by ultrasonic)
 	 */
-	public boolean isConnected() {
-		return !shooter.addressOnly();
-	}
-	
-	/**
-	 * Writes a byte array to the I2C output.
-	 * @param data The byte array to be written.
-	 */
-	public void writeSignal(byte[] data) {
-		shooter.transaction(data, data.length, null, 0);
+	public void writePattern(int pattern) {
+		switch(pattern) {
+		case 1:
+			shooter1.set(false);
+			shooter2.set(false);
+			break;
+		case 2:
+			shooter1.set(true);
+			shooter2.set(false);
+			break;
+		case 3:
+			shooter1.set(false);
+			shooter2.set(true);
+			break;
+		case 4:
+			shooter1.set(true);
+			shooter2.set(true);
+			break;
+		default:
+			System.out.println("Invalid pattern in SickLights. Pattern: " + pattern);
+			break;
+		}
 	}
 	
 	public void initDefaultCommand() {

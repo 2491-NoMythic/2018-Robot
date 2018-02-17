@@ -24,7 +24,6 @@ import com._2491nomythic.robot.commands.cubestorage.TransportCubeTime;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
-import com._2491nomythic.robot.commands.lights.LightTest;
 import com._2491nomythic.robot.commands.shooter.MonitorRPM;
 import com._2491nomythic.robot.commands.shooter.RunShooterTime;
 import com._2491nomythic.robot.settings.Variables;
@@ -76,7 +75,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("DriveStraightToPosition", new DriveStraightToPosition(0.3, 10));
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(20));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
-		SmartDashboard.putData("LightTest", new LightTest());
 		SmartDashboard.putNumber("Proportional Rotate", Variables.proportional);
 		SmartDashboard.putNumber("Derivative Rotate", Variables.derivative);
 		SmartDashboard.putNumber("Proportional Forward", Variables.proportionalForward);
