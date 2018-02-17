@@ -19,10 +19,10 @@ public class Constants {
 	public static final int intakeSolenoidOpenChannel = 3;
 
 	//Shooter
-	public static final int shooterTalonLeftAccelerateChannel = 12;
-	public static final int shooterTalonLeftShootChannel = 14;
-	public static final int shooterTalonRightAccelerateChannel = 13;
-	public static final int shooterTalonRightShootChannel = 15;
+	public static final int shooterTalonLeftAccelerateChannel = 13;
+	public static final int shooterTalonRightAccelerateChannel = 14;
+	public static final int shooterTalonLeftShootChannel = 15;
+	public static final int shooterTalonRightShootChannel = 16;
 	public static final int shooterElevatorChannel = 1;
 	public static final int timeForShooterToSpinUp = 2; //TODO time this
 	public static final int timeForShooterToRaise = 4; //TODO time this
@@ -37,8 +37,8 @@ public class Constants {
 	public static final int shooterLights = 2;
 	
 	//CubeStorage
-	public static final int cubeStorageTalonLeftChannel = 23;
-	public static final int cubeStorageTalonRightChannel = 11;
+	public static final int cubeStorageTalonLeftChannel = 11;
+	public static final int cubeStorageTalonRightChannel = 12;
 	public static final int ultrasonicPingChannel = 1;
 	public static final int ultrasonicEchoChannel = 0;
 	public static final double heldCubeRange = 2491;//TODO actual value needed
