@@ -4,8 +4,6 @@ import com._2491nomythic.robot.commands.AutomaticShoot;
 import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
-import com._2491nomythic.robot.settings.Variables;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -18,7 +16,7 @@ public class RightPrioritizeSwitch extends CommandBase {
 	private RotateDrivetrainWithGyroPID turnTowardsSwitchOrScale;
 	private AutomaticShoot launchCubeSwitch, launchCubeScale;
 	private int state;
-	private Timer timer, delay;
+	private Timer timer;
 	private boolean scaleSide, switchSide;
 
 	/**
@@ -28,7 +26,6 @@ public class RightPrioritizeSwitch extends CommandBase {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);		
 		timer = new Timer();
-		delay = new Timer();
 		crossLine = new CrossAutoLine();
 		turnTowardsSwitchOrScale = new RotateDrivetrainWithGyroPID(90, false);
 		driveToScale = new DriveStraightToPositionPID(323.6);
@@ -46,12 +43,6 @@ public class RightPrioritizeSwitch extends CommandBase {
 		String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		scaleSide = gameData.substring(1, 2).contentEquals("R");
 		switchSide = gameData.substring(0, 1).contentEquals("R");
-		
-		delay.start();
-		
-		if(delay.get() < Variables.autoDelay) {
-			
-		}
 	}
 
 	// Called repeatedly when this Command is scheduled to run
