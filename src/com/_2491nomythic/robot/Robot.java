@@ -21,9 +21,10 @@ import com._2491nomythic.robot.commands.autonomous.PlaceOnSwitchRight;
 import com._2491nomythic.robot.commands.autonomous.RightPrioritizeScale;
 import com._2491nomythic.robot.commands.autonomous.RightPrioritizeSwitch;
 import com._2491nomythic.robot.commands.cubestorage.TransportCubeTime;
-import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
+import com._2491nomythic.robot.commands.intake.ToggleIntakeDeployment;
+import com._2491nomythic.robot.commands.intake.ToggleIntakeOpening;
 import com._2491nomythic.robot.commands.shooter.MonitorRPM;
 import com._2491nomythic.robot.commands.shooter.RunShooterTime;
 import com._2491nomythic.robot.settings.Variables;
@@ -72,18 +73,18 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("RightSwitch", new PlaceOnSwitchRight());
 		m_chooser.addDefault("Do Nothing", new DoNothing());
 		SmartDashboard.putData("Auto mode", m_chooser);
-		SmartDashboard.putData("DriveStraightToPosition", new DriveStraightToPosition(0.3, 10));
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(20));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
 		SmartDashboard.putNumber("Proportional Rotate", Variables.proportional);
 		SmartDashboard.putNumber("Derivative Rotate", Variables.derivative);
 		SmartDashboard.putNumber("Proportional Forward", Variables.proportionalForward);
 		SmartDashboard.putNumber("Derivative Forward", Variables.derivativeForward);
-		SmartDashboard.putBoolean("Use Linear Acceleration", Variables.useLinearAcceleration);
 		SmartDashboard.putNumber("Drive Default Command", Variables.driveDefault);
 		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);
 		SmartDashboard.putData("RunShooterTime", new RunShooterTime(.8, 5));
 		SmartDashboard.putData("RunCubeStorageTime", new TransportCubeTime(1, .8));
+		SmartDashboard.putData("DeployIntake", new ToggleIntakeDeployment());
+		SmartDashboard.putData("OpenIntake", new ToggleIntakeOpening());
 	}
 
 	/**

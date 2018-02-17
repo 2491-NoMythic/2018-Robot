@@ -41,9 +41,8 @@ public class UpdateDriverstation extends CommandBase {
 			Variables.derivative = SmartDashboard.getNumber("Derivate Rotate", Variables.derivative);
 			Variables.proportional = SmartDashboard.getNumber("Proportional Rotate", Variables.proportional);
 			Variables.proportionalForward = SmartDashboard.getNumber("Proportional Forward", Variables.proportionalForward);
-			Variables.derivativeForward = SmartDashboard.getNumber("Derivate Forward", Variables.derivativeForward);
+			Variables.derivativeForward = SmartDashboard.getNumber("Derivative Forward", Variables.derivativeForward);
 			Variables.driveDefault = SmartDashboard.getNumber("Drive Default Command", 1);
-			Variables.useLinearAcceleration = SmartDashboard.getBoolean("Use Linear Acceleration", true);
 			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
 			SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
 			SmartDashboard.putNumber("RightEncoder", drivetrain.getRightEncoderDistance());
