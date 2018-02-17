@@ -9,7 +9,7 @@ package com._2491nomythic.tempest;
 
 import com._2491nomythic.tempest.commands.KillSwitch;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
-import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpening;
+import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpeningHeld;
 import com._2491nomythic.tempest.commands.shooter.RunShooterManual;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
@@ -50,7 +50,7 @@ public class OI {
 		deployIntake.whenPressed(new ToggleIntakeDeployment());
 		
 		openIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.openIntake);
-		openIntake.whenPressed(new ToggleIntakeOpening());
+		openIntake.whileHeld(new ToggleIntakeOpeningHeld());
 		
 		raiseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.raiseShooter);
 		raiseShooter.whenPressed(new ToggleShooterPosition());
