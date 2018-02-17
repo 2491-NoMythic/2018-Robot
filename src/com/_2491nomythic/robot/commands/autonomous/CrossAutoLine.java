@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class CrossAutoLine extends CommandBase {
 	DriveStraightToPositionPID crossLine;
-	Timer timer;
+	Timer timer, delay;
 
 	/**
 	 * Attempts to cross the AutoLine during autonomous.
@@ -20,12 +20,19 @@ public class CrossAutoLine extends CommandBase {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);		
 		timer = new Timer();
+		delay = new Timer();
 		crossLine = new DriveStraightToPositionPID(130);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		delay.start();
 		System.out.println(Variables.autoDelay);
+		
+		while(delay.get() < Variables.autoDelay) {
+			
+		}
+		
 		crossLine.start();
 		timer.start();
 	}

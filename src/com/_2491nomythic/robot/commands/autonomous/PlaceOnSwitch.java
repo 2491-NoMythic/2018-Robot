@@ -4,6 +4,8 @@ import com._2491nomythic.robot.commands.AutomaticShoot;
 import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
+import com._2491nomythic.robot.settings.Variables;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -15,7 +17,7 @@ public class PlaceOnSwitch extends CommandBase {
 	private RotateDrivetrainWithGyroPID turnTowardsWall, turnTowardsSwitch;
 	private AutomaticShoot launchCube;
 	private int state;
-	private Timer timer;
+	private Timer timer, delay;
 	
 	/**
 	 * Attempts to place a cube on the correct side of the switch during autonomous.
@@ -25,6 +27,7 @@ public class PlaceOnSwitch extends CommandBase {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);		
 		timer = new Timer();
+		delay = new Timer();
 		approachCubes = new DriveStraightToPositionPID(-98);
 		approachSwitch = new DriveStraightToPositionPID(-76);
 		launchCube = new AutomaticShoot(false);
@@ -51,6 +54,12 @@ public class PlaceOnSwitch extends CommandBase {
 		default:
 			System.out.println("Unexpected value for GameSpecificMessage: " + gameData);
 			break;
+		}
+				
+		delay.start();
+		
+		while(delay.get() < Variables.autoDelay) {
+			
 		}
 	}
 

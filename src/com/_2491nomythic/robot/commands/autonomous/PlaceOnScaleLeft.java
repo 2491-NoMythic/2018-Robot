@@ -4,6 +4,8 @@ import com._2491nomythic.robot.commands.AutomaticShoot;
 import com._2491nomythic.robot.commands.CommandBase;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
+import com._2491nomythic.robot.settings.Variables;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -14,7 +16,7 @@ public class PlaceOnScaleLeft extends CommandBase {
 	private DriveStraightToPositionPID driveToCenter, driveToNullZone, approachScale, driveToCorrectSide;
 	private RotateDrivetrainWithGyroPID turnTowardsCenter, turnTowardsNullZone, turnTowardsScale;
 	private AutomaticShoot launchCube;
-	private Timer timer;
+	private Timer timer, delay;
 	private int state;
 	private boolean left;
 
@@ -25,6 +27,7 @@ public class PlaceOnScaleLeft extends CommandBase {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);		
 		timer = new Timer();
+		delay = new Timer();
 		driveToCenter = new DriveStraightToPositionPID(235.4);
 		approachScale = new DriveStraightToPositionPID(44);
 		driveToCorrectSide = new DriveStraightToPositionPID(218.63);
@@ -53,6 +56,12 @@ public class PlaceOnScaleLeft extends CommandBase {
 		default:
 			System.out.println("Unexpected GameSpecificMessage in PlaceOnScaleLeft. gameData: " + gameData);
 			break;
+		}
+		
+		delay.start();
+		
+		while(delay.get() < Variables.autoDelay) {
+			
 		}
 	}
 
