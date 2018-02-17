@@ -1,5 +1,6 @@
 package com._2491nomythic.robot.subsystems;
 
+import com._2491nomythic.robot.commands.cubestorage.TransportCubeManual;
 import com._2491nomythic.robot.settings.Constants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -39,7 +40,7 @@ public class CubeStorage extends Subsystem {
 	 * @param power The power at which the motors are run. Positive values push the cube into the shooter, negative values push it into the intake.
 	 */
 	public void run(double power) {
-		left.set(ControlMode.PercentOutput, power);
+		left.set(ControlMode.PercentOutput, -power);
 		right.set(ControlMode.PercentOutput, power);
 	}
 	
@@ -78,7 +79,7 @@ public class CubeStorage extends Subsystem {
 	
 
 	public void initDefaultCommand() {
-		//setDefaultCommand(new TransportCubeManual());
+		setDefaultCommand(new TransportCubeManual());
 	}
 }
 

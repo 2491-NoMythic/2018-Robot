@@ -20,11 +20,13 @@ import com._2491nomythic.robot.commands.autonomous.PlaceOnSwitchLeft;
 import com._2491nomythic.robot.commands.autonomous.PlaceOnSwitchRight;
 import com._2491nomythic.robot.commands.autonomous.RightPrioritizeScale;
 import com._2491nomythic.robot.commands.autonomous.RightPrioritizeSwitch;
+import com._2491nomythic.robot.commands.cubestorage.TransportCubeTime;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPosition;
 import com._2491nomythic.robot.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.robot.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.robot.commands.lights.LightTest;
 import com._2491nomythic.robot.commands.shooter.MonitorRPM;
+import com._2491nomythic.robot.commands.shooter.RunShooterTime;
 import com._2491nomythic.robot.settings.Variables;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -82,6 +84,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putBoolean("Use Linear Acceleration", Variables.useLinearAcceleration);
 		SmartDashboard.putNumber("Drive Default Command", Variables.driveDefault);
 		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);
+		SmartDashboard.putData("RunShooterTime", new RunShooterTime(.8, 5));
+		SmartDashboard.putData("RunCubeStorageTime", new TransportCubeTime(1, .8));
 	}
 
 	/**

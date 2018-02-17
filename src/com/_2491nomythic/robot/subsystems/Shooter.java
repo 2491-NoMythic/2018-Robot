@@ -1,5 +1,6 @@
 package com._2491nomythic.robot.subsystems;
 
+import com._2491nomythic.robot.commands.shooter.RunShooterManual;
 import com._2491nomythic.robot.settings.Constants;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -49,7 +50,7 @@ public class Shooter extends Subsystem {
 	 */
 	public void runAccelerate(double speed) {
 		leftAccelerate.set(ControlMode.PercentOutput, speed);
-		rightAccelerate.set(ControlMode.PercentOutput, speed);
+		rightAccelerate.set(ControlMode.PercentOutput, -speed);
 	}
 	
 	/**
@@ -154,6 +155,7 @@ public class Shooter extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
+		setDefaultCommand(new RunShooterManual());
 	}
 	
 	/**
