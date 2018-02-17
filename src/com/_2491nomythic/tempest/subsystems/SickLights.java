@@ -21,8 +21,8 @@ public class SickLights extends Subsystem {
 	 * The system which controls the data sent to the lights.
 	 */
 	public SickLights() {
-		shooter1 = new Solenoid(4);
-		shooter2 = new Solenoid(5);
+		//shooter1 = new Solenoid(4);
+		//shooter2 = new Solenoid(5);
 	}
 	
 	/**

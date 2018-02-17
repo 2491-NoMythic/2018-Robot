@@ -15,6 +15,7 @@ public class RunShooterManual extends CommandBase {
 	public RunShooterManual() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
+		requires(shooter);
 	}
 
 	// Called just before this Command runs the first time
