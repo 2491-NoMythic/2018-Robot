@@ -12,9 +12,9 @@ public class Constants {
 	public static final int driveTalonRight2Channel = 5;
 	
 	//Intake
-	public static final int intakeTalonLeftChannel = 21;
-	public static final int intakeTalonRightChannel = 7;
-	public static final int intakeTalonBottomChannel = 22;
+	public static final int intakeTalonLeftChannel = 6;
+	public static final int intakeTalonRightChannel = 2;
+	public static final int intakeTalonBottomChannel = 1;
 	public static final int intakeSolenoidActivateChannel = 2;
 	public static final int intakeSolenoidOpenChannel = 3;
 
