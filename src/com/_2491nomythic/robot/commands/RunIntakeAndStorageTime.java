@@ -1,28 +1,30 @@
-package com._2491nomythic.robot.commands.intake;
+package com._2491nomythic.robot.commands;
 
-import com._2491nomythic.robot.commands.CommandBase;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
- *Runs the intake system.
+ *Runs intake system and cube storage for set power and time
  */
-public class RunIntake extends CommandBase {
-	public double speed;
-	
+public class RunIntakeAndStorageTime extends CommandBase {
+	private double speed, time;
+	private Timer timer;
 
 	/**
-	 * Runs the intake system.
-	 * @param speed the speed at which to set the motors.
+	 * Runs intake system and cube storage for set power and time
 	 */
-	public RunIntake(double speed) {
+	public RunIntakeAndStorageTime(double desiredTime) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
+		requires(cubeStorage);
 		requires(intake);
-		this.speed = speed;
+		time = desiredTime;
+		timer = new Timer();
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		intake.run(speed);
+		cubeStorage.run(speed);
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -31,12 +33,13 @@ public class RunIntake extends CommandBase {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return timer.get() >= time;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
 		intake.stop();
+		cubeStorage.stop();
 	}
 
 	// Called when another command which requires one or more of the same

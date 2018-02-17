@@ -41,8 +41,8 @@ public class SickLights extends Subsystem {
 		shooter.transaction(data, data.length, null, 0);
 	}
 	
-    public void initDefaultCommand() {
-    	
-    }
+	public void initDefaultCommand() {
+		
+	}
 }
 
