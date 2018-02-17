@@ -44,7 +44,6 @@ public class Constants {
 	public static final int ultrasonicPingChannel = 1;
 	public static final int ultrasonicEchoChannel = 0;
 	public static final double heldCubeRange = 2491;//TODO actual value needed
-	public static final double heldCubeTolerance = .5;
 		
 	//Computation
 	public static final double driveEncoderToInches = 1.0 / 4096.0 * 6.0 * Math.PI; 
