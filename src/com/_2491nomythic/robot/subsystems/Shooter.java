@@ -2,6 +2,7 @@ package com._2491nomythic.robot.subsystems;
 
 import com._2491nomythic.robot.commands.shooter.RunShooterManual;
 import com._2491nomythic.robot.settings.Constants;
+import com._2491nomythic.robot.settings.Variables;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
@@ -138,12 +139,19 @@ public class Shooter extends Subsystem {
 	 */
 	public void raiseShooter() {
 		elevator.set(true);
+		Variables.isLowered = false;
 	}
 	/**
 	 * Lowers the shooter to shoot Power Cubes into the switch
 	 */
 	public void lowerShooter() {
-		elevator.set(false);
+		if(!Variables.isDeployed) {
+			
+		}
+		else {
+			elevator.set(false);
+			Variables.isLowered = true;
+		}
 	}
 	
 	/**

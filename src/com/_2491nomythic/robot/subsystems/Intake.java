@@ -1,6 +1,7 @@
 package com._2491nomythic.robot.subsystems;
 
 import com._2491nomythic.robot.settings.Constants;
+import com._2491nomythic.robot.settings.Variables;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -72,13 +73,20 @@ public class Intake extends Subsystem {
 	 */
 	public void activate() {
 		activateIntakeSolenoid.set(true);
+		Variables.isDeployed = true;
 	}
 	
 	/**
 	 * Sets the intake in the frame perimeter.
 	 */
 	public void retract() {
-		activateIntakeSolenoid.set(false);
+		if(Variables.isLowered) {
+			
+		}
+		else {
+			activateIntakeSolenoid.set(false);
+			Variables.isDeployed = false;
+		}
 	}
 	
 	/**

@@ -21,8 +21,12 @@ public class Variables {
 	public static double autoDelay;
 	public static boolean useGyroPID;
 	
+	//Intake
+	public static boolean isDeployed = false;
+	
 	//Shooter
 	public static boolean readyToFire = false;
 	public static double shooterSpeed = Constants.shooterMediumScaleSpeed;
 	public static double currentShooterRPM;
+	public static boolean isLowered = false;
 }
