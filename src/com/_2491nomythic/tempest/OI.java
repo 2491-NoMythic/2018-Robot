@@ -10,6 +10,7 @@ package com._2491nomythic.tempest;
 import com._2491nomythic.tempest.commands.KillSwitch;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpening;
+import com._2491nomythic.tempest.commands.shooter.RunShooterManual;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.tempest.settings.Constants;
@@ -26,7 +27,8 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	private final Joystick[] controllers = new Joystick[2];
 	
-	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, setSwitchRPM, setScaleRPM, deployIntake, openIntake, raiseShooter;
+	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, setSwitchRPM, setScaleRPM, deployIntake;
+	Button openIntake, raiseShooter, setScaleSpeed, setSwitchSpeed, runShooter;
 
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
@@ -38,10 +40,10 @@ public class OI {
 		killSwitch2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton2);
 		killSwitch2.whenPressed(new KillSwitch());
 		
-		setSwitchRPM = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setSwitchRPM);
+		setSwitchRPM = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setSwitchRPS);
 		setSwitchRPM.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed));
 		
-		setScaleRPM = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setScaleRPM);
+		setScaleRPM = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setScaleRPS);
 		setScaleRPM.whenPressed(new SetShooterSpeed(Constants.shooterHighScaleSpeed));
 		
 		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);
@@ -52,6 +54,15 @@ public class OI {
 		
 		raiseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.raiseShooter);
 		raiseShooter.whenPressed(new ToggleShooterPosition());
+		
+		setScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setScaleRPS);
+		setScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterMediumScaleSpeed));
+		
+		setSwitchSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setSwitchRPS);
+		setScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed));
+		
+		runShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton);
+		runShooter.whileHeld(new RunShooterManual());
 		
 		//driverScaleShoot = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverScaleShootButton);
 		//driverScaleShoot.whileHeld(new ScaleShoot());

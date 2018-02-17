@@ -1,6 +1,5 @@
 package com._2491nomythic.tempest.subsystems;
 
-import com._2491nomythic.tempest.commands.shooter.RunShooterManual;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -163,7 +162,6 @@ public class Shooter extends Subsystem {
 	}
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new RunShooterManual());
 	}
 	
 	/**

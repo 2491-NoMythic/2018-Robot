@@ -1,16 +1,15 @@
 package com._2491nomythic.tempest.commands.shooter;
 
 import com._2491nomythic.tempest.commands.CommandBase;
-import com._2491nomythic.tempest.settings.ControllerMap;
+import com._2491nomythic.tempest.settings.Variables;
 
 /**
- * Runs the shooter as according to input from a controller axis
+ * Runs the shooter as according to input from a controller
  */
 public class RunShooterManual extends CommandBase {
-	private double currentSpeed;
 
 	/**
-	 * Runs the shooter as according to input from a controller axis
+	 * Runs the shooter as according to input from a controller
 	 */
 	public RunShooterManual() {
 		// Use requires() here to declare subsystem dependencies
@@ -23,8 +22,7 @@ public class RunShooterManual extends CommandBase {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		currentSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.shooterAxis, 0.2);
-		shooter.run(currentSpeed);
+		shooter.run(Variables.shooterSpeed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

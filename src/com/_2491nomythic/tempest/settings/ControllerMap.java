@@ -17,14 +17,14 @@ public class ControllerMap {
 	
 	//Operator
 	
-	public static final int setSwitchRPM = 2;
-	public static final int setScaleRPM = 4;
+	public static final int setSwitchRPS = 2;
+	public static final int setScaleRPS = 4;
 	public static final int deployIntake = 5;
 	public static final int openIntake = 7;
 	public static final int raiseShooter = 6;
 	public static final int intakeAxis = 1;
 	public static final int cubeStorageAxis = 5;
-	public static final int shooterAxis = 4; //button 8
+	public static final int shooterButton = 8; //axis 4
 	
 	//Probably not going to be used
 
