@@ -23,6 +23,7 @@ import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeSwitch;
 import com._2491nomythic.tempest.commands.cubestorage.TransportCubeTime;
 import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
+import com._2491nomythic.tempest.commands.intake.RunIntakeTime;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpening;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPM;
@@ -77,6 +78,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Auto mode", m_chooser);
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(20));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
+		SmartDashboard.putData("Run Intake", new RunIntakeTime(0.3, 10));
 		SmartDashboard.putNumber("Proportional Rotate", Variables.proportional);
 		SmartDashboard.putNumber("Derivative Rotate", Variables.derivative);
 		SmartDashboard.putNumber("Proportional Forward", Variables.proportionalForward);

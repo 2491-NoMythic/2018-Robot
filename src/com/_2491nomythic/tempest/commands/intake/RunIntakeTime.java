@@ -19,6 +19,7 @@ public class RunIntakeTime extends CommandBase {
 	 */
 	public RunIntakeTime(double desiredPower, double desiredTime) {
 		requires(intake);
+		requires(cubeStorage);
 		power = desiredPower;
 		time = desiredTime;
 		timer = new Timer();
@@ -28,6 +29,7 @@ public class RunIntakeTime extends CommandBase {
 	protected void initialize() {
 		timer.reset();
 		intake.run(power);
+		cubeStorage.run(power);
 		timer.start();
 	}
 
@@ -43,6 +45,7 @@ public class RunIntakeTime extends CommandBase {
 	// Called once after isFinished returns true
 	protected void end() {
 		intake.stop();
+		cubeStorage.stop();
 	}
 
 	// Called when another command which requires one or more of the same
