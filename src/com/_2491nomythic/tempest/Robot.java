@@ -27,6 +27,7 @@ import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpening;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPM;
 import com._2491nomythic.tempest.commands.shooter.RunShooterTime;
+import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.tempest.settings.Variables;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -86,6 +87,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("RunCubeStorageTime", new TransportCubeTime(1, .8));
 		SmartDashboard.putData("DeployIntake", new ToggleIntakeDeployment());
 		SmartDashboard.putData("OpenIntake", new ToggleIntakeOpening());
+		SmartDashboard.putData("ToggleShooter", new ToggleShooterPosition());
 	}
 
 	/**

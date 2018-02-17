@@ -44,12 +44,10 @@ public class UpdateDriverstation extends CommandBase {
 			Variables.derivativeForward = SmartDashboard.getNumber("Derivative Forward", Variables.derivativeForward);
 			Variables.driveDefault = SmartDashboard.getNumber("Drive Default Command", 1);
 			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
-			SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
-			SmartDashboard.putNumber("RightEncoder", drivetrain.getRightEncoderDistance());
-			SmartDashboard.putNumber("Avg. Encoder Distance", drivetrain.getDistance());
-			SmartDashboard.putNumber("Current PID Input", drivetrain.returnPIDInput());
+			//SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
+			//SmartDashboard.putNumber("RightEncoder", drivetrain.getRightEncoderDistance());
+			SmartDashboard.putNumber("Encoder Distance", drivetrain.getDistance());
 			SmartDashboard.putBoolean("Shooter Ready To Fire", Variables.readyToFire);
-			SmartDashboard.putNumber("Drivetrain Speed", drivetrain.getEncoderRate());
 			SmartDashboard.putNumber("Maximum Speed", maximumSpeed);
 			SmartDashboard.putNumber("Ultrasonic Distance", cubeStorage.getRangeInches());
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
