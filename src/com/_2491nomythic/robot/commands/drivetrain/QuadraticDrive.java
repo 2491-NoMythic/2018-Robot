@@ -10,8 +10,8 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class QuadraticDrive extends CommandBase {
 	private double turnSpeed, leftSpeed, rightSpeed, rawLeftSpeed, rawRightSpeed, accelerationInterval, time, timeAddition, accelerationIncrease, quadraticCoefficient;
-	int state;
-	Timer timer;
+	int state, necessaryIterations;
+	private Timer timer;
 
 	/**
 	 * Controls the robot with quadratic acceleration as according to driver control input
@@ -25,18 +25,22 @@ public class QuadraticDrive extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	state = 0;
+    	state = 1;
     	timer.start();
     	timer.reset();
     	accelerationInterval = .2;
     	accelerationIncrease = .08;
+    		//make sure that accelerationInterval / accelerationIncrease = 2.5
     	quadraticCoefficient = 1.5;
+    	necessaryIterations = (int) (.8 / accelerationIncrease);
+    		//.8 because .8, within a quadratic system of y = 1.5x^2, is the x input that creates a y of .96, the closest we need to get to 1 before then going to 1.
     	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	turnSpeed =  0.75 * oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveTurnAxis, 0.1);
+    	
+    	turnSpeed =  0.5 * oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveTurnAxis, 0.1);
     	rawLeftSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveMainAxis, .05);
     	rawRightSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveMainAxis, .05);
     	
@@ -44,72 +48,32 @@ public class QuadraticDrive extends CommandBase {
     		timer.reset();
     	}
     	
-    	switch (state) {
-    	case 0:
-    		time = timer.get() + timeAddition;
-    		timeAddition = 0;
-    		leftSpeed = quadraticCoefficient * Math.pow(accelerationIncrease, 2) * rawLeftSpeed;
-    		rightSpeed = quadraticCoefficient * Math.pow(accelerationIncrease, 2) * rawRightSpeed;
-    		if (time < accelerationInterval) {
-    			state++;
-    		}
-    		if (Math.abs(rawLeftSpeed) < quadraticCoefficient * Math.pow(accelerationIncrease, 2) * rawLeftSpeed && Math.abs(rawRightSpeed) < quadraticCoefficient * Math.pow(accelerationIncrease, 2) * rawRightSpeed) {
-    			timer.reset();
-    		}
-    		break;
-    	case 1:
-    		time = timer.get() + timeAddition;
-    		timeAddition = 0;
-    		leftSpeed = quadraticCoefficient * Math.pow(2 * accelerationIncrease, 2) * rawLeftSpeed;
-    		rightSpeed = quadraticCoefficient * Math.pow(2 * accelerationIncrease, 2) * rawRightSpeed;
-    		if (time > (accelerationInterval) && timer.get() < (2*accelerationInterval)) {
-    			state++;
-    		}
-    		if (Math.abs(rawLeftSpeed) < 2 * quadraticCoefficient * Math.pow(2 * accelerationIncrease, 2) * rawLeftSpeed && Math.abs(rawRightSpeed) < 2 * quadraticCoefficient * Math.pow(2 * accelerationIncrease, 2) * rawRightSpeed) {
-    			timer.reset();
-    			state = 0;
-    		}
-    		break;
-    	case 2:
-    		time = timer.get() + timeAddition;
-    		timeAddition = 0;
-    		leftSpeed = quadraticCoefficient * Math.pow(3 * accelerationIncrease, 2) * rawLeftSpeed;
-    		rightSpeed = quadraticCoefficient * Math.pow(3 * accelerationIncrease, 2) * rawRightSpeed;
-    		if (time > (2*accelerationInterval) && timer.get() < (3*accelerationInterval)) {
-    			state++;
-    		}
-    		if (Math.abs(rawLeftSpeed) < 3 * quadraticCoefficient * Math.pow(3 * accelerationIncrease, 2) * rawLeftSpeed && Math.abs(rawRightSpeed) < 3 * quadraticCoefficient * Math.pow(3 * accelerationIncrease, 2) * rawRightSpeed) {
-    			timer.reset();
-    			state = 1;
-    			timeAddition = .5 * accelerationInterval;
-    		}
-    		break;
-    	case 3:
-    		time = timer.get() + timeAddition;
-    		timeAddition = 0;
-    		leftSpeed = quadraticCoefficient * Math.pow(4 * accelerationIncrease, 2) * rawLeftSpeed;
-    		rightSpeed = quadraticCoefficient * Math.pow(4 * accelerationIncrease, 2) * rawRightSpeed;
-    	   	if (time > (3*accelerationInterval) && timer.get() < (4*accelerationInterval)) {
-    	   		state++;
-    	   	}
-    		if (Math.abs(rawLeftSpeed) < 4 * quadraticCoefficient * Math.pow(4 * accelerationIncrease, 2) * rawLeftSpeed && Math.abs(rawRightSpeed) < 4 * quadraticCoefficient * Math.pow(4 * accelerationIncrease, 2) * rawRightSpeed) {
-    			timer.reset();
-    			state = 2;
-    			timeAddition = accelerationInterval;
-    		}
-    		break;
-    	case 4:
-    		time = timer.get() + timeAddition;
-    		timeAddition = 0;
+		time = timer.get() + timeAddition;
+		timeAddition = 0;
+		leftSpeed = quadraticCoefficient * Math.pow(state * accelerationIncrease, 2) * rawLeftSpeed;
+		rightSpeed = quadraticCoefficient * Math.pow(state * accelerationIncrease, 2) * rawRightSpeed;
+		if (state == 1) {
+			if (time < accelerationInterval) {
+				state++;
+			}
+		}
+		else if (time > ( state * accelerationInterval) && timer.get() < ((state + 1) * accelerationInterval)) {
+	   		state++;
+	   	}
+		if (Math.abs(rawLeftSpeed) < state * quadraticCoefficient * Math.pow(state * accelerationIncrease, 2) * rawLeftSpeed && Math.abs(rawRightSpeed) < state * quadraticCoefficient * Math.pow(state * accelerationIncrease, 2) * rawRightSpeed) {
+			timer.reset();
+			state--;
+			timeAddition = (state - 1) * accelerationInterval;
+		}
+		if (state == necessaryIterations) {
     		leftSpeed = rawLeftSpeed;
     		rightSpeed = rawRightSpeed;
     		if (Math.abs(rawLeftSpeed) < rawLeftSpeed && Math.abs(rawRightSpeed) < rawRightSpeed) {
     			timer.reset();
     			state = 3;
-    			timeAddition = 2 * accelerationInterval;
+    			timeAddition = (state - 1) * accelerationInterval;
     		}
-    		break;
-    	}
+		}
     	
     	
     	drivetrain.drivePercentOutput(leftSpeed + turnSpeed, rightSpeed - turnSpeed);
