@@ -74,7 +74,7 @@ public class CubeStorage extends Subsystem {
 	 * @return True if a cube is held, else returns false
 	 */
 	public boolean isHeld() {
-		return (getRangeInches() <= (Constants.heldCubeRange + Constants.heldCubeTolerance) && getValidMeasurement());
+		return (getRangeInches() <= (Constants.heldCubeRange) && getValidMeasurement());
 	}
 	
 
