@@ -38,7 +38,7 @@ public class SwitchShoot extends CommandBase {
 		switch(state) {
 		case 0:
 			if(shooter.isRaised()) {
-				shooter.lowerShooter();
+				shooter.lower();
 				wasLowered = false;
 			}
 			else {

@@ -20,10 +20,10 @@ public class ToggleShooterPosition extends CommandBase {
 	protected void initialize() {
 		if (!Variables.isLowered) {
 			System.out.println(shooter.isRaised());
-			shooter.lowerShooter();
+			shooter.lower();
 		}
 		else {
-			shooter.raiseShooter();
+			shooter.raise();
 		}
 	}
 

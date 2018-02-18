@@ -136,7 +136,7 @@ public class Shooter extends Subsystem {
 	/**
 	 * Raises the shooter to shoot Power Cubes into the scale
 	 */
-	public void raiseShooter() {
+	public void raise() {
 		elevator.set(false);
 		Variables.isLowered = false;
 	}
@@ -144,7 +144,7 @@ public class Shooter extends Subsystem {
 	/**
 	 * Lowers the shooter to shoot Power Cubes into the switch
 	 */
-	public void lowerShooter() {
+	public void lower() {
 		if(!Variables.isDeployed) {
 			System.out.println("You dun goofed");
 		}

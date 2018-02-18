@@ -37,7 +37,7 @@ public class AutomaticShoot extends CommandBase {
 		case 0:
 			if(scale) {
 				if(!shooter.isRaised()) {
-					shooter.raiseShooter();
+					shooter.raise();
 					wasRaised = false;
 				}
 				else {
@@ -47,7 +47,7 @@ public class AutomaticShoot extends CommandBase {
 			}
 			else {
 				if(shooter.isRaised()) {
-					shooter.lowerShooter();
+					shooter.lower();
 					wasRaised = true;
 				}
 				else {
