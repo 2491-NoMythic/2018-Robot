@@ -50,8 +50,10 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putBoolean("Shooter Ready To Fire", Variables.readyToFire);
 			//SmartDashboard.putNumber("Maximum Speed", maximumSpeed);
 			//SmartDashboard.putNumber("Ultrasonic Distance", cubeStorage.getRangeInches());
-			SmartDashboard.putNumber("ShootRPS", shooter.getShootVelocity());
-			SmartDashboard.putNumber("AccelerateRPS", shooter.getAccelerateVelocity());
+			SmartDashboard.putNumber("Left Shoot RPS", shooter.getLeftShootVelocity());
+			SmartDashboard.putNumber("Right Shoot RPS", shooter.getRightShootVelocity());
+			SmartDashboard.putNumber("Left Accelerate RPS", shooter.getLeftAccelerateVelocity());
+			SmartDashboard.putNumber("Right Accelerate RPS", shooter.getRightAccelerateVelocity());
 			SmartDashboard.putNumber("AllShooterRPS", shooter.getAllMotorVelocity());
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
 		}
