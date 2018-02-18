@@ -60,7 +60,7 @@ public class QuadraticDrive extends CommandBase {
 		else if (time > ( state * accelerationInterval) && timer.get() < ((state + 1) * accelerationInterval)) {
 	   		state++;
 	   	}
-		if (Math.abs(rawLeftSpeed) < state * quadraticCoefficient * Math.pow(state * accelerationIncrease, 2) * rawLeftSpeed && Math.abs(rawRightSpeed) < state * quadraticCoefficient * Math.pow(state * accelerationIncrease, 2) * rawRightSpeed) {
+		if (Math.abs(rawLeftSpeed) < quadraticCoefficient * Math.pow(state * accelerationIncrease, 2) * rawLeftSpeed && Math.abs(rawRightSpeed) < quadraticCoefficient * Math.pow(state * accelerationIncrease, 2) * rawRightSpeed) {
 			timer.reset();
 			state--;
 			timeAddition = (state - 1) * accelerationInterval;
