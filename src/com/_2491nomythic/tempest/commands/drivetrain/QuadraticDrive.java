@@ -28,9 +28,9 @@ public class QuadraticDrive extends CommandBase {
 		state = 1;
 		timer.start();
 		timer.reset();
-		accelerationInterval = .2;
-		accelerationIncrease = .08;
-			//make sure that accelerationInterval / accelerationIncrease = 2.5
+		accelerationInterval = .05;
+		accelerationIncrease = .04;
+			//time for full acceleration from 100 - 0 or 0 - 100 = (accelerationInterval / accelerationIncrease) / 1.25
 		quadraticCoefficient = 1.5;
 		necessaryIterations = (int) (.8 / accelerationIncrease);
 			//.8 because .8, within a quadratic system of y = 1.5x^2, is the x input that creates a y of .96, the closest we need to get to 1 before then going to 1.
