@@ -29,7 +29,7 @@ public class Constants {
 	public static final int timeForShooterToSpinUp = 2; //TODO time this
 	public static final int timeForShooterToRaise = 4; //TODO time this
 	public static final int timeForShooterToFire = 2; //TODO Time this
-	public static final double shooterHighScaleSpeed = .85; //TODO Find an actual value for this
+	public static final double shooterHighScaleSpeed = .8; //TODO Find an actual value for this
 	public static final double shooterMediumScaleSpeed = .75; //TODO Find an actual value for this
 	public static final double shooterLowScaleSpeed = .65; //TODO Find an actual value for this
 	public static final double shooterSwitchSpeed = .3; //TODO Find an actual value for this
