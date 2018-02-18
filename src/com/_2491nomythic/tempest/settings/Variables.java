@@ -30,4 +30,9 @@ public class Variables {
 	public static double shooterSpeed = Constants.shooterMediumScaleSpeed;
 	public static double shooterRPS = Constants.shooterMediumScaleRPS;
 	public static boolean isLowered = false;
+	
+	//Shooter PID
+	public static double shooterProportional = .08;
+	public static double shooterIntegral = 0;
+	public static double shooterDerivative = .035;
 }

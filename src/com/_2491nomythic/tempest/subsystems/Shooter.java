@@ -7,15 +7,16 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj.Solenoid;
-import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
  * The system of motors and encoders that is used to launch Power Cubes from the robot into the Switch and Scale
  */
-public class Shooter extends Subsystem {
+public class Shooter extends PIDSubsystem {
 	private static Shooter instance;
 	private TalonSRX leftAccelerate, rightAccelerate, leftShoot, rightShoot;
 	private Solenoid elevator;
+	private double currentPIDOutput;
 	
 	public static Shooter getInstance() {
 		if (instance == null) {
@@ -28,6 +29,7 @@ public class Shooter extends Subsystem {
 	 * The system of motors and encoders that is used to launch Power Cubes from the robot into the Switch and Scale
 	 */
 	private Shooter() {
+		super("Shooter", Variables.shooterProportional, Variables.shooterIntegral, Variables.shooterDerivative);
 		leftAccelerate = new TalonSRX(Constants.shooterTalonLeftAccelerateChannel);
 		rightAccelerate = new TalonSRX(Constants.shooterTalonRightAccelerateChannel);
 		leftShoot = new TalonSRX(Constants.shooterTalonLeftShootChannel);
@@ -39,6 +41,9 @@ public class Shooter extends Subsystem {
 		rightAccelerate.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		leftShoot.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		rightShoot.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		
+		setInputRange(-30, 30);
+		setAbsoluteTolerance(1);
 	}
 	
 	
@@ -171,6 +176,20 @@ public class Shooter extends Subsystem {
 	public void stop() {
 		runAccelerate(0);
 		runShoot(0);
+	}
+	
+	@Override
+	public double returnPIDInput() {
+		return getAllMotorVelocity();
+	}
+	
+	@Override
+	public void usePIDOutput(double output) {
+		run(output);
+	}
+	
+	public double getPIDOutput() {
+		return currentPIDOutput;
 	}
 }
 
