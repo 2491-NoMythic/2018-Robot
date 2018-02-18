@@ -43,13 +43,16 @@ public class UpdateDriverstation extends CommandBase {
 			Variables.proportionalForward = SmartDashboard.getNumber("Proportional Forward", Variables.proportionalForward);
 			Variables.derivativeForward = SmartDashboard.getNumber("Derivative Forward", Variables.derivativeForward);
 			Variables.driveDefault = SmartDashboard.getNumber("Drive Default Command", 1);
-			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
+			//SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
 			//SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
 			//SmartDashboard.putNumber("RightEncoder", drivetrain.getRightEncoderDistance());
-			SmartDashboard.putNumber("Encoder Distance", drivetrain.getDistance());
+			//SmartDashboard.putNumber("Encoder Distance", drivetrain.getDistance());
 			SmartDashboard.putBoolean("Shooter Ready To Fire", Variables.readyToFire);
-			SmartDashboard.putNumber("Maximum Speed", maximumSpeed);
-			SmartDashboard.putNumber("Ultrasonic Distance", cubeStorage.getRangeInches());
+			//SmartDashboard.putNumber("Maximum Speed", maximumSpeed);
+			//SmartDashboard.putNumber("Ultrasonic Distance", cubeStorage.getRangeInches());
+			SmartDashboard.putNumber("ShootRPS", shooter.getShootVelocity());
+			SmartDashboard.putNumber("AccelerateRPS", shooter.getAccelerateVelocity());
+			SmartDashboard.putNumber("AllShooterRPS", shooter.getAllMotorVelocity());
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
 		}
 			
