@@ -80,7 +80,7 @@ public class Shooter extends Subsystem {
 	 * @return The encoder velocity of the left accelerate motor in RPS
 	 */
 	public double getLeftAccelerateVelocity() {
-		return leftAccelerate.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
+		return -leftAccelerate.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
 	}
 	
 	/**
@@ -96,7 +96,7 @@ public class Shooter extends Subsystem {
 	 * @return The encoder velocity of the left shoot motor in RPS
 	 */
 	public double getLeftShootVelocity() {
-		return leftShoot.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
+		return -leftShoot.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
 	}
 	
 	/**
