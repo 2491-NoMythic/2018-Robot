@@ -30,7 +30,7 @@ public class OI {
 	private final Joystick[] controllers = new Joystick[2];
 	
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, setSwitchRPM, setScaleRPM, deployIntake;
-	Button openIntake, raiseShooter, setScaleSpeed, setSwitchSpeed, runShooter, cubeStorageControl;
+	Button openIntake, raiseShooter, setScaleSpeed, setSwitchSpeed, runShooter, cubeStorageControl1, cubeStorageControl2;
 
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
@@ -66,8 +66,11 @@ public class OI {
 		runShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton);
 		runShooter.whileHeld(new RunShooterManual());
 		
-		cubeStorageControl = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
-		cubeStorageControl.whileHeld(new UltrasonicCubeHalt());
+		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
+		cubeStorageControl1.whileHeld(new UltrasonicCubeHalt());
+		
+		cubeStorageControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, -0.1);
+		cubeStorageControl2.whileHeld(new UltrasonicCubeHalt());
 		
 		//driverScaleShoot = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverScaleShootButton);
 		//driverScaleShoot.whileHeld(new ScaleShoot());
