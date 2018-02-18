@@ -7,22 +7,24 @@ import com._2491nomythic.tempest.settings.Variables;
  *Sets the shooter power based on scale height.
  */
 public class SetShooterSpeed extends CommandBase {
-	public double shooterSpeed;
+	public double shooterSpeed, shooterRPS;
 
 	/**
 	 * Sets the shooter power based on scale height.
 	 * @param shooterSpeed the height the scale is at during the time of the launch.
 	 */
-	public SetShooterSpeed(double shooterSpeed) {
+	public SetShooterSpeed(double shooterSpeed, double shooterRPS) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		
 		this.shooterSpeed = shooterSpeed;
+		this.shooterRPS = shooterRPS;
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		Variables.shooterSpeed = shooterSpeed;
+		Variables.shooterRPS = shooterRPS;
 	}
 
 	// Called repeatedly when this Command is scheduled to run

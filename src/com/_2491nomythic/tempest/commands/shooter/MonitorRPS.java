@@ -14,8 +14,8 @@ public class MonitorRPS extends CommandBase {
 	 * Keeps track of the readiness of shooter motors for firing consistently
 	 */
 	public MonitorRPS() {
-		tolerance = 5; //TODO Find a reasonable tolerance value for checking shooter motor RPM
-		targetRPS = Variables.shooterSpeed;
+		tolerance = 2.5; //TODO Find a reasonable tolerance value for checking shooter motor RPM
+		targetRPS = Variables.shooterRPS;
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
@@ -26,8 +26,6 @@ public class MonitorRPS extends CommandBase {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		Variables.currentShooterRPS = shooter.getAllMotorVelocity();
-		
 		if (shooter.getAllMotorVelocity() >= targetRPS - tolerance) {
 			if (((shooter.getLeftAccelerateVelocity() + tolerance) > shooter.getRightAccelerateVelocity()) && ((shooter.getLeftAccelerateVelocity() - tolerance) < shooter.getRightAccelerateVelocity())) {
 				accelerateReady = true;
