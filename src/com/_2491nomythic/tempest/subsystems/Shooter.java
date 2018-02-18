@@ -80,7 +80,7 @@ public class Shooter extends Subsystem {
 	 * @return The encoder velocity of the left accelerate motor in RPS
 	 */
 	public double getLeftAccelerateVelocity() {
-		return 0;// leftAccelerate.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
+		return leftAccelerate.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
 	}
 	
 	/**
@@ -88,7 +88,7 @@ public class Shooter extends Subsystem {
 	 * @return The encoder velocity of the right accelerate motor in RPS
 	 */
 	public double getRightAccelerateVelocity() {
-		return 0;//rightAccelerate.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
+		return rightAccelerate.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
 	}
 	
 	/**
@@ -96,7 +96,7 @@ public class Shooter extends Subsystem {
 	 * @return The encoder velocity of the left shoot motor in RPS
 	 */
 	public double getLeftShootVelocity() {
-		return 0;//leftShoot.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
+		return leftShoot.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
 	}
 	
 	/**
@@ -104,7 +104,7 @@ public class Shooter extends Subsystem {
 	 * @return The encoder velocity of the right shoot motor in RPS
 	 */
 	public double getRightShootVelocity() {
-		return 0;//rightShoot.getSelectedSensorVelocity(0) * Constants.shootEncoderTicksToRPS;
+		return rightShoot.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public class Shooter extends Subsystem {
 	 * @return The average encoder velocity of the accelerate motors
 	 */
 	public double getAccelerateVelocity() {
-		return 0;//(getLeftAccelerateVelocity() + getRightAccelerateVelocity())/2;
+		return (getLeftAccelerateVelocity() + getRightAccelerateVelocity())/2;
 	}
 	
 	/**
@@ -120,7 +120,7 @@ public class Shooter extends Subsystem {
 	 * @return The average encoder velocity of the shoot motors
 	 */
 	public double getShootVelocity() {
-		return 0;//(getLeftShootVelocity() + getRightShootVelocity())/2;
+		return (getLeftShootVelocity() + getRightShootVelocity())/2;
 	}
 	
 	/**
@@ -128,7 +128,7 @@ public class Shooter extends Subsystem {
 	 * @return The average encoder velocity of all shooter motors
 	 */
 	public double getAllMotorVelocity() {
-		return 0;//(getShootVelocity() + getAccelerateVelocity())/2;
+		return (getShootVelocity() + getAccelerateVelocity())/2;
 	}
 	
 	//Solenoid
