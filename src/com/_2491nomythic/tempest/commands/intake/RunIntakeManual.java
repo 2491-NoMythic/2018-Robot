@@ -23,7 +23,7 @@ public class RunIntakeManual extends CommandBase {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		intake.run(oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.intakeAxis, 0.05));
+		intake.run(.75 * oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.intakeAxis, 0.05));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

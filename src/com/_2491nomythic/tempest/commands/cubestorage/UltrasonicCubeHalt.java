@@ -33,7 +33,7 @@ public class UltrasonicCubeHalt extends CommandBase {
     				cubeStorage.stop();
     			}
     			else {
-    				cubeStorage.run(-oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.cubeStorageAxis, 0.05));
+    				cubeStorage.run( .5 * -oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.cubeStorageAxis, 0.05));
     			}
     		}
     	}
