@@ -6,16 +6,16 @@ import com._2491nomythic.tempest.settings.Variables;
 /**
  * Keeps track of the readiness of shooter motors for firing consistently
  */
-public class MonitorRPM extends CommandBase {
-	private double tolerance, targetRPM;
+public class MonitorRPS extends CommandBase {
+	private double tolerance, targetRPS;
 	private boolean accelerateReady, shootReady;
 
 	/**
 	 * Keeps track of the readiness of shooter motors for firing consistently
 	 */
-	public MonitorRPM() {
+	public MonitorRPS() {
 		tolerance = 5; //TODO Find a reasonable tolerance value for checking shooter motor RPM
-		targetRPM = Variables.shooterSpeed;
+		targetRPS = Variables.shooterSpeed;
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 	}
@@ -28,7 +28,7 @@ public class MonitorRPM extends CommandBase {
 	protected void execute() {
 		Variables.currentShooterRPS = shooter.getAllMotorVelocity();
 		
-		if (shooter.getAllMotorVelocity() >= targetRPM) {
+		if (shooter.getAllMotorVelocity() >= targetRPS - tolerance) {
 			if (((shooter.getLeftAccelerateVelocity() + tolerance) > shooter.getRightAccelerateVelocity()) && ((shooter.getLeftAccelerateVelocity() - tolerance) < shooter.getRightAccelerateVelocity())) {
 				accelerateReady = true;
 			}

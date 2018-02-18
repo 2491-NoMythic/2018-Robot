@@ -27,7 +27,7 @@ import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID
 import com._2491nomythic.tempest.commands.intake.RunIntakeTime;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpening;
-import com._2491nomythic.tempest.commands.shooter.MonitorRPM;
+import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
 import com._2491nomythic.tempest.commands.shooter.RunShooterTime;
 import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.tempest.settings.Variables;
@@ -50,7 +50,7 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	ResetSolenoids resetSolenoids;
 	UpdateDriverstation updateDriverstation;
-	MonitorRPM monitorRPM;
+	MonitorRPS monitorRPM;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
 	public static boolean isTeleop;
@@ -64,7 +64,7 @@ public class Robot extends TimedRobot {
 		CommandBase.init();
 		updateDriverstation = new UpdateDriverstation();
 		resetSolenoids = new ResetSolenoids();
-		monitorRPM = new MonitorRPM();
+		monitorRPM = new MonitorRPS();
 		updateDriverstation.start();
 		monitorRPM.start();
 		m_chooser.addObject("Cross Auto Line", new CrossAutoLine());
