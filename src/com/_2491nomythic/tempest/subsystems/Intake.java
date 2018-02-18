@@ -46,6 +46,12 @@ public class Intake extends Subsystem {
 		runBottom(speed);
 	}
 	
+	public void run(double leftSpeed, double rightSpeed, double bottomSpeed) {
+		runLeft(leftSpeed);
+		runRight(rightSpeed);
+		runBottom(bottomSpeed);
+	}
+	
 	/**
 	 * Runs the left side of the intake to capture Power Cubes.
 	 * @param speed The speed that the motors will run at.
@@ -76,7 +82,7 @@ public class Intake extends Subsystem {
 	public void activate() {
 		activateIntakeSolenoid.set(Value.kForward);
 		Variables.isDeployed = true;
-		Variables.driveRestriction = 0.5;
+		Variables.driveRestriction = 0.6;
 	}
 	
 	/**

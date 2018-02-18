@@ -21,7 +21,7 @@ public class CrossAutoLine extends CommandBase {
 		// eg. requires(chassis);		
 		timer = new Timer();
 		delay = new Timer();
-		crossLine = new DriveStraightToPosition(0.5, 100);
+		crossLine = new DriveStraightToPosition(0.5, 130);
 	}
 
 	// Called just before this Command runs the first time

@@ -27,6 +27,8 @@ public class ControllerMap {
 	public static final int intakeAxis = 1;
 	public static final int cubeStorageAxis = 5;
 	public static final int shooterButton = 8; //axis 4
+	public static final int shooterReverseButton = 14;
+	public static final int IntakeRollerlessButton = 11;
 	
 	//Probably not going to be used
 

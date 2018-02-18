@@ -2,6 +2,7 @@ package com._2491nomythic.tempest.commands.intake;
 
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.settings.ControllerMap;
+import com._2491nomythic.tempest.settings.Variables;
 
 /**
  *Run intake system manually using the axis of operator controller.
@@ -23,7 +24,7 @@ public class RunIntakeManual extends CommandBase {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		intake.run(oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.intakeAxis, 0.05));
+		intake.run(oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.intakeAxis, 0.05), oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.intakeAxis, 0.05), oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.intakeAxis, 0.05) * Variables.rollerCoefficient);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

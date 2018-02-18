@@ -1,6 +1,7 @@
 package com._2491nomythic.tempest.commands;
 
 
+import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -38,23 +39,28 @@ public class UpdateDriverstation extends CommandBase {
 			if (drivetrain.getEncoderRate() > maximumSpeed) {
 				maximumSpeed = drivetrain.getEncoderRate();
 			}
-			Variables.derivative = SmartDashboard.getNumber("Derivate Rotate", Variables.derivative);
-			Variables.proportional = SmartDashboard.getNumber("Proportional Rotate", Variables.proportional);
-			Variables.proportionalForward = SmartDashboard.getNumber("Proportional Forward", Variables.proportionalForward);
-			Variables.derivativeForward = SmartDashboard.getNumber("Derivative Forward", Variables.derivativeForward);
-			Variables.driveDefault = SmartDashboard.getNumber("Drive Default Command", 1);
+			Variables.derivative = SmartDashboard.getNumber("DerivateRotate", Variables.derivative);
+			Variables.proportional = SmartDashboard.getNumber("ProportionalRotate", Variables.proportional);
+			Variables.proportionalForward = SmartDashboard.getNumber("ProportionalForward", Variables.proportionalForward);
+			Variables.derivativeForward = SmartDashboard.getNumber("DerivativeForward", Variables.derivativeForward);
+			Variables.driveDefault = SmartDashboard.getNumber("DriveDefault", 1);
 			//SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
 			//SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
 			//SmartDashboard.putNumber("RightEncoder", drivetrain.getRightEncoderDistance());
 			//SmartDashboard.putNumber("Encoder Distance", drivetrain.getDistance());
-			SmartDashboard.putBoolean("Shooter Ready To Fire", Variables.readyToFire);
+			SmartDashboard.putBoolean("ShooterReadyToFire", Variables.readyToFire);
 			//SmartDashboard.putNumber("Maximum Speed", maximumSpeed);
 			//SmartDashboard.putNumber("Ultrasonic Distance", cubeStorage.getRangeInches());
-			SmartDashboard.putNumber("Left Shoot RPS", shooter.getLeftShootVelocity());
-			SmartDashboard.putNumber("Right Shoot RPS", shooter.getRightShootVelocity());
-			SmartDashboard.putNumber("Left Accelerate RPS", shooter.getLeftAccelerateVelocity());
-			SmartDashboard.putNumber("Right Accelerate RPS", shooter.getRightAccelerateVelocity());
+			SmartDashboard.putNumber("LeftShootRPS", shooter.getLeftShootVelocity());
+			SmartDashboard.putNumber("RightShootRPS", shooter.getRightShootVelocity());
+			SmartDashboard.putNumber("LeftAccelRPS", shooter.getLeftAccelerateVelocity());
+			SmartDashboard.putNumber("RightAccelRPS", shooter.getRightAccelerateVelocity());
 			SmartDashboard.putNumber("AllShooterRPS", shooter.getAllMotorVelocity());
+			SmartDashboard.putNumber("ShooterSpeed", Variables.shooterSpeed);
+			Constants.shooterHighScaleSpeed = SmartDashboard.getNumber("HighScalePower", Constants.shooterHighScaleSpeed);
+			Constants.shooterMediumScaleSpeed = SmartDashboard.getNumber("MediumScalePower", Constants.shooterMediumScaleSpeed);
+			Constants.shooterLowScaleSpeed = SmartDashboard.getNumber("LowScalePower", Constants.shooterLowScaleSpeed);
+			Constants.shooterSwitchSpeed = SmartDashboard.getNumber("SwitchPower", Constants.shooterSwitchSpeed);
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
 		}
 			

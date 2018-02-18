@@ -24,12 +24,14 @@ public class Variables {
 	
 	//Intake
 	public static boolean isDeployed = false;
+	public static double rollerCoefficient = 1;
 	
 	//Shooter
 	public static boolean readyToFire = false;
 	public static double shooterSpeed = Constants.shooterMediumScaleSpeed;
 	public static double shooterRPS = Constants.shooterMediumScaleRPS;
 	public static boolean isLowered = false;
+	public static double reverseCoefficient = 1;
 	
 	//Shooter PID
 	public static double shooterProportional = .08;
