@@ -79,7 +79,6 @@ public class CubeStorage extends Subsystem {
 	
 
 	public void initDefaultCommand() {
-		setDefaultCommand(new TransportCubeManual());
 	}
 }
 
