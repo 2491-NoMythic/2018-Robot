@@ -2,7 +2,6 @@ package com._2491nomythic.tempest.commands.autonomous;
 
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPosition;
-import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.settings.Variables;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -22,7 +21,7 @@ public class CrossAutoLine extends CommandBase {
 		// eg. requires(chassis);		
 		timer = new Timer();
 		delay = new Timer();
-		crossLine = new DriveStraightToPosition(0.7, 130);
+		crossLine = new DriveStraightToPosition(0.5, 130);
 	}
 
 	// Called just before this Command runs the first time
