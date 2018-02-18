@@ -39,8 +39,8 @@ public class CubeStorage extends Subsystem {
 	 * @param power The power at which the motors are run. Positive values push the cube into the shooter, negative values push it into the intake.
 	 */
 	public void run(double power) {
-		left.set(ControlMode.PercentOutput, .25 * -power);
-		right.set(ControlMode.PercentOutput, .25 * power);
+		left.set(ControlMode.PercentOutput, -power);
+		right.set(ControlMode.PercentOutput, power);
 	}
 	
 	/**
