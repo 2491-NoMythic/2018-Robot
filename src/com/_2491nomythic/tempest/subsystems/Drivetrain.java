@@ -71,8 +71,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveLeftPercentOutput(double speed){
-		left1.set(ControlMode.PercentOutput, speed);
-		left2.set(ControlMode.PercentOutput, speed);
+		left1.set(ControlMode.PercentOutput, speed * Variables.driveRestriction);
+		left2.set(ControlMode.PercentOutput, speed * Variables.driveRestriction);
 	}
 	
 	/**
@@ -80,8 +80,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveRightPercentOutput(double speed){
-		right1.set(ControlMode.PercentOutput, -speed);
-		right2.set(ControlMode.PercentOutput, -speed);
+		right1.set(ControlMode.PercentOutput, -speed * Variables.driveRestriction);
+		right2.set(ControlMode.PercentOutput, -speed * Variables.driveRestriction);
 	}
 	
 	/**
@@ -107,8 +107,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The speed of the wheels in RPS (rotations per second)
 	 */
 	public void driveLeftVelocity(double speed){
-		left1.set(ControlMode.Velocity, speed * Constants.speedModeRPSToTalonOutput);
-		left2.set(ControlMode.Velocity, speed  * Constants.speedModeRPSToTalonOutput);
+		left1.set(ControlMode.Velocity, speed * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
+		left2.set(ControlMode.Velocity, speed  * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
 	}
 	
 	/**
@@ -116,8 +116,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The speed of the wheels in RPS (rotations per second)
 	 */
 	public void driveRightVelocity(double speed){
-		right1.set(ControlMode.Velocity, -speed * Constants.speedModeRPSToTalonOutput);
-		right2.set(ControlMode.Velocity, -speed * Constants.speedModeRPSToTalonOutput);
+		right1.set(ControlMode.Velocity, -speed * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
+		right2.set(ControlMode.Velocity, -speed * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
 	}
 	
 	/**
