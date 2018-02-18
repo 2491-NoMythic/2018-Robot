@@ -137,7 +137,7 @@ public class Shooter extends Subsystem {
 	 * Raises the shooter to shoot Power Cubes into the scale
 	 */
 	public void raiseShooter() {
-		elevator.set(true);
+		elevator.set(false);
 		Variables.isLowered = false;
 	}
 	/**
@@ -145,10 +145,10 @@ public class Shooter extends Subsystem {
 	 */
 	public void lowerShooter() {
 		if(!Variables.isDeployed) {
-			
+			System.out.println("You dun goofed");
 		}
 		else {
-			elevator.set(false);
+			elevator.set(true);
 			Variables.isLowered = true;
 		}
 	}
@@ -158,7 +158,7 @@ public class Shooter extends Subsystem {
 	 * @return The status of whether the shooter is raised
 	 */
 	public boolean isRaised() {
-		return elevator.get();
+		return !elevator.get();
 	}
 
 	public void initDefaultCommand() {
