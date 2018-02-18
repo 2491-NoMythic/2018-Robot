@@ -140,6 +140,7 @@ public class Shooter extends Subsystem {
 		elevator.set(false);
 		Variables.isLowered = false;
 	}
+	
 	/**
 	 * Lowers the shooter to shoot Power Cubes into the switch
 	 */
