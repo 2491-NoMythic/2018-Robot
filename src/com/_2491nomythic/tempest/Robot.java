@@ -8,6 +8,7 @@
 package com._2491nomythic.tempest;
 
 import com._2491nomythic.tempest.commands.CommandBase;
+import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
 import com._2491nomythic.tempest.commands.autonomous.CrossAutoLine;
 import com._2491nomythic.tempest.commands.autonomous.DoNothing;
@@ -47,6 +48,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 
 	Command m_autonomousCommand;
+	ResetSolenoids resetSolenoids;
 	UpdateDriverstation updateDriverstation;
 	MonitorRPM monitorRPM;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -61,6 +63,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() { 
 		CommandBase.init();
 		updateDriverstation = new UpdateDriverstation();
+		resetSolenoids = new ResetSolenoids();
 		monitorRPM = new MonitorRPM();
 		updateDriverstation.start();
 		monitorRPM.start();
@@ -86,10 +89,13 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("Drive Default Command", Variables.driveDefault);
 		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);
 		SmartDashboard.putData("RunShooterTime", new RunShooterTime(.8, 5));
+		SmartDashboard.putData("ResetSolenoids", new ResetSolenoids());
 		SmartDashboard.putData("RunCubeStorageTime", new TransportCubeTime(1, .8));
 		SmartDashboard.putData("DeployIntake", new ToggleIntakeDeployment());
 		SmartDashboard.putData("OpenIntake", new ToggleIntakeOpening());
 		SmartDashboard.putData("ToggleShooter", new ToggleShooterPosition());
+		
+		System.out.println("Boot Successful");
 	}
 
 	/**
