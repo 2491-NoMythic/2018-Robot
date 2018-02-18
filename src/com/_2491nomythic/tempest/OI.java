@@ -30,7 +30,7 @@ public class OI {
 	private final Joystick[] controllers = new Joystick[2];
 	
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, setSwitchRPM, setScaleRPM, deployIntake;
-	Button openIntake, raiseShooter, setScaleSpeed, setSwitchSpeed, runShooter, cubeStorageControl1, cubeStorageControl2;
+	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runShooter, cubeStorageControl1, cubeStorageControl2;
 
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
@@ -45,7 +45,7 @@ public class OI {
 		setSwitchRPM = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setSwitchRPS);
 		setSwitchRPM.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed));
 		
-		setScaleRPM = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setScaleRPS);
+		setScaleRPM = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setMediumScaleRPS);
 		setScaleRPM.whenPressed(new SetShooterSpeed(Constants.shooterHighScaleSpeed));
 		
 		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);
@@ -57,11 +57,17 @@ public class OI {
 		raiseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.raiseShooter);
 		raiseShooter.whenPressed(new ToggleShooterPosition());
 		
-		setScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setScaleRPS);
-		setScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterMediumScaleSpeed));
+		setLowScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setLowScaleRPS);
+		setLowScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterLowScaleSpeed));
+		
+		setMediumScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setMediumScaleRPS);
+		setMediumScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterMediumScaleSpeed));
+		
+		setHighScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setHighScaleRPS);
+		setHighScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterHighScaleSpeed));
 		
 		setSwitchSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setSwitchRPS);
-		setScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed));
+		setMediumScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed));
 		
 		runShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton);
 		runShooter.whileHeld(new RunShooterManual());

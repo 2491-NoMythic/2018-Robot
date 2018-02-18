@@ -18,7 +18,9 @@ public class ControllerMap {
 	//Operator
 	
 	public static final int setSwitchRPS = 2;
-	public static final int setScaleRPS = 4;
+	public static final int setLowScaleRPS = 1;
+	public static final int setMediumScaleRPS = 4;
+	public static final int setHighScaleRPS = 3;
 	public static final int deployIntake = 5;
 	public static final int openIntake = 7;
 	public static final int raiseShooter = 6;
