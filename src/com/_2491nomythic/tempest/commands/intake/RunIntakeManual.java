@@ -15,7 +15,6 @@ public class RunIntakeManual extends CommandBase {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(intake);
-		requires(cubeStorage);
 	}
 
 	// Called just before this Command runs the first time
