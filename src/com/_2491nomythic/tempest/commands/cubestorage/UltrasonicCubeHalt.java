@@ -13,6 +13,7 @@ public class UltrasonicCubeHalt extends CommandBase {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(cubeStorage);
+    	requires(shooter);
     }
 
     // Called just before this Command runs the first time
@@ -37,6 +38,8 @@ public class UltrasonicCubeHalt extends CommandBase {
     			}
     		}
     	}
+    	
+    	shooter.run(-0.1);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -47,6 +50,7 @@ public class UltrasonicCubeHalt extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
     	cubeStorage.stop();
+    	shooter.stop();
     }
 
     // Called when another command which requires one or more of the same
