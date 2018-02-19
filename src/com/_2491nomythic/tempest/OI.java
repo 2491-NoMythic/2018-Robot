@@ -31,8 +31,9 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	private final Joystick[] controllers = new Joystick[2];
 	
-	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter, runIntakeRollerless;
-	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runShooter, cubeStorageControl1, cubeStorageControl2;
+	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
+	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runShooter, runIntakeRollerless;
+	Button cubeStorageControl1, cubeStorageControl2;
 
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
