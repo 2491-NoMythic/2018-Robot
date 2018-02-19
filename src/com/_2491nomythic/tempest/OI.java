@@ -8,7 +8,7 @@
 package com._2491nomythic.tempest;
 
 import com._2491nomythic.tempest.commands.KillSwitch;
-import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHalt;
+import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHaltManual;
 import com._2491nomythic.tempest.commands.intake.RunIntakeRollerless;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpeningHeld;
@@ -70,10 +70,10 @@ public class OI {
 		runShooter.whileHeld(new RunShooterManual());
 		
 		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
-		cubeStorageControl1.whileHeld(new UltrasonicCubeHalt());
+		cubeStorageControl1.whileHeld(new UltrasonicCubeHaltManual());
 		
 		cubeStorageControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, -0.1);
-		cubeStorageControl2.whileHeld(new UltrasonicCubeHalt());
+		cubeStorageControl2.whileHeld(new UltrasonicCubeHaltManual());
 		
 		reverseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
 		reverseShooter.whileHeld(new ReverseShooterHeld());
