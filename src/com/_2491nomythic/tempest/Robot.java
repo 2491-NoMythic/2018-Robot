@@ -7,6 +7,7 @@
 
 package com._2491nomythic.tempest;
 
+import com._2491nomythic.tempest.commands.AutomaticIntake;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
@@ -88,6 +89,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("LowScalePower", Constants.shooterLowScaleSpeed);
 		SmartDashboard.putNumber("MediumScalePower", Constants.shooterMediumScaleSpeed);
 		SmartDashboard.putNumber("HighScalePower", Constants.shooterHighScaleSpeed);
+		SmartDashboard.putNumber("IntakeTime", Variables.automaticIntakeTime);
+		SmartDashboard.putData("AutomaticIntake", new AutomaticIntake(Variables.automaticIntakeTime));
 		
 		System.out.println("Boot Successful");
 	}

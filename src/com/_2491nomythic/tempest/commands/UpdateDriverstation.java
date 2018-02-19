@@ -44,6 +44,7 @@ public class UpdateDriverstation extends CommandBase {
 			Variables.proportionalForward = SmartDashboard.getNumber("ProportionalForward", Variables.proportionalForward);
 			Variables.derivativeForward = SmartDashboard.getNumber("DerivativeForward", Variables.derivativeForward);
 			Variables.driveDefault = SmartDashboard.getNumber("DriveDefault", 1);
+			Variables.automaticIntakeTime = SmartDashboard.getNumber("IntakeTime", Variables.automaticIntakeTime);
 			//SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
 			//SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
 			//SmartDashboard.putNumber("RightEncoder", drivetrain.getRightEncoderDistance());

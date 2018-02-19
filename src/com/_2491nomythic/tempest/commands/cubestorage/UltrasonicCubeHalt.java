@@ -11,12 +11,12 @@ public class UltrasonicCubeHalt extends CommandBase {
 	private double speed, time;
 	private Timer timer;
 
-	public UltrasonicCubeHalt(double speed, double time) {
+	public UltrasonicCubeHalt(double power, double time) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		this.time = time;
 		requires(cubeStorage);
-		this.speed = speed;
+		speed = power;
 		timer = new Timer();
 	}
 
@@ -41,7 +41,7 @@ public class UltrasonicCubeHalt extends CommandBase {
 				cubeStorage.run(speed);
 			}
 		}
-		if(wouldYouKindlyRunTheAccelerateMotorsBackwardsToPreventThePowerCubeFromGoingTooFar) {
+		if (wouldYouKindlyRunTheAccelerateMotorsBackwardsToPreventThePowerCubeFromGoingTooFar) {
 			shooter.runAccelerate(-0.2);
 		}
 	}
