@@ -62,7 +62,7 @@ public class QuadraticDrive extends CommandBase {
 	   	}
 		if (Math.abs(rawLeftSpeed) < quadraticCoefficient * Math.pow(state * accelerationIncrease, 2) * rawLeftSpeed && Math.abs(rawRightSpeed) < quadraticCoefficient * Math.pow(state * accelerationIncrease, 2) * rawRightSpeed) {
 			timer.reset();
-			state--;
+			state = (int) (state - (state/quadraticCoefficient));
 			timeAddition = (state - (state/quadraticCoefficient)) * accelerationInterval;
 		}
 		if (state == necessaryIterations) {
@@ -70,7 +70,7 @@ public class QuadraticDrive extends CommandBase {
 			rightSpeed = rawRightSpeed;
 			if (Math.abs(rawLeftSpeed) < rawLeftSpeed && Math.abs(rawRightSpeed) < rawRightSpeed) {
 				timer.reset();
-				state = 3;
+				state = (int) (state - (state/quadraticCoefficient));
 				timeAddition = (state - (state/quadraticCoefficient)) * accelerationInterval;
 			}
 		}
