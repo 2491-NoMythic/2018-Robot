@@ -76,6 +76,13 @@ public class Shooter extends PIDSubsystem {
 		runShoot(speed * Variables.reverseCoefficient);
 	}
 	
+	public void run(double leftShootSpeed, double rightShootSpeed, double leftAccelSpeed, double rightAccelSpeed) {
+		leftShoot.set(ControlMode.PercentOutput, leftShootSpeed);
+		rightShoot.set(ControlMode.PercentOutput, rightShootSpeed);
+		leftAccelerate.set(ControlMode.PercentOutput, leftAccelSpeed);
+		rightAccelerate.set(ControlMode.PercentOutput, rightAccelSpeed);
+	}
+	
 	
 	//Encoders
 	
