@@ -25,7 +25,6 @@ public class Variables {
 	//Intake
 	public static boolean isDeployed = false;
 	public static double rollerCoefficient = 1;
-	public static double automaticIntakeTime = 2;
 	
 	//CubeStorage
 	public static boolean cubeHalted = false;
