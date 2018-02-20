@@ -2,33 +2,24 @@ package com._2491nomythic.tempest.commands.intake;
 
 import com._2491nomythic.tempest.commands.CommandBase;
 
-import edu.wpi.first.wpilibj.Timer;
-
 /**
- * Runs intake motors for a specified amount of time
+ * Runs intake motors
  */
-public class RunIntakeTime extends CommandBase {
+public class RunIntake extends CommandBase {
 	private double power;
-	private double time;
-	private Timer timer;
 
 	/**
-	 * Runs intake motors for a specified amount of time with a specified power
+	 * Runs intake motors
 	 * @param desiredPower The power fed to the intake motors
-	 * @param desiredTime The time for which the intake motors will run
 	 */
-	public RunIntakeTime(double desiredPower, double desiredTime) {
+	public RunIntake(double desiredPower) {
 		requires(intake);
 		power = desiredPower;
-		time = desiredTime;
-		timer = new Timer();
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		timer.reset();
 		intake.run(power);
-		timer.start();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -37,13 +28,12 @@ public class RunIntakeTime extends CommandBase {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return timer.get() >= time;
+		return false;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
 		intake.stop();
-		cubeStorage.stop();
 	}
 
 	// Called when another command which requires one or more of the same

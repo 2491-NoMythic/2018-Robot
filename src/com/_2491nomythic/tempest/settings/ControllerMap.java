@@ -29,6 +29,7 @@ public class ControllerMap {
 	public static final int shooterButton = 8; //axis 4
 	public static final int shooterReverseButton = 14;
 	public static final int IntakeRollerlessButton = 11;
+	public static final int automaticIntakeButton = 13;
 	
 	//Probably not going to be used
 

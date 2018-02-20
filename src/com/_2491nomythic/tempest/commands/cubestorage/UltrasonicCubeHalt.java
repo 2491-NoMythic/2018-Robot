@@ -1,6 +1,8 @@
 package com._2491nomythic.tempest.commands.cubestorage;
 
 import com._2491nomythic.tempest.commands.CommandBase;
+import com._2491nomythic.tempest.settings.Variables;
+
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -8,13 +10,12 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class UltrasonicCubeHalt extends CommandBase {
 	boolean doWeNeedToWorryAboutStoppingOrIsTheUltrasonicSensorAlreadyCovered, nowStopRunningTheMotorsPlease, wouldYouKindlyRunTheAccelerateMotorsBackwardsToPreventThePowerCubeFromGoingTooFar;
-	private double speed, time;
+	private double speed;
 	private Timer timer;
 
-	public UltrasonicCubeHalt(double power, double time) {
+	public UltrasonicCubeHalt(double power) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		this.time = time;
 		requires(cubeStorage);
 		speed = power;
 		timer = new Timer();
@@ -22,10 +23,10 @@ public class UltrasonicCubeHalt extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		timer.start();
 		doWeNeedToWorryAboutStoppingOrIsTheUltrasonicSensorAlreadyCovered = cubeStorage.isHeld();
 		nowStopRunningTheMotorsPlease = false;
 		wouldYouKindlyRunTheAccelerateMotorsBackwardsToPreventThePowerCubeFromGoingTooFar = false;
+		Variables.cubeHalted = false;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -33,6 +34,7 @@ public class UltrasonicCubeHalt extends CommandBase {
 		if (!nowStopRunningTheMotorsPlease) {
 			cubeStorage.run(speed);
 			if (cubeStorage.isHeld()) {
+				timer.start();
 				nowStopRunningTheMotorsPlease = true;
 				wouldYouKindlyRunTheAccelerateMotorsBackwardsToPreventThePowerCubeFromGoingTooFar = true;
 				cubeStorage.stop();
@@ -48,13 +50,16 @@ public class UltrasonicCubeHalt extends CommandBase {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return timer.get() > time;
+		return timer.get() > 2;
 	}
 
 	// Called once after isFinished returns true
 	protected void end() {
+		nowStopRunningTheMotorsPlease = false;
+		wouldYouKindlyRunTheAccelerateMotorsBackwardsToPreventThePowerCubeFromGoingTooFar = false;
 		cubeStorage.stop();
 		shooter.stop();
+		Variables.cubeHalted = true;
 	}
 
 	// Called when another command which requires one or more of the same

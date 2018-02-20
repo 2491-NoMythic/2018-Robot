@@ -27,6 +27,9 @@ public class Variables {
 	public static double rollerCoefficient = 1;
 	public static double automaticIntakeTime = 2;
 	
+	//CubeStorage
+	public static boolean cubeHalted = false;
+	
 	//Shooter
 	public static boolean readyToFire = false;
 	public static double shooterSpeed = Constants.shooterMediumScaleSpeed;

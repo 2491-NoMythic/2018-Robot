@@ -40,7 +40,7 @@ public class QuadraticDrive extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		
-		turnSpeed =  0.5 * oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveTurnAxis, 0.1);
+		turnSpeed =  0.75 * oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveTurnAxis, 0.1);
 		rawLeftSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveMainAxis, .05);
 		rawRightSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveMainAxis, .05);
 		
@@ -63,7 +63,7 @@ public class QuadraticDrive extends CommandBase {
 		if (Math.abs(rawLeftSpeed) < quadraticCoefficient * Math.pow(state * accelerationIncrease, 2) * rawLeftSpeed && Math.abs(rawRightSpeed) < quadraticCoefficient * Math.pow(state * accelerationIncrease, 2) * rawRightSpeed) {
 			timer.reset();
 			state--;
-			timeAddition = (state - 1) * accelerationInterval;
+			timeAddition = (state - (state/quadraticCoefficient)) * accelerationInterval;
 		}
 		if (state == necessaryIterations) {
 			leftSpeed = rawLeftSpeed;
@@ -71,7 +71,7 @@ public class QuadraticDrive extends CommandBase {
 			if (Math.abs(rawLeftSpeed) < rawLeftSpeed && Math.abs(rawRightSpeed) < rawRightSpeed) {
 				timer.reset();
 				state = 3;
-				timeAddition = (state - 1) * accelerationInterval;
+				timeAddition = (state - (state/quadraticCoefficient)) * accelerationInterval;
 			}
 		}
 		

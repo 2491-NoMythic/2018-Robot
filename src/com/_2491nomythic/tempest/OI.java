@@ -7,8 +7,10 @@
 
 package com._2491nomythic.tempest;
 
+import com._2491nomythic.tempest.commands.AutomaticIntake;
 import com._2491nomythic.tempest.commands.KillSwitch;
 import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHaltManual;
+import com._2491nomythic.tempest.commands.intake.RunIntakeManual;
 import com._2491nomythic.tempest.commands.intake.RunIntakeRollerless;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpeningHeld;
@@ -33,7 +35,7 @@ public class OI {
 	
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
 	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runShooter, runIntakeRollerless;
-	Button cubeStorageControl1, cubeStorageControl2;
+	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2;
 
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
@@ -80,6 +82,17 @@ public class OI {
 		
 		runIntakeRollerless = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.IntakeRollerlessButton);
 		runIntakeRollerless.whileHeld(new RunIntakeRollerless());
+		
+		automaticIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.automaticIntakeButton);
+		automaticIntake.whenPressed(new AutomaticIntake());
+		
+		intakeControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, 0.1);
+		intakeControl1.whileHeld(new RunIntakeManual());
+		
+		intakeControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, -0.1);
+		intakeControl2.whileHeld(new RunIntakeManual());
+		
+		
 		
 		//driverScaleShoot = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverScaleShootButton);
 		//driverScaleShoot.whileHeld(new ScaleShoot());
