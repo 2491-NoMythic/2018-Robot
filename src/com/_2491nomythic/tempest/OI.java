@@ -79,10 +79,10 @@ public class OI {
 		runShooter.whileHeld(new RunShooterManual());
 		
 		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
-		cubeStorageControl1.whileHeld(new UltrasonicCubeHaltManual());
+		cubeStorageControl1.whenPressed(new UltrasonicCubeHaltManual());
 		
 		cubeStorageControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, -0.1);
-		cubeStorageControl2.whileHeld(new UltrasonicCubeHaltManual());
+		cubeStorageControl2.whenPressed(new UltrasonicCubeHaltManual());
 		
 		reverseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
 		reverseShooter.whileHeld(new ReverseShooterHeld());
