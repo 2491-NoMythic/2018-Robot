@@ -33,10 +33,10 @@ public class Constants {
 	public static double shooterMediumScaleSpeed = .65;
 	public static double shooterLowScaleSpeed = .5;
 	public static double shooterSwitchSpeed = .3;
-	public static final double shooterHighScaleRPS = 28; //TODO Find actual values for this and the following 3 lines
-	public static final double shooterMediumScaleRPS = 26;
-	public static final double shooterLowScaleRPS = 24;
-	public static final double shooterSwitchRPS = 21.5;
+	public static double shooterHighScaleRPS = 80; //TODO Find actual values for this and the following 3 lines
+	public static double shooterMediumScaleRPS = 70;
+	public static double shooterLowScaleRPS = 55;
+	public static double shooterSwitchRPS = 35;
 	
 	//Lights
 	public static final int underglowPWM = 1;

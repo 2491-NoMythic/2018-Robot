@@ -93,6 +93,10 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("LowScalePower", Constants.shooterLowScaleSpeed);
 		SmartDashboard.putNumber("MediumScalePower", Constants.shooterMediumScaleSpeed);
 		SmartDashboard.putNumber("HighScalePower", Constants.shooterHighScaleSpeed);
+		SmartDashboard.putNumber("SwitchRPS", Constants.shooterSwitchRPS);
+		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
+		SmartDashboard.putNumber("MediumScaleRPS", Constants.shooterMediumScaleRPS);
+		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
 		
 		System.out.println("Boot Successful");
 	}
