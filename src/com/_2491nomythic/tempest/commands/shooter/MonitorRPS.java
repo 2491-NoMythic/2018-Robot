@@ -36,9 +36,9 @@ public class MonitorRPS extends CommandBase {
 		if (shooter.getShootVelocity() >= targetRPS - tolerance) {
 			if (delay.get() > delayTime) {
 				if (shooter.getLeftShootVelocity() < targetRPS - tolerance) {
-					Variables.leftShootSpeed = (Variables.leftShootSpeed + 1) * (shooter.getLeftShootVelocity() / targetRPS);
+					Variables.leftShootSpeed *= (shooter.getLeftShootVelocity() / targetRPS) + 1;
 					if (Variables.leftShootSpeed > Variables.shooterSpeed) {
-						Variables.leftShootSpeed = Variables.shooterSpeed + threshold;
+						Variables.leftShootSpeed += threshold;
 					}
 					else if (Variables.leftShootSpeed < Variables.shooterSpeed) {
 						Variables.leftShootSpeed = Variables.shooterSpeed;
@@ -46,9 +46,9 @@ public class MonitorRPS extends CommandBase {
 					delay.reset();
 				}
 				if (shooter.getRightShootVelocity() < targetRPS - tolerance) {
-					Variables.rightShootSpeed = (Variables.rightShootSpeed + 1) * (shooter.getRightShootVelocity() / targetRPS);
+					Variables.rightShootSpeed *= (shooter.getRightShootVelocity() / targetRPS) +1;
 					if (Variables.rightShootSpeed > Variables.shooterSpeed) {
-						Variables.rightShootSpeed = Variables.shooterSpeed + threshold;
+						Variables.rightShootSpeed += threshold;
 					}
 					else if (Variables.rightShootSpeed < Variables.shooterSpeed) {
 						Variables.rightShootSpeed = Variables.shooterSpeed;
@@ -58,9 +58,9 @@ public class MonitorRPS extends CommandBase {
 			}
 			if (delay.get() > delayTime) {
 				if (shooter.getLeftShootVelocity() > targetRPS + tolerance) {
-					Variables.leftShootSpeed = Variables.leftShootSpeed * (targetRPS / shooter.getLeftShootVelocity());
+					Variables.leftShootSpeed *= (targetRPS / shooter.getLeftShootVelocity());
 					if (Variables.leftShootSpeed < Variables.shooterSpeed) {
-						Variables.leftShootSpeed = Variables.shooterSpeed - threshold;
+						Variables.leftShootSpeed -= threshold;
 					}
 					else if (Variables.leftShootSpeed > Variables.shooterSpeed) {
 						Variables.leftShootSpeed = Variables.shooterSpeed;
@@ -68,9 +68,9 @@ public class MonitorRPS extends CommandBase {
 					delay.reset();
 				}
 				if (shooter.getRightShootVelocity() > targetRPS + tolerance) {
-					Variables.rightShootSpeed = Variables.rightShootSpeed * (targetRPS / shooter.getRightShootVelocity());
+					Variables.rightShootSpeed *= (targetRPS / shooter.getRightShootVelocity());
 					if (Variables.rightShootSpeed < Variables.shooterSpeed) {
-						Variables.rightShootSpeed = Variables.shooterSpeed - threshold;
+						Variables.rightShootSpeed -= threshold;
 					}
 					else if (Variables.rightShootSpeed > Variables.shooterSpeed) {
 						Variables.rightShootSpeed = Variables.shooterSpeed;
