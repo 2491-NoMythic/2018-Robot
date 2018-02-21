@@ -8,8 +8,6 @@
 package com._2491nomythic.tempest;
 
 import com._2491nomythic.tempest.commands.CommandBase;
-import com._2491nomythic.tempest.commands.DetectPS4Controller;
-import com._2491nomythic.tempest.commands.GenericTestCommand;
 import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
 import com._2491nomythic.tempest.commands.autonomous.CrossAutoLine;
@@ -48,11 +46,9 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	ResetSolenoids resetSolenoids;
 	UpdateDriverstation updateDriverstation;
-	MonitorRPS monitorRPM;
+	MonitorRPS monitorRPS;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
-	GenericTestCommand testPrint;
-	DetectPS4Controller detectPS4Controller;
 	
 	public static boolean isTeleop;
 
@@ -65,13 +61,10 @@ public class Robot extends TimedRobot {
 		CommandBase.init();
 		updateDriverstation = new UpdateDriverstation();
 		resetSolenoids = new ResetSolenoids();
-		monitorRPM = new MonitorRPS();
+		monitorRPS = new MonitorRPS();
 		updateDriverstation.start();
-		monitorRPM.start();
+		monitorRPS.start();
 		
-		testPrint = new GenericTestCommand();
-		detectPS4Controller = new DetectPS4Controller();
-		detectPS4Controller.start();
 		
 		m_chooser.addObject("CrossAutoLine", new CrossAutoLine());
 		m_chooser.addObject("SwitchLeft", new DriveForwardSwitch(true));
@@ -175,8 +168,6 @@ public class Robot extends TimedRobot {
 		
 		isTeleop = true;
 		
-		testPrint.start();
-		detectPS4Controller.start();
 	}
 
 	/**

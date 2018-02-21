@@ -3,43 +3,58 @@ package com._2491nomythic.tempest.commands.shooter;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.settings.Variables;
 
+import edu.wpi.first.wpilibj.Timer;
+
 /**
  * Keeps track of the readiness of shooter motors for firing consistently
  */
 public class MonitorRPS extends CommandBase {
 	private double tolerance, targetRPS;
+	private Timer delay;
 
 	/**
 	 * Keeps track of the readiness of shooter motors for firing consistently
 	 */
 	public MonitorRPS() {
+		setRunWhenDisabled(true);
 		tolerance = 0.8;
-		targetRPS = Variables.shooterRPS;
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
+		delay = new Timer();
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
+		delay.start();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		targetRPS = Variables.shooterRPS;
 		if (shooter.getShootVelocity() >= targetRPS - tolerance) {
-			System.out.println("Hey, MonitorRPS is running");
-			if (shooter.getLeftShootVelocity() < shooter.getRightShootVelocity() - tolerance) {
-				Variables.leftShootSpeed = (Variables.leftShootSpeed + 1) * (shooter.getLeftShootVelocity() / shooter.getRightShootVelocity());
-				System.out.println("Hey, leftShootSpeed should have just changed");
+			if (delay.get() > 1.5) {
+				if (shooter.getLeftShootVelocity() < shooter.getRightShootVelocity() - tolerance) {
+					Variables.leftShootSpeed = (Variables.leftShootSpeed + 1) * (shooter.getLeftShootVelocity() / shooter.getRightShootVelocity());
+					if (Variables.leftShootSpeed > 1) {
+						Variables.leftShootSpeed = Variables.rightShootSpeed + .1;
+					}
+					else if (Variables.leftShootSpeed < Variables.rightShootSpeed) {
+						Variables.leftShootSpeed = Variables.rightShootSpeed;
+					}
+					delay.reset();
+				}
 			}
-			if (shooter.getRightShootVelocity() < shooter.getRightShootVelocity() - tolerance) {
-				Variables.rightShootSpeed = (Variables.rightShootSpeed + 1) * (shooter.getRightShootVelocity() / shooter.getLeftShootVelocity());
+			//if (shooter.getRightShootVelocity() < shooter.getRightShootVelocity() - tolerance) {
+				//Variables.rightShootSpeed = (Variables.rightShootSpeed + 1) * (shooter.getRightShootVelocity() / shooter.getLeftShootVelocity());
+			//}
+			if (delay.get() > 1.5) {
+				if (shooter.getLeftShootVelocity() > shooter.getRightShootVelocity() + tolerance) {
+					Variables.leftShootSpeed = Variables.leftShootSpeed * (shooter.getRightShootVelocity() / shooter.getLeftShootVelocity());
+				}
 			}
-			if (shooter.getLeftShootVelocity() > shooter.getRightShootVelocity() + tolerance) {
-				Variables.leftShootSpeed = Variables.leftShootSpeed * (shooter.getRightShootVelocity() / shooter.getLeftShootVelocity());
-			}
-			if (shooter.getRightShootVelocity() > shooter.getLeftShootVelocity() + tolerance) {
-				Variables.rightShootSpeed = Variables.rightShootSpeed * (shooter.getLeftShootVelocity() / shooter.getRightShootVelocity());
-			}
+			//if (shooter.getRightShootVelocity() > shooter.getLeftShootVelocity() + tolerance) {
+				//Variables.rightShootSpeed = Variables.rightShootSpeed * (shooter.getLeftShootVelocity() / shooter.getRightShootVelocity());
+			//}
 			if (Math.abs(shooter.getRightShootVelocity() - shooter.getLeftShootVelocity()) <= 0 + tolerance) {
 				Variables.readyToFire = true;
 			}
