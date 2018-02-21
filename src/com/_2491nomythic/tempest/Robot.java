@@ -47,6 +47,7 @@ public class Robot extends TimedRobot {
 	ResetSolenoids resetSolenoids;
 	UpdateDriverstation updateDriverstation;
 	MonitorRPS monitorRPS;
+	
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
 	
@@ -62,6 +63,7 @@ public class Robot extends TimedRobot {
 		updateDriverstation = new UpdateDriverstation();
 		resetSolenoids = new ResetSolenoids();
 		monitorRPS = new MonitorRPS();
+		
 		updateDriverstation.start();
 		monitorRPS.start();
 		
@@ -166,8 +168,7 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		
-		isTeleop = true;
-		
+		isTeleop = true;		
 	}
 
 	/**
