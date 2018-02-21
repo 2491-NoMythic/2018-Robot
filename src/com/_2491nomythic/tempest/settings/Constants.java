@@ -33,10 +33,10 @@ public class Constants {
 	public static double shooterMediumScaleSpeed = .65;
 	public static double shooterLowScaleSpeed = .5;
 	public static double shooterSwitchSpeed = .3;
-	public static double shooterHighScaleRPS = 91.5; // accelerate highscale rps = 28.5
-	public static double shooterMediumScaleRPS = 78; // accelerate medscale rps = 24.75
-	public static double shooterLowScaleRPS = 60; // accelerate lowscale rps = 19
-	public static double shooterSwitchRPS = 33; //accelerate switch rps = 11.3
+	public static double shooterHighScaleRPS = 90; // accelerate highscale rps = 28.5
+	public static double shooterMediumScaleRPS = 75; // accelerate medscale rps = 24.75
+	public static double shooterLowScaleRPS = 55; // accelerate lowscale rps = 19
+	public static double shooterSwitchRPS = 30; //accelerate switch rps = 11.3
 	
 	//Lights
 	public static final int underglowPWM = 1;

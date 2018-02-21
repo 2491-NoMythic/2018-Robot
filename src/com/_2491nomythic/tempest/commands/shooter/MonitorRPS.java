@@ -13,7 +13,7 @@ public class MonitorRPS extends CommandBase {
 	 * Keeps track of the readiness of shooter motors for firing consistently
 	 */
 	public MonitorRPS() {
-		tolerance = 2;
+		tolerance = 0.8;
 		targetRPS = Variables.shooterRPS;
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -26,11 +26,13 @@ public class MonitorRPS extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		if (shooter.getShootVelocity() >= targetRPS - tolerance) {
+			System.out.println("Hey, MonitorRPS is running");
 			if (shooter.getLeftShootVelocity() < shooter.getRightShootVelocity() - tolerance) {
-				Variables.leftShootSpeed = Variables.leftShootSpeed * ((shooter.getLeftShootVelocity() / shooter.getRightShootVelocity()) + 1.00);
+				Variables.leftShootSpeed = (Variables.leftShootSpeed + 1) * (shooter.getLeftShootVelocity() / shooter.getRightShootVelocity());
+				System.out.println("Hey, leftShootSpeed should have just changed");
 			}
 			if (shooter.getRightShootVelocity() < shooter.getRightShootVelocity() - tolerance) {
-				Variables.rightShootSpeed = Variables.rightShootSpeed * ((shooter.getRightShootVelocity() / shooter.getLeftShootVelocity()) + 1.00);
+				Variables.rightShootSpeed = (Variables.rightShootSpeed + 1) * (shooter.getRightShootVelocity() / shooter.getLeftShootVelocity());
 			}
 			if (shooter.getLeftShootVelocity() > shooter.getRightShootVelocity() + tolerance) {
 				Variables.leftShootSpeed = Variables.leftShootSpeed * (shooter.getRightShootVelocity() / shooter.getLeftShootVelocity());

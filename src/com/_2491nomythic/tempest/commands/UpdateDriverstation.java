@@ -65,6 +65,8 @@ public class UpdateDriverstation extends CommandBase {
 			Constants.shooterLowScaleRPS = SmartDashboard.getNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 			Constants.shooterSwitchRPS = SmartDashboard.getNumber("SwitchRPS", Constants.shooterSwitchRPS);
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
+			SmartDashboard.putNumber("LeftShootPower", Variables.leftShootSpeed);
+			SmartDashboard.putNumber("RightShootPower", Variables.rightShootSpeed);
 		}
 			
 		
