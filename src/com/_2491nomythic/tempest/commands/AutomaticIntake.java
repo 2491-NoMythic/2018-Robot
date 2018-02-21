@@ -20,6 +20,7 @@ public class AutomaticIntake extends CommandBase {
     	requires(intake);
     	requires(cubeStorage);
     	requires(shooter);
+    	intakeCube = new RunIntakeUltrasonic(.8);
     	loadCube = new UltrasonicCubeHalt(1);
     }
 

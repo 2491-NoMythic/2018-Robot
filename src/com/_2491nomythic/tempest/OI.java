@@ -45,7 +45,7 @@ public class OI {
 	
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
-		controllers[1] = new Joystick(ControllerMap.operatorController);
+		controllers[1] = new PS4Controller(ControllerMap.operatorController);
 		
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
 		killSwitch1.whenPressed(new KillSwitch());
