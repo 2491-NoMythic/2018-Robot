@@ -5,14 +5,14 @@ import com._2491nomythic.tempest.commands.CommandBase;
 /**
  * Runs intake motors
  */
-public class RunIntake extends CommandBase {
+public class RunIntakeUltrasonic extends CommandBase {
 	private double power;
 
 	/**
 	 * Runs intake motors
 	 * @param desiredPower The power fed to the intake motors
 	 */
-	public RunIntake(double desiredPower) {
+	public RunIntakeUltrasonic(double desiredPower) {
 		requires(intake);
 		power = desiredPower;
 	}
@@ -28,7 +28,7 @@ public class RunIntake extends CommandBase {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return false;
+		return cubeStorage.isHeld();
 	}
 
 	// Called once after isFinished returns true

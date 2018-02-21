@@ -1,6 +1,7 @@
 package com._2491nomythic.tempest.commands;
 
 import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHalt;
+import com._2491nomythic.tempest.commands.intake.RunIntakeUltrasonic;
 import com._2491nomythic.tempest.settings.Variables;
 
 /**
@@ -8,6 +9,7 @@ import com._2491nomythic.tempest.settings.Variables;
  */
 public class AutomaticIntake extends CommandBase {
 	private UltrasonicCubeHalt loadCube;
+	private RunIntakeUltrasonic intakeCube;
 	/**
 	 * Goes through the entire cube intake process automatically
 	 * @param time Time for the entire command to execute. Determines points at which other commands execute
@@ -24,7 +26,7 @@ public class AutomaticIntake extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
     	Variables.cubeHalted = false;
-    	intake.run(.75);
+    	intakeCube.start();
     	loadCube.start();
     }
 
@@ -39,7 +41,6 @@ public class AutomaticIntake extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    	intake.stop();
     }
 
     // Called when another command which requires one or more of the same
