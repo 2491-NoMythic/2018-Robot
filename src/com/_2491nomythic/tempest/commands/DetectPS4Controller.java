@@ -15,7 +15,7 @@ public class DetectPS4Controller extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	if (oi.getControllerName(1) == "Wireless Controller") {
+    	if (oi.getControllerName(1).equals("Wireless Controller")) {
     		oi.changeControllerType(1, ControllerMap.operatorController, ControllerType.PS4);
     	}
     }

@@ -23,6 +23,7 @@ import com._2491nomythic.tempest.settings.ControllerMap;
 import com._2491nomythic.util.JoystickAxisButton;
 import com._2491nomythic.util.PS4Controller;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -46,6 +47,13 @@ public class OI {
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		controllers[1] = new Joystick(ControllerMap.operatorController);
+		
+//		if (DriverStation.getInstance().getJoystickName(ControllerMap.operatorController).equals("Wireless Controller")) {
+//			controllers[1] = new PS4Controller(ControllerMap.operatorController);
+//		}
+//		else {
+//			controllers[1] = new Joystick(ControllerMap.operatorController);
+//		}
 		
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
 		killSwitch1.whenPressed(new KillSwitch());
