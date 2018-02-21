@@ -23,7 +23,9 @@ public class SetShooterSpeed extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		Variables.shooterSpeed = shooterSpeed;
+		Variables.leftShootSpeed = shooterSpeed;
+		Variables.rightShootSpeed = shooterSpeed;
+		Variables.accelShooterSpeed = shooterSpeed;
 		Variables.shooterRPS = shooterRPS;
 	}
 

@@ -23,7 +23,7 @@ public class RunShooterManual extends CommandBase {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		shooter.run(Variables.shooterSpeed);
+		shooter.run(Variables.leftShootSpeed, Variables.rightShootSpeed, Variables.accelShooterSpeed);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
