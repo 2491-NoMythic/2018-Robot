@@ -158,6 +158,14 @@ public class OI {
 		result = result * Math.abs(result);
 		return Math.abs(result) > deadzone ? result : 0;
 	}
+	
+	/**
+	 * @param joystickID The ID of the controller whose name is returned
+	 * @return The name of the controller with the given ID
+	 */
+	public String getControllerName(int joystickID) {
+		return controllers[joystickID].getName();
+	}
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.
