@@ -62,7 +62,7 @@ public class AutomaticShoot extends CommandBase {
 		case 1:
 			if((scale && wasRaised) || (!scale && !wasRaised)) {
 				if (scale) {
-					shooter.run(Variables.shooterSpeed);
+					shooter.run(Variables.leftShootSpeed, Variables.rightShootSpeed, Variables.accelShooterSpeed);
 				}
 				else {
 					shooter.run(Constants.shooterSwitchSpeed);
@@ -71,7 +71,7 @@ public class AutomaticShoot extends CommandBase {
 			}
 			else if (timer.get() > Constants.timeForShooterToRaise) {
 				if (scale) {
-					shooter.run(Variables.shooterSpeed);
+					shooter.run(Variables.leftShootSpeed, Variables.rightShootSpeed, Variables.accelShooterSpeed);
 				}
 				else {
 					shooter.run(Constants.shooterSwitchSpeed);
