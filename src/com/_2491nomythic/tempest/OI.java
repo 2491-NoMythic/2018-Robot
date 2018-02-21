@@ -23,7 +23,6 @@ import com._2491nomythic.tempest.settings.ControllerMap;
 import com._2491nomythic.util.JoystickAxisButton;
 import com._2491nomythic.util.PS4Controller;
 
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
