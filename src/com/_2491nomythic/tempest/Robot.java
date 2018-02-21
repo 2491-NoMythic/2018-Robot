@@ -69,6 +69,7 @@ public class Robot extends TimedRobot {
 		
 		testPrint = new GenericTestCommand();
 		detectPS4Controller = new DetectPS4Controller();
+		detectPS4Controller.start();
 		
 		m_chooser.addObject("CrossAutoLine", new CrossAutoLine());
 		m_chooser.addObject("SwitchLeft", new DriveForwardSwitch(true));
