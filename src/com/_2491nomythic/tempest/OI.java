@@ -48,13 +48,6 @@ public class OI {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		controllers[1] = new Joystick(ControllerMap.operatorController);
 		
-//		if (DriverStation.getInstance().getJoystickName(ControllerMap.operatorController).equals("Wireless Controller")) {
-//			controllers[1] = new PS4Controller(ControllerMap.operatorController);
-//		}
-//		else {
-//			controllers[1] = new Joystick(ControllerMap.operatorController);
-//		}
-		
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
 		killSwitch1.whenPressed(new KillSwitch());
 		
