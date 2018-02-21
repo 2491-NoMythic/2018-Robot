@@ -21,6 +21,7 @@ import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.ControllerMap;
 import com._2491nomythic.util.JoystickAxisButton;
+import com._2491nomythic.util.PS4Controller;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
@@ -37,6 +38,11 @@ public class OI {
 	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runShooter, runIntakeRollerless;
 	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2;
 
+	public enum ControllerType {
+		Standard,
+		PS4;
+	}
+	
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		controllers[1] = new Joystick(ControllerMap.operatorController);
@@ -166,6 +172,27 @@ public class OI {
 	public String getControllerName(int joystickID) {
 		return controllers[joystickID].getName();
 	}
+	
+	/**
+	 * Changes the controller layout to support compatibility with PS4 controllers and any future options.
+	 * @param joystickID The ID of the controller as set in OI
+	 * @param controllerID The ID of the controller as set in ControllerMap
+	 * @param type The type of controller to change to
+	 */
+	public void changeControllerType(int joystickID, int controllerID, ControllerType type) {
+		switch(type) {
+		case PS4:
+			controllers[joystickID] = new PS4Controller(controllerID);
+			break;
+		case Standard:
+			controllers[joystickID] = new Joystick(controllerID);
+			break;
+		default:
+			System.out.println("Oops! It looks like you tried to map a controller to a type that doesn't exist.");
+			break;
+		}
+	}
+	
 	//// CREATING BUTTONS
 	// One type of button is a joystick button which is any button on a
 	//// joystick.
