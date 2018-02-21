@@ -24,8 +24,10 @@ import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeSwitch;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
 import com._2491nomythic.tempest.settings.Constants;
+import com._2491nomythic.tempest.settings.ControllerMap;
 import com._2491nomythic.tempest.settings.Variables;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -45,6 +47,7 @@ public class Robot extends TimedRobot {
 	ResetSolenoids resetSolenoids;
 	UpdateDriverstation updateDriverstation;
 	MonitorRPS monitorRPS;
+	
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 	
 	
@@ -60,6 +63,7 @@ public class Robot extends TimedRobot {
 		updateDriverstation = new UpdateDriverstation();
 		resetSolenoids = new ResetSolenoids();
 		monitorRPS = new MonitorRPS();
+		
 		updateDriverstation.start();
 		monitorRPS.start();
 		
@@ -164,8 +168,7 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		
-		isTeleop = true;
-		
+		isTeleop = true;		
 	}
 
 	/**

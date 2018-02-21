@@ -23,6 +23,7 @@ import com._2491nomythic.tempest.settings.ControllerMap;
 import com._2491nomythic.util.JoystickAxisButton;
 import com._2491nomythic.util.PS4Controller;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.Button;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -45,7 +46,7 @@ public class OI {
 	
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
-		controllers[1] = new Joystick(ControllerMap.operatorController);
+		controllers[1] = new PS4Controller(ControllerMap.operatorController);
 		
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
 		killSwitch1.whenPressed(new KillSwitch());
@@ -78,10 +79,10 @@ public class OI {
 		runShooter.whileHeld(new RunShooterManual());
 		
 		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
-		cubeStorageControl1.whileHeld(new UltrasonicCubeHaltManual());
+		cubeStorageControl1.whenPressed(new UltrasonicCubeHaltManual());
 		
 		cubeStorageControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, -0.1);
-		cubeStorageControl2.whileHeld(new UltrasonicCubeHaltManual());
+		cubeStorageControl2.whenPressed(new UltrasonicCubeHaltManual());
 		
 		reverseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
 		reverseShooter.whileHeld(new ReverseShooterHeld());
