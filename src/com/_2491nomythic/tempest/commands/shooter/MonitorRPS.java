@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.Timer;
  * Keeps track of the readiness of shooter motors for firing consistently
  */
 public class MonitorRPS extends CommandBase {
-	private double tolerance, targetRPS;
+	private double tolerance, targetRPS, delayTime, threshold;
 	private Timer delay;
 
 	/**
@@ -18,6 +18,8 @@ public class MonitorRPS extends CommandBase {
 	public MonitorRPS() {
 		setRunWhenDisabled(true);
 		tolerance = 0.8;
+		delayTime = 1;
+		threshold = .1;
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		delay = new Timer();
@@ -32,29 +34,50 @@ public class MonitorRPS extends CommandBase {
 	protected void execute() {
 		targetRPS = Variables.shooterRPS;
 		if (shooter.getShootVelocity() >= targetRPS - tolerance) {
-			if (delay.get() > 1.5) {
-				if (shooter.getLeftShootVelocity() < shooter.getRightShootVelocity() - tolerance) {
-					Variables.leftShootSpeed = (Variables.leftShootSpeed + 1) * (shooter.getLeftShootVelocity() / shooter.getRightShootVelocity());
-					if (Variables.leftShootSpeed > 1) {
-						Variables.leftShootSpeed = Variables.rightShootSpeed + .1;
+			if (delay.get() > delayTime) {
+				if (shooter.getLeftShootVelocity() < targetRPS - tolerance) {
+					Variables.leftShootSpeed = (Variables.leftShootSpeed + 1) * (shooter.getLeftShootVelocity() / targetRPS);
+					if (Variables.leftShootSpeed > Variables.shooterSpeed) {
+						Variables.leftShootSpeed = Variables.shooterSpeed + threshold;
 					}
-					else if (Variables.leftShootSpeed < Variables.rightShootSpeed) {
-						Variables.leftShootSpeed = Variables.rightShootSpeed;
+					else if (Variables.leftShootSpeed < Variables.shooterSpeed) {
+						Variables.leftShootSpeed = Variables.shooterSpeed;
+					}
+					delay.reset();
+				}
+				if (shooter.getRightShootVelocity() < targetRPS - tolerance) {
+					Variables.rightShootSpeed = (Variables.rightShootSpeed + 1) * (shooter.getRightShootVelocity() / targetRPS);
+					if (Variables.rightShootSpeed > Variables.shooterSpeed) {
+						Variables.rightShootSpeed = Variables.shooterSpeed + threshold;
+					}
+					else if (Variables.rightShootSpeed < Variables.shooterSpeed) {
+						Variables.rightShootSpeed = Variables.shooterSpeed;
 					}
 					delay.reset();
 				}
 			}
-			//if (shooter.getRightShootVelocity() < shooter.getRightShootVelocity() - tolerance) {
-				//Variables.rightShootSpeed = (Variables.rightShootSpeed + 1) * (shooter.getRightShootVelocity() / shooter.getLeftShootVelocity());
-			//}
-			if (delay.get() > 1.5) {
-				if (shooter.getLeftShootVelocity() > shooter.getRightShootVelocity() + tolerance) {
-					Variables.leftShootSpeed = Variables.leftShootSpeed * (shooter.getRightShootVelocity() / shooter.getLeftShootVelocity());
+			if (delay.get() > delayTime) {
+				if (shooter.getLeftShootVelocity() > targetRPS + tolerance) {
+					Variables.leftShootSpeed = Variables.leftShootSpeed * (targetRPS / shooter.getLeftShootVelocity());
+					if (Variables.leftShootSpeed < Variables.shooterSpeed) {
+						Variables.leftShootSpeed = Variables.shooterSpeed - threshold;
+					}
+					else if (Variables.leftShootSpeed > Variables.shooterSpeed) {
+						Variables.leftShootSpeed = Variables.shooterSpeed;
+					}
+					delay.reset();
+				}
+				if (shooter.getRightShootVelocity() > targetRPS + tolerance) {
+					Variables.rightShootSpeed = Variables.rightShootSpeed * (targetRPS / shooter.getRightShootVelocity());
+					if (Variables.rightShootSpeed < Variables.shooterSpeed) {
+						Variables.rightShootSpeed = Variables.shooterSpeed - threshold;
+					}
+					else if (Variables.rightShootSpeed > Variables.shooterSpeed) {
+						Variables.rightShootSpeed = Variables.shooterSpeed;
+					}
+					delay.reset();
 				}
 			}
-			//if (shooter.getRightShootVelocity() > shooter.getLeftShootVelocity() + tolerance) {
-				//Variables.rightShootSpeed = Variables.rightShootSpeed * (shooter.getLeftShootVelocity() / shooter.getRightShootVelocity());
-			//}
 			if (Math.abs(shooter.getRightShootVelocity() - shooter.getLeftShootVelocity()) <= 0 + tolerance) {
 				Variables.readyToFire = true;
 			}

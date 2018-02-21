@@ -51,11 +51,11 @@ public class ScaleShoot extends CommandBase {
 			break;
 		case 1:
 			if(wasRaised) {
-				shooter.run(Variables.leftShootSpeed, Variables.rightShootSpeed, Variables.accelShooterSpeed);   			
+				shooter.run(Variables.leftShootSpeed, Variables.rightShootSpeed, Variables.shooterSpeed);   			
 				state++;
 			}
 			else if (timer.get() > Constants.timeForShooterToRaise) {
-				shooter.run(Variables.leftShootSpeed, Variables.rightShootSpeed, Variables.accelShooterSpeed);
+				shooter.run(Variables.leftShootSpeed, Variables.rightShootSpeed, Variables.shooterSpeed);
 			}
 			state++;
 			break;

@@ -1,3 +1,4 @@
+
 package com._2491nomythic.tempest.settings;
 
 /**
@@ -33,7 +34,7 @@ public class Variables {
 	public static boolean readyToFire = false;
 	public static double leftShootSpeed = Constants.shooterMediumScaleSpeed;
 	public static double rightShootSpeed = Constants.shooterMediumScaleSpeed;
-	public static double accelShooterSpeed = Constants.shooterMediumScaleSpeed;
+	public static double shooterSpeed = Constants.shooterMediumScaleSpeed;
 	public static double shooterRPS = Constants.shooterMediumScaleRPS;
 	public static boolean isLowered = false;
 	public static double reverseCoefficient = 1;
