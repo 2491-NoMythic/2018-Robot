@@ -20,6 +20,8 @@ import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.ControllerMap;
+import com._2491nomythic.tempest.settings.GuitarControllerMap;
+import com._2491nomythic.util.GuitarStrumButton;
 import com._2491nomythic.util.JoystickAxisButton;
 import com._2491nomythic.util.PS4Controller;
 
@@ -45,7 +47,7 @@ public class OI {
 	
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
-		controllers[1] = new PS4Controller(ControllerMap.operatorController);
+		controllers[1] = new Joystick(ControllerMap.operatorController);
 		
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
 		killSwitch1.whenPressed(new KillSwitch());
@@ -53,28 +55,28 @@ public class OI {
 		killSwitch2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton2);
 		killSwitch2.whenPressed(new KillSwitch());
 		
-		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);
+		deployIntake = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.deployIntake);
 		deployIntake.whenPressed(new ToggleIntakeDeployment());
 		
-		openIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.openIntake);
+		openIntake = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.openIntake);
 		openIntake.whileHeld(new ToggleIntakeOpeningHeld());
 		
-		raiseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.raiseShooter);
+		raiseShooter = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.raiseShooter);
 		raiseShooter.whenPressed(new ToggleShooterPosition());
 		
-		setLowScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setLowScaleRPS);
+		setLowScaleSpeed = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.setLowScaleRPS);
 		setLowScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterLowScaleSpeed, Constants.shooterLowScaleRPS));
 		
-		setMediumScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setMediumScaleRPS);
+		setMediumScaleSpeed = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.setMediumScaleRPS);
 		setMediumScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterMediumScaleSpeed, Constants.shooterMediumScaleRPS));
 		
-		setHighScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setHighScaleRPS);
+		setHighScaleSpeed = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.setHighScaleRPS);
 		setHighScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterHighScaleSpeed, Constants.shooterLowScaleRPS));
 		
-		setSwitchSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setSwitchRPS);
+		setSwitchSpeed = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.setSwitchRPS);
 		setSwitchSpeed.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed, Constants.shooterSwitchRPS));
 		
-		runShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton);
+		runShooter = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.shooterButton);
 		runShooter.whileHeld(new RunShooterManual());
 		
 		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
@@ -83,13 +85,13 @@ public class OI {
 		cubeStorageControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, -0.1);
 		cubeStorageControl2.whenPressed(new UltrasonicCubeHaltManual());
 		
-		reverseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
+		reverseShooter = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.shooterReverseButton);
 		reverseShooter.whileHeld(new ReverseShooterHeld());
 		
-		runIntakeRollerless = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.IntakeRollerlessButton);
+		runIntakeRollerless = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.IntakeRollerlessButton);
 		runIntakeRollerless.whileHeld(new RunIntakeRollerless());
 		
-		automaticIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.automaticIntakeButton);
+		automaticIntake = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.automaticIntakeButton);
 		automaticIntake.whenPressed(new AutomaticIntake());
 		
 		intakeControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, 0.1);
