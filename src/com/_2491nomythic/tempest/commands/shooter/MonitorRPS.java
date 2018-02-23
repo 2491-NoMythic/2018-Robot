@@ -17,8 +17,8 @@ public class MonitorRPS extends CommandBase {
 	 */
 	public MonitorRPS() {
 		setRunWhenDisabled(true);
-		tolerance = 0.8;
-		delayTime = 1;
+		tolerance = 1;
+		delayTime = .5;
 		threshold = .1;
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -36,7 +36,7 @@ public class MonitorRPS extends CommandBase {
 		if (shooter.getShootVelocity() >= targetRPS - tolerance) {
 			if (delay.get() > delayTime) {
 				if (shooter.getLeftShootVelocity() < targetRPS - tolerance) {
-					Variables.leftShootSpeed *= (shooter.getLeftShootVelocity() / targetRPS) + 1;
+					Variables.leftShootSpeed *= 1.1;
 					if (Variables.leftShootSpeed > Variables.shooterSpeed) {
 						Variables.leftShootSpeed += threshold;
 					}
@@ -46,7 +46,7 @@ public class MonitorRPS extends CommandBase {
 					delay.reset();
 				}
 				if (shooter.getRightShootVelocity() < targetRPS - tolerance) {
-					Variables.rightShootSpeed *= (shooter.getRightShootVelocity() / targetRPS) +1;
+					Variables.rightShootSpeed *= 1.1;
 					if (Variables.rightShootSpeed > Variables.shooterSpeed) {
 						Variables.rightShootSpeed += threshold;
 					}
@@ -58,9 +58,9 @@ public class MonitorRPS extends CommandBase {
 			}
 			if (delay.get() > delayTime) {
 				if (shooter.getLeftShootVelocity() > targetRPS + tolerance) {
-					Variables.leftShootSpeed *= (targetRPS / shooter.getLeftShootVelocity());
+					Variables.leftShootSpeed *= .95;
 					if (Variables.leftShootSpeed < Variables.shooterSpeed) {
-						Variables.leftShootSpeed -= threshold;
+						Variables.leftShootSpeed -= threshold / 2;
 					}
 					else if (Variables.leftShootSpeed > Variables.shooterSpeed) {
 						Variables.leftShootSpeed = Variables.shooterSpeed;
@@ -68,9 +68,9 @@ public class MonitorRPS extends CommandBase {
 					delay.reset();
 				}
 				if (shooter.getRightShootVelocity() > targetRPS + tolerance) {
-					Variables.rightShootSpeed *= (targetRPS / shooter.getRightShootVelocity());
+					Variables.rightShootSpeed *= .95;
 					if (Variables.rightShootSpeed < Variables.shooterSpeed) {
-						Variables.rightShootSpeed -= threshold;
+						Variables.rightShootSpeed -= threshold / 2;
 					}
 					else if (Variables.rightShootSpeed > Variables.shooterSpeed) {
 						Variables.rightShootSpeed = Variables.shooterSpeed;
