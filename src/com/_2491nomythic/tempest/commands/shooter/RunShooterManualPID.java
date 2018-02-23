@@ -4,11 +4,14 @@ import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.settings.Variables;
 
 /**
- *
+ *Runs the shooter Talons at a set speed
  */
 public class RunShooterManualPID extends CommandBase {
 
-    public RunShooterManualPID() {
+    /**
+     * Runs the shooter Talons at a set speed
+     */
+	public RunShooterManualPID() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(shooter);

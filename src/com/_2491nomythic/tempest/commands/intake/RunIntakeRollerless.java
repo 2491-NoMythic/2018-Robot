@@ -4,11 +4,14 @@ import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.settings.Variables;
 
 /**
- *
+ *Runs the intake without the roller, though why we would ever want to do that is beyond me
  */
 public class RunIntakeRollerless extends CommandBase {
 
-    public RunIntakeRollerless() {
+    /**
+     * Runs the intake without the roller, though why we would ever want to do that is beyond me
+     */
+	public RunIntakeRollerless() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }

@@ -4,11 +4,14 @@ import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.settings.Variables;
 
 /**
- *
+ *Reverses shooter direction using an operator button
  */
 public class ReverseShooterHeld extends CommandBase {
 
-    public ReverseShooterHeld() {
+    /**
+     * Reverses shooter direction using an operator button
+     */
+	public ReverseShooterHeld() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
