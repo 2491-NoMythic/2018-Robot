@@ -10,6 +10,7 @@ package com._2491nomythic.tempest;
 import com._2491nomythic.tempest.commands.AutomaticIntake;
 import com._2491nomythic.tempest.commands.KillSwitch;
 import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHaltManual;
+import com._2491nomythic.tempest.commands.intake.RunIntake;
 import com._2491nomythic.tempest.commands.intake.RunIntakeManual;
 import com._2491nomythic.tempest.commands.intake.RunIntakeRollerless;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
@@ -79,10 +80,10 @@ public class OI {
 		runShooter = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.shooterButton);
 		runShooter.whileHeld(new RunShooterManual());
 		
-		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
+		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], GuitarControllerMap.cubeStorageAxis, 0.1);
 		cubeStorageControl1.whenPressed(new UltrasonicCubeHaltManual());
 		
-		cubeStorageControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, -0.1);
+		cubeStorageControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], GuitarControllerMap.cubeStorageAxis, -0.1);
 		cubeStorageControl2.whenPressed(new UltrasonicCubeHaltManual());
 		
 		reverseShooter = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.shooterReverseButton);
@@ -94,11 +95,11 @@ public class OI {
 		automaticIntake = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.automaticIntakeButton);
 		automaticIntake.whenPressed(new AutomaticIntake());
 		
-		intakeControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, 0.1);
-		intakeControl1.whileHeld(new RunIntakeManual());
+		intakeControl1 = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.intakeAxis, true);
+		intakeControl1.whileHeld(new RunIntake(1));
 		
-		intakeControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, -0.1);
-		intakeControl2.whileHeld(new RunIntakeManual());
+		intakeControl2 = new GuitarStrumButton(controllers[ControllerMap.operatorController], GuitarControllerMap.intakeAxis, false);
+		intakeControl2.whileHeld(new RunIntake(-1));
 		
 		
 		

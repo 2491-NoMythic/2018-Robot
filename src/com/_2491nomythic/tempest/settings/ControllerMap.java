@@ -3,7 +3,7 @@ package com._2491nomythic.tempest.settings;
 /**
  * Contains all variables affecting use of controllers, to keep it in a centralized and clean location
  */
-public class ControllerMap {
+public class ControllerMap extends GuitarControllerMap {
 	
 	//Controllers
 	public static final int driveController = 0;
