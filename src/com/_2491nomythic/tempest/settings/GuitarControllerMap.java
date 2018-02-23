@@ -1,5 +1,8 @@
 package com._2491nomythic.tempest.settings;
 
+/**
+ * Controller Map that uses a Guitar Hero controller for the codriver
+ */
 public class GuitarControllerMap {
 
 	//Controllers
@@ -27,6 +30,7 @@ public class GuitarControllerMap {
 	public static final boolean[] shooterReverseButton = {true, true, true, true, true};
 	public static final boolean[] IntakeRollerlessButton = {true, true, true, true, true};
 	public static final boolean[] automaticIntakeButton = {true, true, true, true, true};
+	public static final boolean[] reverseCubeStorageButton = {true, true, true, true, true};
 	
 	//Probably not going to be used
 	
