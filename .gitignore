@@ -54,3 +54,7 @@ Temporary Items
 *.class
 *.jar
 /bin/
+
+.classpath
+
+.settings/org.eclipse.ltk.core.refactoring.prefs
