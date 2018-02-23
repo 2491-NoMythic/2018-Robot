@@ -88,7 +88,7 @@ public class Intake extends Subsystem {
 	 * Sets the intake in the frame perimeter.
 	 */
 	public void retract() {
-		if(Variables.isLowered) {
+		if(Variables.inSwitchPosition) {
 			
 		}
 		else {

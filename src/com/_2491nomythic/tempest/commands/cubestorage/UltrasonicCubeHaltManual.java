@@ -39,7 +39,7 @@ public class UltrasonicCubeHaltManual extends CommandBase {
 		}
 		
 		if (!oi.getButton(ControllerMap.operatorController, ControllerMap.shooterButton)) {
-			shooter.runAccelerate(-0.1);
+			shooter.runAccelerate(-0.3);
 		}
 	}
 

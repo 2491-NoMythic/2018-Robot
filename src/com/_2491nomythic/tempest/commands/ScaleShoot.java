@@ -37,8 +37,8 @@ public class ScaleShoot extends CommandBase {
 	protected void execute() {
 		switch(state) {
 		case 0:
-			if(!shooter.isRaised()) {
-				shooter.raise();
+			if(!shooter.inScalePosition()) {
+				shooter.setSwitchPosition();
 				wasRaised = false;
 			}
 			else {

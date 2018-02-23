@@ -18,12 +18,11 @@ public class ToggleShooterPosition extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		if (!Variables.isLowered) {
-			System.out.println(shooter.isRaised());
-			shooter.lower();
+		if (!Variables.inSwitchPosition) {
+			shooter.setSwitchPosition();
 		}
 		else {
-			shooter.raise();
+			shooter.setScalePosition();
 		}
 	}
 
