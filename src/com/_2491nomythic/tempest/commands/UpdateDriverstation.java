@@ -57,11 +57,11 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putNumber("RightAccelRPS", shooter.getRightAccelerateVelocity());
 			SmartDashboard.putNumber("AllShooterRPS", shooter.getAllMotorVelocity());
 			Constants.shooterHighScaleSpeed = SmartDashboard.getNumber("HighScalePower", Constants.shooterHighScaleSpeed);
-			Constants.shooterMediumScaleSpeed = SmartDashboard.getNumber("MediumScalePower", Constants.shooterMediumScaleSpeed);
+			Constants.shooterMediumScaleSpeed = SmartDashboard.getNumber("MedScalePower", Constants.shooterMediumScaleSpeed);
 			Constants.shooterLowScaleSpeed = SmartDashboard.getNumber("LowScalePower", Constants.shooterLowScaleSpeed);
 			Constants.shooterSwitchSpeed = SmartDashboard.getNumber("SwitchPower", Constants.shooterSwitchSpeed);
 			Constants.shooterHighScaleRPS = SmartDashboard.getNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
-			Constants.shooterMediumScaleRPS = SmartDashboard.getNumber("MediumScaleRPS", Constants.shooterMediumScaleRPS);
+			Constants.shooterMediumScaleRPS = SmartDashboard.getNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
 			Constants.shooterLowScaleRPS = SmartDashboard.getNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 			Constants.shooterSwitchRPS = SmartDashboard.getNumber("SwitchRPS", Constants.shooterSwitchRPS);
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
