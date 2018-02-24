@@ -15,7 +15,8 @@ import com._2491nomythic.tempest.commands.intake.RunIntakeRollerless;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpeningHeld;
 import com._2491nomythic.tempest.commands.shooter.ReverseShooterHeld;
-import com._2491nomythic.tempest.commands.shooter.RunShooterManual;
+import com._2491nomythic.tempest.commands.shooter.RunLeftShootPID;
+import com._2491nomythic.tempest.commands.shooter.RunRightShootPID;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.tempest.settings.Constants;
@@ -35,8 +36,8 @@ public class OI {
 	private final Joystick[] controllers = new Joystick[2];
 	
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
-	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runShooter, runIntakeRollerless;
-	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2;
+	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runIntakeRollerless;
+	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2, runShooter1, runShooter2;
 
 	public enum ControllerType {
 		Standard,
@@ -74,8 +75,11 @@ public class OI {
 		setSwitchSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setSwitchRPS);
 		setSwitchSpeed.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed, Constants.shooterSwitchRPS));
 		
-		runShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton);
-		runShooter.whileHeld(new RunShooterManual());
+		runShooter1 = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton);
+		runShooter1.whileHeld(new RunLeftShootPID());
+		
+		runShooter2 = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton);
+		runShooter2.whileHeld(new RunRightShootPID());
 		
 		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
 		cubeStorageControl1.whenPressed(new UltrasonicCubeHaltManual());

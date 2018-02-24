@@ -32,57 +32,53 @@ public class MonitorRPS extends CommandBase {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		targetRPS = Variables.shooterRPS;
-		if (shooter.getShootVelocity() >= targetRPS - tolerance) {
-			if (delay.get() > delayTime) {
-				if (shooter.getLeftShootVelocity() < targetRPS - tolerance) {
-					Variables.leftShootSpeed *= 1.1;
-					if (Variables.leftShootSpeed > Variables.shooterSpeed) {
+		if (Variables.leftShootReady && Variables.rightShootReady) {
+			Variables.readyToFire = true;
+		}
+		else {
+			Variables.readyToFire = false;
+		}
+		if (Variables.useMonitorRPS) {
+			targetRPS = Variables.shooterRPS;
+			if (shooter.getShootVelocity() >= targetRPS - tolerance) {
+				if (delay.get() > delayTime) {
+					if (shooter.getLeftShootVelocity() < targetRPS - tolerance) {
 						Variables.leftShootSpeed += threshold;
+						if (Variables.leftShootSpeed < Variables.shooterSpeed) {
+							Variables.leftShootSpeed = Variables.shooterSpeed;
+						}
+						delay.reset();
 					}
-					else if (Variables.leftShootSpeed < Variables.shooterSpeed) {
-						Variables.leftShootSpeed = Variables.shooterSpeed;
-					}
-					delay.reset();
-				}
-				if (shooter.getRightShootVelocity() < targetRPS - tolerance) {
-					Variables.rightShootSpeed *= 1.1;
-					if (Variables.rightShootSpeed > Variables.shooterSpeed) {
+					if (shooter.getRightShootVelocity() < targetRPS - tolerance) {
 						Variables.rightShootSpeed += threshold;
+						if (Variables.rightShootSpeed < Variables.shooterSpeed) {
+							Variables.rightShootSpeed = Variables.shooterSpeed;
+						}
+						delay.reset();
 					}
-					else if (Variables.rightShootSpeed < Variables.shooterSpeed) {
-						Variables.rightShootSpeed = Variables.shooterSpeed;
-					}
-					delay.reset();
 				}
-			}
-			if (delay.get() > delayTime) {
-				if (shooter.getLeftShootVelocity() > targetRPS + tolerance) {
-					Variables.leftShootSpeed *= .95;
-					if (Variables.leftShootSpeed < Variables.shooterSpeed) {
+				if (delay.get() > delayTime) {
+					if (shooter.getLeftShootVelocity() > targetRPS + tolerance) {
 						Variables.leftShootSpeed -= threshold / 2;
+						if (Variables.leftShootSpeed > Variables.shooterSpeed) {
+							Variables.leftShootSpeed = Variables.shooterSpeed;
+						}
+						delay.reset();
 					}
-					else if (Variables.leftShootSpeed > Variables.shooterSpeed) {
-						Variables.leftShootSpeed = Variables.shooterSpeed;
-					}
-					delay.reset();
-				}
-				if (shooter.getRightShootVelocity() > targetRPS + tolerance) {
-					Variables.rightShootSpeed *= .95;
-					if (Variables.rightShootSpeed < Variables.shooterSpeed) {
+					if (shooter.getRightShootVelocity() > targetRPS + tolerance) {
 						Variables.rightShootSpeed -= threshold / 2;
+						if (Variables.rightShootSpeed > Variables.shooterSpeed) {
+							Variables.rightShootSpeed = Variables.shooterSpeed;
+						}
+						delay.reset();
 					}
-					else if (Variables.rightShootSpeed > Variables.shooterSpeed) {
-						Variables.rightShootSpeed = Variables.shooterSpeed;
-					}
-					delay.reset();
 				}
-			}
-			if (Math.abs(shooter.getRightShootVelocity() - shooter.getLeftShootVelocity()) <= 0 + tolerance) {
-				Variables.readyToFire = true;
-			}
-			else {
-				Variables.readyToFire = false;
+				if (Math.abs(shooter.getRightShootVelocity() - shooter.getLeftShootVelocity()) <= 0 + tolerance) {
+					Variables.readyToFire = true;
+				}
+				else {
+					Variables.readyToFire = false;
+				}
 			}
 		}
 	}

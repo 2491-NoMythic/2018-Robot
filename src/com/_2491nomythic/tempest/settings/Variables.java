@@ -38,9 +38,16 @@ public class Variables {
 	public static double shooterRPS = Constants.shooterMediumScaleRPS;
 	public static boolean inSwitchPosition = false;
 	public static double reverseCoefficient = 1;
+	public static boolean useMonitorRPS = true;
 	
 	//Shooter PID
-	public static double shooterProportional = .08;
-	public static double shooterIntegral = 0;
-	public static double shooterDerivative = .035;
+	public static double leftShootProportional = .08;
+	public static double leftShootIntegral = 0;
+	public static double leftShootDerivative = .035;
+	public static boolean leftShootReady = false;
+	
+	public static double rightShootProportional = .075;
+	public static double rightShootIntegral = 0;
+	public static double rightShootDerivative = .04;
+	public static boolean rightShootReady = false;
 }
