@@ -58,7 +58,16 @@ public class GuitarStrumButton extends Button {
 		for (int i = 0; i < 5; i++) {
 			if (result) {
 				if (frets[i]) {
-					result = frets[i];
+					switch(i) {
+					case 3:
+						result = m_joystick.getRawButton(4);
+						break;
+					case 4:
+						result = m_joystick.getRawButton(3);
+						break;
+					default:
+						result = m_joystick.getRawButton(i);
+					}
 				}
 			}
 		}
