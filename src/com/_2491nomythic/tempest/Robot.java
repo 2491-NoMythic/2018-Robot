@@ -23,6 +23,8 @@ import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchLeft;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchRight;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeSwitch;
+import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
+import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
@@ -81,35 +83,26 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("RightSwitch", new PlaceOnSwitchRight());
 		m_chooser.addDefault("DoNothing", new DoNothing());
 		SmartDashboard.putData("Auto mode", m_chooser);
-		//SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(20));
-		//SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
+		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(20));
+		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
 		SmartDashboard.putNumber("ProportionalRotate", Variables.proportional);
 		SmartDashboard.putNumber("DerivativeRotate", Variables.derivative);
 		SmartDashboard.putNumber("ProportionalForward", Variables.proportionalForward);
 		SmartDashboard.putNumber("DerivativeForward", Variables.derivativeForward);
 		SmartDashboard.putNumber("DriveDefault", Variables.driveDefault);
 		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);
-		SmartDashboard.putData("ResetSolenoids", new ResetSolenoids());
-
-		SmartDashboard.putNumber("SwitchPower", Constants.shooterSwitchSpeed);
-		SmartDashboard.putNumber("LowScalePower", Constants.shooterLowScaleSpeed);
-		SmartDashboard.putNumber("MedScalePower", Constants.shooterMediumScaleSpeed);
-		SmartDashboard.putNumber("HighScalePower", Constants.shooterHighScaleSpeed);
-		SmartDashboard.putNumber("SwitchRPS", Constants.shooterSwitchSpeed);
-		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleSpeed);
-		SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleSpeed);
-		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleSpeed);
-
-		SmartDashboard.putNumber("SwitchPower", Constants.shooterSwitchSpeed);
-		SmartDashboard.putNumber("LowScalePower", Constants.shooterLowScaleSpeed);
-		SmartDashboard.putNumber("MediumScalePower", Constants.shooterMediumScaleSpeed);
-		SmartDashboard.putNumber("HighScalePower", Constants.shooterHighScaleSpeed);
 		SmartDashboard.putNumber("SwitchRPS", Constants.shooterSwitchRPS);
 		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 		SmartDashboard.putNumber("MediumScaleRPS", Constants.shooterMediumScaleRPS);
 		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
 		SmartDashboard.putData("AutomaticShootScale", new AutomaticShoot(true));
 		SmartDashboard.putData("AutomaticShootSwitch", new AutomaticShoot(false));
+		SmartDashboard.getNumber("LShootP", Variables.leftShootProportional);
+		SmartDashboard.getNumber("LShootI", Variables.leftShootIntegral);
+		SmartDashboard.getNumber("LShootD", Variables.leftShootDerivative);
+		SmartDashboard.getNumber("LShootP", Variables.rightShootProportional);
+		SmartDashboard.getNumber("LShootI", Variables.rightShootIntegral);
+		SmartDashboard.getNumber("LShootD", Variables.rightShootDerivative);
 		
 		System.out.println("Boot Successful");
 	}
