@@ -89,14 +89,24 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("DriveDefault", Variables.driveDefault);
 		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);
 		SmartDashboard.putData("ResetSolenoids", new ResetSolenoids());
-		SmartDashboard.putNumber("SwitchPower", Constants.shooterSwitchSpeed[0]);
-		SmartDashboard.putNumber("LowScalePower", Constants.shooterLowScaleSpeed[0]);
-		SmartDashboard.putNumber("MedScalePower", Constants.shooterMediumScaleSpeed[0]);
-		SmartDashboard.putNumber("HighScalePower", Constants.shooterHighScaleSpeed[0]);
-		SmartDashboard.putNumber("SwitchRPS", Constants.shooterSwitchSpeed[1]);
-		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleSpeed[1]);
-		SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleSpeed[1]);
-		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleSpeed[1]);
+
+		SmartDashboard.putNumber("SwitchPower", Constants.shooterSwitchSpeed);
+		SmartDashboard.putNumber("LowScalePower", Constants.shooterLowScaleSpeed);
+		SmartDashboard.putNumber("MedScalePower", Constants.shooterMediumScaleSpeed);
+		SmartDashboard.putNumber("HighScalePower", Constants.shooterHighScaleSpeed);
+		SmartDashboard.putNumber("SwitchRPS", Constants.shooterSwitchSpeed);
+		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleSpeed);
+		SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleSpeed);
+		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleSpeed);
+
+		SmartDashboard.putNumber("SwitchPower", Constants.shooterSwitchSpeed);
+		SmartDashboard.putNumber("LowScalePower", Constants.shooterLowScaleSpeed);
+		SmartDashboard.putNumber("MediumScalePower", Constants.shooterMediumScaleSpeed);
+		SmartDashboard.putNumber("HighScalePower", Constants.shooterHighScaleSpeed);
+		SmartDashboard.putNumber("SwitchRPS", Constants.shooterSwitchRPS);
+		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
+		SmartDashboard.putNumber("MediumScaleRPS", Constants.shooterMediumScaleRPS);
+		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
 		
 		System.out.println("Boot Successful");
 	}

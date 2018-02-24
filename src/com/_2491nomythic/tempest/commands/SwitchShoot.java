@@ -51,11 +51,11 @@ public class SwitchShoot extends CommandBase {
 			break;
 		case 1:
 			if(wasLowered) {
-				shooter.run(Constants.shooterSwitchSpeed[0]);   			
+				shooter.run(Constants.shooterSwitchSpeed);   			
 				state++;
 			}
 			else if (timer.get() > Constants.timeForShooterToRaise) {
-				shooter.run(Constants.shooterSwitchSpeed[0]);
+				shooter.run(Constants.shooterSwitchSpeed);
 				state++;
 			}
 			

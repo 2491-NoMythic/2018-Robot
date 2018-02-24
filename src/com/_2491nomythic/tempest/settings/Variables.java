@@ -32,13 +32,13 @@ public class Variables {
 	
 	//Shooter
 	public static boolean readyToFire = false;
-	public static double leftShootSpeed = Constants.shooterMediumScaleSpeed[0];
-	public static double rightShootSpeed = Constants.shooterMediumScaleSpeed[0];
-	public static double shooterSpeed = Constants.shooterMediumScaleSpeed[0];
-	public static double shooterRPS = Constants.shooterMediumScaleSpeed[1];
+	public static double leftShootSpeed = Constants.shooterMediumScaleSpeed;
+	public static double rightShootSpeed = Constants.shooterMediumScaleSpeed;
+	public static double shooterSpeed = Constants.shooterMediumScaleSpeed;
+	public static double shooterRPS = Constants.shooterMediumScaleRPS;
 	public static boolean inSwitchPosition = false;
 	public static double reverseCoefficient = 1;
-	public static boolean useMonitorRPS = false;
+	public static boolean useMonitorRPS = true;
 	
 	//Shooter PID
 	public static double leftShootProportional = .08;
