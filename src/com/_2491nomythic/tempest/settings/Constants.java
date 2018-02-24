@@ -30,14 +30,28 @@ public class Constants {
 	public static final int timeForShooterToSpinUp = 2; //TODO time this
 	public static final int timeForShooterToRaise = 4; //TODO time this
 	public static final int timeForShooterToFire = 2; //TODO Time this
-	public static double shooterHighScaleSpeed = .75;
-	public static double shooterMediumScaleSpeed = .65;
-	public static double shooterLowScaleSpeed = .5;
-	public static double shooterSwitchSpeed = .3;
-	public static double shooterHighScaleRPS = 90; // accelerate highscale rps = 28.5
-	public static double shooterMediumScaleRPS = 75; // accelerate medscale rps = 24.75
-	public static double shooterLowScaleRPS = 58; // accelerate lowscale rps = 19
-	public static double shooterSwitchRPS = 33; //accelerate switch rps = 11.3
+	
+	public static double[] shooterHighScaleSpeed = new double[2]; { //0th value is power, 1st value is RPS
+		shooterHighScaleSpeed[0] = .75;
+		shooterHighScaleSpeed[1] = 90;
+	}
+	public static double[] shooterMediumScaleSpeed = new double[2]; {
+		shooterMediumScaleSpeed[0] = .65;
+		shooterMediumScaleSpeed[1] = 75;
+	}
+	public static double[] shooterLowScaleSpeed = new double[2]; {
+		shooterLowScaleSpeed[0] = .5;
+		shooterLowScaleSpeed[1] = 58;
+	}
+	public static double[] shooterSwitchSpeed = new double[2]; {
+		shooterSwitchSpeed[0] = .3;
+		shooterSwitchSpeed[1] = 33;
+	}
+	/* accelerate highscale rps = 28.5
+	accelerate medscale rps = 24.75
+	accelerate lowscale rps = 19
+	accelerate switch rps = 11.3
+	*/
 	
 	//Lights
 	public static final int underglowPWM = 1;

@@ -65,7 +65,7 @@ public class AutomaticShoot extends CommandBase {
 					shooter.run(Variables.leftShootSpeed, Variables.rightShootSpeed, Variables.shooterSpeed);
 				}
 				else {
-					shooter.run(Constants.shooterSwitchSpeed);
+					shooter.run(Constants.shooterSwitchSpeed[1]);
 				}
 				state++;
 			}
@@ -74,7 +74,7 @@ public class AutomaticShoot extends CommandBase {
 					shooter.run(Variables.leftShootSpeed, Variables.rightShootSpeed, Variables.shooterSpeed);
 				}
 				else {
-					shooter.run(Constants.shooterSwitchSpeed);
+					shooter.run(Constants.shooterSwitchSpeed[0]);
 				}
 				state++;
 			}

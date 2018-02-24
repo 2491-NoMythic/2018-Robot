@@ -13,12 +13,12 @@ public class SetShooterSpeed extends CommandBase {
 	 * Sets the shooter power based on scale height.
 	 * @param shooterSpeed the height the scale is at during the time of the launch.
 	 */
-	public SetShooterSpeed(double shooterSpeed, double shooterRPS) {
+	public SetShooterSpeed(double[] shooterSpeed) {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		
-		this.shooterSpeed = shooterSpeed;
-		this.shooterRPS = shooterRPS;
+		this.shooterSpeed = shooterSpeed[0];
+		shooterRPS = shooterSpeed[1];
 	}
 
 	// Called just before this Command runs the first time
