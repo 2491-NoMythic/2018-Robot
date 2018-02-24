@@ -19,7 +19,7 @@ public class ResetSolenoids extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
     	System.out.println("Test");
-    	shooter.setSwitchPosition();
+    	shooter.raise();
     	intake.retract();
     }
 

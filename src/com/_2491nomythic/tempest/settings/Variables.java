@@ -36,7 +36,7 @@ public class Variables {
 	public static double rightShootSpeed = Constants.shooterMediumScaleSpeed;
 	public static double shooterSpeed = Constants.shooterMediumScaleSpeed;
 	public static double shooterRPS = Constants.shooterMediumScaleRPS;
-	public static boolean inSwitchPosition = false;
+	public static boolean isLowered = false;
 	public static double reverseCoefficient = 1;
 	
 	//Shooter PID

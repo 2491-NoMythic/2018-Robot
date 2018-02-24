@@ -6,8 +6,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
-import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -16,7 +15,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 public class Shooter extends PIDSubsystem {
 	private static Shooter instance;
 	private TalonSRX leftAccelerate, rightAccelerate, leftShoot, rightShoot;
-	private DoubleSolenoid elevator;
+	private Solenoid elevator;
 	private double currentPIDOutput;
 	
 	public static Shooter getInstance() {
@@ -36,7 +35,7 @@ public class Shooter extends PIDSubsystem {
 		leftShoot = new TalonSRX(Constants.shooterTalonLeftShootChannel);
 		rightShoot = new TalonSRX(Constants.shooterTalonRightShootChannel);
 		
-		elevator = new DoubleSolenoid(Constants.shooterElevatorChannelForward, Constants.shooterElevatorChannelReverse);
+		elevator = new Solenoid(Constants.shooterElevatorChannel);
 		
 		leftAccelerate.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		rightAccelerate.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
@@ -148,21 +147,21 @@ public class Shooter extends PIDSubsystem {
 	/**
 	 * Raises the shooter to shoot Power Cubes into the scale
 	 */
-	public void setScalePosition() {
-		elevator.set(Value.kReverse);
-		Variables.inSwitchPosition = false;
+	public void raise() {
+		elevator.set(false);
+		Variables.isLowered = false;
 	}
 	
 	/**
 	 * Lowers the shooter to shoot Power Cubes into the switch
 	 */
-	public void setSwitchPosition() {
+	public void lower() {
 		if(!Variables.isDeployed) {
 			System.out.println("You dun goofed");
 		}
 		else {
-			elevator.set(Value.kForward);
-			Variables.inSwitchPosition = true;
+			elevator.set(true);
+			Variables.isLowered = true;
 		}
 	}
 	
@@ -170,8 +169,8 @@ public class Shooter extends PIDSubsystem {
 	 * Checks whether the shooter is raised
 	 * @return The status of whether the shooter is raised
 	 */
-	public boolean inScalePosition() {
-		return elevator.get() == Value.kReverse;
+	public boolean isRaised() {
+		return !elevator.get();
 	}
 
 	public void initDefaultCommand() {

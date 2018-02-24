@@ -32,7 +32,7 @@ public class IntakeGroundToSwitch extends CommandBase {
 			break;
 		case 1:
 			if(cubeStorage.isHeld()) {
-				shooter.setSwitchPosition();
+				shooter.raise();
 				state++;
 			}
 			break;
