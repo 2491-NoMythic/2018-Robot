@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class AutomaticShoot extends CommandBase {
 	private int state;
 	private Timer timer;
-	private boolean scale, wasRaised;
+	private boolean scale, wasInScalePosition;
 
 	/**
 	 * Shoots a cube from the CubeStorage automatically.
@@ -36,22 +36,22 @@ public class AutomaticShoot extends CommandBase {
 		switch(state) {
 		case 0:
 			if(scale) {
-				if(!shooter.isRaised()) {
-					shooter.raise();
-					wasRaised = false;
+				if(!shooter.inScalePosition()) {
+					shooter.setScalePosition();
+					wasInScalePosition = false;
 				}
 				else {
-					wasRaised = true;
+					wasInScalePosition = true;
 				}
 				
 			}
 			else {
-				if(shooter.isRaised()) {
-					shooter.lower();
-					wasRaised = true;
+				if(shooter.inScalePosition()) {
+					shooter.setSwitchPosition();
+					wasInScalePosition = true;
 				}
 				else {
-					wasRaised = false;
+					wasInScalePosition = false;
 				}
 			}
 			
@@ -60,7 +60,7 @@ public class AutomaticShoot extends CommandBase {
 			state++;
 			break;
 		case 1:
-			if((scale && wasRaised) || (!scale && !wasRaised)) {
+			if((scale && wasInScalePosition) || (!scale && !wasInScalePosition)) {
 				if (scale) {
 					shooter.run(Variables.leftShootSpeed, Variables.rightShootSpeed, Variables.shooterSpeed);
 				}

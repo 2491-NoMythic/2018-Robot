@@ -25,7 +25,8 @@ public class Constants {
 	public static final int shooterTalonRightAccelerateChannel = 14;
 	public static final int shooterTalonLeftShootChannel = 15;
 	public static final int shooterTalonRightShootChannel = 16;
-	public static final int shooterElevatorChannel = 1;
+	public static final int shooterElevatorChannelForward = 1;
+	public static final int shooterElevatorChannelReverse = 5;
 	public static final int timeForShooterToSpinUp = 2; //TODO time this
 	public static final int timeForShooterToRaise = 4; //TODO time this
 	public static final int timeForShooterToFire = 2; //TODO Time this
@@ -35,8 +36,8 @@ public class Constants {
 	public static double shooterSwitchSpeed = .3;
 	public static double shooterHighScaleRPS = 90; // accelerate highscale rps = 28.5
 	public static double shooterMediumScaleRPS = 75; // accelerate medscale rps = 24.75
-	public static double shooterLowScaleRPS = 55; // accelerate lowscale rps = 19
-	public static double shooterSwitchRPS = 30; //accelerate switch rps = 11.3
+	public static double shooterLowScaleRPS = 58; // accelerate lowscale rps = 19
+	public static double shooterSwitchRPS = 33; //accelerate switch rps = 11.3
 	
 	//Lights
 	public static final int underglowPWM = 1;
