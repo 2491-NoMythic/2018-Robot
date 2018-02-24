@@ -7,6 +7,7 @@
 
 package com._2491nomythic.tempest;
 
+import com._2491nomythic.tempest.commands.AutomaticShoot;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
@@ -107,6 +108,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 		SmartDashboard.putNumber("MediumScaleRPS", Constants.shooterMediumScaleRPS);
 		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
+		SmartDashboard.putData("AutomaticShootScale", new AutomaticShoot(true));
+		SmartDashboard.putData("AutomaticShootSwitch", new AutomaticShoot(false));
 		
 		System.out.println("Boot Successful");
 	}
