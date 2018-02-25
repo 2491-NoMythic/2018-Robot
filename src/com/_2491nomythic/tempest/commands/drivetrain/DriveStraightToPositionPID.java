@@ -26,16 +26,16 @@ public class DriveStraightToPositionPID extends CommandBase {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		timer.start();
-		drivetrain.resetEncoders();
 		initialPosition = drivetrain.getLeftEncoderDistance();
 		Variables.useGyroPID = false;
-		drivetrain.setInputRange(-100000000, 100000000);
+		drivetrain.setInputRange(-10000, 10000);
 		drivetrain.getPIDController().setContinuous(false);
 		drivetrain.setAbsoluteTolerance(1.5);
 		drivetrain.getPIDController().setPID(Variables.proportionalForward, Variables.integralForward, Variables.derivativeForward);
 		
 		drivetrain.setSetpoint(drivetrain.getDistance() + target);
 		drivetrain.enable();
+		System.out.println("Setpoint:" + drivetrain.getDistance() + target);
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

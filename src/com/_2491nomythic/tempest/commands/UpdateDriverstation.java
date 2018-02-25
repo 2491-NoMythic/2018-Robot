@@ -47,9 +47,9 @@ public class UpdateDriverstation extends CommandBase {
 			Variables.leftShootProportional = SmartDashboard.getNumber("LShootP", Variables.leftShootProportional);
 			Variables.leftShootIntegral = SmartDashboard.getNumber("LShootI", Variables.leftShootIntegral);
 			Variables.leftShootDerivative = SmartDashboard.getNumber("LShootD", Variables.leftShootDerivative);
-			Variables.rightShootProportional = SmartDashboard.getNumber("LShootP", Variables.rightShootProportional);
-			Variables.rightShootIntegral = SmartDashboard.getNumber("LShootI", Variables.rightShootIntegral);
-			Variables.rightShootDerivative = SmartDashboard.getNumber("LShootD", Variables.rightShootDerivative);
+			Variables.rightShootProportional = SmartDashboard.getNumber("RShootP", Variables.rightShootProportional);
+			Variables.rightShootIntegral = SmartDashboard.getNumber("RShootI", Variables.rightShootIntegral);
+			Variables.rightShootDerivative = SmartDashboard.getNumber("RShootD", Variables.rightShootDerivative);
 			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
 			SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
 			SmartDashboard.putNumber("RightEncoder", drivetrain.getRightEncoderDistance());

@@ -55,7 +55,6 @@ public class RunRightShootPID extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	shooter.runAccelerate(Variables.shooterSpeed);
     	rightShootControl.setSetpoint(Variables.shooterRPS);
     	rightShootControl.setF(Variables.shooterRPS);
     	if (rightShootControl.onTarget()) {

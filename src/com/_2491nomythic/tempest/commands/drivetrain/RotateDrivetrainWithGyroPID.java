@@ -32,7 +32,6 @@ public class RotateDrivetrainWithGyroPID extends CommandBase {
 	// Called just before this Command runs the first time
 	protected void initialize() {
 		timer.start();
-		drivetrain.resetGyro();
 		initialAngle = drivetrain.getRawGyroAngle();
 		Variables.useGyroPID = true;
 		drivetrain.setInputRange(0, 360);

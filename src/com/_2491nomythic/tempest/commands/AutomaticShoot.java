@@ -1,114 +1,105 @@
 package com._2491nomythic.tempest.commands;
 
+import com._2491nomythic.tempest.commands.cubestorage.TransportCubeTime;
+import com._2491nomythic.tempest.commands.shooter.RunShooterTime;
+import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.tempest.settings.Constants;
-import com._2491nomythic.tempest.settings.Variables;
 
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * Shoots a cube from the CubeStorage automatically.
+ *
  */
 public class AutomaticShoot extends CommandBase {
-	private int state;
+	private TransportCubeTime fire;
 	private Timer timer;
-	private boolean scale, wasInScalePosition;
+	private RunShooterTime spinUp;
+	private ToggleShooterPosition shiftPosition;
+	private boolean scale;
+	private int state;
 
-	/**
-	 * Shoots a cube from the CubeStorage automatically.
-	 * @param scale True tells the shooter to launch for the scale, false tells the shooter to launch for the switch.
-	 */
-	public AutomaticShoot(boolean scale) {
-		// Use requires() here to declare subsystem dependencies
-		// eg. requires(chassis);
-		requires(shooter);
-		requires(cubeStorage);
-		this.scale = scale;
-		timer = new Timer();
-	}
+    public AutomaticShoot(boolean scale) {
+        // Use requires() here to declare subsystem dependencies
+        // eg. requires(chassis);
+    	
+    	this.scale = scale;
+    	timer = new Timer();
+    	fire = new TransportCubeTime(1, 1);
+    	shiftPosition = new ToggleShooterPosition();
+    }
 
-	// Called just before this Command runs the first time
-	protected void initialize() {
-		state = 0;
-	}
+    // Called just before this Command runs the first time
+    protected void initialize() {
+    	state = 0;
+    	
+    	if(scale) {
+    		spinUp = new RunShooterTime(Constants.shooterMediumScaleSpeed, 4);
+    	}
+    	else {
+    		spinUp = new RunShooterTime(Constants.shooterSwitchSpeed, 4);
+    	}
+    }
 
-	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
-		switch(state) {
-		case 0:
-			if(scale) {
-				if(!shooter.inScalePosition()) {
-					shooter.setScalePosition();
-					wasInScalePosition = false;
-				}
-				else {
-					wasInScalePosition = true;
-				}
-				
-			}
-			else {
-				if(shooter.inScalePosition()) {
-					shooter.setSwitchPosition();
-					wasInScalePosition = true;
-				}
-				else {
-					wasInScalePosition = false;
-				}
-			}
-			
-			timer.start();
-			timer.reset();
-			state++;
-			break;
-		case 1:
-			if((scale && wasInScalePosition) || (!scale && !wasInScalePosition)) {
-				if (scale) {
-					shooter.run(Variables.leftShootSpeed, Variables.rightShootSpeed, Variables.shooterSpeed);
-				}
-				else {
-					shooter.run(Constants.shooterSwitchSpeed);
-				}
-				state++;
-			}
-			else if (timer.get() > Constants.timeForShooterToRaise) {
-				if (scale) {
-					shooter.run(Variables.leftShootSpeed, Variables.rightShootSpeed, Variables.shooterSpeed);
-				}
-				else {
-					shooter.run(Constants.shooterSwitchSpeed);
-				}
-				state++;
-			}
-			
-			break;
-		case 2:
-			if(Variables.readyToFire) {
-				cubeStorage.run(1);
-				timer.reset();
-				state++;
-			}
-			break;
-		case 3:
-			break;
-		default:
-			System.out.println("Unexpected state in AutomaticShoot. State: " + state);
-			break;
-		}
-	}
+    // Called repeatedly when this Command is scheduled to run
+    protected void execute() {
+    		switch(state) {
+    		case 0:
+    			if(shooter.inScalePosition() && scale) {
+    				shiftPosition.start();
+    			}
+    			else if(shooter.inScalePosition() && !scale) {
+    			}
+    			else if(!shooter.inScalePosition() && !scale) {
+    				shiftPosition.start();
+    			}
+    			else {
+    			}
+    			
+    			state++;
+    			break;
+    		case 1:
+    			spinUp.start();
+    			timer.start();
+    			state++;
+    			break;
+    		case 2:
+    			System.out.print(timer.get());
+    			
+    			if(timer.get() > 3) {
+    				System.out.println("Help me");
+    				fire.start();
+    				state++;
+    			}
+    			break;
+    		case 3:
+    			if(!fire.isRunning()) {
+    				state++;
+    			}
+    			break;
+    		case 4:
+    			break;
+    		default:
+    			break;
+    		}
+    	}
+    
 
-	// Make this return true when this Command no longer needs to run execute()
-	protected boolean isFinished() {
-		return timer.get() > Constants.timeForShooterToFire;
-	}
+    // Make this return true when this Command no longer needs to run execute()
+    protected boolean isFinished() {
+        return !fire.isRunning() && state == 4;
+    }
 
-	// Called once after isFinished returns true
-	protected void end() {
-		shooter.stop();
-		cubeStorage.stop();
-	}
+    // Called once after isFinished returns true
+    protected void end() {
+    	fire.cancel();
+    	spinUp.cancel();
+    	shiftPosition.cancel();
+    }
 
-	// Called when another command which requires one or more of the same
-	// subsystems is scheduled to run
-	protected void interrupted() {
-		end();
-	}
+
+    // Called when another command which requires one or more of the same
+    // subsystems is scheduled to run
+    protected void interrupted() {
+    	end();
+    }
 }
