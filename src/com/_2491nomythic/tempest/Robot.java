@@ -7,7 +7,6 @@
 
 package com._2491nomythic.tempest;
 
-import com._2491nomythic.tempest.commands.AutomaticShoot;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
@@ -23,7 +22,6 @@ import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchLeft;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchRight;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeSwitch;
-import com._2491nomythic.tempest.commands.cubestorage.TransportCubeTime;
 import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
@@ -84,7 +82,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("RightSwitch", new PlaceOnSwitchRight());
 		m_chooser.addDefault("DoNothing", new DoNothing());
 		SmartDashboard.putData("Auto mode", m_chooser);
-		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-10));
+		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-30));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
 		SmartDashboard.putNumber("ProportionalRotate", Variables.proportional);
 		SmartDashboard.putNumber("DerivativeRotate", Variables.derivative);
@@ -94,11 +92,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);
 		SmartDashboard.putNumber("SwitchRPS", Constants.shooterSwitchRPS);
 		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
-		SmartDashboard.putNumber("MediumScaleRPS", Constants.shooterMediumScaleRPS);
+		SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
 		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
-		SmartDashboard.putData("AutoShootScale", new AutomaticShoot(true));
-		SmartDashboard.putData("AutoShootSwitch", new AutomaticShoot(false));
-		SmartDashboard.putData("TransportCubeTime", new TransportCubeTime(1, 1));
 		SmartDashboard.putNumber("LShootP", Variables.leftShootProportional);
 		SmartDashboard.putNumber("LShootI", Variables.leftShootIntegral);
 		SmartDashboard.putNumber("LShootD", Variables.leftShootDerivative);

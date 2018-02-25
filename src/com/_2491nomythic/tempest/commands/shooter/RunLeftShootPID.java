@@ -17,7 +17,7 @@ public class RunLeftShootPID extends CommandBase {
     public RunLeftShootPID() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	leftShootControl = new PIDController(Variables.leftShootProportional, Variables.leftShootIntegral, Variables.leftShootDerivative, Variables.shooterRPS, new PIDSource() {
+    	leftShootControl = new PIDController(Variables.leftShootProportional, Variables.leftShootIntegral, Variables.leftShootDerivative, Variables.shooterSpeed, new PIDSource() {
     		PIDSourceType leftShootSource = PIDSourceType.kRate;
     		
     		@Override
@@ -55,8 +55,9 @@ public class RunLeftShootPID extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	shooter.runAccelerate(Variables.shooterSpeed);
     	leftShootControl.setSetpoint(Variables.shooterRPS);
-    	leftShootControl.setF(Variables.shooterRPS);
+    	leftShootControl.setF(Variables.shooterSpeed);
     	if (leftShootControl.onTarget()) {
     		Variables.leftShootReady = true;
     	}
@@ -73,6 +74,7 @@ public class RunLeftShootPID extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
     	leftShootControl.disable();
+    	shooter.stop();
     }
 
     // Called when another command which requires one or more of the same

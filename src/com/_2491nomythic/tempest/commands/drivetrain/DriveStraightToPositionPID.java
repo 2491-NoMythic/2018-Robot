@@ -40,7 +40,7 @@ public class DriveStraightToPositionPID extends CommandBase {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return drivetrain.onTarget();
+		return false;
 	}
 
 	// Called once after isFinished returns true
