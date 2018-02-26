@@ -80,7 +80,7 @@ public class TuneProportionalMultiClass extends CommandBase {
 		higher[i] = avgAngle < destinationAngle;
 		
 		System.out.println("Average Angle: " + avgAngle);
-		proportional[i] = Variables.proportional;
+		proportional[i] = Variables.proportionalRotate;
 		System.out.println("Proportional Value: " + proportional[i]);
 	   	averageAngle[i] = avgAngle;
 		i++;
@@ -88,19 +88,19 @@ public class TuneProportionalMultiClass extends CommandBase {
 		timer.reset();
 		
 		if(!higher[i] && higher[i - 1]) {
-			Variables.proportional -= 0.0001;
+			Variables.proportionalRotate -= 0.0001;
 		}
 		else if(higher[i]  && !higher[i - 1]) {
-			Variables.proportional += 0.0001;
+			Variables.proportionalRotate += 0.0001;
 		}
 		else if(higher[i]) {
-			Variables.proportional += 0.001;
+			Variables.proportionalRotate += 0.001;
 		}
 		else {
-			Variables.proportional -= 0.001;
+			Variables.proportionalRotate -= 0.001;
 		}
 
-		drivetrain.getPIDController().setPID(Variables.proportional, Variables.integral, Variables.derivative);
+		drivetrain.getPIDController().setPID(Variables.proportionalRotate, Variables.integralRotate, Variables.derivativeRotate);
 		
 		while(timer.get() < 5) {
 			System.out.println("Resetting...");

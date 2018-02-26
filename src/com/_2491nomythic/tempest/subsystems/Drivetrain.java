@@ -36,7 +36,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * The system of motors, solenoids, encoders, and a gyro that allows us to drive the robot
 	 */
 	private Drivetrain() {
-		super("Drive", Variables.proportional, Variables.integral, Variables.derivative);
+		super("Drive", Variables.proportionalRotate, Variables.integralRotate, Variables.derivativeRotate);
 		
 		left1 = new TalonSRX(Constants.driveTalonLeft1Channel);
 		left2 = new TalonSRX(Constants.driveTalonLeft2Channel);

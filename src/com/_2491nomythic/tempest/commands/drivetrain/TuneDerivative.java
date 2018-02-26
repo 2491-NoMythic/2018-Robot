@@ -72,16 +72,16 @@ public class TuneDerivative extends CommandBase {
 		
 		//The first two make sense, but I'm not sure about the last one.
 		if(timeToReachDestination[i] > maximumAcceptedTime) {
-			Variables.derivative -= 0.01;
+			Variables.derivativeRotate -= 0.01;
 		}
 		else if(timeToReachDestination[i] > timeToReachDestination[i - 1]) {
-			Variables.derivative -= 0.001;
+			Variables.derivativeRotate -= 0.001;
 		}
 		else {
-			Variables.derivative += 0.001;
+			Variables.derivativeRotate += 0.001;
 		}
 		
-		drivetrain.getPIDController().setPID(Variables.proportional, Variables.integral, Variables.derivative);
+		drivetrain.getPIDController().setPID(Variables.proportionalRotate, Variables.integralRotate, Variables.derivativeRotate);
 		
 		errorTimer.reset();
 		

@@ -39,8 +39,8 @@ public class UpdateDriverstation extends CommandBase {
 			if (drivetrain.getEncoderRate() > maximumSpeed) {
 				maximumSpeed = drivetrain.getEncoderRate();
 			}
-			Variables.derivative = SmartDashboard.getNumber("DerivateRotate", Variables.derivative);
-			Variables.proportional = SmartDashboard.getNumber("ProportionalRotate", Variables.proportional);
+			Variables.derivativeRotate = SmartDashboard.getNumber("DerivateRotate", Variables.derivativeRotate);
+			Variables.proportionalRotate = SmartDashboard.getNumber("ProportionalRotate", Variables.proportionalRotate);
 			Variables.proportionalForward = SmartDashboard.getNumber("ProportionalForward", Variables.proportionalForward);
 			Variables.derivativeForward = SmartDashboard.getNumber("DerivativeForward", Variables.derivativeForward);
 			Variables.driveDefault = SmartDashboard.getNumber("DriveDefault", 1);
