@@ -38,6 +38,7 @@ public class Constants {
 	public static double shooterMediumScaleRPS = 75; // accelerate medscale rps = 24.75
 	public static double shooterLowScaleRPS = 58; // accelerate lowscale rps = 19
 	public static double shooterSwitchRPS = 33; //accelerate switch rps = 11.3
+	public static final double shooterMaxSpeedRPS = 117; // Approximate function of power input to RPS output: f(x) = 52.83x^2 + 31 RPS input to power output = f(x) = sqrt((x - 31) / 52.83)
 	
 	//Lights
 	public static final int underglowPWM = 1;
