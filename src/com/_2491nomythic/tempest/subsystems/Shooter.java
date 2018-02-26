@@ -55,8 +55,8 @@ public class Shooter extends PIDSubsystem {
 	 * @param speed The speed that the motors are set to run at.
 	 */
 	public void runAccelerate(double speed) {
-		leftAccelerate.set(ControlMode.PercentOutput, speed);
-		rightAccelerate.set(ControlMode.PercentOutput, -speed);
+		leftAccelerate.set(ControlMode.PercentOutput, speed * Variables.reverseCoefficient);
+		rightAccelerate.set(ControlMode.PercentOutput, -speed * Variables.reverseCoefficient);
 	}
 	
 	/**
@@ -64,8 +64,8 @@ public class Shooter extends PIDSubsystem {
 	 * @param speed The speed that the motors are set to run at.
 	 */
 	public void runShoot(double speed) {
-		leftShoot.set(ControlMode.PercentOutput, speed);
-		rightShoot.set(ControlMode.PercentOutput, speed);
+		leftShoot.set(ControlMode.PercentOutput, speed * Variables.reverseCoefficient);
+		rightShoot.set(ControlMode.PercentOutput, speed * Variables.reverseCoefficient);
 	}
 	
 	/**
@@ -78,8 +78,8 @@ public class Shooter extends PIDSubsystem {
 	}
 	
 	public void run(double leftShootSpeed, double rightShootSpeed, double accelSpeed) {
-		leftShoot.set(ControlMode.PercentOutput, leftShootSpeed);
-		rightShoot.set(ControlMode.PercentOutput, rightShootSpeed);
+		leftShoot.set(ControlMode.PercentOutput, leftShootSpeed * Variables.reverseCoefficient);
+		rightShoot.set(ControlMode.PercentOutput, rightShootSpeed * Variables.reverseCoefficient);
 		runAccelerate(accelSpeed);
 	}
 	
