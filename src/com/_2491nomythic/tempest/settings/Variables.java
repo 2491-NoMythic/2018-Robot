@@ -15,7 +15,7 @@ public class Variables {
 	//PID Constants from Watt
 	public static double proportionalRotate = 0.00625;
 	public static double integralRotate = 0.0;
-	public static double derivativeRotate= 0.0075;
+	public static double derivativeRotate = 0.0075;
 	public static double proportionalForward = 0.06;
 	public static double integralForward = 0;
 	public static double derivativeForward = 0.000;
