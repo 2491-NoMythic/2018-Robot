@@ -44,29 +44,19 @@ public class UpdateDriverstation extends CommandBase {
 			Variables.proportionalForward = SmartDashboard.getNumber("ProportionalForward", Variables.proportionalForward);
 			Variables.derivativeForward = SmartDashboard.getNumber("DerivativeForward", Variables.derivativeForward);
 			Variables.driveDefault = SmartDashboard.getNumber("DriveDefault", 1);
-			//SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
-			//SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
-			//SmartDashboard.putNumber("RightEncoder", drivetrain.getRightEncoderDistance());
-			//SmartDashboard.putNumber("Encoder Distance", drivetrain.getDistance());
+			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
+			SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
+			SmartDashboard.putNumber("RightEncoder", drivetrain.getRightEncoderDistance());
+			SmartDashboard.putNumber("Encoder Distance", drivetrain.getDistance());
 			SmartDashboard.putBoolean("ShooterReadyToFire", Variables.readyToFire);
 			//SmartDashboard.putNumber("Maximum Speed", maximumSpeed);
-			//SmartDashboard.putNumber("Ultrasonic Distance", cubeStorage.getRangeInches());
 			SmartDashboard.putNumber("LeftShootRPS", shooter.getLeftShootVelocity());
 			SmartDashboard.putNumber("RightShootRPS", shooter.getRightShootVelocity());
-			SmartDashboard.putNumber("LeftAccelRPS", shooter.getLeftAccelerateVelocity());
-			SmartDashboard.putNumber("RightAccelRPS", shooter.getRightAccelerateVelocity());
-			SmartDashboard.putNumber("AllShooterRPS", shooter.getAllMotorVelocity());
-			Constants.shooterHighScaleSpeed = SmartDashboard.getNumber("HighScalePower", Constants.shooterHighScaleSpeed);
-			Constants.shooterMediumScaleSpeed = SmartDashboard.getNumber("MedScalePower", Constants.shooterMediumScaleSpeed);
-			Constants.shooterLowScaleSpeed = SmartDashboard.getNumber("LowScalePower", Constants.shooterLowScaleSpeed);
-			Constants.shooterSwitchSpeed = SmartDashboard.getNumber("SwitchPower", Constants.shooterSwitchSpeed);
 			Constants.shooterHighScaleRPS = SmartDashboard.getNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
 			Constants.shooterMediumScaleRPS = SmartDashboard.getNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
 			Constants.shooterLowScaleRPS = SmartDashboard.getNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 			Constants.shooterSwitchRPS = SmartDashboard.getNumber("SwitchRPS", Constants.shooterSwitchRPS);
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
-			SmartDashboard.putNumber("LeftShootPower", Variables.leftShootSpeed);
-			SmartDashboard.putNumber("RightShootPower", Variables.rightShootSpeed);
 		}
 			
 		
