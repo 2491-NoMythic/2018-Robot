@@ -60,8 +60,8 @@ public class Shooter extends Subsystem {
 	 * @param speed The speed that the motors are set to run at.
 	 */
 	public void runShoot(double speed) {
-		leftShoot.set(ControlMode.PercentOutput, speed);
-		rightShoot.set(ControlMode.PercentOutput, speed);
+		leftShoot.set(ControlMode.PercentOutput, speed * Variables.reverseCoefficient);
+		rightShoot.set(ControlMode.PercentOutput, speed * Variables.reverseCoefficient);
 	}
 	
 	/**
@@ -69,8 +69,8 @@ public class Shooter extends Subsystem {
 	 * @param speed Speed to set the motors
 	 */
 	public void run(double speed) {
-		runAccelerate(speed * Variables.reverseCoefficient);
-		runShoot(speed * Variables.reverseCoefficient);
+		runAccelerate(speed);
+		runShoot(speed);
 	}
 	
 	/**
@@ -82,7 +82,7 @@ public class Shooter extends Subsystem {
 	public void run(double leftShootSpeed, double rightShootSpeed, double accelSpeed) {
 		leftShoot.set(ControlMode.PercentOutput, leftShootSpeed * Variables.reverseCoefficient);
 		rightShoot.set(ControlMode.PercentOutput, rightShootSpeed * Variables.reverseCoefficient);
-		runAccelerate(accelSpeed * Variables.reverseCoefficient);
+		runAccelerate(accelSpeed);
 	}
 	
 	/**
