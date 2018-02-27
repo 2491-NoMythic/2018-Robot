@@ -40,6 +40,16 @@ public class Constants {
 	public static double shooterSwitchRPS = 33; //accelerate switch rps = 11.3
 	public static final double shooterMaxSpeedRPS = 125; // Approximate function of power input to RPS output: f(x) = 52.83x^2 + 44.54 RPS input to power output = f(x) = sqrt((x - 44.54) / 52.83)
 	
+	public static double rightShootFeedForwardHigh = .005;
+	public static double rightShootFeedForwardMed = .00433;
+	public static double rightShootFeedForwardLow = .0033;
+	public static double rightShootFeedForwardSwitch = .002;
+	
+	public static double leftShootFeedForwardHigh = .00525;
+	public static double leftShootFeedForwardMed = .00455;
+	public static double leftShootFeedForwardLow = .0035;
+	public static double leftShootFeedForwardSwitch = .0021;
+	
 	//Lights
 	public static final int underglowPWM = 1;
 	public static final int shooterLights = 2;

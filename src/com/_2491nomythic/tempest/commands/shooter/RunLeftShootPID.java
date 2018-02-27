@@ -56,6 +56,7 @@ public class RunLeftShootPID extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	shooter.runAccelerate(Variables.shooterSpeed);
+    	leftShootControl.setF(Variables.leftShootFeedForward);
     	leftShootControl.setSetpoint(Variables.shooterRPS);
     	if (leftShootControl.onTarget()) {
     		Variables.leftShootReady = true;

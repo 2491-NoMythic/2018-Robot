@@ -44,12 +44,12 @@ public class Variables {
 	public static double leftShootProportional = .0003;
 	public static double leftShootIntegral = 0;
 	public static double leftShootDerivative = .0002;
-	public static double leftShootFeedForward = .00525;
+	public static double leftShootFeedForward = Constants.leftShootFeedForwardMed;
 	public static boolean leftShootReady = false;
 	
 	public static double rightShootProportional = .00025;
 	public static double rightShootIntegral = 0;
 	public static double rightShootDerivative = .0002;
-	public static double rightShootFeedForward = .005;
+	public static double rightShootFeedForward = Constants.rightShootFeedForwardMed;
 	public static boolean rightShootReady = false;
 }
