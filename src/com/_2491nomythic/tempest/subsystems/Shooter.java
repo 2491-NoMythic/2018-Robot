@@ -73,8 +73,8 @@ public class Shooter extends PIDSubsystem {
 	 * @param speed Speed to set the motors
 	 */
 	public void run(double speed) {
-		runAccelerate(speed * Variables.reverseCoefficient);
-		runShoot(speed * Variables.reverseCoefficient);
+		runAccelerate(speed);
+		runShoot(speed);
 	}
 	
 	public void run(double leftShootSpeed, double rightShootSpeed, double accelSpeed) {
