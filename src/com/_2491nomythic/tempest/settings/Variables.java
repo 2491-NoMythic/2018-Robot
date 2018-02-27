@@ -41,13 +41,13 @@ public class Variables {
 	public static boolean useMonitorRPS = false;
 	
 	//Shooter PID
-	public static double leftShootProportional = .0003;
+	public static double leftShootProportional = .003;
 	public static double leftShootIntegral = 0;
 	public static double leftShootDerivative = .0002;
 	public static double leftShootFeedForward = Constants.leftShootFeedForwardMed;
 	public static boolean leftShootReady = false;
 	
-	public static double rightShootProportional = .00025;
+	public static double rightShootProportional = .0025;
 	public static double rightShootIntegral = 0;
 	public static double rightShootDerivative = .0002;
 	public static double rightShootFeedForward = Constants.rightShootFeedForwardMed;
