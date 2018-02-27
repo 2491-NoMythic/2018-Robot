@@ -49,7 +49,7 @@ public class RunLeftShootPID extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	leftShootControl.setSetpoint(Variables.shooterRPS);
+    	leftShootControl.setSetpoint(Variables.shooterRPS * Variables.reverseCoefficient);
     	leftShootControl.enable();
     }
 
@@ -57,7 +57,7 @@ public class RunLeftShootPID extends CommandBase {
     protected void execute() {
     	shooter.runAccelerate(Variables.shooterSpeed);
     	leftShootControl.setF(Variables.leftShootFeedForward);
-    	leftShootControl.setSetpoint(Variables.shooterRPS);
+    	leftShootControl.setSetpoint(Variables.shooterRPS * Variables.reverseCoefficient);
     	if (leftShootControl.onTarget()) {
     		Variables.leftShootReady = true;
     	}

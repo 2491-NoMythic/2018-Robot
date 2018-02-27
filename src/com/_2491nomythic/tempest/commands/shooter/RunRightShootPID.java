@@ -49,14 +49,14 @@ public class RunRightShootPID extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	rightShootControl.setSetpoint(Variables.shooterRPS);
+    	rightShootControl.setSetpoint(Variables.shooterRPS * Variables.reverseCoefficient);
     	rightShootControl.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	rightShootControl.setF(Variables.rightShootFeedForward);
-    	rightShootControl.setSetpoint(Variables.shooterRPS);
+    	rightShootControl.setSetpoint(Variables.shooterRPS * Variables.reverseCoefficient);
     	if (rightShootControl.onTarget()) {
     		Variables.rightShootReady = true;
     	}
