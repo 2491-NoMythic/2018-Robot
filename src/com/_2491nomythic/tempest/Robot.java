@@ -94,12 +94,10 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 		SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
 		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
-		SmartDashboard.putNumber("LShootP", Variables.leftShootProportional);
-		SmartDashboard.putNumber("LShootI", Variables.leftShootIntegral);
-		SmartDashboard.putNumber("LShootD", Variables.leftShootDerivative);
-		SmartDashboard.putNumber("RShootP", Variables.rightShootProportional);
-		SmartDashboard.putNumber("RShootI", Variables.rightShootIntegral);
-		SmartDashboard.putNumber("RShootD", Variables.rightShootDerivative);
+		SmartDashboard.putNumber("LeftShootP", Variables.leftShootProportional);
+		SmartDashboard.putNumber("LeftShootD", Variables.leftShootDerivative);
+		SmartDashboard.putNumber("RightShootP", Variables.rightShootProportional);
+		SmartDashboard.putNumber("RightShootD", Variables.rightShootDerivative);
 		
 		System.out.println("Boot Successful");
 	}

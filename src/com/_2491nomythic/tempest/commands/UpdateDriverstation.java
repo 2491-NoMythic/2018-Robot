@@ -44,12 +44,10 @@ public class UpdateDriverstation extends CommandBase {
 			Variables.proportionalForward = SmartDashboard.getNumber("ProportionalForward", Variables.proportionalForward);
 			Variables.derivativeForward = SmartDashboard.getNumber("DerivativeForward", Variables.derivativeForward);
 			Variables.driveDefault = SmartDashboard.getNumber("DriveDefault", 1);
-			Variables.leftShootProportional = SmartDashboard.getNumber("LShootP", Variables.leftShootProportional);
-			Variables.leftShootIntegral = SmartDashboard.getNumber("LShootI", Variables.leftShootIntegral);
-			Variables.leftShootDerivative = SmartDashboard.getNumber("LShootD", Variables.leftShootDerivative);
-			Variables.rightShootProportional = SmartDashboard.getNumber("RShootP", Variables.rightShootProportional);
-			Variables.rightShootIntegral = SmartDashboard.getNumber("RShootI", Variables.rightShootIntegral);
-			Variables.rightShootDerivative = SmartDashboard.getNumber("RShootD", Variables.rightShootDerivative);
+			Variables.leftShootProportional = SmartDashboard.getNumber("LeftShootP", Variables.leftShootProportional);
+			Variables.leftShootDerivative = SmartDashboard.getNumber("LeftShootD", Variables.leftShootDerivative);
+			Variables.rightShootProportional = SmartDashboard.getNumber("RightShootP", Variables.rightShootProportional);
+			Variables.rightShootDerivative = SmartDashboard.getNumber("RightShootD", Variables.rightShootDerivative);
 			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
 			SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
 			SmartDashboard.putNumber("RightEncoder", drivetrain.getRightEncoderDistance());
