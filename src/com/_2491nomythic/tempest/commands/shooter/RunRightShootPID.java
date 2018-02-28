@@ -34,7 +34,7 @@ public class RunRightShootPID extends CommandBase {
     		public PIDSourceType getPIDSourceType() {
     			return rightShootSource;
     		}
-    	} ,
+    	},
     	new PIDOutput() {
 
 			@Override

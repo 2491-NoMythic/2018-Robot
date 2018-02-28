@@ -34,14 +34,13 @@ public class RunLeftShootPID extends CommandBase {
     		public PIDSourceType getPIDSourceType() {
     			return leftShootSource;
     		}
-    	} ,
+    	},
     	new PIDOutput() {
 
 			@Override
 			public void pidWrite(double output) {
 				shooter.runLeftShoot(output);
 			};
-    		
     	}
     	);
     	leftShootControl.setAbsoluteTolerance(1);
