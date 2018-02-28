@@ -32,12 +32,6 @@ public class MonitorRPS extends CommandBase {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
-		if (Variables.leftShootReady && Variables.rightShootReady) {
-			Variables.readyToFire = true;
-		}
-		else {
-			Variables.readyToFire = false;
-		}
 		if (Variables.useMonitorRPS) {
 			targetRPS = Variables.shooterRPS;
 			if (shooter.getShootVelocity() >= targetRPS - tolerance) {
@@ -79,6 +73,9 @@ public class MonitorRPS extends CommandBase {
 				else {
 					Variables.readyToFire = false;
 				}
+			}
+			else {
+				Variables.readyToFire = false;
 			}
 		}
 	}

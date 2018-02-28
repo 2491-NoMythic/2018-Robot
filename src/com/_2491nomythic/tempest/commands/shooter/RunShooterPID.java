@@ -26,6 +26,12 @@ public class RunShooterPID extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+		if (Variables.leftShootReady && Variables.rightShootReady) {
+			Variables.readyToFire = true;
+		}
+		else {
+			Variables.readyToFire = false;
+		}
     	shooter.runAccelerate(Variables.shooterSpeed);
     	runLeft.setSetPoint(Variables.shooterRPS);
     	runRight.setSetPoint(Variables.shooterRPS);
@@ -43,6 +49,7 @@ public class RunShooterPID extends CommandBase {
     	shooter.stop();
     	runLeft.cancel();
     	runRight.cancel();
+    	Variables.readyToFire = false;
     }
 
     // Called when another command which requires one or more of the same
