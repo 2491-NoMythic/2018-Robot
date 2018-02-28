@@ -33,7 +33,7 @@ public class RotateDrivetrainWithGyroPID extends CommandBase {
 		drivetrain.setInputRange(0, 360);
 		drivetrain.getPIDController().setContinuous(true);
 		drivetrain.setAbsoluteTolerance(2);
-		drivetrain.getPIDController().setPID(Variables.proportional, Variables.integral, Variables.derivative);
+		drivetrain.getPIDController().setPID(Variables.proportionalRotate, Variables.integralRotate, Variables.derivativeRotate);
 		
 		relative = ((drivetrain.getGyroAngle() + target) % 360 + 360) % 360;
 		if(type) {

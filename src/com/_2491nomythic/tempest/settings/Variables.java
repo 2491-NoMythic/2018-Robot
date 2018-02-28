@@ -12,11 +12,11 @@ public class Variables {
 	public static double driveDefault = 1;
 	public static double driveRestriction = 1;
 	
-	//PID Constants from Watt
-	public static double proportional = 0.016;
-	public static double integral = 0.0;
-	public static double derivative = 0.007;
-	public static double proportionalForward = 0.023;
+	//PID "Constants"
+	public static double proportionalRotate = 0.0025;
+	public static double integralRotate = 0.0;
+	public static double derivativeRotate = 0.02;
+	public static double proportionalForward = 0.02;
 	public static double integralForward = 0;
 	public static double derivativeForward = 0.000;
 	

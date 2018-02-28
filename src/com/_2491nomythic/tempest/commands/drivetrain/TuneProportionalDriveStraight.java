@@ -120,7 +120,7 @@ public class TuneProportionalDriveStraight extends CommandBase {
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return i >= numberOfTrials || Variables.proportional == 0;
+		return i >= numberOfTrials || Variables.proportionalRotate == 0;
 	}
 
 	// Called once after isFinished returns true
