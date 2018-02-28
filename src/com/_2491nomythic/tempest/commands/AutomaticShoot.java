@@ -63,13 +63,8 @@ public class AutomaticShoot extends CommandBase {
     			state++;
     			break;
     		case 2:
-    			System.out.print(timer.get());
-    			
-    			if(timer.get() > 3) {
-    				System.out.println("Help me");
-    				fire.start();
-    				state++;
-    			}
+    			fire.start();
+    			state++;
     			break;
     		case 3:
     			if(!fire.isRunning()) {

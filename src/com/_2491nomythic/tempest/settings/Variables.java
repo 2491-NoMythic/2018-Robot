@@ -12,13 +12,13 @@ public class Variables {
 	public static double driveDefault = 1;
 	public static double driveRestriction = 1;
 	
-	//PID Constants from Watt
+	//PID
 	public static double proportionalRotate = 0.00625;
 	public static double integralRotate = 0.0;
 	public static double derivativeRotate = 0.0075;
-	public static double proportionalForward = 0.06;
+	public static double proportionalForward = 0.02;
 	public static double integralForward = 0;
-	public static double derivativeForward = 0.000;
+	public static double derivativeForward = 0;
 	
 	public static double autoDelay;
 	public static boolean useGyroPID;
@@ -41,13 +41,13 @@ public class Variables {
 	public static boolean useMonitorRPS = false;
 	
 	//Shooter PID
-	public static double leftShootProportional = .003;
+	public static double leftShootProportional = .0003;
 	public static double leftShootIntegral = 0;
 	public static double leftShootDerivative = .0002;
 	public static double leftShootFeedForward = Constants.leftShootFeedForwardMed;
 	public static boolean leftShootReady = false;
 	
-	public static double rightShootProportional = .0025;
+	public static double rightShootProportional = .00025;
 	public static double rightShootIntegral = 0;
 	public static double rightShootDerivative = .0002;
 	public static double rightShootFeedForward = Constants.rightShootFeedForwardMed;
