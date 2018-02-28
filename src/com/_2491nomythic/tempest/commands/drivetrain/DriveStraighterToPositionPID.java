@@ -29,10 +29,13 @@ public class DriveStraighterToPositionPID extends CommandBase {
     protected void initialize() {
     	leftDrive.setSetpoint(drivetrain.getLeftEncoderDistance() + distance);
     	rightDrive.setSetpoint(drivetrain.getLeftEncoderRate());
+    	leftDrive.enable();
+    	rightDrive.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	rightDrive.setSetpoint(drivetrain.getLeftEncoderRate());
     }
 
     // Make this return true when this Command no longer needs to run execute()
