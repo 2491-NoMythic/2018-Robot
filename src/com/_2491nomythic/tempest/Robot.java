@@ -24,6 +24,7 @@ import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeSwitch;
 import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
+import com._2491nomythic.tempest.commands.lights.UpdateLights;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
@@ -44,6 +45,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 
 	Command m_autonomousCommand;
+	UpdateLights updateLights;
 	ResetSolenoids resetSolenoids;
 	UpdateDriverstation updateDriverstation;
 	MonitorRPS monitorRPS;
@@ -61,10 +63,12 @@ public class Robot extends TimedRobot {
 	public void robotInit() { 
 		CommandBase.init();
 		updateDriverstation = new UpdateDriverstation();
+		updateLights = new UpdateLights();
 		resetSolenoids = new ResetSolenoids();
 		monitorRPS = new MonitorRPS();
 		
 		updateDriverstation.start();
+		updateLights.start();
 		monitorRPS.start();
 		
 		
