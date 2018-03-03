@@ -12,16 +12,17 @@ import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
 import com._2491nomythic.tempest.commands.autonomous.CrossAutoLine;
 import com._2491nomythic.tempest.commands.autonomous.DoNothing;
-import com._2491nomythic.tempest.commands.autonomous.DriveForwardSwitch;
+/*import com._2491nomythic.tempest.commands.autonomous.DriveForwardSwitch;
 import com._2491nomythic.tempest.commands.autonomous.LeftPrioritizeScale;
 import com._2491nomythic.tempest.commands.autonomous.LeftPrioritizeSwitch;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnScaleLeft;
-import com._2491nomythic.tempest.commands.autonomous.PlaceOnScaleRight;
+import com._2491nomythic.tempest.commands.autonomous.PlaceOnScaleRight;*/
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitch;
-import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchLeft;
+import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchBounceCounter;
+/*import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchLeft;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchRight;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
-import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeSwitch;
+import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeSwitch;*/
 import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.lights.UpdateLights;
@@ -71,9 +72,11 @@ public class Robot extends TimedRobot {
 		monitorRPS.start();		
 		
 		m_chooser.addObject("DoNothing", new DoNothing());
+		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
+		m_chooser.addObject("BounceCounter", new PlaceOnSwitchBounceCounter());
+		/*
 		m_chooser.addObject("SwitchLeft", new DriveForwardSwitch(true));
 		m_chooser.addObject("SwitchRight", new DriveForwardSwitch(false));
-		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
 		m_chooser.addObject("PlaceOnScaleLeft", new PlaceOnScaleLeft());
 		m_chooser.addObject("PlaceOnScaleRight", new PlaceOnScaleRight());
 		m_chooser.addObject("LeftPrioritizeScale", new LeftPrioritizeScale());
@@ -82,7 +85,9 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("RightPrioritizeSwitch", new RightPrioritizeSwitch());
 		m_chooser.addObject("LeftSwitchPID", new PlaceOnSwitchLeft());
 		m_chooser.addObject("RightSwitchPID", new PlaceOnSwitchRight());
+		*/
 		m_chooser.addDefault("CrossAutoLine", new CrossAutoLine());
+		
 		SmartDashboard.putData("Auto mode", m_chooser);
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-20));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
