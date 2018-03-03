@@ -70,7 +70,7 @@ public class Robot extends TimedRobot {
 		updateDriverstation.start();
 		monitorRPS.start();		
 		
-		m_chooser.addObject("CrossAutoLine", new CrossAutoLine());
+		m_chooser.addObject("DoNothing", new DoNothing());
 		m_chooser.addObject("SwitchLeft", new DriveForwardSwitch(true));
 		m_chooser.addObject("SwitchRight", new DriveForwardSwitch(false));
 		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
@@ -82,7 +82,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("RightPrioritizeSwitch", new RightPrioritizeSwitch());
 		m_chooser.addObject("LeftSwitchPID", new PlaceOnSwitchLeft());
 		m_chooser.addObject("RightSwitchPID", new PlaceOnSwitchRight());
-		m_chooser.addDefault("DoNothing", new DoNothing());
+		m_chooser.addDefault("CrossAutoLine", new CrossAutoLine());
 		SmartDashboard.putData("Auto mode", m_chooser);
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-20));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
