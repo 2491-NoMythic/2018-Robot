@@ -27,6 +27,7 @@ import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.lights.UpdateLights;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
+import com._2491nomythic.tempest.commands.shooter.RunShooterManual;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
 
@@ -102,6 +103,10 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 		SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
 		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
+		SmartDashboard.putBoolean("UseMonitorRPS", Variables.useMonitorRPS);
+		SmartDashboard.putNumber("LeftShootPower", Variables.leftShootSpeed);
+		SmartDashboard.putNumber("RightShootPower", Variables.rightShootSpeed);
+		SmartDashboard.putData("RunShooter", new RunShooterManual());
 		
 		System.out.println("Boot Successful");
 	}

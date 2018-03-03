@@ -39,6 +39,7 @@ public class UpdateDriverstation extends CommandBase {
 			if (drivetrain.getEncoderRate() > maximumSpeed) {
 				maximumSpeed = drivetrain.getEncoderRate();
 			}
+			Variables.useMonitorRPS = SmartDashboard.getBoolean("UseMonitorRPS", Variables.useMonitorRPS);
 			Variables.derivativeRotate = SmartDashboard.getNumber("DerivateRotate", Variables.derivativeRotate);
 			Variables.proportionalRotate = SmartDashboard.getNumber("ProportionalRotate", Variables.proportionalRotate);
 			Variables.proportionalForward = SmartDashboard.getNumber("ProportionalForward", Variables.proportionalForward);
@@ -56,6 +57,8 @@ public class UpdateDriverstation extends CommandBase {
 			Constants.shooterLowScaleRPS = SmartDashboard.getNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 			Constants.shooterSwitchRPS = SmartDashboard.getNumber("SwitchRPS", Constants.shooterSwitchRPS);
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
+			Variables.rightShootSpeed = SmartDashboard.getNumber("RightShootPower", Variables.rightShootSpeed);
+			Variables.leftShootSpeed = SmartDashboard.getNumber("LeftShootPower", Variables.leftShootSpeed);
 		}
 			
 		

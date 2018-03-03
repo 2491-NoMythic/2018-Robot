@@ -32,6 +32,7 @@ public class MonitorRPS extends CommandBase {
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
+		if (Variables.useMonitorRPS) {
 		targetRPS = Variables.shooterRPS;
 		if (shooter.getShootVelocity() >= targetRPS - tolerance) {
 			if (delay.get() > delayTime) {
@@ -72,6 +73,7 @@ public class MonitorRPS extends CommandBase {
 					delay.reset();
 				}
 			}
+		}
 			if (Math.abs(shooter.getRightShootVelocity() - shooter.getLeftShootVelocity()) <= 0 + tolerance) {
 				Variables.readyToFire = true;
 			}
