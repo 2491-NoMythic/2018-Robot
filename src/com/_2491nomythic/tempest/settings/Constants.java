@@ -49,6 +49,9 @@ public class Constants {
 	public static final int ultrasonicPingChannel = 1;
 	public static final int ultrasonicEchoChannel = 0;
 	public static final double heldCubeRange = 5;
+	
+	//Sick Lights
+	public static final int sickLightsSolenoidChannel = 7;
 		
 	//Computation
 	public static final double driveEncoderToInches = 1.0 / 4096.0 * 6.0 * Math.PI; 
