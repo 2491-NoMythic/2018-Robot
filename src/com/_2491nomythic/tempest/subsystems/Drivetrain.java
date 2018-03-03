@@ -11,6 +11,10 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.SerialPort;
+
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
@@ -19,6 +23,7 @@ import edu.wpi.first.wpilibj.command.PIDSubsystem;
 public class Drivetrain extends PIDSubsystem {
 	private TalonSRX left1, left2, right1, right2;
 	private AHRS gyro;
+	private NetworkTable limeLight;
 	private double currentPIDOutput;
 	
 	private static Drivetrain instance;
@@ -42,10 +47,13 @@ public class Drivetrain extends PIDSubsystem {
 		right1 = new TalonSRX(Constants.driveTalonRight1Channel);
 		right2 = new TalonSRX(Constants.driveTalonRight2Channel);
 		
-		left2.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
+		left1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 				
-		//gyro = new AHRS(SerialPort.Port.kUSB);
+		gyro = new AHRS(SerialPort.Port.kUSB);
+		limeLight = NetworkTableInstance.getDefault().getTable("limelight");
+		limeLight.getEntry("ledMode").setNumber(1);
+		limeLight.getEntry("camMode").setNumber(1);
 	}
 	
 	/**
@@ -173,7 +181,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * @return The value of the left drive encoder in inches
 	 */
 	public double getLeftEncoderDistance() {
-		return -left2.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
+		return -left1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
 	}
 	
 	/**
@@ -194,7 +202,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * @return The speed of the left motor in RPS
 	 */
 	public double getLeftEncoderRate() {
-		return -left2.getSelectedSensorVelocity(0) * Constants.driveEncoderVelocityToRPS;
+		return -left1.getSelectedSensorVelocity(0) * Constants.driveEncoderVelocityToRPS;
 	}
 	
 	/**
@@ -216,21 +224,21 @@ public class Drivetrain extends PIDSubsystem {
 	 * Resets the value of the gyro to 0
 	 */
 	public void resetGyro() {
-		//gyro.reset();
+		gyro.reset();
 	}
 	
 	/**
 	 * @return The value of the gyro, corrected to a 0-360 range
 	 */
 	public double getGyroAngle(){
-		return 10; // (gyro.getAngle()  % 360 + 360) % 360;
+		return (gyro.getAngle()  % 360 + 360) % 360;
 	}	
 	
 	/**
 	 * @return The angle of the gyro, unmodified
 	 */
 	public double getRawGyroAngle(){
-		return 10; // gyro.getAngle();
+		return gyro.getAngle();
 	}
 	
 	/**
