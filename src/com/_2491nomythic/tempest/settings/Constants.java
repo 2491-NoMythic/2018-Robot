@@ -68,4 +68,6 @@ public class Constants {
 	public static final double driveMaxSpeedRPS = 8.0; //approximately
 	
 	public static final double shootEncoderVelocityToRPS = (4.0 * Math.PI) / 4096;
+	
+	public static final int sickLightsSolenoidChannel = 7;
 }

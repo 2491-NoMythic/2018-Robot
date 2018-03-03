@@ -1,5 +1,7 @@
 package com._2491nomythic.tempest.subsystems;
 
+import com._2491nomythic.tempest.settings.Constants;
+
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
@@ -21,7 +23,7 @@ public class SickLights extends Subsystem {
 	 * The system which controls the data sent to the lights.
 	 */
 	public SickLights() {
-		//activator = new Solenoid(4);
+		activator = new Solenoid(Constants.sickLightsSolenoidChannel);
 	}
 	
 	/**
@@ -30,7 +32,7 @@ public class SickLights extends Subsystem {
 	 */
 	public void set(boolean state) {
 		System.out.println("Setting lights to: " + state);
-		//activator.set(state);
+		activator.set(state);
 	}
 	
 	public void initDefaultCommand() {
