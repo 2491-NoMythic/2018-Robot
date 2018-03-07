@@ -2,81 +2,35 @@ package com._2491nomythic.tempest.commands.shooter;
 
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.settings.Variables;
-
-import edu.wpi.first.wpilibj.Timer;
+import com._2491nomythic.util.ShooterController;
 
 /**
  * Keeps track of the readiness of shooter motors for firing consistently
  */
 public class MonitorRPS extends CommandBase {
-	private double tolerance, targetRPS, delayTime, threshold;
-	private Timer delay;
-
+	private ShooterController shootControl;
 	/**
 	 * Keeps track of the readiness of shooter motors for firing consistently
 	 */
 	public MonitorRPS() {
-		setRunWhenDisabled(true);
-		tolerance = 1;
-		delayTime = .5;
-		threshold = .1;
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
-		delay = new Timer();
+		setRunWhenDisabled(true);
+		shootControl = new ShooterController(shooter, .015, Variables.rightShootFeedForward);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		delay.start();
+		shootControl.enable();
 	}
 
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		if (Variables.useMonitorRPS) {
-			targetRPS = Variables.shooterRPS;
-			if (shooter.getShootVelocity() >= targetRPS - tolerance) {
-				if (delay.get() > delayTime) {
-					if (shooter.getLeftShootVelocity() < targetRPS - tolerance) {
-						Variables.leftShootSpeed += threshold;
-						if (Variables.leftShootSpeed < Variables.shooterSpeed) {
-							Variables.leftShootSpeed = Variables.shooterSpeed;
-						}
-						delay.reset();
-					}
-					if (shooter.getRightShootVelocity() < targetRPS - tolerance) {
-						Variables.rightShootSpeed += threshold;
-						if (Variables.rightShootSpeed < Variables.shooterSpeed) {
-							Variables.rightShootSpeed = Variables.shooterSpeed;
-						}
-						delay.reset();
-					}
-				}
-				if (delay.get() > delayTime) {
-					if (shooter.getLeftShootVelocity() > targetRPS + tolerance) {
-						Variables.leftShootSpeed -= threshold / 2;
-						if (Variables.leftShootSpeed > Variables.shooterSpeed) {
-							Variables.leftShootSpeed = Variables.shooterSpeed;
-						}
-						delay.reset();
-					}
-					if (shooter.getRightShootVelocity() > targetRPS + tolerance) {
-						Variables.rightShootSpeed -= threshold / 2;
-						if (Variables.rightShootSpeed > Variables.shooterSpeed) {
-							Variables.rightShootSpeed = Variables.shooterSpeed;
-						}
-						delay.reset();
-					}
-				}
-				if (Math.abs(shooter.getRightShootVelocity() - shooter.getLeftShootVelocity()) <= 0 + tolerance) {
-					Variables.readyToFire = true;
-				}
-				else {
-					Variables.readyToFire = false;
-				}
-			}
-			else {
-				Variables.readyToFire = false;
-			}
+			shootControl.setF(Variables.rightShootFeedForward);
+			Variables.leftShootSpeed = shootControl.leftOut;
+			Variables.rightShootSpeed = shootControl.rightOut;
+			Variables.readyToFire = shootControl.onTarget();
 		}
 	}
 
@@ -87,6 +41,7 @@ public class MonitorRPS extends CommandBase {
 
 	// Called once after isFinished returns true
 	protected void end() {
+		shootControl.disable();
 	}
 
 	// Called when another command which requires one or more of the same
