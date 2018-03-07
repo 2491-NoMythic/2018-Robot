@@ -260,7 +260,7 @@ public class Drivetrain extends PIDSubsystem {
 	
 	/**
 	 * Sets the default command of the drivetrain subsystem
-	 * @param command The command to set. 1 = Drive, 2 = SilasLinearDrive, 3 = TwoStickDrive
+	 * @param command The command to set. 1 = Drive, 2 = TwoStickDrive, 3 = QuadraticDrive
 	 */
 	public void chooseDefaultCommand(double command) {
 		if (command == 1) {
