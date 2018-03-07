@@ -9,11 +9,10 @@ import com._2491nomythic.tempest.subsystems.Shooter;
  * @author Silas
  */
 public class ShooterController {
-	private double kF, kC, setPoint, tolerance;
+	private double kF, kC, setPoint, tolerance, leftOut, rightOut;
 	private Shooter source;
 	private int leftDivisor, rightDivisor;
 	private boolean hasLeftPassedAbove, hasRightPassedAbove, hasLeftPassedBelow, hasRightPassedBelow, leftStartAbove, rightStartAbove, enabled;
-	public double leftOut, rightOut;
 
 	
 	/**
@@ -257,6 +256,8 @@ public class ShooterController {
 			loopRight();
 			leftOut = calculateLeftOutput();
 			rightOut = calculateRightOutput();
+			leftSet();
+			rightSet();
 		}
 	}
 	
@@ -265,5 +266,19 @@ public class ShooterController {
 	 */
 	public void disable() {
 		enabled = false;
+	}
+	
+	/**
+	 * Sets the left side of the shooter to the calculated loop outputs
+	 */
+	public void leftSet() {
+		source.runLeftShoot(leftOut);
+	}
+	
+	/**
+	 * Sets the right side of the shooter to the calculated loop outputs
+	 */
+	public void rightSet() {
+		source.runRightShoot(rightOut);
 	}
 }

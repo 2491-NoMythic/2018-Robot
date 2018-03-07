@@ -15,7 +15,7 @@ import com._2491nomythic.tempest.commands.intake.RunIntakeRollerless;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpeningHeld;
 import com._2491nomythic.tempest.commands.shooter.ReverseShooter;
-import com._2491nomythic.tempest.commands.shooter.RunShooterPID;
+import com._2491nomythic.tempest.commands.shooter.RunShooterCustom;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.tempest.settings.Constants;
@@ -75,7 +75,7 @@ public class OI {
 		setSwitchSpeed.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed));
 		
 		runShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton);
-		runShooter.whileHeld(new RunShooterPID());
+		runShooter.whileHeld(new RunShooterCustom());
 		
 		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
 		cubeStorageControl1.whenPressed(new UltrasonicCubeHaltManual());

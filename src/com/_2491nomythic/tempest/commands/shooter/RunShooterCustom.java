@@ -2,35 +2,33 @@ package com._2491nomythic.tempest.commands.shooter;
 
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.settings.Variables;
+import com._2491nomythic.util.ShooterController;
 
 /**
  *
  */
-public class RunShooterPID extends CommandBase {
-	private RunLeftShootPID runLeft;
-	private RunRightShootPID runRight;
+public class RunShooterCustom extends CommandBase {
+	private ShooterController shootControl;
 
-    public RunShooterPID() {
+    public RunShooterCustom() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(shooter);
-    	runLeft = new RunLeftShootPID();
-    	runRight = new RunRightShootPID();
+    	shootControl = new ShooterController(shooter, .015, Variables.shootFeedForward * Math.pow(10, 2));
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	runLeft.start();
-    	runRight.start();
+    	shootControl.setTolerance(.5);
+    	shootControl.setSetPoint(Variables.shooterRPS);
+    	shootControl.enable();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	shooter.runAccelerate(Variables.shooterSpeed);
-    	runLeft.setSetPoint(Variables.shooterRPS);
-    	runRight.setSetPoint(Variables.shooterRPS);
-    	runLeft.setF(Variables.shootFeedForward);
-    	runRight.setF(Variables.shootFeedForward);
+    	shootControl.setF(Variables.shootFeedForward * Math.pow(10, 2));
+    	shootControl.setSetPoint(Variables.shooterRPS);
+    	Variables.leftShootReady = shootControl.leftOnTarget();
+    	Variables.rightShootReady = shootControl.rightOnTarget();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -40,9 +38,7 @@ public class RunShooterPID extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    	shooter.stop();
-    	runLeft.cancel();
-    	runRight.cancel();
+    	shootControl.disable();
     }
 
     // Called when another command which requires one or more of the same

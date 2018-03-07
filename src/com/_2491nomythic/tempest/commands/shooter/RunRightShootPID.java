@@ -17,7 +17,7 @@ public class RunRightShootPID extends CommandBase {
     public RunRightShootPID() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	rightShootControl = new PIDController(Variables.rightShootProportional, Variables.rightShootIntegral, Variables.rightShootDerivative, Variables.rightShootFeedForward, new PIDSource() {
+    	rightShootControl = new PIDController(Variables.rightShootProportional, Variables.rightShootIntegral, Variables.rightShootDerivative, Variables.shootFeedForward, new PIDSource() {
     		PIDSourceType rightShootSource = PIDSourceType.kRate;
     		
     		@Override

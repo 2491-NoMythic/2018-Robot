@@ -27,23 +27,19 @@ public class SetShooterSpeed extends CommandBase {
 		Variables.shooterSpeed = shooterSpeed;
 		if (shooterSpeed == Constants.shooterSwitchSpeed) {
 			Variables.shooterRPS = Constants.shooterSwitchRPS;
-			Variables.leftShootFeedForward = Constants.leftShootFeedForwardSwitch;
-			Variables.rightShootFeedForward = Constants.rightShootFeedForwardSwitch;
+			Variables.shootFeedForward = Constants.shootFeedForwardSwitch;
 		}
 		else if (shooterSpeed == Constants.shooterLowScaleSpeed) {
 			Variables.shooterRPS = Constants.shooterLowScaleRPS;
-			Variables.leftShootFeedForward = Constants.leftShootFeedForwardLow;
-			Variables.rightShootFeedForward = Constants.rightShootFeedForwardLow;
+			Variables.shootFeedForward = Constants.shootFeedForwardLow;
 		}
 		else if (shooterSpeed == Constants.shooterMediumScaleSpeed) {
 			Variables.shooterRPS = Constants.shooterMediumScaleRPS;
-			Variables.leftShootFeedForward = Constants.leftShootFeedForwardMed;
-			Variables.rightShootFeedForward = Constants.rightShootFeedForwardMed;
+			Variables.shootFeedForward = Constants.shootFeedForwardMed;
 		}
 		else if (shooterSpeed == Constants.shooterHighScaleSpeed) {
 			Variables.shooterRPS = Constants.shooterHighScaleRPS;
-			Variables.leftShootFeedForward = Constants.leftShootFeedForwardHigh;
-			Variables.rightShootFeedForward = Constants.rightShootFeedForwardHigh;
+			Variables.shootFeedForward = Constants.shootFeedForwardHigh;
 		}
 	}
 
