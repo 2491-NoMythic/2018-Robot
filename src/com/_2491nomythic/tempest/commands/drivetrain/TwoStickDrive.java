@@ -27,7 +27,7 @@ public class TwoStickDrive extends CommandBase {
 		lastRightSpeed = currentRightSpeed;
 		
 		currentLeftSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveMainAxis, 0.05);
-		currentRightSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.driveMainAxis, 0.05);
+		currentRightSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveSecondaryController, ControllerMap.driveMainAxis, 0.05);
 		
 		if (Variables.useLinearAcceleration) {
 			double leftAcceleration = (currentLeftSpeed - lastLeftSpeed);
