@@ -7,20 +7,13 @@
 
 package com._2491nomythic.tempest;
 
-import com._2491nomythic.tempest.commands.AutomaticIntake;
 import com._2491nomythic.tempest.commands.KillSwitch;
-import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHaltManual;
-import com._2491nomythic.tempest.commands.intake.RunIntakeManual;
-import com._2491nomythic.tempest.commands.intake.RunIntakeRollerless;
-import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
-import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpeningHeld;
-import com._2491nomythic.tempest.commands.shooter.ReverseShooterHeld;
-import com._2491nomythic.tempest.commands.shooter.RunShooterManual;
-import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
-import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
-import com._2491nomythic.tempest.settings.Constants;
+import com._2491nomythic.tempest.commands.buttonboard.Configure;
+import com._2491nomythic.tempest.commands.buttonboard.Input;
+import com._2491nomythic.tempest.commands.buttonboard.OpenFingers;
+import com._2491nomythic.tempest.commands.buttonboard.Output;
+import com._2491nomythic.tempest.commands.buttonboard.SpinUp;
 import com._2491nomythic.tempest.settings.ControllerMap;
-import com._2491nomythic.util.JoystickAxisButton;
 import com._2491nomythic.util.PS4Controller;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -37,6 +30,8 @@ public class OI {
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
 	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runShooter, runIntakeRollerless;
 	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2;
+	
+	Button operatorKillSwitch, output, input, configure, spinUp, fingers;
 
 	public enum ControllerType {
 		Standard,
@@ -53,52 +48,23 @@ public class OI {
 		killSwitch2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton2);
 		killSwitch2.whenPressed(new KillSwitch());
 		
-		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);
-		deployIntake.whenPressed(new ToggleIntakeDeployment());
+		operatorKillSwitch = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.killSwitchButton);
+		operatorKillSwitch.whenPressed(new KillSwitch());
 		
-		openIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.openIntake);
-		openIntake.whileHeld(new ToggleIntakeOpeningHeld());
+		configure = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.configureButton);
+		configure.whenPressed(new Configure());	
 		
-		raiseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.raiseShooter);
-		raiseShooter.whenPressed(new ToggleShooterPosition());
+		fingers = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.fingerButton);
+		fingers.whileHeld(new OpenFingers());
 		
-		setLowScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setLowScaleRPS);
-		setLowScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterLowScaleSpeed, Constants.shooterLowScaleRPS));
+		spinUp = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.spinUpButton);
+		spinUp.toggleWhenPressed(new SpinUp());
 		
-		setMediumScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setMediumScaleRPS);
-		setMediumScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterMediumScaleSpeed, Constants.shooterMediumScaleRPS));
+		input = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.inputButton);
+		input.toggleWhenPressed(new Input());
 		
-		setHighScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setHighScaleRPS);
-		setHighScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterHighScaleSpeed, Constants.shooterLowScaleRPS));
-		
-		setSwitchSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setSwitchRPS);
-		setSwitchSpeed.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed, Constants.shooterSwitchRPS));
-		
-		runShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton);
-		runShooter.whileHeld(new RunShooterManual());
-		
-		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
-		cubeStorageControl1.whenPressed(new UltrasonicCubeHaltManual());
-		
-		cubeStorageControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, -0.1);
-		cubeStorageControl2.whenPressed(new UltrasonicCubeHaltManual());
-		
-		reverseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
-		reverseShooter.whileHeld(new ReverseShooterHeld());
-		
-		runIntakeRollerless = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.IntakeRollerlessButton);
-		runIntakeRollerless.whileHeld(new RunIntakeRollerless());
-		
-		automaticIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.automaticIntakeButton);
-		automaticIntake.whenPressed(new AutomaticIntake());
-		
-		intakeControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, 0.1);
-		intakeControl1.whileHeld(new RunIntakeManual());
-		
-		intakeControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, -0.1);
-		intakeControl2.whileHeld(new RunIntakeManual());
-		
-		
+		output = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.bigRedButton);
+		output.toggleWhenPressed(new Output());
 		
 		//driverScaleShoot = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverScaleShootButton);
 		//driverScaleShoot.whileHeld(new ScaleShoot());

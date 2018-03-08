@@ -40,4 +40,7 @@ public class Variables {
 	public static double reverseCoefficient = 1;
 	public static boolean useMonitorRPS = true;
 	
+	//Buttonboard
+	public static int motorChoice;
+	
 }
