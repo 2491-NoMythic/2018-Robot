@@ -48,6 +48,9 @@ public class Input extends CommandBase {
     				intake.run(1, 1, 1);
     				cubeStorage.run(1);
     			}
+    			else {
+    				shooter.setSwitchPosition();
+    			}
     			break;
     		default:
     			if(!cubeStorage.isHeld()) {
