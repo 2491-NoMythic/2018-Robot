@@ -73,7 +73,7 @@ public class Configure extends CommandBase {
     		case 2:
     			if(timer.get() > 0.25) {
     				if(intakeHeight != -1) {
-    					intake.close();
+    					intake.retract();
     				}
     				state++;
     			}
