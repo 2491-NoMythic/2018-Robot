@@ -15,7 +15,6 @@ public class Output extends CommandBase {
     public Output() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	requires(shooter);
     	requires(cubeStorage);
     	requires(intake);
     	
