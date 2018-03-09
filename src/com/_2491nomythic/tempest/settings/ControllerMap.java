@@ -8,6 +8,7 @@ public class ControllerMap {
 	//Controllers
 	public static final int driveController = 0;
 	public static final int operatorController = 1;
+	public static final int buttonBoard = 2;
 	
 	//Driver
 	public static final int driveTurnAxis = 2;
@@ -36,5 +37,17 @@ public class ControllerMap {
 	public static final int driverScaleShootButton = 8;
 	public static final int driverAutoShootButton = 2;
 	public static final int driverSwitchShootButton = 7;
-
+	
+	//Operator Buttonboard
+	public static final int killSwitchButton = 12;
+	public static final int inputButton = 2;
+	public static final int inputAxis = 1;
+	public static final int spinUpButton = 3;
+	public static final int bigRedButton = 1;
+	public static final int outputAxis = 2;
+	public static final int configureButton = 4;
+	public static final int fingerButton = 5;
+	public static final int scaleSpeedButton1 = 6;
+	public static final int scaleSpeedButton2 = 7;
+	
 }
