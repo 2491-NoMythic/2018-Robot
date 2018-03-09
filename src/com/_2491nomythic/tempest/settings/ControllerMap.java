@@ -15,6 +15,8 @@ public class ControllerMap {
 	public static final int driveMainAxis = 1;
 	public static final int killSwitchButton1 = 11;
 	public static final int killSwitchButton2 = 12;
+	public static final int tankTurnForwardButton = 1;
+	public static final int tankTurnBackwardButton = 2;
 	
 	//Operator
 	
