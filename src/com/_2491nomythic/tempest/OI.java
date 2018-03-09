@@ -41,6 +41,7 @@ public class OI {
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		controllers[1] = new PS4Controller(ControllerMap.operatorController);
+		controllers[2] = new Joystick(ControllerMap.buttonBoard);
 		
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
 		killSwitch1.whenPressed(new KillSwitch());
@@ -48,22 +49,22 @@ public class OI {
 		killSwitch2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton2);
 		killSwitch2.whenPressed(new KillSwitch());
 		
-		operatorKillSwitch = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.killSwitchButton);
+		operatorKillSwitch = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.killSwitchButton);
 		operatorKillSwitch.whenPressed(new KillSwitch());
 		
-		configure = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.configureButton);
+		configure = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.configureButton);
 		configure.whenPressed(new Configure());	
 		
-		fingers = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.fingerButton);
+		fingers = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.fingerButton);
 		fingers.whileHeld(new OpenFingers());
 		
-		spinUp = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.spinUpButton);
+		spinUp = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.spinUpButton);
 		spinUp.toggleWhenPressed(new SpinUp());
 		
-		input = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.inputButton);
+		input = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.inputButton);
 		input.toggleWhenPressed(new Input());
 		
-		output = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.bigRedButton);
+		output = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.bigRedButton);
 		output.toggleWhenPressed(new Output());
 		
 		//driverScaleShoot = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverScaleShootButton);
