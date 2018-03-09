@@ -37,7 +37,12 @@ public class Configure extends CommandBase {
     protected void execute() {
     	switch(intakeHeight) {
     	case -1:
-    		configuredPosition = shooter.inScalePosition();
+    		if(shotHeight == -1) {
+    			configuredPosition = !shooter.inScalePosition();
+    		}
+    		else {
+    			configuredPosition = shooter.inScalePosition();
+    		}
     		break;
     	default:
     		configuredPosition = !shooter.inScalePosition();
