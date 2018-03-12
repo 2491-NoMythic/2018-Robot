@@ -94,7 +94,7 @@ public class Drivetrain extends PIDSubsystem {
 	
 	/**
 	 * Drives the robot forward or backward only
-	 * @param speed The speed of the wheels in RPS (rotations per second)
+	 * @param speed The speed of the wheels in inches per second
 	 */
 	public void driveVelocity(double speed){
 		driveVelocity(speed, speed);
@@ -102,8 +102,8 @@ public class Drivetrain extends PIDSubsystem {
 	
 	/**
 	 * Drives the robot with each set of motors receiving an individual specific speed
-	 * @param leftSpeed The speed of the left wheels in RPS (rotations per second)
-	 * @param rightSpeed The speed of the right wheels in RPS (rotations per second)
+	 * @param leftSpeed The speed of the left wheels in inches per second
+	 * @param rightSpeed The speed of the right wheels in inches per second
 	 */
 	public void driveVelocity(double leftSpeed, double rightSpeed){
 		driveLeftVelocity(leftSpeed);
@@ -112,20 +112,20 @@ public class Drivetrain extends PIDSubsystem {
 	
 	/**
 	 * Drives the left side of the robot
-	 * @param speed The speed of the wheels in RPS (rotations per second)
+	 * @param speed The speed of the wheels in inches per second
 	 */
 	public void driveLeftVelocity(double speed){
-		left1.set(ControlMode.Velocity, speed * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
-		left2.set(ControlMode.Velocity, speed  * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
+		left1.set(ControlMode.Velocity, speed * 10 / Constants.driveEncoderToInches);
+		left2.set(ControlMode.Velocity, speed * 10 / Constants.driveEncoderToInches);
 	}
 	
 	/**
 	 * Drives the right side of the robot
-	 * @param speed The speed of the wheels in RPS (rotations per second)
+	 * @param speed The speed of the wheels in inches per second
 	 */
 	public void driveRightVelocity(double speed){
-		right1.set(ControlMode.Velocity, -speed * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
-		right2.set(ControlMode.Velocity, -speed * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
+		right1.set(ControlMode.Velocity, -speed * 10 / Constants.driveEncoderToInches);
+		right2.set(ControlMode.Velocity, -speed * 10 / Constants.driveEncoderToInches);
 	}
 	
 	/**

@@ -16,6 +16,7 @@ public abstract class CommandBase extends Command {
 	protected static Shooter shooter;
 	protected static CubeStorage cubeStorage;
 	protected static SickLights sickLights;
+	protected static Pathing pathing;
 	
 	public static void init() {
 		oi = new OI();
@@ -25,6 +26,7 @@ public abstract class CommandBase extends Command {
 		shooter = Shooter.getInstance();
 		cubeStorage = CubeStorage.getInstance();
 		sickLights = SickLights.getInstance();
+		pathing = Pathing.getInstance();
 		
 		oi.init();
 		// This MUST be here. If the OI creates Commands (which it very likely
