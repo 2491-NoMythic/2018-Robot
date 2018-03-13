@@ -47,18 +47,34 @@ public class OI {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		controllers[1] = new PS4Controller(ControllerMap.operatorController);
 		
+		//Main Driver Controls
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
 		killSwitch1.whenPressed(new KillSwitch());
 		
 		killSwitch2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton2);
 		killSwitch2.whenPressed(new KillSwitch());
 		
+		//PS4 Operator Controls
+			//Intake
 		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);
 		deployIntake.whenPressed(new ToggleIntakeDeployment());
 		
 		openIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.openIntake);
 		openIntake.whileHeld(new ToggleIntakeOpeningHeld());
 		
+		intakeControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, 0.1);
+		intakeControl1.whileHeld(new RunIntakeManual());
+		
+		intakeControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, -0.1);
+		intakeControl2.whileHeld(new RunIntakeManual());
+		
+		runIntakeRollerless = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.IntakeRollerlessButton);
+		runIntakeRollerless.whileHeld(new RunIntakeRollerless());
+		
+		automaticIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.automaticIntakeButton);
+		automaticIntake.whenPressed(new AutomaticIntake());
+		
+			//Shooter
 		raiseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.raiseShooter);
 		raiseShooter.whenPressed(new ToggleShooterPosition());
 		
@@ -77,37 +93,15 @@ public class OI {
 		runShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton);
 		runShooter.whileHeld(new RunShooterCustom());
 		
+		reverseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
+		reverseShooter.whileHeld(new ReverseShooter());
+		
+			//CubeStorage
 		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
 		cubeStorageControl1.whenPressed(new UltrasonicCubeHaltManual());
 		
 		cubeStorageControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, -0.1);
 		cubeStorageControl2.whenPressed(new UltrasonicCubeHaltManual());
-		
-		reverseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
-		reverseShooter.whileHeld(new ReverseShooter());
-		
-		runIntakeRollerless = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.IntakeRollerlessButton);
-		runIntakeRollerless.whileHeld(new RunIntakeRollerless());
-		
-		automaticIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.automaticIntakeButton);
-		automaticIntake.whenPressed(new AutomaticIntake());
-		
-		intakeControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, 0.1);
-		intakeControl1.whileHeld(new RunIntakeManual());
-		
-		intakeControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, -0.1);
-		intakeControl2.whileHeld(new RunIntakeManual());
-		
-		
-		
-		//driverScaleShoot = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverScaleShootButton);
-		//driverScaleShoot.whileHeld(new ScaleShoot());
-		
-		//driverSwitchShoot = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverSwitchShootButton);
-		//driverSwitchShoot.whileHeld(new SwitchShoot());
-		
-		//driverAutoShoot = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverAutoShootButton);
-		//driverAutoShoot.whenPressed(new AutomaticShoot(true));
 	}
 	
 	/**
