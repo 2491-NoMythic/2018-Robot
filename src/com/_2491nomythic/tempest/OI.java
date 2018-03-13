@@ -57,12 +57,20 @@ public class OI {
 		controllers[1] = new PS4Controller(ControllerMap.operatorController);
 		controllers[2] = new Joystick(ControllerMap.buttonBoard);
 		
+		//Main Drive Controller
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
 		killSwitch1.whenPressed(new KillSwitch());
 		
 		killSwitch2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton2);
 		killSwitch2.whenPressed(new KillSwitch());
 		
+		tankTurnForward = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.tankTurnForwardButton);
+		tankTurnForward.whileHeld(new SuperiorForwardArcade());
+		
+		tankTurnBackward = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.tankTurnBackwardButton);
+		tankTurnBackward.whileHeld(new SuperiorBackwardArcade());
+		
+		//Button Board
 		operatorKillSwitch = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.killSwitchButton);
 		operatorKillSwitch.whenPressed(new KillSwitch());
 		
@@ -81,12 +89,7 @@ public class OI {
 		output = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.bigRedButton);
 		output.toggleWhenPressed(new Output());
 		
-		tankTurnForward = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.tankTurnForwardButton);
-		tankTurnForward.whileHeld(new SuperiorForwardArcade());
-		
-		tankTurnBackward = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.tankTurnBackwardButton);
-		tankTurnBackward.whileHeld(new SuperiorBackwardArcade());
-		
+		//PS4 Operator Controller
 		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);
 		deployIntake.whenPressed(new ToggleIntakeDeployment());
 		

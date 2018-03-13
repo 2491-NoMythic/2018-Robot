@@ -24,8 +24,8 @@ public class SpinUp extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	button1 = oi.getButton(ControllerMap.operatorController, ControllerMap.scaleSpeedButton1);
-    	button2 = oi.getButton(ControllerMap.operatorController, ControllerMap.scaleSpeedButton2);
+    	button1 = oi.getButton(ControllerMap.buttonBoard, ControllerMap.scaleSpeedButton1);
+    	button2 = oi.getButton(ControllerMap.buttonBoard, ControllerMap.scaleSpeedButton2);
     	
     	if(button1 && !button2) {
     		Variables.shooterSpeed = Constants.shooterLowScaleSpeed;
