@@ -27,7 +27,7 @@ public class Input extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	intakeHeight = (int) oi.getAxis(ControllerMap.operatorController, ControllerMap.intakeAxis);
+    	intakeHeight = (int) oi.getAxis(ControllerMap.buttonBoard, ControllerMap.inputAxis);
     	
     	switch(intakeHeight) {
     	case -1:

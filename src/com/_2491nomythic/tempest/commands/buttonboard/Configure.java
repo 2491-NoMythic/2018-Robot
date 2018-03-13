@@ -29,8 +29,8 @@ public class Configure extends CommandBase {
     	state = 0;
     	configuredPosition = false;
     	
-    	intakeHeight = (int) oi.getAxis(ControllerMap.operatorController, ControllerMap.intakeAxis);
-    	shotHeight = (int) oi.getAxis(ControllerMap.operatorController, ControllerMap.outputAxis);
+    	intakeHeight = (int) oi.getAxis(ControllerMap.buttonBoard, ControllerMap.inputAxis);
+    	shotHeight = (int) oi.getAxis(ControllerMap.buttonBoard, ControllerMap.outputAxis);
     }
 
     // Called repeatedly when this Command is scheduled to run

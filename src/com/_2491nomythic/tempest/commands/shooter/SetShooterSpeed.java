@@ -27,6 +27,7 @@ public class SetShooterSpeed extends CommandBase {
 		Variables.rightShootSpeed = shooterSpeed;
 		Variables.shooterSpeed = shooterSpeed;
 		Variables.shooterRPS = shooterRPS;
+		System.out.println("Wahoo, shooter speed has been set! Shooter Speed:" + Variables.shooterSpeed);
 	}
 
 	// Called repeatedly when this Command is scheduled to run

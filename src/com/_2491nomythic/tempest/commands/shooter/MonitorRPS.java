@@ -74,7 +74,7 @@ public class MonitorRPS extends CommandBase {
 				}
 			}
 		}
-			if (Math.abs(shooter.getRightShootVelocity() - shooter.getLeftShootVelocity()) <= 0 + tolerance) {
+			if (Math.abs(shooter.getRightShootVelocity() - shooter.getLeftShootVelocity()) <= 0 + tolerance && shooter.getLeftShootVelocity() + shooter.getRightShootVelocity() > 2 * (targetRPS - tolerance)) {
 				Variables.readyToFire = true;
 			}
 			else {
