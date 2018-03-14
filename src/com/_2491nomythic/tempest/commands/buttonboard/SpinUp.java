@@ -29,12 +29,18 @@ public class SpinUp extends CommandBase {
     	
     	if(button1 && !button2) {
     		Variables.shooterSpeed = Constants.shooterLowScaleSpeed;
+    		Variables.leftShootSpeed = Constants.shooterLowScaleSpeed;
+    		Variables.rightShootSpeed = Constants.shooterLowScaleSpeed;
     	}
     	else if(!button1 && button2) {
     		Variables.shooterSpeed = Constants.shooterHighScaleSpeed;
+    		Variables.leftShootSpeed = Constants.shooterHighScaleSpeed;
+    		Variables.rightShootSpeed = Constants.shooterHighScaleSpeed;
     	}
     	else if(!button1 && !button2) {
     		Variables.shooterSpeed = Constants.shooterMediumScaleSpeed;
+    		Variables.leftShootSpeed = Constants.shooterMediumScaleSpeed;
+    		Variables.rightShootSpeed = Constants.shooterMediumScaleSpeed;
     	}
     	else {
     		System.out.println("Check button board connections.");
@@ -47,14 +53,12 @@ public class SpinUp extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(!cubeStorage.isHeld()) {
-    		timer.start();
-    	}
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return timer.get() > 2;
+        return false;
     }
 
     // Called once after isFinished returns true

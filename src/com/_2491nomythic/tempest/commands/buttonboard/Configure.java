@@ -31,6 +31,8 @@ public class Configure extends CommandBase {
     	
     	intakeHeight = (int) oi.getAxis(ControllerMap.buttonBoard, ControllerMap.inputAxis);
     	shotHeight = (int) oi.getAxis(ControllerMap.buttonBoard, ControllerMap.outputAxis);
+    	
+    	System.out.println("Configuring for " + intakeHeight + " and " + shotHeight);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -61,7 +63,7 @@ public class Configure extends CommandBase {
     		break;
     	}
     	
-    	if(!configuredPosition) {
+    	/*if(!configuredPosition) {
     		switch(state) {
     		case 0:
     			intake.activate();
@@ -90,17 +92,18 @@ public class Configure extends CommandBase {
     			System.out.println("Invalid state in Configure. State: " + state);
     			break;
     		}
-    	}
+    	}*/
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return configuredPosition;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	
     }
 
     // Called when another command which requires one or more of the same

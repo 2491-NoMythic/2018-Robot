@@ -45,11 +45,11 @@ public class ControllerMap {
 	public static final int inputButton = 2;
 	public static final int inputAxis = 1;
 	public static final int spinUpButton = 12;
-	public static final int bigRedButton = 238;
+	public static final int bigRedButton = 6;
 	public static final int outputAxis = 0;
 	public static final int configureButton = 1;
 	public static final int fingerButton = 3;
-	public static final int scaleSpeedButton1 = 4;
-	public static final int scaleSpeedButton2 = 5;
+	public static final int scaleSpeedButton1 = 5;
+	public static final int scaleSpeedButton2 = 4;
 	
 }

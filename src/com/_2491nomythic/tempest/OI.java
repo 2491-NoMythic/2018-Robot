@@ -84,10 +84,10 @@ public class OI {
 		spinUp.toggleWhenPressed(new SpinUp());
 		
 		input = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.inputButton);
-		input.toggleWhenPressed(new Input());
+		input.whileHeld(new Input());
 		
 		output = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.bigRedButton);
-		output.toggleWhenPressed(new Output());
+		output.whileHeld(new Output());
 		
 		//PS4 Operator Controller
 		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);

@@ -41,7 +41,7 @@ public class Input extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(configuredPosition) {
+    	/*if(configuredPosition) {
     		switch(intakeHeight) {
     		case -1:
     			if(!cubeStorage.isHeld()) {
@@ -59,7 +59,7 @@ public class Input extends CommandBase {
     			break;
     		}
     	}
-    	else {
+    	else {*/
     		switch(state) {
     		case 0:
     			intake.activate();
@@ -89,7 +89,7 @@ public class Input extends CommandBase {
     			break;
     		}
     	}
-    }
+   // }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {

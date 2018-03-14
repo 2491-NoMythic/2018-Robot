@@ -2,6 +2,7 @@ package com._2491nomythic.tempest.commands;
 
 
 import com._2491nomythic.tempest.settings.Constants;
+import com._2491nomythic.tempest.settings.ControllerMap;
 import com._2491nomythic.tempest.settings.Variables;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -52,13 +53,13 @@ public class UpdateDriverstation extends CommandBase {
 			//SmartDashboard.putNumber("Maximum Speed", maximumSpeed);
 			SmartDashboard.putNumber("LeftShootRPS", shooter.getLeftShootVelocity());
 			SmartDashboard.putNumber("RightShootRPS", shooter.getRightShootVelocity());
+			SmartDashboard.putNumber("IntakeHeight", oi.getAxis(ControllerMap.buttonBoard, ControllerMap.inputAxis));
+			SmartDashboard.putNumber("ShotHeight", oi.getAxis(ControllerMap.buttonBoard, ControllerMap.outputAxis));
 			Constants.shooterHighScaleRPS = SmartDashboard.getNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
 			Constants.shooterMediumScaleRPS = SmartDashboard.getNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
 			Constants.shooterLowScaleRPS = SmartDashboard.getNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 			Constants.shooterSwitchRPS = SmartDashboard.getNumber("SwitchRPS", Constants.shooterSwitchRPS);
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
-			Variables.rightShootSpeed = SmartDashboard.getNumber("RightShootPower", Variables.rightShootSpeed);
-			Variables.leftShootSpeed = SmartDashboard.getNumber("LeftShootPower", Variables.leftShootSpeed);
 		}
 			
 		
