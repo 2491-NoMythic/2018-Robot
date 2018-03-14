@@ -25,7 +25,7 @@ import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeSwitch;*/
 import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
-import com._2491nomythic.tempest.commands.lights.UpdateLights;
+import com._2491nomythic.tempest.commands.lights.SerialConnectivityTest;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
 import com._2491nomythic.tempest.commands.shooter.RunShooterManual;
 import com._2491nomythic.tempest.settings.Constants;
@@ -48,7 +48,6 @@ public class Robot extends TimedRobot {
 
 	Command m_autonomousCommand;
 	ResetSolenoids resetSolenoids;
-	UpdateLights updateLights;
 	UpdateDriverstation updateDriverstation;
 	MonitorRPS monitorRPS;
 	
@@ -65,7 +64,6 @@ public class Robot extends TimedRobot {
 	public void robotInit() { 
 		CommandBase.init();
 		updateDriverstation = new UpdateDriverstation();
-		updateLights = new UpdateLights();
 		resetSolenoids = new ResetSolenoids();
 		monitorRPS = new MonitorRPS();
 		
@@ -93,6 +91,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-20));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
 		SmartDashboard.putData("RotateDrivetrainRelative-90", new RotateDrivetrainWithGyroPID(-90, false));
+		SmartDashboard.putData("SerialConnectivityTest", new SerialConnectivityTest());
 		SmartDashboard.putNumber("ProportionalRotate", Variables.proportionalRotate);
 		SmartDashboard.putNumber("DerivativeRotate", Variables.derivativeRotate);
 		SmartDashboard.putNumber("ProportionalForward", Variables.proportionalForward);
@@ -142,7 +141,6 @@ public class Robot extends TimedRobot {
 		Variables.autoDelay = SmartDashboard.getNumber("AutoDelay", 0);
 		
 		m_autonomousCommand = m_chooser.getSelected();
-		updateLights.start();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -177,7 +175,6 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		
-		updateLights.start();
 		isTeleop = true;		
 	}
 
