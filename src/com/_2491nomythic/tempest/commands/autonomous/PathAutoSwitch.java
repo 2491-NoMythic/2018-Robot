@@ -3,6 +3,7 @@ package com._2491nomythic.tempest.commands.autonomous;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
+import com._2491nomythic.tempest.commands.shooter.RunShooterTime;
 import com._2491nomythic.tempest.settings.Constants;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -18,21 +19,21 @@ public class PathAutoSwitch extends CommandBase {
 	Timer timer;
 	double[][] leftVelocity;
 	double[][] rightVelocity;
+	RunShooterTime shooterRun;
 
     public PathAutoSwitch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(drivetrain);
-    	requires(shooter);
     	requires(pathing);
     	timer = new Timer();
+    	shooterRun = new RunShooterTime(50, 1.5);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	timer.start();
-String gameData = DriverStation.getInstance().getGameSpecificMessage();
-		
+    	String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		switch(gameData.substring(0, 1)) {
 		case "L":
 			leftVelocity = Constants.leftVelocityCenterStartPosLeftSwitchAutoPath;
@@ -68,13 +69,7 @@ String gameData = DriverStation.getInstance().getGameSpecificMessage();
 
     // Called once after isFinished returns true
     protected void end() {
-    	shooter.run(50);
-    	try {
-			Thread.sleep(1500);
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+    	shooterRun.start();
     	shooter.stop();
     	drivetrain.stop();
     }
