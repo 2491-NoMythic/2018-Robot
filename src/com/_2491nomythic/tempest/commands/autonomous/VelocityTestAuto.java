@@ -20,6 +20,7 @@ public class VelocityTestAuto extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
     	drivetrain.driveVelocity(12, 12);
+    	System.out.println("RUNNING");
     	timer.reset();
     	timer.start();
     }
@@ -31,11 +32,12 @@ public class VelocityTestAuto extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return timer.get() >= 10;
+        return timer.get() >= 3;
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.println("STOPPED");
     	drivetrain.stop();
     }
 
