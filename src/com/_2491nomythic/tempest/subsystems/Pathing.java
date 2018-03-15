@@ -1,8 +1,6 @@
 package com._2491nomythic.tempest.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
-import java.util.LinkedList;
-import java.util.List;
 
 /**
  *
