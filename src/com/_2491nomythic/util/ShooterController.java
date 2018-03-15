@@ -117,7 +117,7 @@ public class ShooterController {
 	
 	/**
 	 * Gets left distance from setpoint
-	 * @return Distance from setpoint
+	 * @return Distance from setpoint, if negative, it is above the setpoint
 	 */
 	public double getLeftError() {
 		return setPoint - source.getLeftShootVelocity();
@@ -125,7 +125,7 @@ public class ShooterController {
 	
 	/**
 	 * Gets right distance from setpoint
-	 * @return Distance from setpoint
+	 * @return Distance from setpoint, if negative, it is above the setpoint
 	 */
 	public double getRightError() {
 		return setPoint - source.getRightShootVelocity();
@@ -144,21 +144,27 @@ public class ShooterController {
 	 * @return The output value to be fed to motors
 	 */
 	public double calculateRightOutput() {
-		return kF + ((kC * getLeftError()) / rightDivisor);
+		return kF + ((kC * getRightError()) / rightDivisor);
 	}
 	
 	/**
 	 * Checks the left side of the shooter for passes over the setpoint
 	 */
 	public void checkLeft() {
-		if (source.getLeftShootVelocity() > setPoint) {
+		if (isLeftAbove()) {
 			if (!leftStartAbove) {
 				hasLeftPassedAbove = true;
+			}
+			else {
+				hasLeftPassedAbove = false;
 			}
 		}
 		else {
 			if (leftStartAbove) {
 				hasLeftPassedBelow = true;
+			}
+			else {
+				hasLeftPassedBelow = false;
 			}
 		}
 	}
@@ -167,14 +173,20 @@ public class ShooterController {
 	 * Checks the right side of the shooter for passes over the setpoint
 	 */
 	public void checkRight() {
-		if (source.getRightShootVelocity() > setPoint) {
+		if (isRightAbove()) {
 			if (!rightStartAbove) {
 				hasRightPassedAbove = true;
+			}
+			else {
+				hasRightPassedAbove = false;
 			}
 		}
 		else {
 			if (rightStartAbove) {
 				hasRightPassedBelow = true;
+			}
+			else {
+				hasRightPassedBelow = false;
 			}
 		}
 	}
@@ -200,10 +212,10 @@ public class ShooterController {
 		hasRightPassedAbove = false;
 		hasRightPassedBelow = false;
 		if (isRightAbove()) {
-			leftStartAbove = true;
+			rightStartAbove = true;
 		}
 		else {
-			leftStartAbove = false;
+			rightStartAbove = false;
 		}
 	}
 	
