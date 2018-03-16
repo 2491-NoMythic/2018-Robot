@@ -1,5 +1,8 @@
 package com._2491nomythic.util;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import com._2491nomythic.tempest.subsystems.Shooter;
 //should probably be 3 files; one for the controller, one for the right controller, and one for the left controller
 //be wary of outputs getting too small
@@ -9,10 +12,10 @@ import com._2491nomythic.tempest.subsystems.Shooter;
  * @author Silas
  */
 public class ShooterController {
-	private double kF, kC, setPoint, tolerance;
+	private double kF, kC, setPoint, tolerance, leftDivisor, rightDivisor;
 	private Shooter source;
-	private int leftDivisor, rightDivisor;
 	private boolean hasLeftPassedAbove, hasRightPassedAbove, hasLeftPassedBelow, hasRightPassedBelow, leftStartAbove, rightStartAbove, enabled;
+	private Timer loopTimer;
 
 	
 	/**
@@ -27,6 +30,9 @@ public class ShooterController {
 		source = shooter;
 		leftDivisor = 1;
 		rightDivisor = 1;
+		loopTimer = new java.util.Timer();
+		
+		loopTimer.schedule(new LoopTask(this), 0L, 50);
 	}
 	
 	/**
@@ -249,7 +255,7 @@ public class ShooterController {
 	public void loopLeft() {
 		checkLeft();
 		if (isLeftComplete()) {
-			leftDivisor+= .5;
+			leftDivisor+= kC / 2;
 			resetLeftLoopVariables();
 		}
 	}
@@ -260,7 +266,7 @@ public class ShooterController {
 	public void loopRight() {
 		checkRight();
 		if (isRightComplete()) {
-			rightDivisor+= .5;
+			rightDivisor+= kC / 2;
 			resetRightLoopVariables();
 		}
 	}
@@ -269,7 +275,7 @@ public class ShooterController {
 	 * Runs both sides of the shooter loop
 	 * @param run Boolean that determines whether the loop stays enabled or not
 	 */
-	public void mainLoop() {
+	public void calculate() {
 		if (enabled) {
 			loopLeft();
 			loopRight();
@@ -309,5 +315,18 @@ public class ShooterController {
 	 */
 	public void rightSet(double output) {
 		source.runRightShoot(output);
+	}
+	
+	private class LoopTask extends TimerTask {
+		private ShooterController controller;
+		
+		LoopTask(ShooterController controller) {
+			this.controller = controller;
+		}
+		
+		@Override
+		public void run() {
+			controller.calculate();
+		}
 	}
 }

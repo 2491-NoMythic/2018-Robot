@@ -28,7 +28,7 @@ public class RunShooterCustom extends CommandBase {
     protected void execute() {
     	shootControl.setF(Variables.shooterSpeed);
     	shootControl.setSetPoint(Variables.shooterRPS);
-    	shootControl.mainLoop();
+    	shootControl.calculate();
     	Variables.readyToFire = shootControl.onTarget();
     }
 
