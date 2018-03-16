@@ -9,7 +9,7 @@ import com._2491nomythic.tempest.subsystems.Shooter;
  * @author Silas
  */
 public class ShooterController {
-	private double kF, kC, setPoint, tolerance, leftOut, rightOut;
+	private double kF, kC, setPoint, tolerance;
 	private Shooter source;
 	private int leftDivisor, rightDivisor;
 	private boolean hasLeftPassedAbove, hasRightPassedAbove, hasLeftPassedBelow, hasRightPassedBelow, leftStartAbove, rightStartAbove, enabled;
@@ -220,10 +220,18 @@ public class ShooterController {
 	}
 	
 	/**
+	 * Resets all loop variables, when disabling
+	 */
+	public void resetLoopVariables() {
+		resetLeftLoopVariables();
+		resetRightLoopVariables();
+	}
+	
+	/**
 	 * Checks the left loop variables
 	 * @return True if both left loop variables are true
 	 */
-	public boolean checkLoopLeft() {
+	public boolean isLeftComplete() {
 		return hasLeftPassedAbove && hasLeftPassedBelow;
 	}
 	
@@ -231,7 +239,7 @@ public class ShooterController {
 	 * Checks the right loop variables
 	 * @return True if both right loop variables are true
 	 */
-	public boolean checkLoopRight() {
+	public boolean isRightComplete() {
 		return hasRightPassedAbove && hasRightPassedBelow;
 	}
 	
@@ -240,8 +248,8 @@ public class ShooterController {
 	 */
 	public void loopLeft() {
 		checkLeft();
-		if (checkLoopLeft()) {
-			leftDivisor++;
+		if (isLeftComplete()) {
+			leftDivisor+= .5;
 			resetLeftLoopVariables();
 		}
 	}
@@ -251,8 +259,8 @@ public class ShooterController {
 	 */
 	public void loopRight() {
 		checkRight();
-		if (checkLoopRight()) {
-			rightDivisor++;
+		if (isRightComplete()) {
+			rightDivisor+= .5;
 			resetRightLoopVariables();
 		}
 	}
@@ -261,16 +269,20 @@ public class ShooterController {
 	 * Runs both sides of the shooter loop
 	 * @param run Boolean that determines whether the loop stays enabled or not
 	 */
-	public void enable() {
-		enabled = true;
-		while (enabled) {
+	public void mainLoop() {
+		if (enabled) {
 			loopLeft();
 			loopRight();
-			leftOut = calculateLeftOutput();
-			rightOut = calculateRightOutput();
-			leftSet();
-			rightSet();
+			leftSet(calculateLeftOutput());
+			rightSet(calculateRightOutput());
 		}
+	}
+	
+	/**
+	 * Enables the control loop
+	 */
+	public void enable() {
+		enabled = true;
 	}
 	
 	/**
@@ -278,19 +290,24 @@ public class ShooterController {
 	 */
 	public void disable() {
 		enabled = false;
+		resetLoopVariables();
+		leftSet(0);
+		rightSet(0);
 	}
 	
 	/**
-	 * Sets the left side of the shooter to the calculated loop outputs
+	 * Sets the left side of the shooter to the given loop outputs
+	 * @param output The output to set the left shoot motor to
 	 */
-	public void leftSet() {
-		source.runLeftShoot(leftOut);
+	public void leftSet(double output) {
+		source.runLeftShoot(output);
 	}
 	
 	/**
 	 * Sets the right side of the shooter to the calculated loop outputs
+	 * @param output The output to set the right shoot motor to
 	 */
-	public void rightSet() {
-		source.runRightShoot(rightOut);
+	public void rightSet(double output) {
+		source.runRightShoot(output);
 	}
 }

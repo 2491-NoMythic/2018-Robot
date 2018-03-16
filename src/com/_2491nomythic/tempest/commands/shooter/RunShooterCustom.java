@@ -13,7 +13,8 @@ public class RunShooterCustom extends CommandBase {
     public RunShooterCustom() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	shootControl = new ShooterController(shooter, .015, Variables.shootFeedForward * Math.pow(10, 2));
+    	requires(shooter);
+    	shootControl = new ShooterController(shooter, .015, Variables.shooterSpeed);
     }
 
     // Called just before this Command runs the first time
@@ -25,10 +26,10 @@ public class RunShooterCustom extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	shootControl.setF(Variables.shootFeedForward * Math.pow(10, 2));
+    	shootControl.setF(Variables.shooterSpeed);
     	shootControl.setSetPoint(Variables.shooterRPS);
-    	Variables.leftShootReady = shootControl.leftOnTarget();
-    	Variables.rightShootReady = shootControl.rightOnTarget();
+    	shootControl.mainLoop();
+    	Variables.readyToFire = shootControl.onTarget();
     }
 
     // Make this return true when this Command no longer needs to run execute()
