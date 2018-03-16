@@ -2,7 +2,6 @@ package com._2491nomythic.util;
 
 import java.util.Timer;
 import java.util.TimerTask;
-
 import com._2491nomythic.tempest.subsystems.Shooter;
 //should probably be 3 files; one for the controller, one for the right controller, and one for the left controller
 //be wary of outputs getting too small
@@ -17,6 +16,18 @@ public class ShooterController {
 	private boolean hasLeftPassedAbove, hasRightPassedAbove, hasLeftPassedBelow, hasRightPassedBelow, leftStartAbove, rightStartAbove, enabled;
 	private Timer loopTimer;
 
+	private class LoopTask extends TimerTask {
+		private ShooterController controller;
+		
+		LoopTask(ShooterController controller) {
+			this.controller = controller;
+		}
+		
+		@Override
+		public void run() {
+			controller.calculate();
+		}
+	}
 	
 	/**
 	 * The framework that allows processing of shooter values through a custom control loop
@@ -292,7 +303,7 @@ public class ShooterController {
 	}
 	
 	/**
-	 * Disables the current control loop
+	 * Disables the current control loop, resetting the loop variables and setting the output to zero in the process
 	 */
 	public void disable() {
 		enabled = false;
@@ -315,18 +326,5 @@ public class ShooterController {
 	 */
 	public void rightSet(double output) {
 		source.runRightShoot(output);
-	}
-	
-	private class LoopTask extends TimerTask {
-		private ShooterController controller;
-		
-		LoopTask(ShooterController controller) {
-			this.controller = controller;
-		}
-		
-		@Override
-		public void run() {
-			controller.calculate();
-		}
 	}
 }
