@@ -122,8 +122,8 @@ public class Drivetrain extends PIDSubsystem {
 	 */
 	public void driveLeftVelocity(double speed){
 		System.out.println("Driving at:" + speed /10 / Constants.driveEncoderToInches);
-		left1.set(ControlMode.Velocity, speed / 10 / Constants.driveEncoderToInches);
-		left2.set(ControlMode.Velocity, speed / 10 / Constants.driveEncoderToInches);
+		left1.set(ControlMode.Velocity, speed / 10 * Constants.testEndcoderTicksToInches);
+		left2.set(ControlMode.Velocity, speed / 10 * Constants.testEndcoderTicksToInches);
 	}
 	
 	/**
@@ -132,8 +132,8 @@ public class Drivetrain extends PIDSubsystem {
 	 */
 	public void driveRightVelocity(double speed){
 		System.out.println("Driving at:" + speed / 10 / Constants.driveEncoderToInches);
-		right1.set(ControlMode.Velocity, -speed / 10 / Constants.driveEncoderToInches);
-		right2.set(ControlMode.Velocity, -speed / 10 / Constants.driveEncoderToInches);
+		right1.set(ControlMode.Velocity, -speed / 10 * Constants.testEndcoderTicksToInches);
+		right2.set(ControlMode.Velocity, -speed / 10 * Constants.testEndcoderTicksToInches);
 	}
 	
 	/**
