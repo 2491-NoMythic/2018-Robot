@@ -55,8 +55,11 @@ public class Drivetrain extends PIDSubsystem {
 		limeLight.getEntry("ledMode").setNumber(1);
 		limeLight.getEntry("camMode").setNumber(1);
 		
-		left1.config_kP(0, 1 , 10);
-		right1.config_kP(0, 1, 10);
+		left1.setSensorPhase(true);
+		right1.setSensorPhase(true);
+		
+		left1.config_kP(0, .05, 10);
+		right1.config_kP(0, .05, 10);
 	}
 	
 	/**
@@ -91,7 +94,6 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveRightPercentOutput(double speed){
-		System.out.println("RUNNING PERCENT OUTPUTS" + speed);
 		right1.set(ControlMode.PercentOutput, -speed * Variables.driveRestriction);
 		right2.set(ControlMode.PercentOutput, -speed * Variables.driveRestriction);
 	}
@@ -119,9 +121,9 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The speed of the wheels in inches per second
 	 */
 	public void driveLeftVelocity(double speed){
-		System.out.println("Driving at:" + speed * 10 / Constants.driveEncoderToInches);
-		left1.set(ControlMode.Velocity, speed * 10 / Constants.driveEncoderToInches);
-		left2.set(ControlMode.Velocity, speed * 10 / Constants.driveEncoderToInches);
+		System.out.println("Driving at:" + speed /10 / Constants.driveEncoderToInches);
+		left1.set(ControlMode.Velocity, speed / 10 / Constants.driveEncoderToInches);
+		left2.set(ControlMode.Velocity, speed / 10 / Constants.driveEncoderToInches);
 	}
 	
 	/**
@@ -129,9 +131,9 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The speed of the wheels in inches per second
 	 */
 	public void driveRightVelocity(double speed){
-		System.out.println("Driving at:" + speed * 10 / Constants.driveEncoderToInches);
-		right1.set(ControlMode.Velocity, -speed * 10 / Constants.driveEncoderToInches);
-		right2.set(ControlMode.Velocity, -speed * 10 / Constants.driveEncoderToInches);
+		System.out.println("Driving at:" + speed / 10 / Constants.driveEncoderToInches);
+		right1.set(ControlMode.Velocity, -speed / 10 / Constants.driveEncoderToInches);
+		right2.set(ControlMode.Velocity, -speed / 10 / Constants.driveEncoderToInches);
 	}
 	
 	/**
@@ -188,6 +190,16 @@ public class Drivetrain extends PIDSubsystem {
 	 */
 	public double getLeftEncoderDistance() {
 		return -left1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
+	}
+	
+	//TODO Write JavaDocs if pushed.
+	
+	public double getLeftEncoderDistanceRaw() {
+		return -left1.getSelectedSensorPosition(0);
+	}
+	
+	public double getRightEncoderDistanceRaw() {
+		return right1.getSelectedSensorPosition(0);
 	}
 	
 	/**
