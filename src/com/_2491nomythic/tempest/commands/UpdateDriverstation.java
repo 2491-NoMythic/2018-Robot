@@ -3,6 +3,7 @@ package com._2491nomythic.tempest.commands;
 
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
+import com._2491nomythic.tempest.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -39,6 +40,8 @@ public class UpdateDriverstation extends CommandBase {
 			if (drivetrain.getEncoderRate() > maximumSpeed) {
 				maximumSpeed = drivetrain.getEncoderRate();
 			}
+			SmartDashboard.putNumber("ENCODER IN TICS RIGHT", drivetrain.getRightEncoderDistanceRaw());
+			SmartDashboard.putNumber("ENCODER IN TICS LEFT", drivetrain.getRightEncoderDistanceRaw());
 			Variables.useMonitorRPS = SmartDashboard.getBoolean("UseMonitorRPS", Variables.useMonitorRPS);
 			Variables.derivativeRotate = SmartDashboard.getNumber("DerivateRotate", Variables.derivativeRotate);
 			Variables.proportionalRotate = SmartDashboard.getNumber("ProportionalRotate", Variables.proportionalRotate);

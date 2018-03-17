@@ -93,6 +93,7 @@ public class Robot extends TimedRobot {
 		*/
 		m_chooser.addDefault("CrossAutoLine", new CrossAutoLine());
 		
+		
 		SmartDashboard.putData("Auto mode", m_chooser);
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-20));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
@@ -111,6 +112,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("LeftShootPower", Variables.leftShootSpeed);
 		SmartDashboard.putNumber("RightShootPower", Variables.rightShootSpeed);
 		SmartDashboard.putData("RunShooter", new RunShooterManual());
+		
 		
 		System.out.println("Boot Successful");
 	}

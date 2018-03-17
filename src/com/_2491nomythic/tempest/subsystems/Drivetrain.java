@@ -192,7 +192,7 @@ public class Drivetrain extends PIDSubsystem {
 		return -left1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
 	}
 	
-	//TODO Write JavaDocs if pushed.
+	//TODO Write JavaDocs if pushed
 	
 	public double getLeftEncoderDistanceRaw() {
 		return -left1.getSelectedSensorPosition(0);
