@@ -1,7 +1,6 @@
 package com._2491nomythic.tempest.commands;
 
 
-import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
 
 import edu.wpi.first.wpilibj.Timer;
@@ -54,10 +53,11 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putBoolean("ShooterReadyToFire", Variables.readyToFire);
 			SmartDashboard.putNumber("LeftShootRPS", shooter.getLeftShootVelocity());
 			SmartDashboard.putNumber("RightShootRPS", shooter.getRightShootVelocity());
-			Constants.shooterHighScaleRPS = SmartDashboard.getNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
-			Constants.shooterMediumScaleRPS = SmartDashboard.getNumber("MediumScaleRPS", Constants.shooterMediumScaleRPS);
-			Constants.shooterLowScaleRPS = SmartDashboard.getNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
-			Constants.shooterSwitchRPS = SmartDashboard.getNumber("SwitchRPS", Constants.shooterSwitchRPS);
+			SmartDashboard.putNumber("ShooterSpeed", Variables.shooterSpeed);
+			//Constants.shooterHighScaleRPS = SmartDashboard.getNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
+			//Constants.shooterMediumScaleRPS = SmartDashboard.getNumber("MediumScaleRPS", Constants.shooterMediumScaleRPS);
+			//Constants.shooterLowScaleRPS = SmartDashboard.getNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
+			//Constants.shooterSwitchRPS = SmartDashboard.getNumber("SwitchRPS", Constants.shooterSwitchRPS);
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
 		}
 			

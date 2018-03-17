@@ -26,7 +26,6 @@ import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.lights.UpdateLights;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
-import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -94,10 +93,10 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("DerivativeForward", Variables.derivativeForward);
 		SmartDashboard.putNumber("DriveDefault", Variables.driveDefault);
 		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);
-		SmartDashboard.putNumber("SwitchRPS", Constants.shooterSwitchRPS);
-		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
-		SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
-		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
+		//SmartDashboard.putNumber("SwitchRPS", Constants.shooterSwitchRPS);
+		//SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
+		//SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
+		//SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
 		SmartDashboard.putNumber("LeftShootP", Variables.leftShootProportional);
 		SmartDashboard.putNumber("LeftShootD", Variables.leftShootDerivative);
 		SmartDashboard.putNumber("RightShootP", Variables.rightShootProportional);
