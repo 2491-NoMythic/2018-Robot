@@ -58,8 +58,8 @@ public class Drivetrain extends PIDSubsystem {
 		left1.setSensorPhase(true);
 		right1.setSensorPhase(true);
 		
-		left1.config_kP(0, .05, 10);
-		right1.config_kP(0, .05, 10);
+		left1.config_kP(0, 1, 10);
+		right1.config_kP(0, 1, 10);
 	}
 	
 	/**
