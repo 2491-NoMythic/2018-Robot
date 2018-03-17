@@ -9,6 +9,7 @@ public class ControllerMap {
 	public static final int driveController = 0;
 	public static final int operatorController = 1;
 	public static final int buttonBoard = 2;
+	public static final int driveSecondaryController = 3;
 	
 	//Driver
 	public static final int driveTurnAxis = 2;

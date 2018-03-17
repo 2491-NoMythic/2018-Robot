@@ -39,7 +39,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	private final Joystick[] controllers = new Joystick[3];
+	private final Joystick[] controllers = new Joystick[4];
 	
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
 	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runShooter, runIntakeRollerless;
@@ -56,6 +56,7 @@ public class OI {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		controllers[1] = new PS4Controller(ControllerMap.operatorController);
 		controllers[2] = new Joystick(ControllerMap.buttonBoard);
+		controllers[3] = new Joystick(ControllerMap.driveSecondaryController);
 		
 		//Main Drive Controller
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
