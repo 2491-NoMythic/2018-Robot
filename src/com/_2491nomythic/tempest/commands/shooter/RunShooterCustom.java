@@ -26,6 +26,7 @@ public class RunShooterCustom extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	shooter.runAccelerate(Variables.shooterSpeed);
     	shootControl.setF(Variables.shooterSpeed);
     	shootControl.setSetPoint(Variables.shooterRPS);
     	shootControl.calculate();
@@ -40,6 +41,7 @@ public class RunShooterCustom extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
     	shootControl.disable();
+    	shooter.stop();
     }
 
     // Called when another command which requires one or more of the same
