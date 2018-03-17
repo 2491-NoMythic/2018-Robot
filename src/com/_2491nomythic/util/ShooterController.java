@@ -266,7 +266,7 @@ public class ShooterController {
 	public void loopLeft() {
 		checkLeft();
 		if (isLeftComplete()) {
-			leftDivisor+= kC;
+			leftDivisor+= Math.pow(kC, 2);
 			resetLeftLoopVariables();
 		}
 	}
@@ -277,7 +277,7 @@ public class ShooterController {
 	public void loopRight() {
 		checkRight();
 		if (isRightComplete()) {
-			rightDivisor+= kC;
+			rightDivisor+= Math.pow(kC, 2);
 			resetRightLoopVariables();
 		}
 	}

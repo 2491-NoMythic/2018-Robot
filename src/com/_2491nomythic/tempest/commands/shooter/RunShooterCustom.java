@@ -14,7 +14,7 @@ public class RunShooterCustom extends CommandBase {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(shooter);
-    	shootControl = new ShooterController(shooter, .015, Variables.shooterSpeed - .1);
+    	shootControl = new ShooterController(shooter, .15, Variables.shooterSpeed);
     }
 
     // Called just before this Command runs the first time
