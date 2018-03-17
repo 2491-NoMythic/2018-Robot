@@ -20,6 +20,7 @@ public class VelocityTestAuto extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
     	//drivetrain.driveVelocity(12,12);
+    	drivetrain.drivePercentOutput(10);
     	timer.reset();
     	timer.start();
     }
