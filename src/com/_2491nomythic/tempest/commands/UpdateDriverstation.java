@@ -3,8 +3,6 @@ package com._2491nomythic.tempest.commands;
 
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
-import com._2491nomythic.tempest.subsystems.Drivetrain;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -41,7 +39,7 @@ public class UpdateDriverstation extends CommandBase {
 				maximumSpeed = drivetrain.getEncoderRate();
 			}
 			SmartDashboard.putNumber("ENCODER IN TICS RIGHT", drivetrain.getRightEncoderDistanceRaw());
-			SmartDashboard.putNumber("ENCODER IN TICS LEFT", drivetrain.getRightEncoderDistanceRaw());
+			SmartDashboard.putNumber("ENCODER IN TICS LEFT", drivetrain.getLeftEncoderDistanceRaw());
 			Variables.useMonitorRPS = SmartDashboard.getBoolean("UseMonitorRPS", Variables.useMonitorRPS);
 			Variables.derivativeRotate = SmartDashboard.getNumber("DerivateRotate", Variables.derivativeRotate);
 			Variables.proportionalRotate = SmartDashboard.getNumber("ProportionalRotate", Variables.proportionalRotate);
@@ -60,8 +58,6 @@ public class UpdateDriverstation extends CommandBase {
 			Constants.shooterLowScaleRPS = SmartDashboard.getNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 			Constants.shooterSwitchRPS = SmartDashboard.getNumber("SwitchRPS", Constants.shooterSwitchRPS);
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
-			Variables.rightShootSpeed = SmartDashboard.getNumber("RightShootPower", Variables.rightShootSpeed);
-			Variables.leftShootSpeed = SmartDashboard.getNumber("LeftShootPower", Variables.leftShootSpeed);
 		}
 			
 		
