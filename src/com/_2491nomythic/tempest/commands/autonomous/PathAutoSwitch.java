@@ -50,7 +50,7 @@ public class PathAutoSwitch extends CommandBase {
     protected void execute() {
     	double currentLeftVelocity = pathing.returnVelocity(currentStep, leftVelocity);
     	double currentRightVelocity = pathing.returnVelocity(currentStep, rightVelocity);
-    	drivetrain.driveVelocity(currentLeftVelocity / 12, currentRightVelocity / 12);
+    	drivetrain.driveVelocity(currentLeftVelocity * 12, currentRightVelocity * 12);
     	if(timeCounter == 4) {
     		currentStep++;
     		timeCounter = 0;
@@ -66,7 +66,7 @@ public class PathAutoSwitch extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    	shooterRun.start();
+    	//shooterRun.start();
     	shooter.stop();
     	drivetrain.stop();
     }

@@ -121,19 +121,18 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The speed of the wheels in inches per second
 	 */
 	public void driveLeftVelocity(double speed){
-		System.out.println("Driving at:" + speed /10 / Constants.driveEncoderToInches);
-		left1.set(ControlMode.Velocity, speed / 10 * Constants.testEndcoderTicksToInches);
-		left2.set(ControlMode.Velocity, speed / 10 * Constants.testEndcoderTicksToInches);
+		left1.set(ControlMode.Velocity, speed / 78.3 * 3256.345); //* Constants.testEndcoderTicksToInches);
+		left2.set(ControlMode.Velocity, speed / 78.3 * 3256.345); //* Constants.testEndcoderTicksToInches);
 	}
+
 	
 	/**
 	 * Drives the right side of the robot
 	 * @param speed The speed of the wheels in inches per second
 	 */
 	public void driveRightVelocity(double speed){
-		System.out.println("Driving at:" + speed / 10 / Constants.driveEncoderToInches);
-		right1.set(ControlMode.Velocity, -speed / 10 * Constants.testEndcoderTicksToInches);
-		right2.set(ControlMode.Velocity, -speed / 10 * Constants.testEndcoderTicksToInches);
+		right1.set(ControlMode.Velocity, -speed / 78.3 * 3256.346); //* Constants.testEndcoderTicksToInches);
+		right2.set(ControlMode.Velocity, -speed / 78.3 * 3256.345); //* Constants.testEndcoderTicksToInches);
 	}
 	
 	/**
