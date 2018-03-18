@@ -21,7 +21,6 @@ import com._2491nomythic.tempest.commands.intake.RunIntakeManual;
 import com._2491nomythic.tempest.commands.intake.RunIntakeRollerless;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpeningHeld;
-import com._2491nomythic.tempest.commands.shooter.ReverseShooterHeld;
 import com._2491nomythic.tempest.commands.shooter.RunShooterManual;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
@@ -122,7 +121,7 @@ public class OI {
 		cubeStorageControl2.whenPressed(new UltrasonicCubeHaltManual());
 		
 		reverseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
-		reverseShooter.whileHeld(new ReverseShooterHeld());
+		//reverseShooter.whileHeld(new ReverseShooterHeld());
 		
 		runIntakeRollerless = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.IntakeRollerlessButton);
 		runIntakeRollerless.whileHeld(new RunIntakeRollerless());
