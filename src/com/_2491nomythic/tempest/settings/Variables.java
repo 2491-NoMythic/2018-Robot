@@ -37,7 +37,7 @@ public class Variables {
 	public static double shooterSpeed = Constants.shooterMediumScaleSpeed;
 	public static double shooterRPS = Constants.shooterMediumScaleRPS;
 	public static boolean inSwitchPosition = false;
-	public static boolean useMonitorRPS = true;
+	public static boolean useMonitorRPS = false;
 	
 	//Buttonboard
 	public static int motorChoice;
