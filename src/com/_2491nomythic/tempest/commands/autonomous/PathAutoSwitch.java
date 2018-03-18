@@ -29,7 +29,6 @@ public class PathAutoSwitch extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	timer.start();
     	String gameData = DriverStation.getInstance().getGameSpecificMessage();
 		switch(gameData.substring(0, 1)) {
 		case "L":
@@ -44,10 +43,20 @@ public class PathAutoSwitch extends CommandBase {
 			System.out.println("Unexpected value for GameSpecificMessage: " + gameData);
 			break;
 		}
+		timer.reset();
+		timer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	for(int i=0;i < 46; i++) {
+    		drivetrain.driveVelocity(leftVelocity[i][0], rightVelocity[i][0]);
+    		while(timer.get() < 0.1) {}
+    		timer.reset();
+    		timer.start();
+    	}
+    
+    	/*
     	double currentLeftVelocity = pathing.returnVelocity(currentStep, leftVelocity);
     	double currentRightVelocity = pathing.returnVelocity(currentStep, rightVelocity);
     	drivetrain.driveVelocity(currentLeftVelocity * 12, currentRightVelocity * 12);
@@ -56,12 +65,13 @@ public class PathAutoSwitch extends CommandBase {
     		timeCounter = 0;
     	}else {
     		timeCounter++;
-    	}
+    	}*/
+    	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-       return currentStep >= leftVelocity.length - 1;  
+       return true;
     }
 
     // Called once after isFinished returns true
