@@ -27,10 +27,6 @@ public class RunShooterPID extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	shooter.runAccelerate(Variables.shooterSpeed);
-    	runLeft.setSetPoint(Variables.shooterRPS);
-    	runRight.setSetPoint(Variables.shooterRPS);
-    	runLeft.setF(Variables.shootFeedForward);
-    	runRight.setF(Variables.shootFeedForward);
     }
 
     // Make this return true when this Command no longer needs to run execute()
