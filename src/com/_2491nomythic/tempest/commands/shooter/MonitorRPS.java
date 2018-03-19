@@ -3,10 +3,15 @@ package com._2491nomythic.tempest.commands.shooter;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.settings.Variables;
 
+import edu.wpi.first.wpilibj.Timer;
+
 /**
  * Keeps track of the readiness of shooter motors for firing consistently
  */
 public class MonitorRPS extends CommandBase {
+	private double tolerance, targetRPS, delayTime, threshold;
+	private Timer delay;
+	
 	/**
 	 * Keeps track of the readiness of shooter motors for firing consistently
 	 */
@@ -17,6 +22,7 @@ public class MonitorRPS extends CommandBase {
 		threshold = .1;
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
+		delay = new Timer();
 		setRunWhenDisabled(true);
 	}
 

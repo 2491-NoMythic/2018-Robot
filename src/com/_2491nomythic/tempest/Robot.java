@@ -51,7 +51,6 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	UpdateLights updateLights;
 	ResetSolenoids resetSolenoids;
-	UpdateLights updateLights;
 	UpdateDriverstation updateDriverstation;
 	MonitorRPS monitorRPS;
 	

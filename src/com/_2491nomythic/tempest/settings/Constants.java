@@ -76,7 +76,4 @@ public class Constants {
 	public static final int kTimeoutMs = 10;
 	public static final int kPIDLoopIdx = 0;
 	public static final double feetPerSecToNativeUnitsPer100Ms = 260.767149451;
-    
-    //Lights
-	public static final int sickLightsSolenoidChannel = 7;
 }
