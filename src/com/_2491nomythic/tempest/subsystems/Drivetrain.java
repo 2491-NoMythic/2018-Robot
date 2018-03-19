@@ -284,16 +284,32 @@ public class Drivetrain extends PIDSubsystem {
 		return (getRightEncoderRate() + getLeftEncoderRate()) / 2;
 	}
 	
-	//TODO Write JavaDocs
-	
-	public double getLeftVelocity() {
-		return leftMaster.getSelectedSensorVelocity(0);
+	/**
+	 * @return The left driverail's velocity in NativeUnitsPer100Ms
+	 */
+	public double getLeftVelocityRaw() {
+		return leftMaster.getSelectedSensorVelocity(Constants.kPIDLoopIdx);
 	}
 	
-	//TODO Write JavaDocs
+	/**
+	 * @return The right driverail's velocity in NativeUnitsPer100Ms
+	 */
+	public double getRightVelocityRaw() {
+		return rightMaster.getSelectedSensorVelocity(Constants.kPIDLoopIdx);
+	}
 	
-	public double getRightVelocity() {
-		return rightMaster.getSelectedSensorVelocity(0);
+	/**
+	 * @return The left driverail's velocity in FeetPerSecond
+	 */
+	public double getLeftVelocity () {
+		return rightMaster.getSelectedSensorVelocity(Constants.kPIDLoopIdx) / Constants.feetPerSecToNativeUnitsPer100Ms;
+	}
+	
+	/**
+	 * @return The right driverail's velocity in FeetPerSecond
+	 */
+	public double getRightVelocity () {
+		return rightMaster.getSelectedSensorVelocity(Constants.kPIDLoopIdx) / Constants.feetPerSecToNativeUnitsPer100Ms;
 	}
 	
 	/**

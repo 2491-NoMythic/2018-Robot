@@ -41,8 +41,10 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putNumber("Right Encoder TICS", drivetrain.getRightEncoderDistanceRaw());
 			SmartDashboard.putNumber("Left Encoder TICS", drivetrain.getLeftEncoderDistanceRaw());
 			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
-			SmartDashboard.putNumber("Left Velocity FTpS", drivetrain.getLeftVelocity());
-			SmartDashboard.putNumber("Right Vlecity FTpS", drivetrain.getRightVelocity());
+			SmartDashboard.putNumber("lVelocity FTpS", drivetrain.getLeftVelocity());
+			SmartDashboard.putNumber("rVelocity FTpS", drivetrain.getRightVelocity());
+			SmartDashboard.putNumber("lVelocity NUp100Ms", drivetrain.getLeftVelocityRaw());
+			SmartDashboard.putNumber("rVelocity NUp100Ms", drivetrain.getRightVelocityRaw());
 			SmartDashboard.putBoolean("ShooterReadyToFire", Variables.readyToFire);
 			SmartDashboard.putNumber("LeftShootRPS", shooter.getLeftShootVelocity());
 			SmartDashboard.putNumber("RightShootRPS", shooter.getRightShootVelocity());
