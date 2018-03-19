@@ -56,4 +56,9 @@ public class Variables {
     
     /* Debug Mode */
     public static boolean debugMode = false;
+    
+    //Drivetrain FPID
+    public static double kPID_p = 1;
+    public static double kPID_i = 0;
+    public static double kPID_d = 0;
 }

@@ -1,6 +1,7 @@
 package com._2491nomythic.tempest.commands.autonomous;
 
 import com._2491nomythic.tempest.commands.CommandBase;
+import com._2491nomythic.tempest.settings.Constants;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -19,7 +20,7 @@ public class VelocityTestAuto extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	drivetrain.driveVelocity(24);
+    	drivetrain.driveVelocity(3 * Constants.feetPerSecToNativeUnitsPer100Ms);
     	//drivetrain.driveVelocity(409.6 * 1.5);
     	timer.reset();
     	timer.start();
