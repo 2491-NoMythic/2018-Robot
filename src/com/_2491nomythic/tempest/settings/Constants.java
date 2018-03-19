@@ -30,14 +30,20 @@ public class Constants {
 	public static final int timeForShooterToSpinUp = 2; //TODO time this
 	public static final int timeForShooterToRaise = 4; //TODO time this
 	public static final int timeForShooterToFire = 2; //TODO Time this
-	public static final double shooterHighScaleSpeed = .75;
-	public static final double shooterMediumScaleSpeed = .65;
-	public static final double shooterLowScaleSpeed = .525;
-	public static final double shooterSwitchSpeed = .3;
-	public static double shooterHighScaleRPS = 85; // accelerate highscale rps = 28.5
-	public static double shooterMediumScaleRPS = 75; // accelerate medscale rps = 24.75
-	public static double shooterLowScaleRPS = 55; // accelerate lowscale rps = 19
-	public static double shooterSwitchRPS = 33; //accelerate switch rps = 11.3
+	public static double shooterHighScaleSpeed = .75;
+	public static double shooterMediumScaleSpeed = .625;
+	public static double shooterLowScaleSpeed = .5;
+	public static double shooterSwitchSpeed = .4;
+	public static double shooterHighScaleRPS = 93; // accelerate highscale rps = 28.5
+	public static double shooterMediumScaleRPS = 70; // accelerate medscale rps = 24.75
+	public static double shooterLowScaleRPS = 58; // accelerate lowscale rps = 19
+	public static double shooterSwitchRPS = 48; //accelerate switch rps = 11.3
+	public static final double shooterMaxSpeedRPS = 125; // Approximate function of power input to RPS output: f(x) = 52.83x^2 + 44.54 RPS input to power output = f(x) = sqrt((x - 44.54) / 52.83)
+	
+	public static double shootFeedForwardHigh = .005;
+	public static double shootFeedForwardMed = .00433;
+	public static double shootFeedForwardLow = .0033;
+	public static double shootFeedForwardSwitch = .002;
 	
 	//Lights
 	public static final int underglowPWM = 1;
@@ -70,4 +76,7 @@ public class Constants {
 	public static final int kTimeoutMs = 10;
 	public static final int kPIDLoopIdx = 0;
 	public static final double feetPerSecToNativeUnitsPer100Ms = 260.767149451;
+    
+    //Lights
+	public static final int sickLightsSolenoidChannel = 7;
 }

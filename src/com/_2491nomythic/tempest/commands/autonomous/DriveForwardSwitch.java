@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
+ *Approaches the switch during autonomous
  */
 public class DriveForwardSwitch extends CommandBase {
 	private DriveStraightToPosition approachSwitch;
@@ -17,6 +17,7 @@ public class DriveForwardSwitch extends CommandBase {
 	private Timer timer;
 	
 	/**
+	 * Approaches the switch during autonomous
 	 * StartingPosition is true for left.
 	 * @param startingPosition
 	 */

@@ -1,7 +1,6 @@
 package com._2491nomythic.tempest.commands;
 
 
-import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -38,6 +37,7 @@ public class UpdateDriverstation extends CommandBase {
 			if (drivetrain.getEncoderRate() > maximumSpeed) {
 				maximumSpeed = drivetrain.getEncoderRate();
 			}
+            
 			SmartDashboard.putNumber("Right Encoder TICS", drivetrain.getRightEncoderDistanceRaw());
 			SmartDashboard.putNumber("Left Encoder TICS", drivetrain.getLeftEncoderDistanceRaw());
 			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
@@ -61,7 +61,7 @@ public class UpdateDriverstation extends CommandBase {
 			Constants.shooterMediumScaleRPS = SmartDashboard.getNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
 			Constants.shooterLowScaleRPS = SmartDashboard.getNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 			Constants.shooterSwitchRPS = SmartDashboard.getNumber("SwitchRPS", Constants.shooterSwitchRPS);
-			
+            
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
 		}
 			

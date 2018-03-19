@@ -26,7 +26,12 @@ public class SickLights extends Subsystem {
 		activator = new Solenoid(Constants.sickLightsSolenoidChannel);
 	}
 	
+	/**
+	 * Sets the state of the lights.
+	 * @param state True for on, false for off.
+	 */
 	public void set(boolean state) {
+		System.out.println("Setting lights to: " + state);
 		activator.set(state);
 	}
 	

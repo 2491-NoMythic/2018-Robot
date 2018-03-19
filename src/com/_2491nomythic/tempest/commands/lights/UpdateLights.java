@@ -17,6 +17,7 @@ public class UpdateLights extends CommandBase {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	setRunWhenDisabled(true);
+    	requires(sickLights);
     	timer = new Timer();
     	sonicTimer = new Timer();
     }
@@ -38,8 +39,11 @@ public class UpdateLights extends CommandBase {
     			newCube = false;
     		}
     	}
+    	else {
+    		sonicTimer.reset();
+    	}
     	
-    	if(Variables.readyToFire || newCube) {    		
+    	if(Variables.readyToFire || newCube) {
     		switch(state) {
     		case 0:
     			sickLights.set(false);
@@ -52,9 +56,8 @@ public class UpdateLights extends CommandBase {
     			sickLights.set(true);
     			if(timer.get() > 0.5) {
     				timer.reset();
-    				state++;
+    				state--;
     			}
-    			
     			break;
     		default:
     			break;
@@ -63,7 +66,6 @@ public class UpdateLights extends CommandBase {
     	else {
     		sickLights.set(true);
     		state = 0;
-    		sonicTimer.reset();
     	}
     }
 

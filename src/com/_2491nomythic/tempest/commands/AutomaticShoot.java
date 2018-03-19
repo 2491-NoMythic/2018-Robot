@@ -36,7 +36,7 @@ public class AutomaticShoot extends CommandBase {
     		spinUp = new RunShooterTime(Constants.shooterMediumScaleSpeed, 4);
     	}
     	else {
-    		spinUp = new RunShooterTime(Constants.shooterSwitchSpeed, 4);
+    		spinUp = new RunShooterTime(Constants.shooterSwitchSpeed, 1);
     	}
     }
 
@@ -63,8 +63,21 @@ public class AutomaticShoot extends CommandBase {
     			state++;
     			break;
     		case 2:
+<<<<<<< HEAD
     			fire.start();
     			state++;
+=======
+    			if (scale) {
+    				if (Variables.readyToFire) {
+    					fire.start();
+    					state++;
+    				}
+    			}
+    			else {
+    				fire.start();
+    				state++;
+    			}
+>>>>>>> dev
     			break;
     		case 3:
     			if(!fire.isRunning()) {

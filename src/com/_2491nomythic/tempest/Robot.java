@@ -49,6 +49,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 
 	Command m_autonomousCommand;
+	UpdateLights updateLights;
 	ResetSolenoids resetSolenoids;
 	UpdateLights updateLights;
 	UpdateDriverstation updateDriverstation;
@@ -72,7 +73,8 @@ public class Robot extends TimedRobot {
 		monitorRPS = new MonitorRPS();
 		
 		updateDriverstation.start();
-		monitorRPS.start();		
+		updateLights.start();
+		monitorRPS.start();
 		
 		m_chooser.addObject("DoNothing", new DoNothing());
 		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());

@@ -1,4 +1,5 @@
 /*----------------------------------------------------------------------------*/
+
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -14,8 +15,8 @@ import com._2491nomythic.tempest.commands.intake.RunIntakeManual;
 import com._2491nomythic.tempest.commands.intake.RunIntakeRollerless;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpeningHeld;
-import com._2491nomythic.tempest.commands.shooter.ReverseShooterHeld;
-import com._2491nomythic.tempest.commands.shooter.RunShooterManual;
+import com._2491nomythic.tempest.commands.shooter.ReverseShooter;
+import com._2491nomythic.tempest.commands.shooter.RunShooterCustom;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.tempest.settings.Constants;
@@ -35,8 +36,8 @@ public class OI {
 	private final Joystick[] controllers = new Joystick[2];
 	
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
-	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runShooter, runIntakeRollerless;
-	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2;
+	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runIntakeRollerless;
+	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2, runShooter;
 
 	public enum ControllerType {
 		Standard,
@@ -47,50 +48,20 @@ public class OI {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		controllers[1] = new PS4Controller(ControllerMap.operatorController);
 		
+		//Main Driver Controls
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
 		killSwitch1.whenPressed(new KillSwitch());
 		
 		killSwitch2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton2);
 		killSwitch2.whenPressed(new KillSwitch());
 		
+		//PS4 Operator Controls
+			//Intake
 		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);
 		deployIntake.whenPressed(new ToggleIntakeDeployment());
 		
 		openIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.openIntake);
 		openIntake.whileHeld(new ToggleIntakeOpeningHeld());
-		
-		raiseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.raiseShooter);
-		raiseShooter.whenPressed(new ToggleShooterPosition());
-		
-		setLowScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setLowScaleRPS);
-		setLowScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterLowScaleSpeed, Constants.shooterLowScaleRPS));
-		
-		setMediumScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setMediumScaleRPS);
-		setMediumScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterMediumScaleSpeed, Constants.shooterMediumScaleRPS));
-		
-		setHighScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setHighScaleRPS);
-		setHighScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterHighScaleSpeed, Constants.shooterLowScaleRPS));
-		
-		setSwitchSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setSwitchRPS);
-		setSwitchSpeed.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed, Constants.shooterSwitchRPS));
-		
-		runShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton);
-		runShooter.whileHeld(new RunShooterManual());
-		
-		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
-		cubeStorageControl1.whenPressed(new UltrasonicCubeHaltManual());
-		
-		cubeStorageControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, -0.1);
-		cubeStorageControl2.whenPressed(new UltrasonicCubeHaltManual());
-		
-		reverseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
-		reverseShooter.whileHeld(new ReverseShooterHeld());
-		
-		runIntakeRollerless = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.IntakeRollerlessButton);
-		runIntakeRollerless.whileHeld(new RunIntakeRollerless());
-		
-		automaticIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.automaticIntakeButton);
-		automaticIntake.whenPressed(new AutomaticIntake());
 		
 		intakeControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, 0.1);
 		intakeControl1.whileHeld(new RunIntakeManual());
@@ -98,16 +69,40 @@ public class OI {
 		intakeControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, -0.1);
 		intakeControl2.whileHeld(new RunIntakeManual());
 		
+		runIntakeRollerless = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.IntakeRollerlessButton);
+		runIntakeRollerless.whileHeld(new RunIntakeRollerless());
 		
+		automaticIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.automaticIntakeButton);
+		automaticIntake.whenPressed(new AutomaticIntake());
 		
-		//driverScaleShoot = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverScaleShootButton);
-		//driverScaleShoot.whileHeld(new ScaleShoot());
+			//Shooter
+		raiseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.raiseShooter);
+		raiseShooter.whenPressed(new ToggleShooterPosition());
 		
-		//driverSwitchShoot = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverSwitchShootButton);
-		//driverSwitchShoot.whileHeld(new SwitchShoot());
+		setLowScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setLowScaleRPS);
+		setLowScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterLowScaleSpeed));
 		
-		//driverAutoShoot = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.driverAutoShootButton);
-		//driverAutoShoot.whenPressed(new AutomaticShoot(true));
+		setMediumScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setMediumScaleRPS);
+		setMediumScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterMediumScaleSpeed));
+		
+		setHighScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setHighScaleRPS);
+		setHighScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterHighScaleSpeed));
+		
+		setSwitchSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setSwitchRPS);
+		setSwitchSpeed.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed));
+		
+		runShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton);
+		runShooter.whileHeld(new RunShooterCustom());
+		
+		reverseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
+		reverseShooter.whileHeld(new ReverseShooter());
+		
+			//CubeStorage
+		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
+		cubeStorageControl1.whenPressed(new UltrasonicCubeHaltManual());
+		
+		cubeStorageControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, -0.1);
+		cubeStorageControl2.whenPressed(new UltrasonicCubeHaltManual());
 	}
 	
 	/**

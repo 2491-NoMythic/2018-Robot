@@ -4,22 +4,27 @@ import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.settings.Variables;
 
 /**
- *
+ *Reverses shooter direction using an operator button
  */
-public class ReverseShooterHeld extends CommandBase {
+public class ReverseShooter extends CommandBase {
 
-    public ReverseShooterHeld() {
+    /**
+     * Reverses shooter direction using an operator button
+     */
+	public ReverseShooter() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+		requires(shooter);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Variables.reverseCoefficient = -1;
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	shooter.run(-1 * Variables.shooterSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -29,7 +34,7 @@ public class ReverseShooterHeld extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Variables.reverseCoefficient = 1;
+    	shooter.stop();
     }
 
     // Called when another command which requires one or more of the same
