@@ -113,6 +113,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("RightShootPower", Variables.rightShootSpeed);
 		SmartDashboard.putData("RunShooter", new RunShooterManual());
 		
+		Variables.debugMode = false;
 		
 		System.out.println("Boot Successful");
 	}

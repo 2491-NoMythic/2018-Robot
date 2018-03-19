@@ -40,4 +40,6 @@ public class Variables {
 	public static double reverseCoefficient = 1;
 	public static boolean useMonitorRPS = true;
 	
+	/* Debug Mode */
+	public static boolean debugMode = false;
 }

@@ -38,27 +38,28 @@ public class UpdateDriverstation extends CommandBase {
 			if (drivetrain.getEncoderRate() > maximumSpeed) {
 				maximumSpeed = drivetrain.getEncoderRate();
 			}
-			SmartDashboard.putNumber("ENCODER IN TICS RIGHT", drivetrain.getRightEncoderDistanceRaw());
-			SmartDashboard.putNumber("ENCODER IN TICS LEFT", drivetrain.getLeftEncoderDistanceRaw());
+			SmartDashboard.putNumber("Right Encoder TICS", drivetrain.getRightEncoderDistanceRaw());
+			SmartDashboard.putNumber("Left Encoder TICS", drivetrain.getLeftEncoderDistanceRaw());
+			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
+			SmartDashboard.putNumber("Left Velocity FTpS", drivetrain.getLeftVelocity());
+			SmartDashboard.putNumber("Right Vlecity FTpS", drivetrain.getRightVelocity());
+			SmartDashboard.putBoolean("ShooterReadyToFire", Variables.readyToFire);
+			SmartDashboard.putNumber("LeftShootRPS", shooter.getLeftShootVelocity());
+			SmartDashboard.putNumber("RightShootRPS", shooter.getRightShootVelocity());
+			
 			Variables.useMonitorRPS = SmartDashboard.getBoolean("UseMonitorRPS", Variables.useMonitorRPS);
 			Variables.derivativeRotate = SmartDashboard.getNumber("DerivateRotate", Variables.derivativeRotate);
 			Variables.proportionalRotate = SmartDashboard.getNumber("ProportionalRotate", Variables.proportionalRotate);
 			Variables.proportionalForward = SmartDashboard.getNumber("ProportionalForward", Variables.proportionalForward);
 			Variables.derivativeForward = SmartDashboard.getNumber("DerivativeForward", Variables.derivativeForward);
 			Variables.driveDefault = SmartDashboard.getNumber("DriveDefault", 1);
-			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
-			SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
-			SmartDashboard.putNumber("RightEncoder", drivetrain.getRightEncoderDistance());
-			SmartDashboard.putNumber("lVelocity", drivetrain.getLeftVelocity());
-			SmartDashboard.putNumber("rVelocity", drivetrain.getRightVelocity());
-			SmartDashboard.putBoolean("ShooterReadyToFire", Variables.readyToFire);
-			//SmartDashboard.putNumber("Maximum Speed", maximumSpeed);
-			SmartDashboard.putNumber("LeftShootRPS", shooter.getLeftShootVelocity());
-			SmartDashboard.putNumber("RightShootRPS", shooter.getRightShootVelocity());
+			Variables.debugMode = SmartDashboard.getBoolean("Debug Mode", Variables.debugMode);
+			
 			Constants.shooterHighScaleRPS = SmartDashboard.getNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
 			Constants.shooterMediumScaleRPS = SmartDashboard.getNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
 			Constants.shooterLowScaleRPS = SmartDashboard.getNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 			Constants.shooterSwitchRPS = SmartDashboard.getNumber("SwitchRPS", Constants.shooterSwitchRPS);
+			
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
 		}
 			
