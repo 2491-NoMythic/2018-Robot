@@ -25,6 +25,7 @@ public class Drivetrain extends PIDSubsystem {
 	private AHRS gyro;
 	private NetworkTable limeLight;
 	private double currentPIDOutput;
+	StringBuilder _sb = new StringBuilder();
 	
 	private static Drivetrain instance;
 	
@@ -47,19 +48,40 @@ public class Drivetrain extends PIDSubsystem {
 		right1 = new TalonSRX(Constants.driveTalonRight1Channel);
 		right2 = new TalonSRX(Constants.driveTalonRight2Channel);
 		
+		right1.setInverted(true);
+		right2.setInverted(true);
+		left1.setInverted(false);
+		left2.setInverted(false);
+		
+		left1.setSensorPhase(true);
+		right1.setSensorPhase(true);
+		
 		left1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-				
+		
+		left1.configNominalOutputForward(0, 1000);
+		left1.configNominalOutputReverse(0, 100);
+		left1.configPeakOutputForward(1, 100);
+		left1.configPeakOutputReverse(-1, 100);
+		
+		right1.configNominalOutputForward(0, 1000);
+		right1.configNominalOutputReverse(0, 100);
+		right1.configPeakOutputForward(1, 100);
+		right1.configPeakOutputReverse(-1, 100);
+		
 		gyro = new AHRS(SerialPort.Port.kUSB);
 		limeLight = NetworkTableInstance.getDefault().getTable("limelight");
 		limeLight.getEntry("ledMode").setNumber(1);
 		limeLight.getEntry("camMode").setNumber(1);
 		
-		left1.setSensorPhase(true);
-		right1.setSensorPhase(true);
-		
-		left1.config_kP(0, 1, 10);
-		right1.config_kP(0, 1, 10);
+		left1.config_kF(0, 0.2922857143, 100);
+		left1.config_kP(0, 1, 100);
+		left1.config_kI(0, 0, 100);
+		left1.config_kD(0, 0, 100);
+		right1.config_kF(0, 0.2922857143, 100);
+		right1.config_kP(0, 1, 100);
+		right1.config_kI(0, 0, 100);
+		right1.config_kD(0, 0, 100);
 	}
 	
 	/**
@@ -94,8 +116,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveRightPercentOutput(double speed){
-		right1.set(ControlMode.PercentOutput, -speed * Variables.driveRestriction);
-		right2.set(ControlMode.PercentOutput, -speed * Variables.driveRestriction);
+		right1.set(ControlMode.PercentOutput, speed * Variables.driveRestriction);
+		right2.set(ControlMode.PercentOutput, speed * Variables.driveRestriction);
 	}
 	
 	/**
@@ -121,8 +143,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The speed of the wheels in inches per second
 	 */
 	public void driveLeftVelocity(double speed){
-		left1.set(ControlMode.Velocity, speed / 78.3 * 3256.345); //* Constants.testEndcoderTicksToInches);
-		left2.set(ControlMode.Velocity, speed / 78.3 * 3256.345); //* Constants.testEndcoderTicksToInches);
+		left2.follow(left1);
+		left1.set(ControlMode.Velocity, speed); //* Constants.testEndcoderTicksToInches);
 	}
 
 	
@@ -131,8 +153,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The speed of the wheels in inches per second
 	 */
 	public void driveRightVelocity(double speed){
-		right1.set(ControlMode.Velocity, -speed / 78.3 * 3256.346); //* Constants.testEndcoderTicksToInches);
-		right2.set(ControlMode.Velocity, -speed / 78.3 * 3256.345); //* Constants.testEndcoderTicksToInches);
+		right2.follow(right1);
+		right1.set(ControlMode.Velocity, speed); //* Constants.testEndcoderTicksToInches);
 	}
 	
 	/**
@@ -235,6 +257,14 @@ public class Drivetrain extends PIDSubsystem {
 	 */
 	public double getEncoderRate() {
 		return (getRightEncoderRate() + getLeftEncoderRate()) / 2;
+	}
+	
+	public double getLeftVelocity() {
+		return left1.getSelectedSensorVelocity(0);
+	}
+	
+	public double getRightVelocity() {
+		return right1.getSelectedSensorVelocity(0);
 	}
 	
 	/**

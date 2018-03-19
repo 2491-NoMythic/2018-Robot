@@ -49,6 +49,8 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
 			SmartDashboard.putNumber("LeftEncoder", drivetrain.getLeftEncoderDistance());
 			SmartDashboard.putNumber("RightEncoder", drivetrain.getRightEncoderDistance());
+			SmartDashboard.putNumber("lVelocity", drivetrain.getLeftVelocity());
+			SmartDashboard.putNumber("rVelocity", drivetrain.getRightVelocity());
 			SmartDashboard.putBoolean("ShooterReadyToFire", Variables.readyToFire);
 			//SmartDashboard.putNumber("Maximum Speed", maximumSpeed);
 			SmartDashboard.putNumber("LeftShootRPS", shooter.getLeftShootVelocity());

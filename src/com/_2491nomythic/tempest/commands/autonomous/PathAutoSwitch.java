@@ -49,29 +49,22 @@ public class PathAutoSwitch extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	for(int i=0;i < 46; i++) {
-    		drivetrain.driveVelocity(leftVelocity[i][0], rightVelocity[i][0]);
-    		while(timer.get() < 0.1) {}
-    		timer.reset();
-    		timer.start();
-    	}
-    
-    	/*
-    	double currentLeftVelocity = pathing.returnVelocity(currentStep, leftVelocity);
-    	double currentRightVelocity = pathing.returnVelocity(currentStep, rightVelocity);
-    	drivetrain.driveVelocity(currentLeftVelocity * 12, currentRightVelocity * 12);
+    	double currentLeftVelocity = pathing.returnVelocity(currentStep, leftVelocity) * 260.767149451;
+    double currentRightVelocity = pathing.returnVelocity(currentStep, rightVelocity) * 260.767149451;
+    	drivetrain.driveVelocity(currentLeftVelocity , currentRightVelocity); // currentLeftVelocity * 12, currentRightVelocity * 12
     	if(timeCounter == 4) {
     		currentStep++;
     		timeCounter = 0;
+    		System.out.println("Right: " + currentRightVelocity + " LEFT: " + currentLeftVelocity);
     	}else {
     		timeCounter++;
-    	}*/
+    	}
     	
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-       return true;
+       return currentStep > 44;
     }
 
     // Called once after isFinished returns true
@@ -79,6 +72,7 @@ public class PathAutoSwitch extends CommandBase {
     	//shooterRun.start();
     	shooter.stop();
     	drivetrain.stop();
+    	currentStep = 0;
     }
 
     // Called when another command which requires one or more of the same
