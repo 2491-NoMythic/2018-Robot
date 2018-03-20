@@ -71,6 +71,11 @@ public class PathAutoSwitch extends CommandBase {
     			currentLeftVelocity = pathing.returnVelocity(currentStep, leftVelocity) * Constants.feetPerSecToNativeUnitsPer100Ms;
         		currentRightVelocity = pathing.returnVelocity(currentStep, rightVelocity) * Constants.feetPerSecToNativeUnitsPer100Ms;
         		
+        		double frictionFactor = pathing.returnFrictionFactor(currentLeftVelocity, currentRightVelocity);
+        		
+        		currentRightVelocity = currentRightVelocity + frictionFactor;
+        		currentLeftVelocity = currentLeftVelocity - frictionFactor;
+        		
         		drivetrain.driveVelocity(currentLeftVelocity , currentRightVelocity);
     			
     			timeCounter = 0;
