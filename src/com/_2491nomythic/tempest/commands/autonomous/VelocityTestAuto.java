@@ -20,7 +20,7 @@ public class VelocityTestAuto extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	drivetrain.driveVelocity(3 * Constants.feetPerSecToNativeUnitsPer100Ms);
+    	drivetrain.driveVelocity(7 * Constants.feetPerSecToNativeUnitsPer100Ms);
     	//drivetrain.driveVelocity(409.6 * 1.5);
     	timer.reset();
     	timer.start();
@@ -28,7 +28,7 @@ public class VelocityTestAuto extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
+    		System.out.println("Right: " + drivetrain.getRightVelocity() + " LEFT: " + drivetrain.getLeftVelocity());
     }
 
     // Make this return true when this Command no longer needs to run execute()

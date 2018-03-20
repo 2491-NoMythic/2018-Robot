@@ -8,6 +8,7 @@ import com._2491nomythic.tempest.settings.Variables;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.networktables.NetworkTable;
@@ -86,6 +87,10 @@ public class Drivetrain extends PIDSubsystem {
 		leftMaster.setSensorPhase(true);
 		rightMaster.setSensorPhase(true);
 		
+		/* Doubles the Talon's feedback frame rate */
+		leftMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10, Constants.kTimeoutMs);
+		rightMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10, Constants.kTimeoutMs);
+		
 		/* Configures left and right output voltage limits */
 		leftMaster.configNominalOutputForward(0, Constants.kTimeoutMs);
 		leftMaster.configNominalOutputReverse(0, Constants.kTimeoutMs);
@@ -104,9 +109,9 @@ public class Drivetrain extends PIDSubsystem {
 		leftMaster.config_kD(Constants.kPIDLoopIdx, 0.25, Constants.kTimeoutMs); //0.25
 		
 		rightMaster.config_kF(Constants.kPIDLoopIdx, 0.2922857143, Constants.kTimeoutMs);
-		rightMaster.config_kP(Constants.kPIDLoopIdx, 2, Constants.kTimeoutMs); //2.5
-		rightMaster.config_kI(Constants.kPIDLoopIdx, 0.0015, Constants.kTimeoutMs); //0.01
-		rightMaster.config_kD(Constants.kPIDLoopIdx, 0.25, Constants.kTimeoutMs); //0.5
+		rightMaster.config_kP(Constants.kPIDLoopIdx, 2, Constants.kTimeoutMs); //1.8
+		rightMaster.config_kI(Constants.kPIDLoopIdx, 0.0015, Constants.kTimeoutMs); //0.0081
+		rightMaster.config_kD(Constants.kPIDLoopIdx, 0.25, Constants.kTimeoutMs); //2.2
 	}
 	
 	/**

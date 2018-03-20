@@ -92,7 +92,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("LeftSwitchPID", new PlaceOnSwitchLeft());
 		m_chooser.addObject("RightSwitchPID", new PlaceOnSwitchRight());
 		*/
-		m_chooser.addDefault("PathingAutoLeftSwitch", new PathAutoSwitch());
+		m_chooser.addDefault("VelocityTest", new VelocityTestAuto());
 		
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
