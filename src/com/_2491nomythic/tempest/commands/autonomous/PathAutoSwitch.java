@@ -63,6 +63,8 @@ public class PathAutoSwitch extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     		
+    		System.out.println("Right: " + currentRightVelocity + " LEFT: " + currentLeftVelocity);
+    	
     		if(timeCounter == 4) {
     			currentStep++;
     			
@@ -73,7 +75,7 @@ public class PathAutoSwitch extends CommandBase {
     			
     			timeCounter = 0;
     			
-    			if (Variables.debugMode) { System.out.println("Right: " + currentRightVelocity + " LEFT: " + currentLeftVelocity); }
+    			if (Variables.debugMode) { }
     			
     		} else {
     			timeCounter++;
