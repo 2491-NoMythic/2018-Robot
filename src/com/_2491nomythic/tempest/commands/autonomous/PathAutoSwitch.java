@@ -35,7 +35,7 @@ public class PathAutoSwitch extends CommandBase {
     protected void initialize() {
     	
     		/* Reset Variables */
-    		currentStep = 0;
+    		currentStep = 4;
     		timeCounter = 0;
     	
     		/* Retrieve GameData to select direction */
@@ -43,8 +43,8 @@ public class PathAutoSwitch extends CommandBase {
     	
 		switch(gameData.substring(0, 1)) {
 		case "L":
-			leftVelocity = Constants.leftVelocityCenterStartPosLeftSwitchAutoPath;
-			rightVelocity = Constants.rightVelocityCenterStartPosLeftSwitchAutoPath;
+			leftVelocity = Constants.leftVelocityCenterStartPosLeftScaleAutoPath;
+			rightVelocity = Constants.rightVelocityCenterStartPosLeftScaleAutoPath;
 			break;
 		case "R":
 			
@@ -62,14 +62,15 @@ public class PathAutoSwitch extends CommandBase {
     
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	
-    		currentLeftVelocity = pathing.returnVelocity(currentStep, leftVelocity) * Constants.feetPerSecToNativeUnitsPer100Ms;
-    		currentRightVelocity = pathing.returnVelocity(currentStep, rightVelocity) * Constants.feetPerSecToNativeUnitsPer100Ms;
-    		
-    		drivetrain.driveVelocity(currentLeftVelocity , currentRightVelocity);
     		
     		if(timeCounter == 4) {
     			currentStep++;
+    			
+    			currentLeftVelocity = pathing.returnVelocity(currentStep, leftVelocity) * Constants.feetPerSecToNativeUnitsPer100Ms;
+        		currentRightVelocity = pathing.returnVelocity(currentStep, rightVelocity) * Constants.feetPerSecToNativeUnitsPer100Ms;
+        		
+        		drivetrain.driveVelocity(currentLeftVelocity , currentRightVelocity);
+    			
     			timeCounter = 0;
     			
     			if (Variables.debugMode) { System.out.println("Right: " + currentRightVelocity + " LEFT: " + currentLeftVelocity); }

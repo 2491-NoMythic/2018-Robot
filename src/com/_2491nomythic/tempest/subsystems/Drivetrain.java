@@ -99,14 +99,14 @@ public class Drivetrain extends PIDSubsystem {
 		
 		/* Configures FPID constants for Talon's Velocity mode */
 		leftMaster.config_kF(Constants.kPIDLoopIdx, 0.2922857143, Constants.kTimeoutMs);
-		leftMaster.config_kP(Constants.kPIDLoopIdx, 1, Constants.kTimeoutMs);
-		leftMaster.config_kI(Constants.kPIDLoopIdx, 0, Constants.kTimeoutMs);
-		leftMaster.config_kD(Constants.kPIDLoopIdx, 0, Constants.kTimeoutMs);
+		leftMaster.config_kP(Constants.kPIDLoopIdx, 2, Constants.kTimeoutMs); //2
+		leftMaster.config_kI(Constants.kPIDLoopIdx, 0.0015, Constants.kTimeoutMs); //0.0015
+		leftMaster.config_kD(Constants.kPIDLoopIdx, 0.25, Constants.kTimeoutMs); //0.25
 		
 		rightMaster.config_kF(Constants.kPIDLoopIdx, 0.2922857143, Constants.kTimeoutMs);
-		rightMaster.config_kP(Constants.kPIDLoopIdx, 1, Constants.kTimeoutMs);
-		rightMaster.config_kI(Constants.kPIDLoopIdx, 0, Constants.kTimeoutMs);
-		rightMaster.config_kD(Constants.kPIDLoopIdx, 0, Constants.kTimeoutMs);
+		rightMaster.config_kP(Constants.kPIDLoopIdx, 2, Constants.kTimeoutMs); //2.5
+		rightMaster.config_kI(Constants.kPIDLoopIdx, 0.0015, Constants.kTimeoutMs); //0.01
+		rightMaster.config_kD(Constants.kPIDLoopIdx, 0.25, Constants.kTimeoutMs); //0.5
 	}
 	
 	/**
@@ -301,7 +301,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * @return The left driverail's velocity in FeetPerSecond
 	 */
 	public double getLeftVelocity () {
-		return rightMaster.getSelectedSensorVelocity(Constants.kPIDLoopIdx) / Constants.feetPerSecToNativeUnitsPer100Ms;
+		return leftMaster.getSelectedSensorVelocity(Constants.kPIDLoopIdx) / Constants.feetPerSecToNativeUnitsPer100Ms;
 	}
 	
 	/**

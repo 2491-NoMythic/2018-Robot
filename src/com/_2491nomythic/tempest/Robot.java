@@ -92,7 +92,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("LeftSwitchPID", new PlaceOnSwitchLeft());
 		m_chooser.addObject("RightSwitchPID", new PlaceOnSwitchRight());
 		*/
-		m_chooser.addDefault("CrossAutoLine", new CrossAutoLine());
+		m_chooser.addDefault("VelocityTest", new VelocityTestAuto());
 		
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -113,9 +113,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("LeftShootPower", Variables.leftShootSpeed);
 		SmartDashboard.putNumber("RightShootPower", Variables.rightShootSpeed);
 		SmartDashboard.putData("RunShooter", new RunShooterManual());
-		
-		Variables.debugMode = false;
-		
+				
 		System.out.println("Boot Successful");
 	}
 
