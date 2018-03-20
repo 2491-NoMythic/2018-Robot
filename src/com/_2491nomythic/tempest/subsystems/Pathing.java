@@ -1,5 +1,7 @@
 package com._2491nomythic.tempest.subsystems;
 
+import com._2491nomythic.tempest.settings.Constants;
+
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
@@ -29,6 +31,11 @@ public class Pathing extends Subsystem {
 	
 	public double returnVelocity(int step,double[][] velocityArray) {
 		return velocityArray[step][1];
+	}
+	
+	public double returnFrictionFactor(double leftSpeed, double rightSpeed) {
+		double midSpeed = (leftSpeed+rightSpeed)/2;
+		return (rightSpeed-midSpeed)*Constants.coefficientOfFriction;
 	}
 
 	@Override
