@@ -1,5 +1,6 @@
 package com._2491nomythic.tempest.commands.autonomous;
 
+import com._2491nomythic.tempest.commands.AutomaticShoot;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.shooter.RunShooterTime;
 import com._2491nomythic.tempest.settings.Constants;
@@ -16,6 +17,7 @@ public class PathAutoSwitch extends CommandBase {
 	private double currentLeftVelocity, currentRightVelocity, turn, angleDiffrence, kG;
 	private double[] currentAngle;
 	private double[][] leftVelocity, rightVelocity;
+	private AutomaticShoot autoShoot;
 	
 	private Timer timer;
 	private RunShooterTime shooterRun;
@@ -30,6 +32,7 @@ public class PathAutoSwitch extends CommandBase {
     		requires(pathing);
     		timer = new Timer();
     		shooterRun = new RunShooterTime(50, 1.5);
+    		autoShoot = new AutomaticShoot(false);
     }
 
     // Called just before this Command runs the first time
@@ -95,21 +98,19 @@ public class PathAutoSwitch extends CommandBase {
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-       return currentStep > 44;
+       return currentStep == leftVelocity.length;
     }
     
 
     // Called once after isFinished returns true
     protected void end() {
-    		shooterRun.start();
-    		shooter.stop();
-    		drivetrain.stop();
+    	drivetrain.stop();
+    	
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    		drivetrain.stop();
-    		shooter.stop();
+    	drivetrain.stop();
     }
 }
