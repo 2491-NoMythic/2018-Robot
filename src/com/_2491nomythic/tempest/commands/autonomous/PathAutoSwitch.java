@@ -13,7 +13,8 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class PathAutoSwitch extends CommandBase {
 	private int currentStep, timeCounter;
-	private double currentLeftVelocity, currentRightVelocity;
+	private double currentLeftVelocity, currentRightVelocity, turn, angleDiffrence, kG;
+	private double[] currentAngle;
 	private double[][] leftVelocity, rightVelocity;
 	
 	private Timer timer;
@@ -45,6 +46,7 @@ public class PathAutoSwitch extends CommandBase {
 		case "L":
 			leftVelocity = Constants.leftVelocityCenterStartPosLeftScaleAutoPath;
 			rightVelocity = Constants.rightVelocityCenterStartPosLeftScaleAutoPath;
+			currentAngle = Constants.centerStartPosLeftSwitchAutoPathAngles;
 			break;
 		case "R":
 			
@@ -71,10 +73,13 @@ public class PathAutoSwitch extends CommandBase {
     			currentLeftVelocity = pathing.returnVelocity(currentStep, leftVelocity) * Constants.feetPerSecToNativeUnitsPer100Ms;
         		currentRightVelocity = pathing.returnVelocity(currentStep, rightVelocity) * Constants.feetPerSecToNativeUnitsPer100Ms;
         		
-        		double frictionFactor = pathing.returnFrictionFactor(currentLeftVelocity, currentRightVelocity);
+        		angleDiffrence = pathing.returnAngle(currentStep, currentAngle) - drivetrain.getGyroAngle();
+        		kG = 0.8 * -1/80;
         		
-        		currentRightVelocity = currentRightVelocity + frictionFactor;
-        		currentLeftVelocity = currentLeftVelocity - frictionFactor;
+        		turn = kG * angleDiffrence;
+        		
+        		currentRightVelocity = currentRightVelocity - turn;
+        		currentLeftVelocity = currentLeftVelocity + turn;
         		
         		drivetrain.driveVelocity(currentLeftVelocity , currentRightVelocity);
     			

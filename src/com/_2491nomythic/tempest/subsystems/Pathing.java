@@ -33,6 +33,10 @@ public class Pathing extends Subsystem {
 		return velocityArray[step][1];
 	}
 	
+	public double returnAngle(int step, double[] angleArray) {
+		return angleArray[step];
+	}
+	
 	public double returnFrictionFactor(double leftSpeed, double rightSpeed) {
 		double midSpeed = (leftSpeed+rightSpeed)/2;
 		return (rightSpeed-midSpeed)*Constants.coefficientOfFriction;
