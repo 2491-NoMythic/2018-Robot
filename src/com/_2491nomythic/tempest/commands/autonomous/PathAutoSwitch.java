@@ -44,8 +44,8 @@ public class PathAutoSwitch extends CommandBase {
     	
 		switch(gameData.substring(0, 1)) {
 		case "L":
-			leftVelocity = Constants.leftVelocityCenterStartPosLeftScaleAutoPath;
-			rightVelocity = Constants.rightVelocityCenterStartPosLeftScaleAutoPath;
+			leftVelocity = Constants.leftVelocityCenterStartPosLeftSwitchAutoPath;
+			rightVelocity = Constants.rightVelocityCenterStartPosLeftSwitchAutoPath;
 			currentAngle = Constants.centerStartPosLeftSwitchAutoPathAngles;
 			break;
 		case "R":
@@ -74,12 +74,12 @@ public class PathAutoSwitch extends CommandBase {
         		currentRightVelocity = pathing.returnVelocity(currentStep, rightVelocity) * Constants.feetPerSecToNativeUnitsPer100Ms;
         		
         		angleDiffrence = pathing.returnAngle(currentStep, currentAngle) - drivetrain.getGyroAngle();
-        		kG = 0.8 * -1/80;
+        		kG = 6.4 * -1/80;
         		
         		turn = kG * angleDiffrence;
         		
-        		currentRightVelocity = currentRightVelocity - turn;
-        		currentLeftVelocity = currentLeftVelocity + turn;
+        		currentRightVelocity = currentRightVelocity + turn;
+        		currentLeftVelocity = currentLeftVelocity - turn;
         		
         		drivetrain.driveVelocity(currentLeftVelocity , currentRightVelocity);
     			
@@ -101,7 +101,7 @@ public class PathAutoSwitch extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    		//shooterRun.start();
+    		shooterRun.start();
     		shooter.stop();
     		drivetrain.stop();
     }
