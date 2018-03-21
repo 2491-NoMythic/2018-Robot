@@ -76,7 +76,7 @@ public class Constants {
 	public static final double driveMaxSpeedRPS = 8.0; //approximately
 	public static final double testEndcoderTicksToInches = 211.761452;
 	public static final double shootEncoderVelocityToRPS = (4.0 * Math.PI) / 4096;
-	public static final double coefficientOfFriction = 1;
+	public static final double coefficientOfFriction = 0.5;
 	
 	//TalonSRX
 	public static final int kTimeoutMs = 10;
