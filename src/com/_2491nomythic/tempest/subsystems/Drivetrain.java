@@ -13,7 +13,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
-import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
@@ -51,11 +50,6 @@ public class Drivetrain extends PIDSubsystem {
 			if (Variables.debugMode) { System.out.println(e); }
 		}
 		
-		/* Configures Limelight */
-		limeLight = NetworkTableInstance.getDefault().getTable("limelight");
-		limeLight.getEntry("ledMode").setNumber(1);
-		limeLight.getEntry("camMode").setNumber(1);
-		
 		/* Instantiates Drivetrain's Talons */
 		try {
 			leftMaster = new TalonSRX(Constants.driveTalonLeft1Channel);
@@ -70,18 +64,18 @@ public class Drivetrain extends PIDSubsystem {
 		}
 		
 		/* Sets Talon's H-bridge direction  */
-		rightMaster.setInverted(true);
-		rightSlave.setInverted(true);
 		leftMaster.setInverted(false);
 		leftSlave.setInverted(false);
+		rightMaster.setInverted(true);
+		rightSlave.setInverted(true);
 		
 		/* Binds slaves to masters using Talon's Follower mode */
 		leftSlave.follow(leftMaster);
 		rightSlave.follow(rightMaster);
 		
 		/* Configures Talon's Feedback Sensors */
-		leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
-		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+		leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.kVelocitySlotId, Constants.kTimeoutMs);
+		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.kVelocitySlotId, Constants.kTimeoutMs);
 		
 		/* Corrects sensor direction to match throttle direction */
 		leftMaster.setSensorPhase(true);
@@ -103,15 +97,20 @@ public class Drivetrain extends PIDSubsystem {
 		rightMaster.configPeakOutputReverse(-1, Constants.kTimeoutMs);
 		
 		/* Configures FPID constants for Talon's Velocity mode */
-		leftMaster.config_kF(Constants.kPIDLoopIdx, 0.2922857143, Constants.kTimeoutMs);
-		leftMaster.config_kP(Constants.kPIDLoopIdx, 1.6, Constants.kTimeoutMs); //2
-		leftMaster.config_kI(Constants.kPIDLoopIdx, 0.001, Constants.kTimeoutMs); //0.0015
-		leftMaster.config_kD(Constants.kPIDLoopIdx, 0.2, Constants.kTimeoutMs); //0.25
+		leftMaster.config_kF(Constants.kVelocitySlotId, Constants.kVelocitykF, Constants.kTimeoutMs);
+		leftMaster.config_kP(Constants.kVelocitySlotId, Constants.kVelocitykP, Constants.kTimeoutMs);
+		leftMaster.config_kI(Constants.kVelocitySlotId, Constants.kVelocitykI, Constants.kTimeoutMs); 
+		leftMaster.config_kD(Constants.kVelocitySlotId, Constants.kVleocitykD, Constants.kTimeoutMs); 
 		
-		rightMaster.config_kF(Constants.kPIDLoopIdx, 0.2922857143, Constants.kTimeoutMs);
-		rightMaster.config_kP(Constants.kPIDLoopIdx, 1.6, Constants.kTimeoutMs); //1.8
-		rightMaster.config_kI(Constants.kPIDLoopIdx, 0.001, Constants.kTimeoutMs); //0.0081
-		rightMaster.config_kD(Constants.kPIDLoopIdx, 0.2, Constants.kTimeoutMs); //2.2
+		rightMaster.config_kF(Constants.kVelocitySlotId, Constants.kVelocitykF, Constants.kTimeoutMs);
+		rightMaster.config_kP(Constants.kVelocitySlotId, Constants.kVelocitykP, Constants.kTimeoutMs);
+		rightMaster.config_kI(Constants.kVelocitySlotId, Constants.kVelocitykI, Constants.kTimeoutMs);
+		rightMaster.config_kD(Constants.kVelocitySlotId, Constants.kVleocitykD, Constants.kTimeoutMs);
+		
+		/* Configures Limelight */
+		limeLight = NetworkTableInstance.getDefault().getTable("limelight");
+		limeLight.getEntry("ledMode").setNumber(1);
+		limeLight.getEntry("camMode").setNumber(1);
 	}
 	
 	/**
@@ -222,14 +221,14 @@ public class Drivetrain extends PIDSubsystem {
 	 * Resets the left drive encoder value to 0
 	 */
 	public void resetLeftEncoder() {
-		leftMaster.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+		leftMaster.setSelectedSensorPosition(0, Constants.kVelocitySlotId, Constants.kTimeoutMs);
 	}
 	
 	/**
 	 * Resets the right drive encoder value to 0
 	 */
 	public void resetRightEncoder() {
-		rightMaster.setSelectedSensorPosition(0, Constants.kPIDLoopIdx, Constants.kTimeoutMs);
+		rightMaster.setSelectedSensorPosition(0, Constants.kVelocitySlotId, Constants.kTimeoutMs);
 	}
 	
 	
@@ -292,28 +291,28 @@ public class Drivetrain extends PIDSubsystem {
 	 * @return The left driverail's velocity in NativeUnitsPer100Ms
 	 */
 	public double getLeftVelocityRaw() {
-		return leftMaster.getSelectedSensorVelocity(Constants.kPIDLoopIdx);
+		return leftMaster.getSelectedSensorVelocity(Constants.kVelocitySlotId);
 	}
 	
 	/**
 	 * @return The right driverail's velocity in NativeUnitsPer100Ms
 	 */
 	public double getRightVelocityRaw() {
-		return rightMaster.getSelectedSensorVelocity(Constants.kPIDLoopIdx);
+		return rightMaster.getSelectedSensorVelocity(Constants.kVelocitySlotId);
 	}
 	
 	/**
 	 * @return The left driverail's velocity in FeetPerSecond
 	 */
 	public double getLeftVelocity () {
-		return leftMaster.getSelectedSensorVelocity(Constants.kPIDLoopIdx) / Constants.feetPerSecToNativeUnitsPer100Ms;
+		return leftMaster.getSelectedSensorVelocity(Constants.kVelocitySlotId) / Constants.kVeloctiyUnitConversion;
 	}
 	
 	/**
 	 * @return The right driverail's velocity in FeetPerSecond
 	 */
 	public double getRightVelocity () {
-		return rightMaster.getSelectedSensorVelocity(Constants.kPIDLoopIdx) / Constants.feetPerSecToNativeUnitsPer100Ms;
+		return rightMaster.getSelectedSensorVelocity(Constants.kVelocitySlotId) / Constants.kVeloctiyUnitConversion;
 	}
 	
 	/**

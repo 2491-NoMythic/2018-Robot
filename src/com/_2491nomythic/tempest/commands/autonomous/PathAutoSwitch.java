@@ -2,10 +2,7 @@ package com._2491nomythic.tempest.commands.autonomous;
 
 import com._2491nomythic.tempest.commands.AutomaticShoot;
 import com._2491nomythic.tempest.commands.CommandBase;
-import com._2491nomythic.tempest.commands.shooter.RunShooterTime;
 import com._2491nomythic.tempest.settings.Constants;
-import com._2491nomythic.tempest.settings.Variables;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
@@ -14,16 +11,13 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class PathAutoSwitch extends CommandBase {
 	private int currentStep, timeCounter;
-	private double currentLeftVelocity, currentRightVelocity, turn, angleDiffrence, kG;
+	private double currentLeftVelocity, currentRightVelocity, turnAdjustment, headingDiffrence;
 	private double[] currentAngle;
 	private double[][] leftVelocity, rightVelocity;
-	private AutomaticShoot autoShoot;
 	
 	private Timer timer;
-	private RunShooterTime shooterRun;
-	
+	private AutomaticShoot autoShoot;
 	private String gameData;
-
 
     public PathAutoSwitch() {
         // Use requires() here to declare subsystem dependencies
@@ -31,7 +25,6 @@ public class PathAutoSwitch extends CommandBase {
     		requires(drivetrain);
     		requires(pathing);
     		timer = new Timer();
-    		shooterRun = new RunShooterTime(50, 1.5);
     		autoShoot = new AutomaticShoot(false);
     }
 
@@ -52,8 +45,9 @@ public class PathAutoSwitch extends CommandBase {
 			currentAngle = Constants.centerStartPosLeftSwitchAutoPathAngles;
 			break;
 		case "R":
-			
-			
+			leftVelocity = Constants.leftVelocityCenterStartPosRightSwitchAutoPath;
+			rightVelocity = Constants.rightVelocityCenterStartPosRightSwitchAutoPath;
+			currentAngle = Constants.centerStartPosRightSwitchAutoPathAngles;
 			break;
 		default:
 			System.out.println("Unexpected value for GameSpecificMessage: " + gameData);
@@ -67,30 +61,22 @@ public class PathAutoSwitch extends CommandBase {
     
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    		
-    		System.out.println("Right: " + currentRightVelocity + " LEFT: " + currentLeftVelocity);
-    	
+    		    	
     		if(timeCounter == 4) {
-    			currentStep++;
     			
-    			currentLeftVelocity = pathing.returnVelocity(currentStep, leftVelocity) * Constants.feetPerSecToNativeUnitsPer100Ms;
-        		currentRightVelocity = pathing.returnVelocity(currentStep, rightVelocity) * Constants.feetPerSecToNativeUnitsPer100Ms;
-        		
-        		angleDiffrence = pathing.returnAngle(currentStep, currentAngle) - drivetrain.getGyroAngle();
-        		kG = 6.4 * -1/80;
-        		
-        		turn = kG * angleDiffrence;
-        		
-        		currentRightVelocity = currentRightVelocity + turn;
-        		currentLeftVelocity = currentLeftVelocity - turn;
+    			headingDiffrence = pathing.returnAngle(currentStep, currentAngle) - drivetrain.getGyroAngle();
+    			turnAdjustment = Constants.kVelocitykG * headingDiffrence * Constants.kGyroAdjusment;
+    			
+    			currentLeftVelocity = pathing.returnVelocity(currentStep, leftVelocity) - turnAdjustment;
+        		currentRightVelocity = pathing.returnVelocity(currentStep, rightVelocity) + turnAdjustment;
         		
         		drivetrain.driveVelocity(currentLeftVelocity , currentRightVelocity);
     			
     			timeCounter = 0;
+    			currentStep++;
     			
-    			if (Variables.debugMode) { }
-    			
-    		} else {
+    		} 
+    		else {
     			timeCounter++;
     		}
     }
@@ -104,13 +90,13 @@ public class PathAutoSwitch extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    	drivetrain.stop();
-    	
+    		autoShoot.start();
+    		drivetrain.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	drivetrain.stop();
+    		drivetrain.stop();
     }
 }

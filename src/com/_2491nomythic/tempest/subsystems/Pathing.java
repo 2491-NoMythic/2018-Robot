@@ -23,23 +23,32 @@ public class Pathing extends Subsystem {
 	}
 	
 	/**
-	 * 
-	 * @param step step in array based on time.
-	 * @param velocityArray constant velocity array to get
-	 * @return velocity for current step by designated array
+	 * @param step the desired time step within the array
+	 * @param velocityArray a array of velocities by step
+	 * @return Velocity in Native Units per 100Ms for current step based on designated velocityArray
 	 */
 	
 	public double returnVelocity(int step,double[][] velocityArray) {
+		return velocityArray[step][1] * Constants.kVeloctiyUnitConversion;
+	}
+	
+	/**
+	 * @param step Desired time step within the array
+	 * @param velocityArray a array of velocities by step
+	 * @return Velocity in Feet per Second for current step based on designated velocityArray
+	 */
+	
+	public double returnVelocityRaw(int step,double[][] velocityArray) {
 		return velocityArray[step][1];
 	}
 	
+	/**
+	 * @param step the desired time step within the array
+	 * @param angleArray a array of global coordinate angles
+	 * @return Angle for current time step based on designated angleArray
+	 */
 	public double returnAngle(int step, double[] angleArray) {
 		return angleArray[step];
-	}
-	
-	public double returnFrictionFactor(double leftSpeed, double rightSpeed) {
-		double midSpeed = (leftSpeed+rightSpeed)/2;
-		return (rightSpeed-midSpeed)*Constants.coefficientOfFriction;
 	}
 
 	@Override

@@ -20,7 +20,7 @@ public class VelocityTestAuto extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	drivetrain.driveVelocity(2 * Constants.feetPerSecToNativeUnitsPer100Ms);
+    	drivetrain.driveVelocity(2 * Constants.kVeloctiyUnitConversion);
     	//drivetrain.driveVelocity(409.6 * 1.5);
     	timer.reset();
     	timer.start();

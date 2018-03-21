@@ -13,13 +13,6 @@ import com._2491nomythic.tempest.commands.UpdateDriverstation;
 import com._2491nomythic.tempest.commands.autonomous.CrossAutoLine;
 import com._2491nomythic.tempest.commands.autonomous.DoNothing;
 import com._2491nomythic.tempest.commands.autonomous.PathAutoSwitch;
-/*import com._2491nomythic.tempest.commands.autonomous.DriveForwardSwitch;
-import com._2491nomythic.tempest.commands.autonomous.LeftPrioritizeScale;
-import com._2491nomythic.tempest.commands.autonomous.LeftPrioritizeSwitch;
-import com._2491nomythic.tempest.commands.autonomous.PlaceOnScaleLeft;
-import com._2491nomythic.tempest.commands.autonomous.PlaceOnScaleRight;*/
-import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitch;
-import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchBounceCounter;
 import com._2491nomythic.tempest.commands.autonomous.VelocityTestAuto;
 /*import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchLeft;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchRight;
@@ -76,10 +69,9 @@ public class Robot extends TimedRobot {
 		monitorRPS.start();
 		
 		m_chooser.addObject("DoNothing", new DoNothing());
-		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
-		m_chooser.addObject("BounceCounter", new PlaceOnSwitchBounceCounter());
-		m_chooser.addObject("PathingAutoLeftSwitch", new PathAutoSwitch());
-		m_chooser.addObject("VelocityTest", new VelocityTestAuto());
+		m_chooser.addObject("CrossLine", new CrossAutoLine());
+		m_chooser.addObject("Pathing/SwitchCenter", new PathAutoSwitch());
+		
 		/*
 		m_chooser.addObject("SwitchLeft", new DriveForwardSwitch(true));
 		m_chooser.addObject("SwitchRight", new DriveForwardSwitch(false));
@@ -89,10 +81,9 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("RightPrioritizeScale", new RightPrioritizeScale());
 		m_chooser.addObject("LeftPrioritizeSwitch", new LeftPrioritizeSwitch());
 		m_chooser.addObject("RightPrioritizeSwitch", new RightPrioritizeSwitch());
-		m_chooser.addObject("LeftSwitchPID", new PlaceOnSwitchLeft());
-		m_chooser.addObject("RightSwitchPID", new PlaceOnSwitchRight());
 		*/
-		m_chooser.addDefault("PathingAutoLeftSwitch", new PathAutoSwitch());
+		m_chooser.addObject("VelocityTest", new VelocityTestAuto());
+		m_chooser.addDefault("Pathing/CenterSwitch", new PathAutoSwitch());
 		
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -149,13 +140,6 @@ public class Robot extends TimedRobot {
 		
 		m_autonomousCommand = m_chooser.getSelected();
 		updateLights.start();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
