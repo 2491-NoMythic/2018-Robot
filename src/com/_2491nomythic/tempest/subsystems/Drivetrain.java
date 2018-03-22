@@ -13,6 +13,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
@@ -45,7 +46,7 @@ public class Drivetrain extends PIDSubsystem {
 			gyro = new AHRS(SerialPort.Port.kUSB); 	
 		} 
 		catch (Exception e) { 
-			System.out.println("NavX instantiation failure! Check gyro USB cable"); 
+			DriverStation.reportError("NavX instantiation failure! Check gyro USB cable", Variables.debugMode);
 			
 			if (Variables.debugMode) { System.out.println(e); }
 		}
@@ -58,7 +59,7 @@ public class Drivetrain extends PIDSubsystem {
 			rightSlave = new TalonSRX(Constants.driveTalonRight2Channel);
 		} 
 		catch (Exception e) {
-			System.out.println("TalonSRX instantiation failure! Check CAN Bus, TalonSRX Decive ID's, and TalonSRX power");
+			DriverStation.reportError("TalonSRX instantiation failure! Check CAN Bus, TalonSRX Decive ID's, and TalonSRX power", Variables.debugMode);
 			
 			if (Variables.debugMode) { System.out.println(e); }
 		}

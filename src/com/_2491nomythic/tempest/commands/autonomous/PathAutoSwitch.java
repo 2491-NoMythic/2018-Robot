@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class PathAutoSwitch extends CommandBase {
 	private int currentStep, timeCounter;
-	private double currentLeftVelocity, currentRightVelocity, turnAdjustment, headingDiffrence;
+	private double adjustedLeftVelocity, adjustedRightVelocity, turnAdjustment, headingDiffrence;
 	private double[] currentAngle;
 	private double[][] leftVelocity, rightVelocity;
 	
@@ -67,10 +67,10 @@ public class PathAutoSwitch extends CommandBase {
     			headingDiffrence = pathing.returnAngle(currentStep, currentAngle) - drivetrain.getGyroAngle();
     			turnAdjustment = Constants.kVelocitykG * headingDiffrence * Constants.kGyroAdjusment;
     			
-    			currentLeftVelocity = pathing.returnVelocity(currentStep, leftVelocity) - turnAdjustment;
-        		currentRightVelocity = pathing.returnVelocity(currentStep, rightVelocity) + turnAdjustment;
+    			adjustedLeftVelocity = pathing.returnVelocity(currentStep, leftVelocity) - turnAdjustment;
+        		adjustedRightVelocity = pathing.returnVelocity(currentStep, rightVelocity) + turnAdjustment;
         		
-        		drivetrain.driveVelocity(currentLeftVelocity , currentRightVelocity);
+        		drivetrain.driveVelocity(adjustedLeftVelocity , adjustedRightVelocity);
     			
     			timeCounter = 0;
     			currentStep++;
