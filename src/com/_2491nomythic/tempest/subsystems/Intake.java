@@ -81,7 +81,7 @@ public class Intake extends Subsystem {
 	public void activate() {
 		activateIntakeSolenoid.set(Value.kForward);
 		Variables.isDeployed = true;
-		Variables.driveRestriction = 0.6;
+		Variables.driveRestriction = 1;
 	}
 	
 	/**
