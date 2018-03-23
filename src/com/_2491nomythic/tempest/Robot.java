@@ -19,16 +19,14 @@ import com._2491nomythic.tempest.commands.autonomous.PlaceOnScaleLeft;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnScaleRight;*/
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitch;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchBounceCounter;
+import com._2491nomythic.tempest.commands.lights.SendAllianceColor;
 /*import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchLeft;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchRight;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeSwitch;*/
-import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
-import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.lights.SerialConnectivityTest;
+import com._2491nomythic.tempest.commands.lights.UpdateLightPattern;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
-import com._2491nomythic.tempest.commands.shooter.RunShooterManual;
-import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -49,6 +47,8 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	ResetSolenoids resetSolenoids;
 	UpdateDriverstation updateDriverstation;
+	UpdateLightPattern updateLights;
+	SendAllianceColor sendColor;
 	MonitorRPS monitorRPS;
 	
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -66,9 +66,12 @@ public class Robot extends TimedRobot {
 		updateDriverstation = new UpdateDriverstation();
 		resetSolenoids = new ResetSolenoids();
 		monitorRPS = new MonitorRPS();
+		sendColor = new SendAllianceColor();
+		updateLights = new UpdateLightPattern();
 		
 		updateDriverstation.start();
 		monitorRPS.start();		
+		updateLights.start();
 		
 		m_chooser.addObject("DoNothing", new DoNothing());
 		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
@@ -88,25 +91,11 @@ public class Robot extends TimedRobot {
 		m_chooser.addDefault("CrossAutoLine", new CrossAutoLine());
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
-		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-20));
-		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
-		SmartDashboard.putData("RotateDrivetrainRelative-90", new RotateDrivetrainWithGyroPID(-90, false));
-		SmartDashboard.putData("SerialConnectivityTest", new SerialConnectivityTest());
-		SmartDashboard.putNumber("ProportionalRotate", Variables.proportionalRotate);
-		SmartDashboard.putNumber("DerivativeRotate", Variables.derivativeRotate);
-		SmartDashboard.putNumber("ProportionalForward", Variables.proportionalForward);
-		SmartDashboard.putNumber("DerivativeForward", Variables.derivativeForward);
-		SmartDashboard.putNumber("DriveDefault", Variables.driveDefault);
-		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);
-		SmartDashboard.putNumber("SwitchRPS", Constants.shooterSwitchRPS);
-		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
-		SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
-		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
-		SmartDashboard.putBoolean("UseMonitorRPS", Variables.useMonitorRPS);
-		SmartDashboard.putNumber("LeftShootPower", Variables.leftShootSpeed);
-		SmartDashboard.putNumber("RightShootPower", Variables.rightShootSpeed);
-		SmartDashboard.putData("RunShooter", new RunShooterManual());
-		
+
+		SmartDashboard.putData("send 1", new SerialConnectivityTest(1));
+		SmartDashboard.putData("send 2", new SerialConnectivityTest(2));
+		SmartDashboard.putData("send 3", new SerialConnectivityTest(3));
+					
 		System.out.println("Boot Successful");
 	}
 
@@ -139,6 +128,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		Variables.autoDelay = SmartDashboard.getNumber("AutoDelay", 0);
+		sendColor.start();
 		
 		m_autonomousCommand = m_chooser.getSelected();
 

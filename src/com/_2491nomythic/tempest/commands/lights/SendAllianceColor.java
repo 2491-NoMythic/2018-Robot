@@ -2,21 +2,29 @@ package com._2491nomythic.tempest.commands.lights;
 
 import com._2491nomythic.tempest.commands.CommandBase;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
 /**
  *
  */
-public class SerialConnectivityTest extends CommandBase {
-	private byte data;
+public class SendAllianceColor extends CommandBase {
 
-    public SerialConnectivityTest(int data) {
+    public SendAllianceColor() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	this.data = (byte) data;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	sickLights.writeData(data);
+    	if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Red) {
+    		sickLights.writeData(1);
+    	}
+    	else if(DriverStation.getInstance().getAlliance() == DriverStation.Alliance.Blue) {
+    		sickLights.writeData(2);
+    	}
+    	else {
+    		System.out.println("Invalid alliance in SendAllianceColor.");
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -25,7 +33,7 @@ public class SerialConnectivityTest extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	return true;
+        return true;
     }
 
     // Called once after isFinished returns true
