@@ -66,6 +66,9 @@ public class FalconPathPlanner
 	double velocityAlpha;
 	double velocityBeta;
 	double velocityTolerance;
+	
+	//String builder
+	static StringBuilder _sb;
 
 
 	/**
@@ -100,6 +103,7 @@ public class FalconPathPlanner
 		velocityAlpha = 0.1;
 		velocityBeta = 0.3;
 		velocityTolerance = 0.0000001;
+		
 	}
 
 	public static void print(double[] path)
@@ -122,6 +126,28 @@ public class FalconPathPlanner
 
 		for(double[] u: path)
 			System.out.println(u[0]+ "\t" +u[1]);
+	}
+	
+	/**
+	 * Prints a single line of velocity values for copy-pasting into Constants file
+	 * @param path the desired path to print
+	 * @param name an identifying name for the path
+	 */
+	public static void print(double[][] path, String name)
+	{
+		_sb = new StringBuilder();
+		System.out.println(name + ":");
+		
+		_sb.append("{");
+
+		for(double[] u: path)
+			_sb.append("{" + u[0] + "," + u[1] + "},");
+		
+		_sb.deleteCharAt(_sb.length() - 1);
+		_sb.append("}");
+		
+		System.out.println(_sb.toString());
+		
 	}
 
 	/**
@@ -696,6 +722,9 @@ public class FalconPathPlanner
 
 		final FalconPathPlanner path = new FalconPathPlanner(waypoints);
 		path.calculate(totalTime, timeStep, robotTrackWidth);
+		FalconPathPlanner.print(path.smoothLeftVelocity, "leftV");
+		FalconPathPlanner.print(path.smoothRightVelocity, "rightV");
+		FalconPathPlanner.print(path.heading, "heading");
 
 		System.out.println("Time in ms: " + (System.currentTimeMillis()-start));
 
