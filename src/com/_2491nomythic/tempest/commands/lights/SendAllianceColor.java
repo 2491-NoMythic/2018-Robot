@@ -1,11 +1,14 @@
 package com._2491nomythic.tempest.commands.lights;
 
-import edu.wpi.first.wpilibj.command.Command;
+import com._2491nomythic.tempest.commands.CommandBase;
+
+import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 
 /**
  *
  */
-public class SendAllianceColor extends Command {
+public class SendAllianceColor extends CommandBase {
 
     public SendAllianceColor() {
         // Use requires() here to declare subsystem dependencies
@@ -14,6 +17,15 @@ public class SendAllianceColor extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	if(DriverStation.getInstance().getAlliance() == Alliance.Red) {
+    		sickLights.writeData(1);
+    	}
+    	else if(DriverStation.getInstance().getAlliance() == Alliance.Blue) {
+    		sickLights.writeData(2);
+    	}
+    	else {
+    		System.out.println("Invalid alliance in SendAllianceColor.");
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -22,7 +34,7 @@ public class SendAllianceColor extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

@@ -1,11 +1,11 @@
 package com._2491nomythic.tempest.commands.lights;
 
-import edu.wpi.first.wpilibj.command.Command;
+import com._2491nomythic.tempest.commands.CommandBase;
 
 /**
  *
  */
-public class SerialConnectivityTest extends Command {
+public class SerialConnectivityTest extends CommandBase {
 
     public SerialConnectivityTest() {
         // Use requires() here to declare subsystem dependencies
@@ -14,6 +14,7 @@ public class SerialConnectivityTest extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	sickLights.writeData(10);
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -22,7 +23,7 @@ public class SerialConnectivityTest extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true

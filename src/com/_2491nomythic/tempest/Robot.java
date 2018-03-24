@@ -25,7 +25,8 @@ import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeSwitch;*/
 import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
-import com._2491nomythic.tempest.commands.lights.UpdateLights;
+import com._2491nomythic.tempest.commands.lights.SendAllianceColor;
+import com._2491nomythic.tempest.commands.lights.UpdateLightsPattern;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
@@ -47,7 +48,8 @@ public class Robot extends TimedRobot {
 
 	Command m_autonomousCommand;
 	ResetSolenoids resetSolenoids;
-	UpdateLights updateLights;
+	UpdateLightsPattern updateLights;
+	SendAllianceColor sendColor;
 	UpdateDriverstation updateDriverstation;
 	MonitorRPS monitorRPS;
 	
@@ -64,7 +66,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() { 
 		CommandBase.init();
 		updateDriverstation = new UpdateDriverstation();
-		updateLights = new UpdateLights();
+		updateLights = new UpdateLightsPattern();
 		resetSolenoids = new ResetSolenoids();
 		monitorRPS = new MonitorRPS();
 		
@@ -138,6 +140,7 @@ public class Robot extends TimedRobot {
 		
 		m_autonomousCommand = m_chooser.getSelected();
 		updateLights.start();
+		sendColor.start();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -172,6 +175,7 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		
+		sendColor.start();
 		updateLights.start();
 		isTeleop = true;		
 	}
