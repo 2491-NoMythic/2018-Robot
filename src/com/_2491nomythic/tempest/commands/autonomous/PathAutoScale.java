@@ -23,7 +23,7 @@ public class PathAutoScale extends CommandBase {
     		requires(drivetrain);
     		requires(pathing);
     		autoShoot = new TransportCubeTime(-1, 1);
-    		rotate = new RotateDrivetrainWithGyroPID(-90, false);
+    		rotate = new RotateDrivetrainWithGyroPID(-118, false);
     }
 
     // Called just before this Command runs the first time

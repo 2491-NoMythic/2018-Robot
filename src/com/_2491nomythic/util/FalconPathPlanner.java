@@ -721,7 +721,7 @@ public class FalconPathPlanner
 	
 		double[][] switchCenterRight = new double[][] {
 			{0,centerStartPos},
-			{5,centerStartPos},
+			{3,centerStartPos},
 			{8,9},
 			{14-3.16667,9}
 		};
@@ -750,18 +750,10 @@ public class FalconPathPlanner
 		
 		double[][] scaleRightRight = new double[][] {
 			{0,rightStartPos},
-			{10-2,rightStartPos},
-			{18-2,2},
-			{21-2,5},
-			{21-2,8.5-(robotLength/2)}		
-		};
-		
-		double[][] scaleLeftLeft = new double[][] {
-			{0,leftStartPos},
-			{10,27-(27-leftStartPos)},
-			{18,27-2},
-			{21,27-5},
-			{21,27-(8.5-(robotLength/2))}
+			{10,2},
+			{18,2},
+			{20,3},
+			{21.5,7-(robotLength/2)}		
 		};
 
 		final FalconPathPlanner path = new FalconPathPlanner(scaleRightRight);
