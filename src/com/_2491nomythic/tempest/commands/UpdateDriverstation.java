@@ -69,7 +69,7 @@ public class UpdateDriverstation extends CommandBase {
 				drivetrain.chooseDefaultCommand(Variables.driveDefault);
 			}
 			else {
-				drivetrain.chooseDefaultCommand(5);
+				drivetrain.chooseDefaultCommand(Math.PI);
 			}
 		}
 			
