@@ -47,8 +47,8 @@ public class Pathing extends Subsystem {
 	 * @param angleArray a array of global coordinate angles
 	 * @return Angle for current time step based on designated angleArray
 	 */
-	public double returnAngle(int step, double[] angleArray) {
-		return angleArray[step];
+	public double returnAngle(int step, double[][] angleArray) {
+		return angleArray[step][1];
 	}
 
 	@Override

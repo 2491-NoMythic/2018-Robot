@@ -49,6 +49,7 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putBoolean("ShooterReadyToFire", Variables.readyToFire);
 			SmartDashboard.putNumber("LeftShootRPS", shooter.getLeftShootVelocity());
 			SmartDashboard.putNumber("RightShootRPS", shooter.getRightShootVelocity());
+			SmartDashboard.putNumber("Pathing Gyro", -drivetrain.getRawGyroAngle());
 			
 			Variables.useMonitorRPS = SmartDashboard.getBoolean("UseMonitorRPS", Variables.useMonitorRPS);
 			Variables.derivativeRotate = SmartDashboard.getNumber("DerivateRotate", Variables.derivativeRotate);
