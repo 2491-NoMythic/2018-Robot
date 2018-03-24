@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class UpdateLightPattern extends CommandBase {
 	private Timer sonicTimer, readyToFireTimer;
 	private boolean newCube, readyEnough;
+	private int data;
 
     public UpdateLightPattern() {
         // Use requires() here to declare subsystem dependencies
@@ -53,31 +54,34 @@ public class UpdateLightPattern extends CommandBase {
     	
     	if(Variables.readyToFire || readyEnough) {
     		readyEnough = true;
-    		sickLights.writeData(9);
+    		data = 9;
     	}
     	else if(shooter.getShootVelocity() >= 1) {
     		if(Variables.shooterSpeed > Constants.shooterHighScaleSpeed - 0.03) {
-    			sickLights.writeData(7);
+    			data = 7;
     		}
     		else if(Variables.shooterSpeed > Constants.shooterMediumScaleSpeed - 0.03) {
-    			sickLights.writeData(6);
+    			data = 6;
     		}
     		else if(Variables.shooterSpeed > Constants.shooterLowScaleSpeed - 0.03) {
-    			sickLights.writeData(5);
+    			data = 5;
     		}
     		else {
-    			sickLights.writeData(4);
+    			data = 4;
     		}
     	}
     	else if(shooter.getShootVelocity() <= -1) {
-    		sickLights.writeData(3);
+    		data = 3;
     	}
     	else if(cubeStorage.isHeld() && newCube) {
-    		sickLights.writeData(8);
+    		data = 8;
     	}
     	else {
-    		sickLights.writeData(0);
+    		data = 0;
     	}
+    	
+    	System.out.println("Data sent: " + data);
+    	sickLights.writeData(data);
     }
 
     // Make this return true when this Command no longer needs to run execute()
