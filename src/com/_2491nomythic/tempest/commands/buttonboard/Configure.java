@@ -63,7 +63,7 @@ public class Configure extends CommandBase {
     		break;
     	}
     	
-    	/*if(!configuredPosition) {
+    	if(!configuredPosition) {
     		switch(state) {
     		case 0:
     			intake.activate();
@@ -92,7 +92,7 @@ public class Configure extends CommandBase {
     			System.out.println("Invalid state in Configure. State: " + state);
     			break;
     		}
-    	}*/
+    	}
     	
     }
 

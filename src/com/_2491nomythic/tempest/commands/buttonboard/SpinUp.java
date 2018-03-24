@@ -6,20 +6,16 @@ import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.ControllerMap;
 import com._2491nomythic.tempest.settings.Variables;
 
-import edu.wpi.first.wpilibj.Timer;
-
 /**
  *
  */
 public class SpinUp extends CommandBase {
 	private boolean button1, button2;
 	private RunShooterManual spinUp;
-	private Timer timer;
 
     public SpinUp() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	timer = new Timer();
     }
 
     // Called just before this Command runs the first time
