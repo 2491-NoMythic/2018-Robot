@@ -35,7 +35,7 @@ public class Constants {
 	public static double shooterLowScaleSpeed = .5;
 	public static double shooterSwitchSpeed = .4;
 	public static double shooterHighScaleRPS = 93; // accelerate highscale rps = 28.5
-	public static double shooterMediumScaleRPS = 70; // accelerate medscale rps = 24.75
+	public static double shooterMediumScaleRPS = 75; // accelerate medscale rps = 24.75
 	public static double shooterLowScaleRPS = 58; // accelerate lowscale rps = 19
 	public static double shooterSwitchRPS = 48; //accelerate switch rps = 11.3
 	
