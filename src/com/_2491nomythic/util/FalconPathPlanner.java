@@ -748,12 +748,20 @@ public class FalconPathPlanner
 			{24,5}
 		};
 		
-		double[][] scaleRightRight = new double[][] {
+		double[][] oldScaleRightRight = new double[][] {
 			{0,rightStartPos},
 			{10,2},
 			{18,2},
 			{20,3},
 			{21.5,7-(robotLength/2)}		
+		};
+		
+		double[][] scaleRightRight = new double[][] {
+			{0,rightStartPos},
+			{5,rightStartPos},
+			{14,5},
+			{21,6.5},
+			{24,6.5}
 		};
 
 		final FalconPathPlanner path = new FalconPathPlanner(scaleRightRight);
