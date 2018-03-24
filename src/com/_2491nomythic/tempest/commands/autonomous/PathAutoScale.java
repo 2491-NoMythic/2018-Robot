@@ -2,6 +2,7 @@ package com._2491nomythic.tempest.commands.autonomous;
 
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.cubestorage.TransportCubeTime;
+import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.settings.Constants;
 import edu.wpi.first.wpilibj.DriverStation;
 
@@ -12,7 +13,7 @@ public class PathAutoScale extends CommandBase {
 	private int currentStep, timeCounter;
 	private double adjustedLeftVelocity, adjustedRightVelocity, turnAdjustment, headingDiffrence, headingStart;
 	private double[][] leftVelocitiesArray, rightVelocitiesArray, headingsArray;
-	
+	private RotateDrivetrainWithGyroPID rotate;
 	private TransportCubeTime autoShoot;
 	private String gameData;
 
@@ -22,6 +23,7 @@ public class PathAutoScale extends CommandBase {
     		requires(drivetrain);
     		requires(pathing);
     		autoShoot = new TransportCubeTime(-1, 1);
+    		rotate = new RotateDrivetrainWithGyroPID(-90, false);
     }
 
     // Called just before this Command runs the first time
@@ -30,6 +32,7 @@ public class PathAutoScale extends CommandBase {
     	/* Prepare robot superStructure*/
 		headingStart = drivetrain.getRawGyroAngle();
 		intake.activate();
+		shooter.setScalePosition();
     	
     	/* Reset Variables */
     	currentStep = 0; //was set to 4, therefore we where starting four steps in...
@@ -39,16 +42,16 @@ public class PathAutoScale extends CommandBase {
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
     	
     	/* Select side based on gameData */
-		switch(gameData.substring(0, 1)) {
+		switch(gameData.substring(1, 2)) {
 		case "L":
 			leftVelocitiesArray = Constants.leftVelocitiesATcenterPosFORleftSwitch;
 			rightVelocitiesArray = Constants.rightVelocitiesATcenterPosFORleftSwitch;
 			headingsArray = Constants.anglesATcenterPosFORleftSwitch;
 			break;
 		case "R":
-			leftVelocitiesArray = Constants.leftVelocitiesATcenterPosFORrightScale;
-			rightVelocitiesArray = Constants.rightVelocitiesATcenterPosFORrightScale;
-			headingsArray = Constants.anglesATcenterPosFORrightScale;
+			leftVelocitiesArray = Constants.leftVelocitiesATrightPosFORrightScale;
+			rightVelocitiesArray = Constants.rightVelocitiesATrightposFORrightScale;
+			headingsArray = Constants.anglesATrightPosFORrightScale;
 			break;
 		default:
 			System.out.println("Unexpected value for GameSpecificMessage: " + gameData);
@@ -86,7 +89,7 @@ public class PathAutoScale extends CommandBase {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	if(currentStep == leftVelocitiesArray.length-2) {
-    		autoShoot.start();
+    		//autoShoot.start();
     	}
        return currentStep + 1 == leftVelocitiesArray.length;
     }
@@ -94,12 +97,13 @@ public class PathAutoScale extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    		drivetrain.stop();
+    	rotate.start();	
+    	drivetrain.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    		end();
+    	drivetrain.stop();
     }
 }

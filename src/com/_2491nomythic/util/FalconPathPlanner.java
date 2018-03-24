@@ -750,10 +750,10 @@ public class FalconPathPlanner
 		
 		double[][] scaleRightRight = new double[][] {
 			{0,rightStartPos},
-			{10,rightStartPos},
-			{18,2},
-			{21,5},
-			{21,8.5-(robotLength/2)}		
+			{10-2,rightStartPos},
+			{18-2,2},
+			{21-2,5},
+			{21-2,8.5-(robotLength/2)}		
 		};
 		
 		double[][] scaleLeftLeft = new double[][] {
@@ -764,7 +764,7 @@ public class FalconPathPlanner
 			{21,27-(8.5-(robotLength/2))}
 		};
 
-		final FalconPathPlanner path = new FalconPathPlanner(scaleLeftLeft);
+		final FalconPathPlanner path = new FalconPathPlanner(scaleRightRight);
 		path.calculate(totalTime, timeStep, robotTrackWidth);
 
 		System.out.println("Time in ms: " + (System.currentTimeMillis()-start));

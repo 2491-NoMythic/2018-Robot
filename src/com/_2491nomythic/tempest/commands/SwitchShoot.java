@@ -38,7 +38,7 @@ public class SwitchShoot extends CommandBase {
 		switch(state) {
 		case 0:
 			if(shooter.inScalePosition()) {
-				shooter.setSwitchPosition();
+				shooter.setScalePosition();
 				wasLowered = false;
 			}
 			else {
