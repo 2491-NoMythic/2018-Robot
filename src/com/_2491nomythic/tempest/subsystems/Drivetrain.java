@@ -8,26 +8,25 @@ import com._2491nomythic.tempest.settings.Variables;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
-
 import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
-
 import edu.wpi.first.wpilibj.command.PIDSubsystem;
 
 /**
  * The system of motors, solenoids, encoders, and a gyro that allows us to drive the robot
  */
 public class Drivetrain extends PIDSubsystem {
-	private TalonSRX left1, left2, right1, right2;
+	private TalonSRX leftMaster, leftSlave, rightMaster, rightSlave;
 	private AHRS gyro;
 	private NetworkTable limeLight;
 	private double currentPIDOutput;
 	
 	private static Drivetrain instance;
-	
 	
 	public static Drivetrain getInstance() {
 		if (instance == null) {
@@ -37,23 +36,84 @@ public class Drivetrain extends PIDSubsystem {
 	}
 	
 	/**
-	 * The system of motors, solenoids, encoders, and a gyro that allows us to drive the robot
+	 * The system of motors, solenoids, encoders, and a gyroroscope that controls robot drivetrain movement
 	 */
 	private Drivetrain() {
 		super("Drive", Variables.proportionalRotate, Variables.integralRotate, Variables.derivativeRotate);
 		
-		left1 = new TalonSRX(Constants.driveTalonLeft1Channel);
-		left2 = new TalonSRX(Constants.driveTalonLeft2Channel);
-		right1 = new TalonSRX(Constants.driveTalonRight1Channel);
-		right2 = new TalonSRX(Constants.driveTalonRight2Channel);
+		/* Instantiates NavX */
+		try { 
+			gyro = new AHRS(SerialPort.Port.kUSB); 	
+		} 
+		catch (Exception e) { 
+			DriverStation.reportError("NavX instantiation failure! Check gyro USB cable", Variables.debugMode);
+			
+			if (Variables.debugMode) { System.out.println(e); }
+		}
 		
-		left1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		right1.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-				
-		gyro = new AHRS(SerialPort.Port.kUSB);
+		/* Instantiates Drivetrain's Talons */
+		try {
+			leftMaster = new TalonSRX(Constants.driveTalonLeft1Channel);
+			leftSlave = new TalonSRX(Constants.driveTalonLeft2Channel);
+			rightMaster = new TalonSRX(Constants.driveTalonRight1Channel);
+			rightSlave = new TalonSRX(Constants.driveTalonRight2Channel);
+		} 
+		catch (Exception e) {
+			DriverStation.reportError("TalonSRX instantiation failure! Check CAN Bus, TalonSRX Decive ID's, and TalonSRX power", Variables.debugMode);
+			
+			if (Variables.debugMode) { System.out.println(e); }
+		}
+		
+		/* Sets Talon's H-bridge direction  */
+		leftMaster.setInverted(false);
+		leftSlave.setInverted(false);
+		rightMaster.setInverted(true);
+		rightSlave.setInverted(true);
+		
+		/* Binds slaves to masters using Talon's Follower mode */
+		leftSlave.follow(leftMaster);
+		rightSlave.follow(rightMaster);
+		
+		/* Configures Talon's Feedback Sensors */
+		leftMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.kVelocitySlotId, Constants.kTimeoutMs);
+		rightMaster.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, Constants.kVelocitySlotId, Constants.kTimeoutMs);
+		
+		/* Corrects sensor direction to match throttle direction */
+		leftMaster.setSensorPhase(true);
+		rightMaster.setSensorPhase(true);
+		
+		/* Doubles the Talon's feedback frame rate */
+		leftMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10, Constants.kTimeoutMs);
+		rightMaster.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 10, Constants.kTimeoutMs);
+		
+		/* Configures left and right output voltage limits */
+		leftMaster.configNominalOutputForward(0, Constants.kTimeoutMs);
+		leftMaster.configNominalOutputReverse(0, Constants.kTimeoutMs);
+		leftMaster.configPeakOutputForward(1, Constants.kTimeoutMs);
+		leftMaster.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+		
+		rightMaster.configNominalOutputForward(0, Constants.kTimeoutMs);
+		rightMaster.configNominalOutputReverse(0, Constants.kTimeoutMs);
+		rightMaster.configPeakOutputForward(1, Constants.kTimeoutMs);
+		rightMaster.configPeakOutputReverse(-1, Constants.kTimeoutMs);
+		
+		/* Configures FPID constants for Talon's Velocity mode */
+		leftMaster.config_kF(Constants.kVelocitySlotId, Constants.kVelocitykF, Constants.kTimeoutMs);
+		leftMaster.config_kP(Constants.kVelocitySlotId, Constants.kVelocitykP, Constants.kTimeoutMs);
+		leftMaster.config_kI(Constants.kVelocitySlotId, Constants.kVelocitykI, Constants.kTimeoutMs); 
+		leftMaster.config_kD(Constants.kVelocitySlotId, Constants.kVleocitykD, Constants.kTimeoutMs); 
+		
+		rightMaster.config_kF(Constants.kVelocitySlotId, Constants.kVelocitykF, Constants.kTimeoutMs);
+		rightMaster.config_kP(Constants.kVelocitySlotId, Constants.kVelocitykP, Constants.kTimeoutMs);
+		rightMaster.config_kI(Constants.kVelocitySlotId, Constants.kVelocitykI, Constants.kTimeoutMs);
+		rightMaster.config_kD(Constants.kVelocitySlotId, Constants.kVleocitykD, Constants.kTimeoutMs);
+		
+		/* Configures Limelight */
 		limeLight = NetworkTableInstance.getDefault().getTable("limelight");
 		limeLight.getEntry("ledMode").setNumber(1);
 		limeLight.getEntry("camMode").setNumber(1);
+		
+		resetGyro();
 	}
 	
 	/**
@@ -79,8 +139,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveLeftPercentOutput(double speed){
-		left1.set(ControlMode.PercentOutput, speed * Variables.driveRestriction);
-		left2.set(ControlMode.PercentOutput, speed * Variables.driveRestriction);
+		leftMaster.set(ControlMode.PercentOutput, speed * Variables.driveRestriction);
 	}
 	
 	/**
@@ -88,13 +147,12 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveRightPercentOutput(double speed){
-		right1.set(ControlMode.PercentOutput, -speed * Variables.driveRestriction);
-		right2.set(ControlMode.PercentOutput, -speed * Variables.driveRestriction);
+		rightMaster.set(ControlMode.PercentOutput, speed * Variables.driveRestriction);
 	}
 	
 	/**
 	 * Drives the robot forward or backward only
-	 * @param speed The speed of the wheels in RPS (rotations per second)
+	 * @param speed The speed of the wheels in inches per second
 	 */
 	public void driveVelocity(double speed){
 		driveVelocity(speed, speed);
@@ -102,8 +160,8 @@ public class Drivetrain extends PIDSubsystem {
 	
 	/**
 	 * Drives the robot with each set of motors receiving an individual specific speed
-	 * @param leftSpeed The speed of the left wheels in RPS (rotations per second)
-	 * @param rightSpeed The speed of the right wheels in RPS (rotations per second)
+	 * @param leftSpeed The speed of the left wheels in inches per second
+	 * @param rightSpeed The speed of the right wheels in inches per second
 	 */
 	public void driveVelocity(double leftSpeed, double rightSpeed){
 		driveLeftVelocity(leftSpeed);
@@ -112,20 +170,19 @@ public class Drivetrain extends PIDSubsystem {
 	
 	/**
 	 * Drives the left side of the robot
-	 * @param speed The speed of the wheels in RPS (rotations per second)
+	 * @param speed The speed of the wheels in inches per second
 	 */
 	public void driveLeftVelocity(double speed){
-		left1.set(ControlMode.Velocity, speed * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
-		left2.set(ControlMode.Velocity, speed  * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
+		leftMaster.set(ControlMode.Velocity, speed);
 	}
+
 	
 	/**
 	 * Drives the right side of the robot
-	 * @param speed The speed of the wheels in RPS (rotations per second)
+	 * @param speed The speed of the wheels in inches per second
 	 */
 	public void driveRightVelocity(double speed){
-		right1.set(ControlMode.Velocity, -speed * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
-		right2.set(ControlMode.Velocity, -speed * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
+		rightMaster.set(ControlMode.Velocity, speed);
 	}
 	
 	/**
@@ -139,34 +196,20 @@ public class Drivetrain extends PIDSubsystem {
 	 * Changes drive motors to Coast mode
 	 */
 	public void enableCoastMode() {
-		left1.setNeutralMode(NeutralMode.Coast);
-		left2.setNeutralMode(NeutralMode.Coast);
-		right1.setNeutralMode(NeutralMode.Coast);
-		right2.setNeutralMode(NeutralMode.Coast);
+		leftMaster.setNeutralMode(NeutralMode.Coast);
+		leftSlave.setNeutralMode(NeutralMode.Coast);
+		rightMaster.setNeutralMode(NeutralMode.Coast);
+		rightSlave.setNeutralMode(NeutralMode.Coast);
 	}
 	
 	/**
 	 * Changes drive motors to Brake mode
 	 */
 	public void enableBrakeMode() {
-		left1.setNeutralMode(NeutralMode.Brake);
-		left2.setNeutralMode(NeutralMode.Brake);
-		right1.setNeutralMode(NeutralMode.Brake);
-		right2.setNeutralMode(NeutralMode.Brake);
-	}
-	
-	/**
-	 * Resets the left drive encoder value to 0
-	 */
-	public void resetLeftEncoder() {
-		left2.setSelectedSensorPosition(0, 0, 0);
-	}
-	
-	/**
-	 * Resets the right drive encoder value to 0
-	 */
-	public void resetRightEncoder() {
-		right1.setSelectedSensorPosition(0, 0, 0);
+		leftMaster.setNeutralMode(NeutralMode.Brake);
+		leftSlave.setNeutralMode(NeutralMode.Brake);
+		rightMaster.setNeutralMode(NeutralMode.Brake);
+		rightSlave.setNeutralMode(NeutralMode.Brake);
 	}
 	
 	/**
@@ -178,17 +221,44 @@ public class Drivetrain extends PIDSubsystem {
 	}
 	
 	/**
+	 * Resets the left drive encoder value to 0
+	 */
+	public void resetLeftEncoder() {
+		leftMaster.setSelectedSensorPosition(0, Constants.kVelocitySlotId, Constants.kTimeoutMs);
+	}
+	
+	/**
+	 * Resets the right drive encoder value to 0
+	 */
+	public void resetRightEncoder() {
+		rightMaster.setSelectedSensorPosition(0, Constants.kVelocitySlotId, Constants.kTimeoutMs);
+	}
+	
+	
+	/**
 	 * @return The value of the left drive encoder in inches
 	 */
 	public double getLeftEncoderDistance() {
-		return -left1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
+		return leftMaster.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
+	}
+	
+	//TODO Write JavaDocs
+	
+	public double getLeftEncoderDistanceRaw() {
+		return leftMaster.getSelectedSensorPosition(0);
+	}
+	
+	//TODO Write JavaDocs
+	
+	public double getRightEncoderDistanceRaw() {
+		return rightMaster.getSelectedSensorPosition(0);
 	}
 	
 	/**
 	 * @return The value of the right drive encoder in inches
 	 */
 	public double getRightEncoderDistance() {
-		return right1.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
+		return rightMaster.getSelectedSensorPosition(0) * Constants.driveEncoderToInches;
 	}
 	
 	/**
@@ -202,14 +272,14 @@ public class Drivetrain extends PIDSubsystem {
 	 * @return The speed of the left motor in RPS
 	 */
 	public double getLeftEncoderRate() {
-		return -left1.getSelectedSensorVelocity(0) * Constants.driveEncoderVelocityToRPS;
+		return leftMaster.getSelectedSensorVelocity(0) * Constants.driveEncoderVelocityToRPS;
 	}
 	
 	/**
 	 * @return The speed of the right motor in RPS
 	 */
 	public double getRightEncoderRate() {
-		return right1.getSelectedSensorVelocity(0) * Constants.driveEncoderVelocityToRPS;
+		return rightMaster.getSelectedSensorVelocity(0) * Constants.driveEncoderVelocityToRPS;
 	}
 	
 	/**
@@ -218,6 +288,34 @@ public class Drivetrain extends PIDSubsystem {
 	 */
 	public double getEncoderRate() {
 		return (getRightEncoderRate() + getLeftEncoderRate()) / 2;
+	}
+	
+	/**
+	 * @return The left driverail's velocity in NativeUnitsPer100Ms
+	 */
+	public double getLeftVelocityRaw() {
+		return leftMaster.getSelectedSensorVelocity(Constants.kVelocitySlotId);
+	}
+	
+	/**
+	 * @return The right driverail's velocity in NativeUnitsPer100Ms
+	 */
+	public double getRightVelocityRaw() {
+		return rightMaster.getSelectedSensorVelocity(Constants.kVelocitySlotId);
+	}
+	
+	/**
+	 * @return The left driverail's velocity in FeetPerSecond
+	 */
+	public double getLeftVelocity () {
+		return leftMaster.getSelectedSensorVelocity(Constants.kVelocitySlotId) / Constants.kVeloctiyUnitConversion;
+	}
+	
+	/**
+	 * @return The right driverail's velocity in FeetPerSecond
+	 */
+	public double getRightVelocity () {
+		return rightMaster.getSelectedSensorVelocity(Constants.kVelocitySlotId) / Constants.kVeloctiyUnitConversion;
 	}
 	
 	/**
@@ -242,19 +340,19 @@ public class Drivetrain extends PIDSubsystem {
 	}
 	
 	/**
-	 * Gets the lead left talon
-	 * @return The lead left talon
+	 * Gets the master left talon
+	 * @return The master left talon
 	 */
 	public TalonSRX getLeftTalon() {
-		return left1;
+		return leftMaster;
 	}
 	
 	/**
-	 * Gets the lead right talon
-	 * @return The lead right talon
+	 * Gets the master right talon
+	 * @return The master right talon
 	 */
 	public TalonSRX getRightTalon() {
-		return right1;
+		return rightMaster;
 	}
 	
 	/**

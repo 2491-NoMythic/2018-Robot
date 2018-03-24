@@ -4,6 +4,7 @@ import com._2491nomythic.tempest.commands.cubestorage.TransportCubeTime;
 import com._2491nomythic.tempest.commands.shooter.RunShooterTime;
 import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.tempest.settings.Constants;
+import com._2491nomythic.tempest.settings.Variables;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -36,7 +37,7 @@ public class AutomaticShoot extends CommandBase {
     		spinUp = new RunShooterTime(Constants.shooterMediumScaleSpeed, 4);
     	}
     	else {
-    		spinUp = new RunShooterTime(Constants.shooterSwitchSpeed, 4);
+    		spinUp = new RunShooterTime(Constants.shooterSwitchSpeed, 1);
     	}
     }
 
@@ -63,8 +64,16 @@ public class AutomaticShoot extends CommandBase {
     			state++;
     			break;
     		case 2:
-    			fire.start();
-    			state++;
+    			if (scale) {
+    				if (Variables.readyToFire) {
+    					fire.start();
+    					state++;
+    				}
+    			}
+    			else {
+    				fire.start();
+    				state++;
+    			}
     			break;
     		case 3:
     			if(!fire.isRunning()) {
