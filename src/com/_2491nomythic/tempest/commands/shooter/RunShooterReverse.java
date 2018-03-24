@@ -6,12 +6,12 @@ import com._2491nomythic.tempest.settings.Variables;
 /**
  *Reverses shooter direction using an operator button
  */
-public class ReverseShooter extends CommandBase {
+public class RunShooterReverse extends CommandBase {
 
     /**
      * Reverses shooter direction using an operator button
      */
-	public ReverseShooter() {
+	public RunShooterReverse() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
 		requires(shooter);
@@ -24,7 +24,7 @@ public class ReverseShooter extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	shooter.run(-1 * Variables.shooterSpeed);
+    	shooter.run(-Variables.shooterSpeed);
     }
 
     // Make this return true when this Command no longer needs to run execute()
