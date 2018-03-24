@@ -30,6 +30,7 @@ public class PlaceOnScaleLeft extends CommandBase {
 		delay = new Timer();
 		driveToCenter = new DriveStraightToPositionPID(235.4);
 		approachScale = new DriveStraightToPositionPID(44);
+		approachScale = new DriveStraightToPositionPID(10);
 		driveToCorrectSide = new DriveStraightToPositionPID(218.63);
 		turnTowardsCenter = new RotateDrivetrainWithGyroPID(90, false);
 		turnTowardsNullZone = new RotateDrivetrainWithGyroPID(-90, false);

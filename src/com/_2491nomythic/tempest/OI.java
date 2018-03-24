@@ -1,4 +1,5 @@
 /*----------------------------------------------------------------------------*/
+
 /* Copyright (c) 2017-2018 FIRST. All Rights Reserved.                        */
 /* Open Source Software - may be modified and shared by FRC teams. The code   */
 /* must be accompanied by the FIRST BSD license file in the root directory of */
@@ -21,8 +22,8 @@ import com._2491nomythic.tempest.commands.intake.RunIntakeManual;
 import com._2491nomythic.tempest.commands.intake.RunIntakeRollerless;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpeningHeld;
-import com._2491nomythic.tempest.commands.shooter.ReverseShooterHeld;
-import com._2491nomythic.tempest.commands.shooter.RunShooterManual;
+import com._2491nomythic.tempest.commands.shooter.ReverseShooter;
+import com._2491nomythic.tempest.commands.shooter.RunShooterCustom;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.tempest.settings.Constants;
@@ -57,7 +58,8 @@ public class OI {
 		controllers[1] = new PS4Controller(ControllerMap.operatorController);
 		controllers[2] = new Joystick(ControllerMap.buttonBoard);
 		
-		//Main Drive Controller
+
+		//Main Driver Controls
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
 		killSwitch1.whenPressed(new KillSwitch());
 		
@@ -96,24 +98,41 @@ public class OI {
 		openIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.openIntake);
 		openIntake.whileHeld(new ToggleIntakeOpeningHeld());
 		
+		intakeControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, 0.1);
+		intakeControl1.whileHeld(new RunIntakeManual());
+		
+		intakeControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, -0.1);
+		intakeControl2.whileHeld(new RunIntakeManual());
+		
+		runIntakeRollerless = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.IntakeRollerlessButton);
+		runIntakeRollerless.whileHeld(new RunIntakeRollerless());
+		
+		automaticIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.automaticIntakeButton);
+		automaticIntake.whenPressed(new AutomaticIntake());
+		
+			//Shooter
 		raiseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.raiseShooter);
 		raiseShooter.whenPressed(new ToggleShooterPosition());
 		
 		setLowScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setLowScaleRPS);
-		setLowScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterLowScaleSpeed, Constants.shooterLowScaleRPS));
+		setLowScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterLowScaleSpeed));
 		
 		setMediumScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setMediumScaleRPS);
-		setMediumScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterMediumScaleSpeed, Constants.shooterMediumScaleRPS));
+		setMediumScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterMediumScaleSpeed));
 		
 		setHighScaleSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setHighScaleRPS);
-		setHighScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterHighScaleSpeed, Constants.shooterLowScaleRPS));
+		setHighScaleSpeed.whenPressed(new SetShooterSpeed(Constants.shooterHighScaleSpeed));
 		
 		setSwitchSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setSwitchRPS);
-		setSwitchSpeed.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed, Constants.shooterSwitchRPS));
+		setSwitchSpeed.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed));
 		
 		runShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton);
-		runShooter.whileHeld(new RunShooterManual());
+		runShooter.whileHeld(new RunShooterCustom());
 		
+		reverseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
+		reverseShooter.whileHeld(new ReverseShooter());
+		
+			//CubeStorage
 		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
 		cubeStorageControl1.whenPressed(new UltrasonicCubeHaltManual());
 		

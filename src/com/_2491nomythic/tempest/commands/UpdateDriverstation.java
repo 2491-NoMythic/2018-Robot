@@ -4,7 +4,6 @@ package com._2491nomythic.tempest.commands;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.ControllerMap;
 import com._2491nomythic.tempest.settings.Variables;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -40,6 +39,19 @@ public class UpdateDriverstation extends CommandBase {
 			if (drivetrain.getEncoderRate() > maximumSpeed) {
 				maximumSpeed = drivetrain.getEncoderRate();
 			}
+            
+			SmartDashboard.putNumber("Right Encoder TICS", drivetrain.getRightEncoderDistanceRaw());
+			SmartDashboard.putNumber("Left Encoder TICS", drivetrain.getLeftEncoderDistanceRaw());
+			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
+			SmartDashboard.putNumber("lVelocity FTpS", drivetrain.getLeftVelocity());
+			SmartDashboard.putNumber("rVelocity FTpS", drivetrain.getRightVelocity());
+			SmartDashboard.putNumber("lVelocity NUp100Ms", drivetrain.getLeftVelocityRaw());
+			SmartDashboard.putNumber("rVelocity NUp100Ms", drivetrain.getRightVelocityRaw());
+			SmartDashboard.putBoolean("ShooterReadyToFire", Variables.readyToFire);
+			SmartDashboard.putNumber("LeftShootRPS", shooter.getLeftShootVelocity());
+			SmartDashboard.putNumber("RightShootRPS", shooter.getRightShootVelocity());
+			SmartDashboard.putNumber("Pathing Gyro", -drivetrain.getRawGyroAngle());
+			
 			Variables.useMonitorRPS = SmartDashboard.getBoolean("UseMonitorRPS", Variables.useMonitorRPS);
 			Variables.derivativeRotate = SmartDashboard.getNumber("DerivateRotate", Variables.derivativeRotate);
 			Variables.proportionalRotate = SmartDashboard.getNumber("ProportionalRotate", Variables.proportionalRotate);
@@ -55,10 +67,13 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putNumber("RightShootRPS", shooter.getRightShootVelocity());
 			SmartDashboard.putNumber("IntakeHeight", oi.getAxis(ControllerMap.buttonBoard, ControllerMap.inputAxis));
 			SmartDashboard.putNumber("ShotHeight", oi.getAxis(ControllerMap.buttonBoard, ControllerMap.outputAxis));
+			Variables.debugMode = SmartDashboard.getBoolean("Debug Mode", Variables.debugMode);
+            
 			Constants.shooterHighScaleRPS = SmartDashboard.getNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
 			Constants.shooterMediumScaleRPS = SmartDashboard.getNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
 			Constants.shooterLowScaleRPS = SmartDashboard.getNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 			Constants.shooterSwitchRPS = SmartDashboard.getNumber("SwitchRPS", Constants.shooterSwitchRPS);
+            
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
 		}
 			

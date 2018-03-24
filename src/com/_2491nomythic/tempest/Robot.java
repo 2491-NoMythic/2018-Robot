@@ -12,14 +12,10 @@ import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
 import com._2491nomythic.tempest.commands.autonomous.CrossAutoLine;
 import com._2491nomythic.tempest.commands.autonomous.DoNothing;
-/*import com._2491nomythic.tempest.commands.autonomous.DriveForwardSwitch;
-import com._2491nomythic.tempest.commands.autonomous.LeftPrioritizeScale;
-import com._2491nomythic.tempest.commands.autonomous.LeftPrioritizeSwitch;
-import com._2491nomythic.tempest.commands.autonomous.PlaceOnScaleLeft;
-import com._2491nomythic.tempest.commands.autonomous.PlaceOnScaleRight;*/
-import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitch;
-import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchBounceCounter;
 import com._2491nomythic.tempest.commands.lights.SendAllianceColor;
+import com._2491nomythic.tempest.commands.autonomous.PathAutoScale;
+import com._2491nomythic.tempest.commands.autonomous.PathAutoSwitch;
+import com._2491nomythic.tempest.commands.autonomous.VelocityTestAuto;
 /*import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchLeft;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchRight;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
@@ -70,12 +66,14 @@ public class Robot extends TimedRobot {
 		updateLights = new UpdateLightPattern();
 		
 		updateDriverstation.start();
-		monitorRPS.start();		
 		updateLights.start();
+		monitorRPS.start();
 		
 		m_chooser.addObject("DoNothing", new DoNothing());
-		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
-		m_chooser.addObject("BounceCounter", new PlaceOnSwitchBounceCounter());
+		m_chooser.addObject("CrossLine", new CrossAutoLine());
+		m_chooser.addObject("Pathing/SwitchCenter", new PathAutoSwitch());
+		m_chooser.addObject("Pathing/Scale", new PathAutoScale());
+		
 		/*
 		m_chooser.addObject("SwitchLeft", new DriveForwardSwitch(true));
 		m_chooser.addObject("SwitchRight", new DriveForwardSwitch(false));
@@ -85,17 +83,32 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("RightPrioritizeScale", new RightPrioritizeScale());
 		m_chooser.addObject("LeftPrioritizeSwitch", new LeftPrioritizeSwitch());
 		m_chooser.addObject("RightPrioritizeSwitch", new RightPrioritizeSwitch());
-		m_chooser.addObject("LeftSwitchPID", new PlaceOnSwitchLeft());
-		m_chooser.addObject("RightSwitchPID", new PlaceOnSwitchRight());
 		*/
-		m_chooser.addDefault("CrossAutoLine", new CrossAutoLine());
+		m_chooser.addObject("VelocityTest", new VelocityTestAuto());		
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
 
 		SmartDashboard.putData("send 1", new SerialConnectivityTest(1));
 		SmartDashboard.putData("send 2", new SerialConnectivityTest(2));
 		SmartDashboard.putData("send 3", new SerialConnectivityTest(3));
-					
+		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-20));
+		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
+		SmartDashboard.putData("RotateDrivetrainRelative-90", new RotateDrivetrainWithGyroPID(-90, false));
+		SmartDashboard.putNumber("ProportionalRotate", Variables.proportionalRotate);
+		SmartDashboard.putNumber("DerivativeRotate", Variables.derivativeRotate);
+		SmartDashboard.putNumber("ProportionalForward", Variables.proportionalForward);
+		SmartDashboard.putNumber("DerivativeForward", Variables.derivativeForward);
+		SmartDashboard.putNumber("DriveDefault", Variables.driveDefault);
+		SmartDashboard.putNumber("AutoDelay", Variables.autoDelay);
+		SmartDashboard.putNumber("SwitchRPS", Constants.shooterSwitchRPS);
+		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
+		SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
+		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
+		SmartDashboard.putBoolean("UseMonitorRPS", Variables.useMonitorRPS);
+		SmartDashboard.putNumber("LeftShootPower", Variables.leftShootSpeed);
+		SmartDashboard.putNumber("RightShootPower", Variables.rightShootSpeed);
+		SmartDashboard.putData("RunShooter", new RunShooterManual());
+        
 		System.out.println("Boot Successful");
 	}
 
@@ -131,13 +144,6 @@ public class Robot extends TimedRobot {
 		sendColor.start();
 		
 		m_autonomousCommand = m_chooser.getSelected();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {

@@ -3,6 +3,9 @@ package com._2491nomythic.util;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Joystick;
 
+/**
+ * Makes separate controller settings for the PS4
+ */
 public class PS4Controller extends Joystick {
 
 	private DriverStation m_ds;

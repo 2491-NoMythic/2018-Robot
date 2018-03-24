@@ -29,7 +29,7 @@ public class PlaceOnSwitch extends CommandBase {
 		timer = new Timer();
 		delay = new Timer();
 		approachCubes = new DriveStraightToPositionPID(-42);
-		approachSwitch = new DriveStraightToPositionPID(-54);
+		approachSwitch = new DriveStraightToPositionPID(-50);
 		launchCube = new AutomaticShoot(false);
 	}
 
@@ -95,6 +95,7 @@ public class PlaceOnSwitch extends CommandBase {
 			if(!turnTowardsSwitch.isRunning() || timer.get() > 1.5) {
 				turnTowardsSwitch.cancel();
 				approachSwitch.start();
+				timer.reset();
 				state++;
 				timer.reset();
 			}

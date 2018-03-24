@@ -72,10 +72,32 @@ public class Shooter extends Subsystem {
 		runShoot(speed);
 	}
 	
+	/**
+	 * Runs the shooter motors at separately identified speeds
+	 * @param leftShootSpeed The speed to run the left shoot motor at
+	 * @param rightShootSpeed The speed to run the right shoot motor at
+	 * @param accelSpeed The speed to run the accelerator motors at
+	 */
 	public void run(double leftShootSpeed, double rightShootSpeed, double accelSpeed) {
 		leftShoot.set(ControlMode.PercentOutput, leftShootSpeed * Variables.reverseCoefficient);
 		rightShoot.set(ControlMode.PercentOutput, rightShootSpeed * Variables.reverseCoefficient);
 		runAccelerate(accelSpeed);
+	}
+	
+	/**
+	 * Runs the left shoot motor at a given speed
+	 * @param speed The speed to run the left shoot motor at
+	 */
+	public void runLeftShoot(double speed) {
+		leftShoot.set(ControlMode.PercentOutput, speed);
+	}
+	
+	/**
+	 * Runs the right shoot motor at a given speed
+	 * @param speed The speed to run the right shoot motor at
+	 */
+	public void runRightShoot(double speed) {
+		rightShoot.set(ControlMode.PercentOutput, speed);
 	}
 	
 	
