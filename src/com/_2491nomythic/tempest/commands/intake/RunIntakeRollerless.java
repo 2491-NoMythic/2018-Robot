@@ -15,7 +15,7 @@ public class RunIntakeRollerless extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Variables.rollerCoefficient = 0;
+    	Variables.rollerReverseCoefficient = 0;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -29,7 +29,7 @@ public class RunIntakeRollerless extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Variables.rollerCoefficient = 1;
+    	Variables.rollerReverseCoefficient = 1;
     }
 
     // Called when another command which requires one or more of the same
