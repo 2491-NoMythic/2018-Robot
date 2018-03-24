@@ -62,6 +62,7 @@ public class RotateDrivetrainWithGyroPID extends CommandBase {
 	protected void end() {	
 		drivetrain.stop();
 		drivetrain.disable();
+		Variables.letsGo = true;
 		
 		System.out.println("Change in Angle: " + (drivetrain.getRawGyroAngle() - initialAngle));
 		System.out.println("Time taken: " + timer.get());

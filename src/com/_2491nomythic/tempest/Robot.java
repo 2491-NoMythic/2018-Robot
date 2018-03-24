@@ -90,6 +90,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-20));
 		SmartDashboard.putData("RotateDrivetrainRelative180", new RotateDrivetrainWithGyroPID(180, false));
 		SmartDashboard.putData("RotateDrivetrainRelative-180", new RotateDrivetrainWithGyroPID(-180, false));
+		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
+		SmartDashboard.putData("RotateDrivetrainRelative-90", new RotateDrivetrainWithGyroPID(-90, false));
 		SmartDashboard.putNumber("ProportionalRotate", Variables.proportionalRotate);
 		SmartDashboard.putNumber("DerivativeRotate", Variables.derivativeRotate);
 		SmartDashboard.putNumber("ProportionalForward", Variables.proportionalForward);

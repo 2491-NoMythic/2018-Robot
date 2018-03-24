@@ -15,7 +15,7 @@ public class Variables {
 	//PID
 	public static double proportionalRotate = 0.01; // 0.00625
 	public static double integralRotate = 0.0;
-	public static double derivativeRotate = 0.0151; //0.0075
+	public static double derivativeRotate = 0.03; //0.0075
     
 	public static double proportionalForward = 0.02;
 	public static double integralForward = 0;
@@ -61,4 +61,5 @@ public class Variables {
     public static double kPID_p = 1;
     public static double kPID_i = 0;
     public static double kPID_d = 0;
+    public static boolean letsGo = false;
 }
