@@ -3,8 +3,10 @@ package com._2491nomythic.tempest.commands.autonomous;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.cubestorage.TransportCubeTime;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
+import com._2491nomythic.tempest.commands.shooter.RunShooterCustom;
 import com._2491nomythic.tempest.settings.Constants;
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
@@ -13,17 +15,21 @@ public class PathAutoScale extends CommandBase {
 	private int currentStep, timeCounter;
 	private double adjustedLeftVelocity, adjustedRightVelocity, turnAdjustment, headingDiffrence, headingStart;
 	private double[][] leftVelocitiesArray, rightVelocitiesArray, headingsArray;
+	private TransportCubeTime fire;
 	private RotateDrivetrainWithGyroPID rotate;
-	private TransportCubeTime autoShoot;
+	private RunShooterCustom autoShoot;
 	private String gameData;
+	private boolean isFinished;
+	private Timer timer;
 
     public PathAutoScale() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    		requires(drivetrain);
     		requires(pathing);
-    		autoShoot = new TransportCubeTime(-1, 1);
+    		autoShoot = new RunShooterCustom();
     		rotate = new RotateDrivetrainWithGyroPID(-118, false);
+    		fire = new TransportCubeTime(1, 1.5);
+    		timer = new Timer();
     }
 
     // Called just before this Command runs the first time
@@ -33,6 +39,7 @@ public class PathAutoScale extends CommandBase {
 		headingStart = drivetrain.getRawGyroAngle();
 		intake.activate();
 		shooter.setScalePosition();
+		isFinished = false;
     	
     	/* Reset Variables */
     	currentStep = 0; //was set to 4, therefore we where starting four steps in...
@@ -83,27 +90,35 @@ public class PathAutoScale extends CommandBase {
     		else {
     			timeCounter++;
     		}
+    		
+    		if (currentStep + 1 == leftVelocitiesArray.length){
+    			timeCounter = 0;
+    			rotate.start();	
+    			timer.start();
+    			autoShoot.start();
+    			if (!rotate.isRunning() && timer.get() > 0.1) {
+    				fire.start();
+    				isFinished = true;
+    			}
+    		}
     }
 
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if(currentStep == leftVelocitiesArray.length-2) {
-    		//autoShoot.start();
-    	}
-       return currentStep + 1 == leftVelocitiesArray.length;
+       return isFinished;
     }
     
 
     // Called once after isFinished returns true
     protected void end() {
-    	rotate.start();	
+    	autoShoot.cancel();
     	drivetrain.stop();
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	drivetrain.stop();
+    	end();
     }
 }
