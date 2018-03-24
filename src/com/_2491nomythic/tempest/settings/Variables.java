@@ -13,9 +13,9 @@ public class Variables {
 	public static double driveRestriction = 1;
 	
 	//PID
-	public static double proportionalRotate = 0.00625;
+	public static double proportionalRotate = 0.01; // 0.00625
 	public static double integralRotate = 0.0;
-	public static double derivativeRotate = 0.0075;
+	public static double derivativeRotate = 0.0151; //0.0075
     
 	public static double proportionalForward = 0.02;
 	public static double integralForward = 0;

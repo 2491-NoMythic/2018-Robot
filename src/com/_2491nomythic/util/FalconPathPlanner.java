@@ -719,7 +719,7 @@ public class FalconPathPlanner
 	
 		double[][] switchCenterRight = new double[][] {
 			{0,centerStartPos},
-			{5,centerStartPos},
+			{3,centerStartPos},
 			{8,9},
 			{14-3.16667,9}
 		};
@@ -746,7 +746,7 @@ public class FalconPathPlanner
 			{24,5}
 		};
 
-		final FalconPathPlanner path = new FalconPathPlanner(scaleCenterRight);
+		final FalconPathPlanner path = new FalconPathPlanner(switchCenterLeft);
 		path.calculate(totalTime, timeStep, robotTrackWidth);
 
 		System.out.println("Time in ms: " + (System.currentTimeMillis()-start));
