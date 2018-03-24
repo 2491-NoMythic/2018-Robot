@@ -15,6 +15,7 @@ import com._2491nomythic.tempest.commands.buttonboard.OpenFingers;
 import com._2491nomythic.tempest.commands.buttonboard.Output;
 import com._2491nomythic.tempest.commands.buttonboard.SpinUp;
 import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHaltManual;
+import com._2491nomythic.tempest.commands.drivetrain.PreciseDrive;
 import com._2491nomythic.tempest.commands.drivetrain.SuperiorBackwardArcade;
 import com._2491nomythic.tempest.commands.drivetrain.SuperiorForwardArcade;
 import com._2491nomythic.tempest.commands.intake.RunIntakeManual;
@@ -43,7 +44,7 @@ public class OI {
 	
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
 	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runShooter, runIntakeRollerless;
-	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2, tankTurnForward, tankTurnBackward;
+	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2, tankTurnForward, tankTurnBackward, preciseDrive1, preciseDrive2;
 	
 	Button operatorKillSwitch, output, input, configure, spinUp, fingers;
 
@@ -69,6 +70,12 @@ public class OI {
 		
 		tankTurnBackward = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.tankTurnBackwardButton);
 		tankTurnBackward.whileHeld(new SuperiorBackwardArcade());
+		
+		preciseDrive1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.preciseDriveButton1);
+		preciseDrive1.whileHeld(new PreciseDrive());
+		
+		preciseDrive2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.preciseDriveButton2);
+		preciseDrive2.whenInactive(new PreciseDrive());
 		
 		//Button Board
 		operatorKillSwitch = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.killSwitchButton);

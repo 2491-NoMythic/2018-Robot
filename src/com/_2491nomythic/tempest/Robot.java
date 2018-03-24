@@ -9,6 +9,7 @@ package com._2491nomythic.tempest;
 
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.ResetSolenoids;
+import com._2491nomythic.tempest.commands.SystemsCheck;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
 import com._2491nomythic.tempest.commands.autonomous.CrossAutoLine;
 import com._2491nomythic.tempest.commands.autonomous.DoNothing;
@@ -95,6 +96,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("send 1", new SerialConnectivityTest(1));
 		SmartDashboard.putData("send 2", new SerialConnectivityTest(2));
 		SmartDashboard.putData("send 3", new SerialConnectivityTest(3));
+		SmartDashboard.putData("SystemsCheck", new SystemsCheck());
 					
 		System.out.println("Boot Successful");
 	}
