@@ -705,7 +705,9 @@ public class FalconPathPlanner
 		//System.setProperty("java.awt.headless", "true"); //enable this to true to emulate roboRio environment
 		
 		double leftStartPos = 24.6-0.93;
+		double rightStartPos = 2.4+0.93;
 		double centerStartPos = 14.5-0.99;
+		double robotLength = 3.16667;
 		double totalTime = 5; //seconds
 		double timeStep = 0.1; //period of control loop on Rio, seconds
 		double robotTrackWidth = 2; //distance between left and right wheels, feet
@@ -745,8 +747,16 @@ public class FalconPathPlanner
 			{18,5},
 			{24,5}
 		};
+		
+		double[][] scaleRightRight = new double[][] {
+			{0,rightStartPos},
+			{10,2},
+			{18,2},
+			{21,5},
+			{21,8.5-(robotLength/2)}		
+		};
 
-		final FalconPathPlanner path = new FalconPathPlanner(scaleCenterRight);
+		final FalconPathPlanner path = new FalconPathPlanner(scaleRightRight);
 		path.calculate(totalTime, timeStep, robotTrackWidth);
 
 		System.out.println("Time in ms: " + (System.currentTimeMillis()-start));
