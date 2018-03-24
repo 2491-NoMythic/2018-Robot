@@ -147,7 +147,7 @@ public class OI {
 		cubeStorageControl2.whenPressed(new UltrasonicCubeHaltManual());
 		
 		reverseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
-		reverseShooter.whileHeld(new ReverseShooterHeld());
+		reverseShooter.whileHeld(new ReverseShooter());
 		
 		runIntakeRollerless = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.IntakeRollerlessButton);
 		runIntakeRollerless.whileHeld(new RunIntakeRollerless());

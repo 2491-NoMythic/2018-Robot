@@ -17,6 +17,8 @@ import com._2491nomythic.tempest.commands.lights.SendAllianceColor;
 import com._2491nomythic.tempest.commands.autonomous.PathAutoScale;
 import com._2491nomythic.tempest.commands.autonomous.PathAutoSwitch;
 import com._2491nomythic.tempest.commands.autonomous.VelocityTestAuto;
+import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
+import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 /*import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchLeft;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchRight;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
@@ -24,6 +26,8 @@ import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeSwitch;*/
 import com._2491nomythic.tempest.commands.lights.SerialConnectivityTest;
 import com._2491nomythic.tempest.commands.lights.UpdateLightPattern;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
+import com._2491nomythic.tempest.commands.shooter.RunShooterManual;
+import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -92,10 +96,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("send 1", new SerialConnectivityTest(1));
 		SmartDashboard.putData("send 2", new SerialConnectivityTest(2));
 		SmartDashboard.putData("send 3", new SerialConnectivityTest(3));
-<<<<<<< HEAD
 		SmartDashboard.putData("SystemsCheck", new SystemsCheck());
 					
-=======
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-20));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
 		SmartDashboard.putData("RotateDrivetrainRelative-90", new RotateDrivetrainWithGyroPID(-90, false));
@@ -114,7 +116,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("RightShootPower", Variables.rightShootSpeed);
 		SmartDashboard.putData("RunShooter", new RunShooterManual());
         
->>>>>>> 8ebe7823f452fff0866625f49d30b81037a00360
 		System.out.println("Boot Successful");
 	}
 
