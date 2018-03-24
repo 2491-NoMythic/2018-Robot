@@ -112,6 +112,8 @@ public class Drivetrain extends PIDSubsystem {
 		limeLight = NetworkTableInstance.getDefault().getTable("limelight");
 		limeLight.getEntry("ledMode").setNumber(1);
 		limeLight.getEntry("camMode").setNumber(1);
+		
+		resetGyro();
 	}
 	
 	/**

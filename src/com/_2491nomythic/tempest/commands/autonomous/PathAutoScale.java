@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 /**
  *
  */
-public class PathAutoSwitch extends CommandBase {
+public class PathAutoScale extends CommandBase {
 	private int currentStep, timeCounter;
 	private double adjustedLeftVelocity, adjustedRightVelocity, turnAdjustment, headingDiffrence, headingStart;
 	private double[][] leftVelocitiesArray, rightVelocitiesArray, headingsArray;
@@ -16,7 +16,7 @@ public class PathAutoSwitch extends CommandBase {
 	private TransportCubeTime autoShoot;
 	private String gameData;
 
-    public PathAutoSwitch() {
+    public PathAutoScale() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     		requires(drivetrain);
@@ -46,9 +46,9 @@ public class PathAutoSwitch extends CommandBase {
 			headingsArray = Constants.anglesATcenterPosFORleftSwitch;
 			break;
 		case "R":
-			leftVelocitiesArray = Constants.leftVelocitiesATcenterPosFORrightSwitch;
-			rightVelocitiesArray = Constants.rightVelocitiesATcenterPosFORrightSwitch;
-			headingsArray = Constants.anglesATcenterPosFORrightSwitch;
+			leftVelocitiesArray = Constants.leftVelocitiesATcenterPosFORrightScale;
+			rightVelocitiesArray = Constants.rightVelocitiesATcenterPosFORrightScale;
+			headingsArray = Constants.anglesATcenterPosFORrightScale;
 			break;
 		default:
 			System.out.println("Unexpected value for GameSpecificMessage: " + gameData);

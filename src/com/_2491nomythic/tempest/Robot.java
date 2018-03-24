@@ -12,6 +12,7 @@ import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
 import com._2491nomythic.tempest.commands.autonomous.CrossAutoLine;
 import com._2491nomythic.tempest.commands.autonomous.DoNothing;
+import com._2491nomythic.tempest.commands.autonomous.PathAutoScale;
 import com._2491nomythic.tempest.commands.autonomous.PathAutoSwitch;
 import com._2491nomythic.tempest.commands.autonomous.VelocityTestAuto;
 /*import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchLeft;
@@ -71,6 +72,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("DoNothing", new DoNothing());
 		m_chooser.addObject("CrossLine", new CrossAutoLine());
 		m_chooser.addObject("Pathing/SwitchCenter", new PathAutoSwitch());
+		m_chooser.addObject("Pathing/Scale", new PathAutoScale());
 		
 		/*
 		m_chooser.addObject("SwitchLeft", new DriveForwardSwitch(true));
@@ -82,9 +84,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("LeftPrioritizeSwitch", new LeftPrioritizeSwitch());
 		m_chooser.addObject("RightPrioritizeSwitch", new RightPrioritizeSwitch());
 		*/
-		m_chooser.addObject("VelocityTest", new VelocityTestAuto());
-		m_chooser.addDefault("Pathing/CenterSwitch", new PathAutoSwitch());
-		
+		m_chooser.addObject("VelocityTest", new VelocityTestAuto());		
 		
 		SmartDashboard.putData("Auto mode", m_chooser);
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-20));
