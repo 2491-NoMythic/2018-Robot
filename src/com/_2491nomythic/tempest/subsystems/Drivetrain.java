@@ -79,8 +79,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveLeftPercentOutput(double speed){
-		left1.set(ControlMode.PercentOutput, speed * Variables.driveRestriction);
-		left2.set(ControlMode.PercentOutput, speed * Variables.driveRestriction);
+		left1.set(ControlMode.PercentOutput, speed * Variables.driveAdjustmentCoefficient);
+		left2.set(ControlMode.PercentOutput, speed * Variables.driveAdjustmentCoefficient);
 	}
 	
 	/**
@@ -88,8 +88,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveRightPercentOutput(double speed){
-		right1.set(ControlMode.PercentOutput, -speed * Variables.driveRestriction);
-		right2.set(ControlMode.PercentOutput, -speed * Variables.driveRestriction);
+		right1.set(ControlMode.PercentOutput, -speed * Variables.driveAdjustmentCoefficient);
+		right2.set(ControlMode.PercentOutput, -speed * Variables.driveAdjustmentCoefficient);
 	}
 	
 	/**
@@ -115,8 +115,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The speed of the wheels in RPS (rotations per second)
 	 */
 	public void driveLeftVelocity(double speed){
-		left1.set(ControlMode.Velocity, speed * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
-		left2.set(ControlMode.Velocity, speed  * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
+		left1.set(ControlMode.Velocity, speed * Constants.speedModeRPSToTalonOutput * Variables.driveAdjustmentCoefficient);
+		left2.set(ControlMode.Velocity, speed  * Constants.speedModeRPSToTalonOutput * Variables.driveAdjustmentCoefficient);
 	}
 	
 	/**
@@ -124,8 +124,8 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The speed of the wheels in RPS (rotations per second)
 	 */
 	public void driveRightVelocity(double speed){
-		right1.set(ControlMode.Velocity, -speed * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
-		right2.set(ControlMode.Velocity, -speed * Constants.speedModeRPSToTalonOutput * Variables.driveRestriction);
+		right1.set(ControlMode.Velocity, -speed * Constants.speedModeRPSToTalonOutput * Variables.driveAdjustmentCoefficient);
+		right2.set(ControlMode.Velocity, -speed * Constants.speedModeRPSToTalonOutput * Variables.driveAdjustmentCoefficient);
 	}
 	
 	/**

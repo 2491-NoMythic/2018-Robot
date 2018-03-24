@@ -10,6 +10,7 @@ package com._2491nomythic.tempest;
 import com._2491nomythic.tempest.commands.AutomaticIntake;
 import com._2491nomythic.tempest.commands.KillSwitch;
 import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHaltManual;
+import com._2491nomythic.tempest.commands.drivetrain.AdjustmentMode;
 import com._2491nomythic.tempest.commands.drivetrain.TankTurnBackward;
 import com._2491nomythic.tempest.commands.drivetrain.TankTurnForward;
 import com._2491nomythic.tempest.commands.intake.RunIntakeManual;
@@ -39,8 +40,7 @@ public class OI {
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
 	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runShooter, runIntakeRollerless;
 	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2, tankTurnForward, tankTurnBackward;
-	
-	Button operatorKillSwitch, output, input, configure, spinUp, fingers;
+	Button operatorKillSwitch, output, input, configure, spinUp, fingers, adjustmentDrive;
 
 	public enum ControllerType {
 		Standard,
@@ -65,6 +65,9 @@ public class OI {
 		
 		tankTurnBackward = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.tankTurnBackwardButton);
 		tankTurnBackward.whileHeld(new TankTurnBackward());
+		
+		adjustmentDrive = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.adjustmentModeButton);
+		adjustmentDrive.whileHeld(new AdjustmentMode());
 		
 		//Button Board
 		/*
