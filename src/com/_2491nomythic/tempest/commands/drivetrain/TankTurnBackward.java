@@ -7,13 +7,13 @@ import com._2491nomythic.tempest.settings.Variables;
 /**
  * Drives the robot with linear acceleration as according to input from a driver's controller
  */
-public class SuperiorForwardArcade extends CommandBase {
+public class TankTurnBackward extends CommandBase {
 	private double turnSpeed, currentLeftSpeed, currentRightSpeed, lastLeftSpeed, lastRightSpeed;	
 	
 	/**
 	 * Drives the robot with linear acceleration as according to input from a driver's controller
 	 */
-	public SuperiorForwardArcade() {
+	public TankTurnBackward() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(drivetrain);
@@ -56,10 +56,10 @@ public class SuperiorForwardArcade extends CommandBase {
 		}
 		
 		if (turnSpeed > 0) {
-			drivetrain.drivePercentOutput(turnSpeed, 0);
+			drivetrain.drivePercentOutput(0, -turnSpeed);
 		}
 		else if (turnSpeed < 0) {
-			drivetrain.drivePercentOutput(0, -turnSpeed);
+			drivetrain.drivePercentOutput(turnSpeed, 0);
 		}
 	}
 

@@ -10,8 +10,8 @@ package com._2491nomythic.tempest;
 import com._2491nomythic.tempest.commands.AutomaticIntake;
 import com._2491nomythic.tempest.commands.KillSwitch;
 import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHaltManual;
-import com._2491nomythic.tempest.commands.drivetrain.SuperiorBackwardArcade;
-import com._2491nomythic.tempest.commands.drivetrain.SuperiorForwardArcade;
+import com._2491nomythic.tempest.commands.drivetrain.TankTurnBackward;
+import com._2491nomythic.tempest.commands.drivetrain.TankTurnForward;
 import com._2491nomythic.tempest.commands.intake.RunIntakeManual;
 import com._2491nomythic.tempest.commands.intake.RunIntakeRollerless;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
@@ -61,10 +61,10 @@ public class OI {
 		killSwitch2.whenPressed(new KillSwitch());
 		
 		tankTurnForward = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.tankTurnForwardButton);
-		tankTurnForward.whileHeld(new SuperiorForwardArcade());
+		tankTurnForward.whileHeld(new TankTurnForward());
 		
 		tankTurnBackward = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.tankTurnBackwardButton);
-		tankTurnBackward.whileHeld(new SuperiorBackwardArcade());
+		tankTurnBackward.whileHeld(new TankTurnBackward());
 		
 		//Button Board
 		/*
