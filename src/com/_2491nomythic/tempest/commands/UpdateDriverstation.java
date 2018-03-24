@@ -65,12 +65,12 @@ public class UpdateDriverstation extends CommandBase {
 			Constants.shooterLowScaleRPS = SmartDashboard.getNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 			Constants.shooterSwitchRPS = SmartDashboard.getNumber("SwitchRPS", Constants.shooterSwitchRPS);
             
-			/*if (Robot.isTeleop) {
-			drivetrain.chooseDefaultCommand(Variables.driveDefault);
-			} 
+			if (Robot.isTeleop) {
+				drivetrain.chooseDefaultCommand(Variables.driveDefault);
+			}
 			else {
-				drivetrain.initDefaultCommand();
-			}*/
+				drivetrain.chooseDefaultCommand(5);
+			}
 		}
 			
 		
