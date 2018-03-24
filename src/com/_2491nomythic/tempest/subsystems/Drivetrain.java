@@ -12,6 +12,7 @@ import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.kauailabs.navx.frc.AHRS;
 import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableEntry;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SerialPort;
@@ -24,6 +25,7 @@ public class Drivetrain extends PIDSubsystem {
 	private TalonSRX leftMaster, leftSlave, rightMaster, rightSlave;
 	private AHRS gyro;
 	private NetworkTable limeLight;
+	private NetworkTableEntry tx, ty, ta;
 	private double currentPIDOutput;
 	
 	private static Drivetrain instance;
@@ -110,8 +112,11 @@ public class Drivetrain extends PIDSubsystem {
 		
 		/* Configures Limelight */
 		limeLight = NetworkTableInstance.getDefault().getTable("limelight");
-		limeLight.getEntry("ledMode").setNumber(1);
-		limeLight.getEntry("camMode").setNumber(1);
+		limeLight.getEntry("ledMode").setNumber(0);
+		limeLight.getEntry("camMode").setNumber(0);
+		tx = limeLight.getEntry("tx");
+		ty = limeLight.getEntry("ty");
+		ta = limeLight.getEntry("ta");
 		
 		resetGyro();
 	}
@@ -411,5 +416,26 @@ public class Drivetrain extends PIDSubsystem {
 		return currentPIDOutput;
 	}
 	
+	public double getX() {
+		return tx.getDouble(0);
+	}
+	
+	public double getY() {
+		return ty.getDouble(0);
+	}
+	
+	public double getArea() {
+		return ta.getDouble(0);
+	}
+	
+	public void setVisionMode() {
+		limeLight.getEntry("ledMode").setNumber(1);
+		limeLight.getEntry("camMode").setNumber(1);
+	}
+	
+	public void setCameraMode() {
+		limeLight.getEntry("ledMode").setNumber(0);
+		limeLight.getEntry("camMode").setNumber(0);
+	}
 }
 
