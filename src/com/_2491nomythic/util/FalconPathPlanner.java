@@ -763,14 +763,13 @@ public class FalconPathPlanner
 			{21,7.8}
 		};
 		
-		double[][] revScaleRightRight = new double[][] {
+		double[][] switchRightRight = new double[][] {
 			{0,rightStartPos},
-			{-5,rightStartPos},
-			{-14, 1.66},
-			{-21, 0.16}
+			{13.25,rightStartPos},
+			{16,7}
+			//{16,9}
 		};
-
-		final FalconPathPlanner path = new FalconPathPlanner(scaleRightRight);
+		final FalconPathPlanner path = new FalconPathPlanner(switchRightRight);
 		path.calculate(totalTime, timeStep, robotTrackWidth);
 
 		System.out.println("Time in ms: " + (System.currentTimeMillis()-start));
@@ -832,12 +831,15 @@ public class FalconPathPlanner
 				{24+5.91667,27-7.91667},
 				{24+5.91667,27}
 			};
-			
+		
 			double[][] rightNullZone = new double[][] {
 				{24,0},
 				{24,0+7.91667},
 				{24+5.91667,0+7.91667},
 				{24+5.91667,0}
+			};
+			
+			double[][] platzone = new double[][] {
 			};
 			
 			fig1.addData(switchShape, Color.black);
