@@ -20,22 +20,22 @@ public class DrivePath extends CommandBase {
 	 * @author Emilio Alvarez
 	 */
     public DrivePath(double[][] leftVelocites, double[][] rightVelocites, double[][] headings, boolean invert, boolean reverse) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
+    	
     	requires(drivetrain);
     	requires(pathing);
+    	
     	this.headings = headings;
     	
     	/* Sets field side*/
     	if (invert) {
     		this.leftVelocites = rightVelocites;
     		this.rightVelocites = leftVelocites;
-    		invertRotation = 1;
+    		invertRotation = -1;
     	}
     	else {
     		this.leftVelocites = leftVelocites;
     		this.rightVelocites = rightVelocites;
-    		invertRotation = -1;
+    		invertRotation = 1;
     	}
     	
     	/* Sets drivetrain drive direction */
