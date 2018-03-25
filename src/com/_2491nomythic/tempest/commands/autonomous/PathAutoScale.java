@@ -82,7 +82,7 @@ public class PathAutoScale extends CommandBase {
     protected void execute() {
     		if (path.isCompleted() && timer.get() == 0) {
     			timer.start();
-    			intake.activate();
+    			intake.deploy();
     			shooter.setScalePosition();
     			autoShoot.start();
     			

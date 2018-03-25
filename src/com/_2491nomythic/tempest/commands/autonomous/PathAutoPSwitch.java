@@ -71,7 +71,7 @@ public class PathAutoPSwitch extends CommandBase {
     protected void execute() {
     	if(path.isCompleted() && timer.get() == 0) {
     		autoShoot.start();
-        	intake.activate();
+        	intake.deploy();
         	shooter.setScalePosition();
         	timer.start();	
     	}
