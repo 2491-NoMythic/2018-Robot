@@ -769,7 +769,14 @@ public class FalconPathPlanner
 			{10.5,7},
 			{10.5,8}
 		};
-		final FalconPathPlanner path = new FalconPathPlanner(switchRightRight);
+		
+		double[][] scaleRightLeft = new double[][] {
+			{0,rightStartPos},
+			{18,rightStartPos},
+			{18,21},
+			{24-robotLength,21}
+		};
+		final FalconPathPlanner path = new FalconPathPlanner(scaleRightLeft);
 		path.calculate(totalTime, timeStep, robotTrackWidth);
 
 		System.out.println("Time in ms: " + (System.currentTimeMillis()-start));
@@ -840,6 +847,16 @@ public class FalconPathPlanner
 			};
 			
 			double[][] platzone = new double[][] {
+				{16.25+5.4775,27-(97.48/12)},
+				{16.25+5.4775+(54.063/12),27-(97.48/12)},
+				{16.25+5.4775+(54.063/12),27-(97.48/12)-(129.5947/12)},
+				{16.25+5.4775,27-(97.48/12)-(129.5947/12)},
+				{16.25+5.4775,27-(97.48/12)}
+			};
+			
+			double[][] cubeLine = new double[][] {
+				{16.25+(13/12),27},
+				{16.25+(13/12),0}
 			};
 			
 			fig1.addData(switchShape, Color.black);
@@ -847,6 +864,8 @@ public class FalconPathPlanner
 			fig1.addData(exchangeZone, Color.black);
 			fig1.addData(leftNullZone, Color.blue);
 			fig1.addData(rightNullZone, Color.blue);
+			fig1.addData(platzone, Color.red);
+			fig1.addData(cubeLine, Color.yellow);
 
 			/* Waypoint path */
 			fig1.addData(path.nodeOnlyPath,Color.blue,Color.green);
