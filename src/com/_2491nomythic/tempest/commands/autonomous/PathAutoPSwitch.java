@@ -61,7 +61,7 @@ public class PathAutoPSwitch extends CommandBase {
 			end();
 			break;
 		}
-		path = new DrivePath(rightVelocitiesArray, leftVelocitiesArray, headingsArray, "left",  true);
+		path = new DrivePath(leftVelocitiesArray, rightVelocitiesArray, headingsArray, true,  true);
 		timer.reset();
 		path.start();
     }
