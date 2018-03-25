@@ -3,6 +3,7 @@ package com._2491nomythic.tempest.commands.autonomous;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.cubestorage.TransportCubeTime;
 import com._2491nomythic.tempest.commands.drivetrain.DrivePath;
+import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.shooter.RunShooterCustom;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.settings.Constants;
@@ -21,20 +22,24 @@ public class PathAutoPSwitch extends CommandBase {
 	private DrivePath path;
 	private Timer timer;
 	private SetShooterSpeed switchSpeed;
+	private RotateDrivetrainWithGyroPID rotate;
+	private boolean check;
 
     public PathAutoPSwitch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	switchSpeed = new SetShooterSpeed(0.2);
+    	switchSpeed = new SetShooterSpeed(Constants.shooterMediumScaleSpeed);
 		autoShoot = new RunShooterCustom();
    		fire = new TransportCubeTime(1, 1);
     	timer = new Timer();
+    	rotate = new RotateDrivetrainWithGyroPID(-10,false);   	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {    	
     	/* Reset Variables */
     	switchSpeed.start();
+    	check = false;
     	
     	/* Retrieve GameData to select direction */
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -66,15 +71,25 @@ public class PathAutoPSwitch extends CommandBase {
     protected void execute() {
     	if(path.isCompleted() && timer.get() == 0) {
     		autoShoot.start();
-    		fire.start();
-    		timer.start();
+        	intake.activate();
+        	shooter.setScalePosition();
+        	timer.start();	
     	}
     }
 
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-       return fire.isCompleted() && timer.get() > 1.1;
+    	if (fire.isCompleted() && timer.get() > 2.02) {
+    		return true;	
+    	}
+    	else if (path.isCompleted() && timer.get() > 2) {
+			fire.start();
+			return false;
+		}
+    	else {
+    		return false;
+    	}
     }
     
 
