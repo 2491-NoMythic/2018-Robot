@@ -21,7 +21,7 @@ public class PathAutoScale extends CommandBase {
 	private Timer timer;
 	
 	private enum startPosition {
-		LEFT, CENTER, RIGTH
+		LEFT, CENTER, RIGHT
 	}
 	private enum priority {
 		SCALE, SWITCH
@@ -42,7 +42,15 @@ public class PathAutoScale extends CommandBase {
     protected void initialize() {
     	
     	/* Prepare robot superStructure*/
-    	
+    	switch(mPriority) {
+    	case SCALE:
+    	case SWITCH:
+    	}
+    	switch(mStartPosition) {
+    	case LEFT:
+    	case CENTER:
+    	case RIGHT:	
+    	}
     	/* Retrieve GameData to select direction */
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
     	//gameData.substring(1, 2)
