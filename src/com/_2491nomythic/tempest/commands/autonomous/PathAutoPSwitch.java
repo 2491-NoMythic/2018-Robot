@@ -3,6 +3,8 @@ package com._2491nomythic.tempest.commands.autonomous;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.cubestorage.TransportCubeTime;
 import com._2491nomythic.tempest.commands.drivetrain.DrivePath;
+import com._2491nomythic.tempest.commands.shooter.RunShooterCustom;
+import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.settings.Constants;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -10,27 +12,29 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  *
  */
-public class PathAutoSwitch extends CommandBase {
+public class PathAutoPSwitch extends CommandBase {
 	private double[][] leftVelocitiesArray, rightVelocitiesArray, headingsArray;
 	
-	private TransportCubeTime autoShoot;
+	private TransportCubeTime fire;
+	private RunShooterCustom autoShoot;
 	private String gameData;
 	private DrivePath path;
 	private Timer timer;
+	private SetShooterSpeed switchSpeed;
 
-    public PathAutoSwitch() {
+    public PathAutoPSwitch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    		autoShoot = new TransportCubeTime(-1, 1);
-    		timer = new Timer();
+    	switchSpeed = new SetShooterSpeed(0.2);
+		autoShoot = new RunShooterCustom();
+   		fire = new TransportCubeTime(1, 1);
+    	timer = new Timer();
     }
 
     // Called just before this Command runs the first time
-    protected void initialize() {
-    	
-		intake.activate();
-    	
+    protected void initialize() {    	
     	/* Reset Variables */
+    	switchSpeed.start();
     	
     	/* Retrieve GameData to select direction */
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -38,21 +42,21 @@ public class PathAutoSwitch extends CommandBase {
     	/* Select side based on gameData */
 		switch(gameData.substring(0, 1)) {
 		case "L":
-			leftVelocitiesArray = Constants.leftVelocitiesATcenterPosFORleftSwitch;
-			rightVelocitiesArray = Constants.rightVelocitiesATcenterPosFORleftSwitch;
-			headingsArray = Constants.anglesATcenterPosFORleftSwitch;
+			leftVelocitiesArray = Constants.leftVelocitiesATrightPosFORrightSwitch;
+			rightVelocitiesArray = Constants.rightVelocitiesATrightPosFORrightSwtich;
+			headingsArray = Constants.anglesATrightPosFORrightSwitch;
 			break;
 		case "R":
-			leftVelocitiesArray = Constants.leftVelocitiesATcenterPosFORrightSwitch;
-			rightVelocitiesArray = Constants.rightVelocitiesATcenterPosFORrightSwitch;
-			headingsArray = Constants.anglesATcenterPosFORrightSwitch;
+			leftVelocitiesArray = Constants.leftVelocitiesATrightPosFORrightSwitch;
+			rightVelocitiesArray = Constants.rightVelocitiesATrightPosFORrightSwtich;
+			headingsArray = Constants.anglesATrightPosFORrightSwitch;
 			break;
 		default:
 			System.out.println("Unexpected value for GameSpecificMessage: " + gameData);
 			end();
 			break;
 		}
-		path = new DrivePath(leftVelocitiesArray, rightVelocitiesArray, headingsArray, false);
+		path = new DrivePath(leftVelocitiesArray, rightVelocitiesArray, headingsArray, true);
 		timer.reset();
 		path.start();
     }
@@ -62,6 +66,7 @@ public class PathAutoSwitch extends CommandBase {
     protected void execute() {
     	if(path.isCompleted() && timer.get() == 0) {
     		autoShoot.start();
+    		fire.start();
     		timer.start();
     	}
     }
@@ -69,12 +74,13 @@ public class PathAutoSwitch extends CommandBase {
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-       return autoShoot.isCompleted() && timer.get() > 1.1;
+       return fire.isCompleted() && timer.get() > 1.1;
     }
     
 
     // Called once after isFinished returns true
     protected void end() {
+    		autoShoot.cancel();
     		drivetrain.stop();
     		timer.stop();
     		timer.reset();

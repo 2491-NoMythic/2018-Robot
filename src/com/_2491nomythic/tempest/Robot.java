@@ -12,6 +12,7 @@ import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
 import com._2491nomythic.tempest.commands.autonomous.CrossAutoLine;
 import com._2491nomythic.tempest.commands.autonomous.DoNothing;
+import com._2491nomythic.tempest.commands.autonomous.PathAutoPSwitch;
 import com._2491nomythic.tempest.commands.autonomous.PathAutoScale;
 import com._2491nomythic.tempest.commands.autonomous.PathAutoSwitch;
 import com._2491nomythic.tempest.commands.autonomous.VelocityTestAuto;
@@ -73,6 +74,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("CrossLine", new CrossAutoLine());
 		m_chooser.addObject("Pathing/SwitchCenter", new PathAutoSwitch());
 		m_chooser.addObject("Pathing/Scale", new PathAutoScale());
+		m_chooser.addObject("Pathing/PrioritySwitch", new PathAutoPSwitch());
 		
 		/*
 		m_chooser.addObject("SwitchLeft", new DriveForwardSwitch(true));

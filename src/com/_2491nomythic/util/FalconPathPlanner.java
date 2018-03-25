@@ -765,9 +765,9 @@ public class FalconPathPlanner
 		
 		double[][] switchRightRight = new double[][] {
 			{0,rightStartPos},
-			{13.25,rightStartPos},
-			{16,7}
-			//{16,9}
+			{7.75,rightStartPos},
+			{10.5,7},
+			{10.5,8}
 		};
 		final FalconPathPlanner path = new FalconPathPlanner(switchRightRight);
 		path.calculate(totalTime, timeStep, robotTrackWidth);

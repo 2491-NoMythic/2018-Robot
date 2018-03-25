@@ -25,7 +25,6 @@ public class PathAutoScale extends CommandBase {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     		autoShoot = new RunShooterCustom();
-    		new RotateDrivetrainWithGyroPID(168, false);
     		fire = new TransportCubeTime(1, 1.5);
     		timer = new Timer();
     		new Timer();
@@ -49,7 +48,7 @@ public class PathAutoScale extends CommandBase {
 			break;
 		case "R":
 			leftVelocitiesArray = Constants.leftVelocitiesATrightPosFORrightScale;
-			rightVelocitiesArray = Constants.rightVelocitiesATrightposFORrightScale;
+			rightVelocitiesArray = Constants.rightVelocitiesATrightPosFORrightScale;
 			headingsArray = Constants.anglesATrightPosFORrightScale;
 			break;
 		default:
