@@ -1,7 +1,6 @@
 package com._2491nomythic.tempest.subsystems;
 
 import com._2491nomythic.tempest.settings.Constants;
-import com._2491nomythic.tempest.settings.Variables;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -78,25 +77,16 @@ public class Intake extends Subsystem {
 	/**
 	 * Sets the intake out of the frame perimeter.
 	 */
-	public void activate() {
+	public void deploy() {
 		activateIntakeSolenoid.set(Value.kForward);
-		Variables.isDeployed = true;
-		Variables.driveRestriction = 1;
 	}
 	
 	/**
 	 * Sets the intake in the frame perimeter.
 	 */
 	public void retract() {
-		if(Variables.inSwitchPosition) {
-			
-		}
-		else {
-			activateIntakeSolenoid.set(Value.kReverse);
-			close();
-			Variables.isDeployed = false;
-			Variables.driveRestriction = 1;
-		}
+		activateIntakeSolenoid.set(Value.kReverse);
+		close();
 	}
 	
 	/**
@@ -117,8 +107,8 @@ public class Intake extends Subsystem {
 	 * Returns whether or not the intake is extended.
 	 * @return Whether or not the intake is extended.
 	 */
-	public boolean isDeployed() {
-		return activateIntakeSolenoid.get() == Value.kForward;
+	public boolean isRetracted() {
+		return activateIntakeSolenoid.get() == Value.kReverse || activateIntakeSolenoid.get() == Value.kOff;
 	}
 	
 	/**

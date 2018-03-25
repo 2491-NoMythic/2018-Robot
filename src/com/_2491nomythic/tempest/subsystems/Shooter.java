@@ -163,32 +163,25 @@ public class Shooter extends Subsystem {
 	//Solenoid
 	
 	/**
-	 * Raises the shooter to shoot Power Cubes into the scale
+	 * Lowers the shooter to shoot Power Cubes into the switch
 	 */
 	public void setSwitchPosition() {
 		elevator.set(Value.kForward);
-		Variables.inSwitchPosition = false;
 	}
 	
 	/**
-	 * Lowers the shooter to shoot Power Cubes into the switch
+	 * Raises the shooter to shoot Power Cubes into the scale
 	 */
 	public void setScalePosition() {
-		if(!Variables.isDeployed) {
-			System.out.println("You dun goofed");
-		}
-		else {
-			elevator.set(Value.kReverse);
-			Variables.inSwitchPosition = true;
-		}
+		elevator.set(Value.kReverse);
 	}
 	
 	/**
 	 * Checks whether the shooter is raised
 	 * @return The status of whether the shooter is raised
 	 */
-	public boolean inScalePosition() {
-		return elevator.get() == Value.kReverse;
+	public boolean inSwitchPosition() {
+		return elevator.get() == Value.kForward || elevator.get() == Value.kOff;
 	}
 
 	public void initDefaultCommand() {

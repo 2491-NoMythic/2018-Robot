@@ -1,7 +1,6 @@
 package com._2491nomythic.tempest.commands.shooter;
 
 import com._2491nomythic.tempest.commands.CommandBase;
-import com._2491nomythic.tempest.settings.Variables;
 
 /**
  *Lowers shooter if raised, raises if lowered.
@@ -18,7 +17,7 @@ public class ToggleShooterPosition extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		if (!Variables.inSwitchPosition) {
+		if (shooter.inSwitchPosition() && !intake.isRetracted()) {
 			shooter.setScalePosition();
 		}
 		else {
