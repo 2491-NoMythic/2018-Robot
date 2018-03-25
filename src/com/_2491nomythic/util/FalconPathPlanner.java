@@ -799,11 +799,11 @@ public class FalconPathPlanner
 			/* Lets add field markers to help visuals! */	
 			
 			double[][] switchShape = new double[][]{
-				{14,19.5},
-				{14,7.5},
-				{18,7.5},
-				{18,19.5},
-				{14,19.5}
+				{11.6,19.5},
+				{11.6,7.5},
+				{16.25,7.5},
+				{16.25,19.5},
+				{11.6,19.5}
 			};
 			
 			double[][] fieldOutline = new double[][] {
