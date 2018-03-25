@@ -12,7 +12,7 @@ public class DrivePath extends CommandBase {
 	private double[][] leftVelocites, rigthVelocites, headings;
 	private boolean reverse;
 
-    public DrivePath(double[][] leftVelocites, double[][] rightVelocites, double[][] headings, boolean reverse) {
+    public DrivePath(double[][] leftVelocites, double[][] rightVelocites, double[][] headings, String startPos , boolean reverse) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(drivetrain);
@@ -42,7 +42,7 @@ public class DrivePath extends CommandBase {
     protected void execute() {
     	if(timeCounter == 4) {
     	    
-			headingDiffrence = pathing.returnAngle(currentStep, headings) + drivetrain.getRawGyroAngle() - initialHeading; //+
+			headingDiffrence = -pathing.returnAngle(currentStep, headings) + drivetrain.getRawGyroAngle() - initialHeading; //+
 			turnAdjustment = Constants.kVelocitykG * headingDiffrence * Constants.kVeloctiyUnitConversion; 
 			
 			adjustedLeftVelocity = direction * pathing.returnVelocity(currentStep, leftVelocites) - turnAdjustment; //-

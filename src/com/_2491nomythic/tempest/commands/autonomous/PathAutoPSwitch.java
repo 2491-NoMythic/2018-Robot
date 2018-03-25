@@ -42,9 +42,9 @@ public class PathAutoPSwitch extends CommandBase {
     	/* Select side based on gameData */
 		switch(gameData.substring(0, 1)) {
 		case "L":
-			leftVelocitiesArray = Constants.leftVelocitiesATrightPosFORrightSwitch;
-			rightVelocitiesArray = Constants.rightVelocitiesATrightPosFORrightSwtich;
-			headingsArray = Constants.anglesATrightPosFORrightSwitch;
+			leftVelocitiesArray = Constants.leftVelocitiesATrightPosFORleftScale;
+			rightVelocitiesArray = Constants.rightVelocitiesATrightPosFORleftScale;
+			headingsArray = Constants.anglesATrightPosFORleftScale;
 			break;
 		case "R":
 			leftVelocitiesArray = Constants.leftVelocitiesATrightPosFORrightSwitch;
@@ -56,7 +56,7 @@ public class PathAutoPSwitch extends CommandBase {
 			end();
 			break;
 		}
-		path = new DrivePath(leftVelocitiesArray, rightVelocitiesArray, headingsArray, true);
+		path = new DrivePath(rightVelocitiesArray, leftVelocitiesArray, headingsArray, "left",  true);
 		timer.reset();
 		path.start();
     }

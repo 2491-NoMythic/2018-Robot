@@ -18,8 +18,16 @@ public class PathAutoScale extends CommandBase {
 	private TransportCubeTime fire;
 	private RunShooterCustom autoShoot;
 	private String gameData;
-	private boolean isFinished;
 	private Timer timer;
+	
+	private enum startPosition {
+		LEFT, CENTER, RIGTH
+	}
+	private enum priority {
+		SCALE, SWITCH
+	}
+	private startPosition mStartPosition;
+	private priority mPriority;
 
     public PathAutoScale() {
         // Use requires() here to declare subsystem dependencies
@@ -34,17 +42,17 @@ public class PathAutoScale extends CommandBase {
     protected void initialize() {
     	
     	/* Prepare robot superStructure*/
-		isFinished = false;
     	
     	/* Retrieve GameData to select direction */
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
+    	//gameData.substring(1, 2)
     	
     	/* Select side based on gameData */
-		switch(gameData.substring(1, 2)) {
+		switch(gameData) {
 		case "L":
-			leftVelocitiesArray = Constants.leftVelocitiesATcenterPosFORleftSwitch;
-			rightVelocitiesArray = Constants.rightVelocitiesATcenterPosFORleftSwitch;
-			headingsArray = Constants.anglesATcenterPosFORleftSwitch;
+			leftVelocitiesArray = Constants.leftVelocitiesATrightPosFORrightScale;
+			rightVelocitiesArray = Constants.rightVelocitiesATrightPosFORrightScale;
+			headingsArray = Constants.anglesATrightPosFORrightScale;
 			break;
 		case "R":
 			leftVelocitiesArray = Constants.leftVelocitiesATrightPosFORrightScale;
@@ -56,7 +64,7 @@ public class PathAutoScale extends CommandBase {
 			end();
 			break;
 		}
-		path = new DrivePath(leftVelocitiesArray, rightVelocitiesArray, headingsArray, true);
+		path = new DrivePath(leftVelocitiesArray, rightVelocitiesArray, headingsArray, "left" , true);
 		timer.reset();
 		path.start();	
     }
@@ -71,17 +79,22 @@ public class PathAutoScale extends CommandBase {
     			autoShoot.start();
     			
     		}
-    		if (path.isCompleted() && timer.get() > 2 && !isFinished) {
-				fire.start();
-				isFinished = true;
-    		}
     		
     }
 
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-       return path.isCompleted() && timer.get() > 4;
+    	if (fire.isCompleted() && timer.get() > 2.02) {
+    		return true;	
+    	}
+    	else if (path.isCompleted() && timer.get() > 2) {
+			fire.start();
+			return false;
+		}
+    	else {
+    		return false;
+    	}
     }
     
 
