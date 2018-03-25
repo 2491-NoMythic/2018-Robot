@@ -7,20 +7,44 @@ import com._2491nomythic.tempest.settings.Constants;
  *
  */
 public class DrivePath extends CommandBase {
-	private int currentStep, timeCounter, direction;
+	private int currentStep, timeCounter, reverseDirection, invertRotation;
 	private double initialHeading, headingDiffrence, turnAdjustment, adjustedLeftVelocity, adjustedRightVelocity;
-	private double[][] leftVelocites, rigthVelocites, headings;
-	private boolean reverse;
-
-    public DrivePath(double[][] leftVelocites, double[][] rightVelocites, double[][] headings, String startPos , boolean reverse) {
+	private double[][] leftVelocites, rightVelocites, headings;
+	/**
+	 * 
+	 * @param leftVelocites A velocities array for the left side of the robot
+	 * @param rightVelocites A velocities array for the right side of the robot
+	 * @param headings A headings array for the path
+	 * @param invert Inverts the start position
+	 * @param reverse Reverse the robot drive direction
+	 * @author Emilio Alvarez
+	 */
+    public DrivePath(double[][] leftVelocites, double[][] rightVelocites, double[][] headings, boolean invert, boolean reverse) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(drivetrain);
     	requires(pathing);
-    	this.leftVelocites = leftVelocites;
-    	this.rigthVelocites = rightVelocites;
     	this.headings = headings;
-    	this.reverse = reverse;
+    	
+    	/* Sets field side*/
+    	if (invert) {
+    		this.leftVelocites = rightVelocites;
+    		this.rightVelocites = leftVelocites;
+    		invertRotation = 1;
+    	}
+    	else {
+    		this.leftVelocites = leftVelocites;
+    		this.rightVelocites = rightVelocites;
+    		invertRotation = -1;
+    	}
+    	
+    	/* Sets drivetrain drive direction */
+    	if (reverse) {
+    		reverseDirection = -1;
+    	}
+    	else {
+    		reverseDirection = 1;
+    	}
     }
 
     // Called just before this Command runs the first time
@@ -30,23 +54,18 @@ public class DrivePath extends CommandBase {
     	initialHeading = drivetrain.getRawGyroAngle();
     	currentStep = 0;
     	timeCounter = 4;
-    	if (reverse) {
-    		direction = -1;
-    	}
-    	else {
-    		direction = 1;
-    	}
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(timeCounter == 4) {
     	    
-			headingDiffrence = -pathing.returnAngle(currentStep, headings) + drivetrain.getRawGyroAngle() - initialHeading; //+
-			turnAdjustment = Constants.kVelocitykG * headingDiffrence * Constants.kVeloctiyUnitConversion; 
+			headingDiffrence = invertRotation * pathing.returnAngle(currentStep, headings) + drivetrain.getRawGyroAngle() - initialHeading; //+
+			turnAdjustment = Constants.kVelocitykG * Constants.kVeloctiyUnitConversion * headingDiffrence; 
 			
-			adjustedLeftVelocity = direction * pathing.returnVelocity(currentStep, leftVelocites) - turnAdjustment; //-
-    		adjustedRightVelocity = direction * pathing.returnVelocity(currentStep, rigthVelocites) + turnAdjustment; //+
+			adjustedLeftVelocity = reverseDirection * pathing.returnVelocity(currentStep, leftVelocites) - turnAdjustment; //-
+    		adjustedRightVelocity = reverseDirection * pathing.returnVelocity(currentStep, rightVelocites) + turnAdjustment; //+
     		
     		//System.out.println("H Diff: " + headingDiffrence + " Path: " + pathing.returnAngle(currentStep, headings) + " Gyro: " + -(headingDiffrence - pathing.returnAngle(currentStep, headings)) +  " Turn: " + turnAdjustment + " aL " + adjustedRightVelocity);
 

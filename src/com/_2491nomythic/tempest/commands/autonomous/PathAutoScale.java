@@ -64,7 +64,7 @@ public class PathAutoScale extends CommandBase {
 			end();
 			break;
 		}
-		path = new DrivePath(leftVelocitiesArray, rightVelocitiesArray, headingsArray, "left" , true);
+		path = new DrivePath(leftVelocitiesArray, rightVelocitiesArray, headingsArray, false , true);
 		timer.reset();
 		path.start();	
     }
