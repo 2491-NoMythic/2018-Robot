@@ -760,14 +760,7 @@ public class FalconPathPlanner
 			{0,rightStartPos},
 			{5,rightStartPos},
 			{14,4.8},
-			{21,7.8}
-		};
-		
-		double[][] revScaleRightRight = new double[][] {
-			{0,rightStartPos},
-			{-5,rightStartPos},
-			{-14, 1.66},
-			{-21, 0.16}
+			{20.5,7.8}
 		};
 
 		final FalconPathPlanner path = new FalconPathPlanner(scaleRightRight);

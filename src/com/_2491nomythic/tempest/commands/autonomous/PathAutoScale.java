@@ -13,24 +13,22 @@ import edu.wpi.first.wpilibj.Timer;
  *
  */
 public class PathAutoScale extends CommandBase {
-	private int cycles;
 	private double[][] leftVelocitiesArray, rightVelocitiesArray, headingsArray;
 	private DrivePath path;
 	private TransportCubeTime fire;
-	private RotateDrivetrainWithGyroPID rotate;
 	private RunShooterCustom autoShoot;
 	private String gameData;
 	private boolean isFinished;
-	private Timer timer, activate;
+	private Timer timer;
 
     public PathAutoScale() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     		autoShoot = new RunShooterCustom();
-    		rotate = new RotateDrivetrainWithGyroPID(168, false);
+    		new RotateDrivetrainWithGyroPID(168, false);
     		fire = new TransportCubeTime(1, 1.5);
     		timer = new Timer();
-    		activate = new Timer();
+    		new Timer();
     }
 
     // Called just before this Command runs the first time
@@ -59,7 +57,7 @@ public class PathAutoScale extends CommandBase {
 			end();
 			break;
 		}
-		path = new DrivePath(leftVelocitiesArray, rightVelocitiesArray, headingsArray);
+		path = new DrivePath(leftVelocitiesArray, rightVelocitiesArray, headingsArray, true);
 		timer.reset();
 		path.start();	
     }

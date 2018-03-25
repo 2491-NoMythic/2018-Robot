@@ -7,11 +7,12 @@ import com._2491nomythic.tempest.settings.Constants;
  *
  */
 public class DrivePath extends CommandBase {
-	private int currentStep, timeCounter;
+	private int currentStep, timeCounter, direction;
 	private double initialHeading, headingDiffrence, turnAdjustment, adjustedLeftVelocity, adjustedRightVelocity;
 	private double[][] leftVelocites, rigthVelocites, headings;
+	private boolean reverse;
 
-    public DrivePath(double[][] leftVelocites, double[][] rightVelocites, double[][] headings) {
+    public DrivePath(double[][] leftVelocites, double[][] rightVelocites, double[][] headings, boolean reverse) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(drivetrain);
@@ -19,6 +20,7 @@ public class DrivePath extends CommandBase {
     	this.leftVelocites = leftVelocites;
     	this.rigthVelocites = rightVelocites;
     	this.headings = headings;
+    	this.reverse = reverse;
     }
 
     // Called just before this Command runs the first time
@@ -28,6 +30,12 @@ public class DrivePath extends CommandBase {
     	initialHeading = drivetrain.getRawGyroAngle();
     	currentStep = 0;
     	timeCounter = 4;
+    	if (reverse) {
+    		direction = -1;
+    	}
+    	else {
+    		direction = 1;
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -37,8 +45,8 @@ public class DrivePath extends CommandBase {
 			headingDiffrence = pathing.returnAngle(currentStep, headings) + drivetrain.getRawGyroAngle() - initialHeading; //+
 			turnAdjustment = Constants.kVelocitykG * headingDiffrence * Constants.kVeloctiyUnitConversion; 
 			
-			adjustedLeftVelocity = -pathing.returnVelocity(currentStep, leftVelocites) - turnAdjustment; //-
-    		adjustedRightVelocity = -pathing.returnVelocity(currentStep, rigthVelocites) + turnAdjustment; //+
+			adjustedLeftVelocity = direction * pathing.returnVelocity(currentStep, leftVelocites) - turnAdjustment; //-
+    		adjustedRightVelocity = direction * pathing.returnVelocity(currentStep, rigthVelocites) + turnAdjustment; //+
     		
     		//System.out.println("H Diff: " + headingDiffrence + " Path: " + pathing.returnAngle(currentStep, headings) + " Gyro: " + -(headingDiffrence - pathing.returnAngle(currentStep, headings)) +  " Turn: " + turnAdjustment + " aL " + adjustedRightVelocity);
 
@@ -60,6 +68,7 @@ public class DrivePath extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+    	drivetrain.stop();
     	currentStep = 0;
     }
 
