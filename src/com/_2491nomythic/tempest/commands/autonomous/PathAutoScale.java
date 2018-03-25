@@ -20,14 +20,20 @@ public class PathAutoScale extends CommandBase {
 	private String gameData;
 	private Timer timer;
 	
-	private enum startPosition {
+	public enum startPosition {
 		LEFT, CENTER, RIGHT
 	}
-	private enum priority {
+	public enum priority {
 		SCALE, SWITCH
 	}
-	private startPosition mStartPosition;
-	private priority mPriority;
+	public enum override {
+		OFF, SCALE, FORCE_SCALE
+	}
+	
+	public startPosition mStartPosition;
+	public priority mPriority;
+	public override mOverride;
+	
 
     public PathAutoScale() {
         // Use requires() here to declare subsystem dependencies
@@ -42,18 +48,34 @@ public class PathAutoScale extends CommandBase {
     protected void initialize() {
     	
     	/* Prepare robot superStructure*/
-    	switch(mPriority) {
-    	case SCALE:
-    	case SWITCH:
-    	}
-    	switch(mStartPosition) {
-    	case LEFT:
-    	case CENTER:
-    	case RIGHT:	
-    	}
     	/* Retrieve GameData to select direction */
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
     	//gameData.substring(1, 2)
+    	
+    	switch(mStartPosition) {
+    	case LEFT:
+    		break;
+    	case CENTER:
+    		break;
+    	case RIGHT:	
+    		break;
+    	}
+    	
+    	switch(mPriority) {
+    	case SCALE:
+    		break;
+    	case SWITCH:
+    		break;
+    	}
+    	
+    	switch(mOverride) {
+    	case OFF:
+    		break;
+    	case SCALE:
+    		break;
+    	case FORCE_SCALE:
+    		break;
+    	}
     	
     	/* Select side based on gameData */
 		switch(gameData) {
@@ -72,6 +94,7 @@ public class PathAutoScale extends CommandBase {
 			end();
 			break;
 		}
+    	
 		path = new DrivePath(leftVelocitiesArray, rightVelocitiesArray, headingsArray, false , true);
 		timer.reset();
 		path.start();	
