@@ -14,11 +14,14 @@ public class ControllerMap {
 	//Driver
 	public static final int driveTurnAxis = 2;
 	public static final int driveMainAxis = 1;
-	public static final int killSwitchButton1 = 11;
-	public static final int killSwitchButton2 = 12;
+	public static final int killSwitchButton1 = 9;
+	public static final int killSwitchButton2 = 10;
+	public static final int toggleLightsButton1 = 7;
+	public static final int togglelightButton2 = 8;
 	public static final int tankTurnForwardButton = 1;
 	public static final int tankTurnBackwardButton = 2;
-	public static final int adjustmentModeButton = 4;
+	public static final int adjustmentModeButton1 = 11;
+	public static final int adjustmentModeButton2 = 12;
 	
 	//Operator
 	

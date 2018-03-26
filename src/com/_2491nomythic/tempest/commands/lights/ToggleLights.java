@@ -1,21 +1,27 @@
-package com._2491nomythic.tempest.commands.drivetrain;
+package com._2491nomythic.tempest.commands.lights;
 
-import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.settings.Variables;
+
+import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
-public class AdjustmentMode extends CommandBase {
+public class ToggleLights extends Command {
 
-    public AdjustmentMode() {
+    public ToggleLights() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Variables.driveAdjustmentCoefficient = 0.15; //experimental
+    	if(Variables.useLights) {
+    		Variables.useLights = false;
+    	}
+    	else {
+    		Variables.useLights = true;
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -24,17 +30,15 @@ public class AdjustmentMode extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Variables.driveAdjustmentCoefficient = 1;
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }

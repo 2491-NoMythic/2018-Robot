@@ -17,6 +17,7 @@ import com._2491nomythic.tempest.commands.intake.RunIntakeManual;
 import com._2491nomythic.tempest.commands.intake.RunIntakeRollerless;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpeningHeld;
+import com._2491nomythic.tempest.commands.lights.ToggleLights;
 import com._2491nomythic.tempest.commands.shooter.RunShooterReverse;
 import com._2491nomythic.tempest.commands.shooter.RunShooterController;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
@@ -40,7 +41,7 @@ public class OI {
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
 	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runShooter, runIntakeRollerless;
 	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2, tankTurnForward, tankTurnBackward;
-	Button operatorKillSwitch, output, input, configure, spinUp, fingers, adjustmentDrive;
+	Button operatorKillSwitch, output, input, configure, spinUp, fingers, adjustmentDrive, adjustmentDrive2, toggleLights1, toggleLights2;
 
 	public enum ControllerType {
 		Standard,
@@ -66,8 +67,17 @@ public class OI {
 		tankTurnBackward = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.tankTurnBackwardButton);
 		tankTurnBackward.whileHeld(new TankTurnBackward());
 		
-		adjustmentDrive = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.adjustmentModeButton);
+		adjustmentDrive = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.adjustmentModeButton1);
 		adjustmentDrive.whileHeld(new AdjustmentMode());
+		
+		adjustmentDrive2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.adjustmentModeButton2);
+		adjustmentDrive2.whileHeld(new AdjustmentMode());
+		
+		toggleLights1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.toggleLightsButton1);
+		toggleLights1.whenPressed(new ToggleLights());
+		
+		toggleLights2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.togglelightButton2);
+		toggleLights2.whenPressed(new ToggleLights());
 		
 		//Button Board
 		/*

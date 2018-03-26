@@ -42,4 +42,7 @@ public class Variables {
 	//Buttonboard
 	public static int motorChoice;
 	
+	//Lights
+	public static boolean useLights = true;
+	
 }

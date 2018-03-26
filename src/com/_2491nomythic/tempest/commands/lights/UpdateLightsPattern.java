@@ -4,6 +4,7 @@ import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
 
+import edu.wpi.first.wpilibj.RobotController;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -80,7 +81,13 @@ public class UpdateLightsPattern extends CommandBase {
     		data = 0;
     	}
     	
-    	sickLights.writeData(data);
+    	if(RobotController.getBatteryVoltage() <= 7.5 || !Variables.useLights) {
+    		data = 100;
+    		sickLights.writeData(data);
+    	}
+    	else {
+        	sickLights.writeData(data);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
