@@ -25,7 +25,7 @@ public class Drivetrain extends PIDSubsystem {
 	private TalonSRX leftMaster, leftSlave, rightMaster, rightSlave;
 	private AHRS gyro;
 	private NetworkTable limeLight;
-	private NetworkTableEntry tx, ty, ta;
+	private NetworkTableEntry tx, ty, ta, tv;
 	private double currentPIDOutput;
 	
 	private static Drivetrain instance;
@@ -117,6 +117,7 @@ public class Drivetrain extends PIDSubsystem {
 		tx = limeLight.getEntry("tx");
 		ty = limeLight.getEntry("ty");
 		ta = limeLight.getEntry("ta");
+		tv = limeLight.getEntry("tv");
 		
 		resetGyro();
 	}
@@ -418,6 +419,8 @@ public class Drivetrain extends PIDSubsystem {
 		return currentPIDOutput;
 	}
 	
+	
+	//Limelight
 	public double getX() {
 		return tx.getDouble(0);
 	}
@@ -428,6 +431,10 @@ public class Drivetrain extends PIDSubsystem {
 	
 	public double getArea() {
 		return ta.getDouble(0);
+	}
+	
+	public boolean hasTarget() {
+		return tv.getDouble(0) == 1;
 	}
 	
 	public void setVisionMode() {

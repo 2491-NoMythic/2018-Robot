@@ -8,6 +8,7 @@
 package com._2491nomythic.tempest;
 
 import com._2491nomythic.tempest.commands.CommandBase;
+import com._2491nomythic.tempest.commands.LocateCube;
 import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
 import com._2491nomythic.tempest.commands.autonomous.CrossAutoLine;
@@ -103,6 +104,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 		SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
 		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
+		SmartDashboard.putData("LocateCubeLeft", new LocateCube(true));
+		SmartDashboard.putData("LocateCubeRight", new LocateCube(false));
 				
 		System.out.println("Boot Successful");
 	}
