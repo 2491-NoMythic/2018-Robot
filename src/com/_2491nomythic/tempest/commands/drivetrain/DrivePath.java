@@ -9,9 +9,9 @@ import com._2491nomythic.tempest.subsystems.Pathing;
  *
  */
 public class DrivePath extends CommandBase {
-	private int mCurrentStep, timeCounter, reverseDirection, mSwaped, mLength;
-	private double initialHeading, headingDiffrence, turnAdjustment, adjustedLeftVelocity, adjustedRightVelocity;
-	private String mSelectedLeftPath, mSelectedRightPath, mSelectedHeading, EndPosition;
+	private int mCurrentStep, mTimeCounter, mReverseDirection, mSwaped, mLength;
+	private double mInitialHeading, mHeadingDiffrence, mTurnAdjustment, mAdjustedLeftVelocity, mAdjustedRightVelocity;
+	private String mSelectedLeftPath, mSelectedRightPath, mSelectedHeading, mSelectedEndPosition;
 
 	/**
 	 * 
@@ -23,53 +23,30 @@ public class DrivePath extends CommandBase {
     	
     	requires(drivetrain);
     	
-    	this.EndPosition = String.valueOf(endPosition.toString());
+    	this.mSelectedEndPosition = String.valueOf(endPosition.toString());
     	
-    	/* Sets Drive settings according to startPosition*/
-    	switch(startPosition) {
-    	case LEFT:
-    		configureDrive(true, true);
-    		break;
-    	case CENTER:
-    		configureDrive(false, false);
-    		break;
-    	case RIGHT:
-    		configureDrive(false, true);
-    		break;
-    	}
+    	setPosition(startPosition);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
-    	/* Reset Variables */
-    	initialHeading = drivetrain.getRawGyroAngle();
-    	mCurrentStep = 0;
-    	timeCounter = 4;
-    	mLength = Pathing.getHeadingsArray(mSelectedHeading).length;
-    	
+    	resetVariables();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(timeCounter == 4) {
-    	    
-			headingDiffrence = mSwaped * Pathing.getHeading(mCurrentStep, mSelectedHeading) + drivetrain.getRawGyroAngle() - initialHeading; //+
-			turnAdjustment = Constants.kVelocitykG * Constants.kVeloctiyUnitConversion * headingDiffrence; 
-			
-			adjustedLeftVelocity = reverseDirection * Pathing.getVelocity(mCurrentStep, mSelectedLeftPath) - turnAdjustment; //-
-    		adjustedRightVelocity = reverseDirection * Pathing.getVelocity(mCurrentStep, mSelectedRightPath) + turnAdjustment; //+
+    	if(mTimeCounter == 4) {
     		
-    		//System.out.println("H Diff: " + headingDiffrence + " Path: " + pathing.returnAngle(currentStep, headings) + " Gyro: " + -(headingDiffrence - pathing.returnAngle(currentStep, headings)) +  " Turn: " + turnAdjustment + " aL " + adjustedRightVelocity);
-
-    		drivetrain.driveVelocity(adjustedLeftVelocity , adjustedRightVelocity); //+
+    		adjustVelocities();
+    		
+    		drivetrain.driveVelocity(mAdjustedLeftVelocity , mAdjustedRightVelocity);
 			        		
-			timeCounter = 0;
+			mTimeCounter = 0;
 			mCurrentStep++;
 			
 		} 
 		else {
-			timeCounter++;
+			mTimeCounter++;
 		}
     }
 
@@ -81,7 +58,6 @@ public class DrivePath extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
     	drivetrain.stop();
-    	mCurrentStep = 0;
     }
 
     // Called when another command which requires one or more of the same
@@ -91,29 +67,66 @@ public class DrivePath extends CommandBase {
     }
     
     /**
+     * Sets the starting position of the robot in the ARCADE
+     * @param startPosition The ROBOT's starting position
+     */
+    private synchronized void setPosition(StartPosition startPosition) {
+    	switch(startPosition) {
+    	case LEFT:
+    		configurePath(true, true);
+    		break;
+    	case CENTER:
+    		configurePath(false, false);
+    		break;
+    	case RIGHT:
+    		configurePath(false, true);
+    		break;
+    	}
+    }
+    /**
      * Configures the ARCADE related variables.
      * <p> 
      * Assumes a default ROBOT configuration of a right starting position with the Intake facing the SCALE
      * @param swaped swaps the drive rails paths
      * @param reversed reverses the robots drive direction
      */
-    private void configureDrive(boolean swaped, boolean reversed) {
+    private synchronized void configurePath(boolean swaped, boolean reversed) {
     	if (swaped) {
-    		mSelectedLeftPath = "rightVelocitiesTO_" + EndPosition;
-        	mSelectedRightPath = "leftVelocitiesTO_" + EndPosition;
+    		mSelectedLeftPath = "rightVelocitiesTO_" + mSelectedEndPosition;
+        	mSelectedRightPath = "leftVelocitiesTO_" + mSelectedEndPosition;
         	mSwaped = -1;
     	}
     	else {
-    		mSelectedLeftPath = "leftVelocitiesTO_" + EndPosition;
-        	mSelectedRightPath = "rightVelocitiesTO_" + EndPosition;
+    		mSelectedLeftPath = "leftVelocitiesTO_" + mSelectedEndPosition;
+        	mSelectedRightPath = "rightVelocitiesTO_" + mSelectedEndPosition;
         	mSwaped = 1;
     	}
     	if (reversed) {
-    		reverseDirection = -1;
+    		mReverseDirection = -1;
     	}
     	else {
-    		reverseDirection = 1;
+    		mReverseDirection = 1;
     	}
-    	mSelectedHeading = "headingsTO_" + EndPosition;
+    	mSelectedHeading = "headingsTO_" + mSelectedEndPosition;
+    }
+    
+    /**
+     * Adjusts the paths velocities at every step to account for drivetrain scrub. 
+     * <p>
+     * The heading difference in-between the path and the gyroscope is used to increase or decrease the speed of each drive rail proportionally
+     */
+    private synchronized void adjustVelocities() {
+    	mHeadingDiffrence = mSwaped * Pathing.getHeading(mCurrentStep, mSelectedHeading) + drivetrain.getRawGyroAngle() - mInitialHeading;
+		mTurnAdjustment = Constants.kVelocitykG * Constants.kVeloctiyUnitConversion * mHeadingDiffrence; 
+		
+		mAdjustedLeftVelocity = mReverseDirection * Pathing.getVelocity(mCurrentStep, mSelectedLeftPath) - mTurnAdjustment;
+		mAdjustedRightVelocity = mReverseDirection * Pathing.getVelocity(mCurrentStep, mSelectedRightPath) + mTurnAdjustment;
+    }
+    
+    private synchronized void resetVariables() {
+    	mInitialHeading = drivetrain.getRawGyroAngle();
+    	mCurrentStep = 0;
+    	mTimeCounter = 4;
+    	mLength = Pathing.getHeadingsArray(mSelectedHeading).length;
     }
 }

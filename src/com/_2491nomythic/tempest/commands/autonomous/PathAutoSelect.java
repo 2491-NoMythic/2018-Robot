@@ -18,7 +18,7 @@ public class PathAutoSelect extends CommandBase {
 	private double mWaitTime;
 	private DrivePath mPath;
 	private SetShooterSpeed mSetSwitchSpeed, mSetScaleSpeed;
-	private TransportCubeTime mEjectCube, mFireCube;
+	private TransportCubeTime mFireCube;
 	private RunShooterCustom mRevShoot;
 	private String mGameData;
 	private Timer mTimer;
