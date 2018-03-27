@@ -114,7 +114,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
 		SmartDashboard.putData("LocateCubeLeft", new LocateCube(true));
 		SmartDashboard.putData("LocateCubeRight", new LocateCube(false));
-				
+						
 		System.out.println("Boot Successful");
 	}
 

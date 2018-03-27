@@ -3,7 +3,6 @@ package com._2491nomythic.tempest.commands.autonomous;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.cubestorage.TransportCubeTime;
 import com._2491nomythic.tempest.commands.drivetrain.DrivePath;
-import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.shooter.RunShooterCustom;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.settings.Constants;
@@ -88,7 +87,6 @@ public class AutomaticAuto extends CommandBase {
         	case LEFT_SWITCH:
         	case RIGHT_SWITCH:
         		mWaitTime = 0;
-        		intake.deploy();
             	mFireCube = new TransportCubeTime(-1, 1.5);
         		break;
         	case SCALE:
@@ -153,39 +151,9 @@ public class AutomaticAuto extends CommandBase {
     private synchronized void respondToARCADE(String gameData) {
     	getGameData();
     	switch(mGameData.substring(0, 2)) {
-		case "LL":
+    	case "LL":
 			if (mStartPosition == StartPosition.CENTER) {
 				mEndPosition = EndPosition.LEFT_SWITCH;
-			} 
-			else if (mPriority == Priority.SCALE) {
-				mEndPosition = EndPosition.SCALE;
-			}
-			else {
-				mEndPosition = EndPosition.SWITCH;
-			}
-			break;
-		case "LR":
-			if (mStartPosition == StartPosition.CENTER) {
-				mEndPosition = EndPosition.LEFT_SWITCH;
-			} 
-			else if (mCrossing.equals(Crossing.FORCE) && mPriority.equals(Priority.SCALE)) {
-				mEndPosition = EndPosition.OPPOSITE_SCALE;
-			}
-			else {
-				mEndPosition = EndPosition.SWITCH;
-			}	
-			break;
-		case "RL":
-			if (mStartPosition == StartPosition.CENTER) {
-				mEndPosition = EndPosition.RIGHT_SWITCH;
-			} 
-			else {
-				mEndPosition = EndPosition.SCALE;
-			}
-			break;
-		case "RR":
-			if (mStartPosition == StartPosition.CENTER) {
-				mEndPosition = EndPosition.RIGHT_SWITCH;
 			} 
 			else if (mCrossing.equals(Crossing.OFF)) {
 				mEndPosition = EndPosition.CROSS_LINE;
@@ -197,7 +165,37 @@ public class AutomaticAuto extends CommandBase {
 		default:
 			System.out.println("Unexpected value for GameSpecificMessage: " + mGameData);
 			end();
-			break;	
+			break;
+		case "LR":
+			if (mStartPosition == StartPosition.CENTER) {
+				mEndPosition = EndPosition.LEFT_SWITCH;
+			} 
+			else {
+				mEndPosition = EndPosition.SCALE;
+			}
+			break;
+		case "RL":
+			if (mStartPosition == StartPosition.CENTER) {
+				mEndPosition = EndPosition.RIGHT_SWITCH;
+			} 
+			else if (mCrossing.equals(Crossing.FORCE) && mPriority.equals(Priority.SCALE)) {
+				mEndPosition = EndPosition.OPPOSITE_SCALE;
+			}
+			else {
+				mEndPosition = EndPosition.SWITCH;
+			}	
+			break;
+		case "RR":
+			if (mStartPosition == StartPosition.CENTER) {
+				mEndPosition = EndPosition.RIGHT_SWITCH;
+			} 
+			else if (mPriority == Priority.SCALE) {
+				mEndPosition = EndPosition.SCALE;
+			}
+			else {
+				mEndPosition = EndPosition.SWITCH;
+			}
+			break;
 		}
     	System.out.println("Selected EndPosition: " + mEndPosition);
     }
