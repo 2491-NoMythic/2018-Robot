@@ -438,13 +438,13 @@ public class Drivetrain extends PIDSubsystem {
 	}
 	
 	public void setVisionMode() {
-		limeLight.getEntry("ledMode").setNumber(1);
-		limeLight.getEntry("camMode").setNumber(1);
+		limeLight.getEntry("ledMode").setNumber(0);
+		limeLight.getEntry("camMode").setNumber(0);
 	}
 	
 	public void setCameraMode() {
-		limeLight.getEntry("ledMode").setNumber(0);
-		limeLight.getEntry("camMode").setNumber(0);
+		limeLight.getEntry("ledMode").setNumber(1);
+		limeLight.getEntry("camMode").setNumber(1);
 	}
 }
 
