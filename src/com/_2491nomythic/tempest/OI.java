@@ -37,8 +37,8 @@ public class OI {
 	
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
 	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, adjustment1, adjustment2;
-	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2;
-	public Button runShooter;
+	Button automaticIntake, intakeControl1, intakeControl2;
+	public Button runShooter, cubeStorageControl1, cubeStorageControl2;
 
 	public enum ControllerType {
 		Standard,

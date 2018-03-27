@@ -28,7 +28,7 @@ public class TransportCubeTime extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		cubeStorage.run(speed);
+		cubeStorage.runWithoutRoller(speed);
 		timer.start();
 	}
 

@@ -45,6 +45,11 @@ public class CubeStorage extends Subsystem {
 		roller.set(ControlMode.PercentOutput, power);
 	}
 	
+	public void runWithoutRoller(double power) {
+		left.set(ControlMode.PercentOutput, -power);
+		right.set(ControlMode.PercentOutput, power);
+	}
+	
 	/**
 	 * Stops all movement of the cube storage motors.
 	 */
