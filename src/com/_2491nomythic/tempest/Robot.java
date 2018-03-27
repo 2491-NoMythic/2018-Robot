@@ -25,6 +25,7 @@ import com._2491nomythic.tempest.commands.lights.UpdateLights;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
+import com._2491nomythic.tempest.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -68,6 +69,7 @@ public class Robot extends TimedRobot {
 		updateDriverstation.start();
 		updateLights.start();
 		monitorRPS.start();
+		Drivetrain.getInstance().setCameraMode();
 		
 		m_PositionSelector.addObject("LEFT", StartPosition.LEFT);
 		m_PositionSelector.addDefault("CENTER", StartPosition.CENTER);
