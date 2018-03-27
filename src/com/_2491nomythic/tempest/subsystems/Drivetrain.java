@@ -145,7 +145,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveLeftPercentOutput(double speed){
-		leftMaster.set(ControlMode.PercentOutput, speed * Variables.driveRestriction);
+		leftMaster.set(ControlMode.PercentOutput, speed * Variables.driveAdjustmentCoefficient);
 	}
 	
 	/**
@@ -153,7 +153,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * @param speed The power fed to the motors, ranging from -1 to 1, where negative values run the motors backwards
 	 */
 	public void driveRightPercentOutput(double speed){
-		rightMaster.set(ControlMode.PercentOutput, speed * Variables.driveRestriction);
+		rightMaster.set(ControlMode.PercentOutput, speed * Variables.driveAdjustmentCoefficient);
 	}
 	
 	/**

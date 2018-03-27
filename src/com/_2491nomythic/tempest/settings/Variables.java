@@ -10,7 +10,7 @@ public class Variables {
 	public static boolean useLinearAcceleration = true;
 	public static double accelerationSpeed = 0.05;
 	public static double driveDefault = 1;
-	public static double driveRestriction = 1;
+	public static double driveAdjustmentCoefficient = 1;
 	
 	//PID
 	public static double proportionalRotate = 0.01; // 0.00625

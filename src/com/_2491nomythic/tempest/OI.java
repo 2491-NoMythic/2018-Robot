@@ -11,6 +11,7 @@ package com._2491nomythic.tempest;
 import com._2491nomythic.tempest.commands.AutomaticIntake;
 import com._2491nomythic.tempest.commands.KillSwitch;
 import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHaltManual;
+import com._2491nomythic.tempest.commands.drivetrain.AdjustmentMode;
 import com._2491nomythic.tempest.commands.intake.RunIntakeManual;
 import com._2491nomythic.tempest.commands.intake.RunIntakeRollerless;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
@@ -37,7 +38,7 @@ public class OI {
 	
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
 	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runIntakeRollerless;
-	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2, runShooter;
+	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2, runShooter, adjustment1, adjustment2;
 
 	public enum ControllerType {
 		Standard,
@@ -54,6 +55,12 @@ public class OI {
 		
 		killSwitch2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton2);
 		killSwitch2.whenPressed(new KillSwitch());
+		
+		adjustment1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.adjustmentButton1);
+		adjustment1.whileHeld(new AdjustmentMode());
+		
+		adjustment2 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.adjustmentButton2);
+		adjustment2.whileHeld(new AdjustmentMode());
 		
 		//PS4 Operator Controls
 			//Intake
