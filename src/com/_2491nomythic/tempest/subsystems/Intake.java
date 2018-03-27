@@ -13,7 +13,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Intake extends Subsystem {
 	private static Intake instance;
-	private TalonSRX left, right, bottom;
+	private TalonSRX left, right;
 	private DoubleSolenoid activateIntakeSolenoid, intakeOpenSolenoid; 
 	
 	public static Intake getInstance() {
@@ -29,7 +29,6 @@ public class Intake extends Subsystem {
 	public Intake() {
 		left = new TalonSRX(Constants.intakeTalonLeftChannel);
 		right = new TalonSRX(Constants.intakeTalonRightChannel);
-		bottom = new TalonSRX(Constants.intakeTalonBottomChannel);
 		activateIntakeSolenoid = new DoubleSolenoid(Constants.intakeSolenoidActivateChannelForward, Constants.intakeSolenoidActivateChannelReverse);
 		intakeOpenSolenoid = new DoubleSolenoid(Constants.intakeSolenoidOpenChannelForward, Constants.intakeSolenoidOpenChannelReverse);
 	}
@@ -41,13 +40,11 @@ public class Intake extends Subsystem {
 	public void run(double speed) {
 		runLeft(speed);
 		runRight(speed);
-		runBottom(speed);
 	}
 	
-	public void run(double leftSpeed, double rightSpeed, double bottomSpeed) {
+	public void run(double leftSpeed, double rightSpeed) {
 		runLeft(leftSpeed);
 		runRight(rightSpeed);
-		runBottom(bottomSpeed);
 	}
 	
 	/**
@@ -64,14 +61,6 @@ public class Intake extends Subsystem {
 	 */
 	public void runRight(double speed) {
 		right.set(ControlMode.PercentOutput, speed);
-	}
-	
-	/**
-	 * Runs the bottom part of the intake to capture Power Cubes.
-	 * @param speed the speed that the motors will run at.
-	 */
-	public void runBottom(double speed) {
-		bottom.set(ControlMode.PercentOutput, speed);
 	}
 	
 	/**

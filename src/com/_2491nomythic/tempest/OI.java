@@ -12,7 +12,6 @@ import com._2491nomythic.tempest.commands.KillSwitch;
 import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHaltManual;
 import com._2491nomythic.tempest.commands.drivetrain.AdjustmentMode;
 import com._2491nomythic.tempest.commands.intake.RunIntakeManual;
-import com._2491nomythic.tempest.commands.intake.RunIntakeRollerless;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeDeployment;
 import com._2491nomythic.tempest.commands.intake.ToggleIntakeOpeningHeld;
 import com._2491nomythic.tempest.commands.shooter.ReverseShooter;
@@ -22,6 +21,7 @@ import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.ControllerMap;
 import com._2491nomythic.util.JoystickAxisButton;
+import com._2491nomythic.util.JoystickPOVButton;
 import com._2491nomythic.util.PS4Controller;
 
 import edu.wpi.first.wpilibj.Joystick;
@@ -36,8 +36,8 @@ public class OI {
 	private final Joystick[] controllers = new Joystick[2];
 	
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
-	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, runIntakeRollerless;
-	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2, runShooter, adjustment1, adjustment2;
+	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, adjustment1, adjustment2;
+	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2, runShooter;
 
 	public enum ControllerType {
 		Standard,
@@ -75,9 +75,6 @@ public class OI {
 		intakeControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, -0.1);
 		intakeControl2.whileHeld(new RunIntakeManual());
 		
-		runIntakeRollerless = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.IntakeRollerlessButton);
-		runIntakeRollerless.whileHeld(new RunIntakeRollerless());
-		
 			//Shooter
 		raiseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.raiseShooter);
 		raiseShooter.whenPressed(new ToggleShooterPosition());
@@ -97,7 +94,7 @@ public class OI {
 		runShooter = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton, 0.1);
 		runShooter.whileHeld(new RunShooterCustom());
 		
-		reverseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
+		reverseShooter = new JoystickPOVButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
 		reverseShooter.whileHeld(new ReverseShooter());
 		
 			//CubeStorage
