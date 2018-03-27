@@ -1,7 +1,6 @@
 package com._2491nomythic.tempest.commands;
 
 
-import com._2491nomythic.tempest.Robot;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
 import edu.wpi.first.wpilibj.Timer;
@@ -43,10 +42,6 @@ public class UpdateDriverstation extends CommandBase {
 			SmartDashboard.putNumber("Right Encoder TICS", drivetrain.getRightEncoderDistanceRaw());
 			SmartDashboard.putNumber("Left Encoder TICS", drivetrain.getLeftEncoderDistanceRaw());
 			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
-			SmartDashboard.putNumber("lVelocity FTpS", drivetrain.getLeftVelocity());
-			SmartDashboard.putNumber("rVelocity FTpS", drivetrain.getRightVelocity());
-			SmartDashboard.putNumber("lVelocity NUp100Ms", drivetrain.getLeftVelocityRaw());
-			SmartDashboard.putNumber("rVelocity NUp100Ms", drivetrain.getRightVelocityRaw());
 			SmartDashboard.putBoolean("ShooterReadyToFire", Variables.readyToFire);
 			SmartDashboard.putNumber("LeftShootRPS", shooter.getLeftShootVelocity());
 			SmartDashboard.putNumber("RightShootRPS", shooter.getRightShootVelocity());
@@ -64,12 +59,7 @@ public class UpdateDriverstation extends CommandBase {
 			Constants.shooterLowScaleRPS = SmartDashboard.getNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 			Constants.shooterSwitchRPS = SmartDashboard.getNumber("SwitchRPS", Constants.shooterSwitchRPS);
             
-			if (Robot.isTeleop) {
-				drivetrain.chooseDefaultCommand(Variables.driveDefault);
-			}
-			else {
-				drivetrain.chooseDefaultCommand(Math.PI);
-			}
+			drivetrain.chooseDefaultCommand(Variables.driveDefault);
 		}
 			
 		

@@ -1,49 +1,41 @@
 package com._2491nomythic.tempest.commands.drivetrain;
 
 import com._2491nomythic.tempest.commands.CommandBase;
+import com._2491nomythic.tempest.commands.autonomous.PathAutoSelect.*;
 import com._2491nomythic.tempest.settings.Constants;
+import com._2491nomythic.tempest.subsystems.Pathing;
 
 /**
  *
  */
 public class DrivePath extends CommandBase {
-	private int currentStep, timeCounter, reverseDirection, invertRotation;
+	private int mCurrentStep, timeCounter, reverseDirection, mSwaped, mLength;
 	private double initialHeading, headingDiffrence, turnAdjustment, adjustedLeftVelocity, adjustedRightVelocity;
-	private double[][] leftVelocites, rightVelocites, headings;
+	private String mSelectedLeftPath, mSelectedRightPath, mSelectedHeading, EndPosition;
+
 	/**
 	 * 
-	 * @param leftVelocites A velocities array for the left side of the robot
-	 * @param rightVelocites A velocities array for the right side of the robot
-	 * @param headings A headings array for the path
-	 * @param invert Inverts the start position
-	 * @param reverse Reverse the robot drive direction
-	 * @author Emilio Alvarez
+	 * @param startPosition an robot {@linkplain StartPosition} with respect to the field  
+	 * @param endPosition a robot {@linkplain EndPosition} with respect to the field
+	 * @author Emilio Lobo
 	 */
-    public DrivePath(double[][] leftVelocites, double[][] rightVelocites, double[][] headings, boolean invert, boolean reverse) {
+    public DrivePath(StartPosition startPosition, EndPosition endPosition) {
     	
     	requires(drivetrain);
-    	requires(pathing);
     	
-    	this.headings = headings;
+    	this.EndPosition = String.valueOf(endPosition.toString());
     	
-    	/* Sets field side*/
-    	if (invert) {
-    		this.leftVelocites = rightVelocites;
-    		this.rightVelocites = leftVelocites;
-    		invertRotation = -1;
-    	}
-    	else {
-    		this.leftVelocites = leftVelocites;
-    		this.rightVelocites = rightVelocites;
-    		invertRotation = 1;
-    	}
-    	
-    	/* Sets drivetrain drive direction */
-    	if (reverse) {
-    		reverseDirection = -1;
-    	}
-    	else {
-    		reverseDirection = 1;
+    	/* Sets Drive settings according to startPosition*/
+    	switch(startPosition) {
+    	case LEFT:
+    		configureDrive(true, true);
+    		break;
+    	case CENTER:
+    		configureDrive(false, false);
+    		break;
+    	case RIGHT:
+    		configureDrive(false, true);
+    		break;
     	}
     }
 
@@ -52,8 +44,9 @@ public class DrivePath extends CommandBase {
     	
     	/* Reset Variables */
     	initialHeading = drivetrain.getRawGyroAngle();
-    	currentStep = 0;
+    	mCurrentStep = 0;
     	timeCounter = 4;
+    	mLength = Pathing.getHeadingsArray(mSelectedHeading).length;
     	
     }
 
@@ -61,18 +54,18 @@ public class DrivePath extends CommandBase {
     protected void execute() {
     	if(timeCounter == 4) {
     	    
-			headingDiffrence = invertRotation * pathing.returnAngle(currentStep, headings) + drivetrain.getRawGyroAngle() - initialHeading; //+
+			headingDiffrence = mSwaped * Pathing.getHeading(mCurrentStep, mSelectedHeading) + drivetrain.getRawGyroAngle() - initialHeading; //+
 			turnAdjustment = Constants.kVelocitykG * Constants.kVeloctiyUnitConversion * headingDiffrence; 
 			
-			adjustedLeftVelocity = reverseDirection * pathing.returnVelocity(currentStep, leftVelocites) - turnAdjustment; //-
-    		adjustedRightVelocity = reverseDirection * pathing.returnVelocity(currentStep, rightVelocites) + turnAdjustment; //+
+			adjustedLeftVelocity = reverseDirection * Pathing.getVelocity(mCurrentStep, mSelectedLeftPath) - turnAdjustment; //-
+    		adjustedRightVelocity = reverseDirection * Pathing.getVelocity(mCurrentStep, mSelectedRightPath) + turnAdjustment; //+
     		
     		//System.out.println("H Diff: " + headingDiffrence + " Path: " + pathing.returnAngle(currentStep, headings) + " Gyro: " + -(headingDiffrence - pathing.returnAngle(currentStep, headings)) +  " Turn: " + turnAdjustment + " aL " + adjustedRightVelocity);
 
     		drivetrain.driveVelocity(adjustedLeftVelocity , adjustedRightVelocity); //+
 			        		
 			timeCounter = 0;
-			currentStep++;
+			mCurrentStep++;
 			
 		} 
 		else {
@@ -82,18 +75,45 @@ public class DrivePath extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return headings.length == currentStep;
+        return mCurrentStep == mLength;
     }
 
     // Called once after isFinished returns true
     protected void end() {
     	drivetrain.stop();
-    	currentStep = 0;
+    	mCurrentStep = 0;
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
     	end();
+    }
+    
+    /**
+     * Configures the ARCADE related variables.
+     * <p> 
+     * Assumes a default ROBOT configuration of a right starting position with the Intake facing the SCALE
+     * @param swaped swaps the drive rails paths
+     * @param reversed reverses the robots drive direction
+     */
+    private void configureDrive(boolean swaped, boolean reversed) {
+    	if (swaped) {
+    		mSelectedLeftPath = "rightVelocitiesTO_" + EndPosition;
+        	mSelectedRightPath = "leftVelocitiesTO_" + EndPosition;
+        	mSwaped = -1;
+    	}
+    	else {
+    		mSelectedLeftPath = "leftVelocitiesTO_" + EndPosition;
+        	mSelectedRightPath = "rightVelocitiesTO_" + EndPosition;
+        	mSwaped = 1;
+    	}
+    	if (reversed) {
+    		reverseDirection = -1;
+    	}
+    	else {
+    		reverseDirection = 1;
+    	}
+    	mSelectedHeading = "headingsTO_" + EndPosition;
     }
 }

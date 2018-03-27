@@ -2,7 +2,7 @@ package com._2491nomythic.tempest.commands.autonomous;
 
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.cubestorage.TransportCubeTime;
-import com._2491nomythic.tempest.commands.drivetrain.DrivePath;
+import com._2491nomythic.tempest.commands.drivetrain.OLD_DrivePath;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.shooter.RunShooterCustom;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
@@ -19,7 +19,7 @@ public class PathAutoPSwitch extends CommandBase {
 	private TransportCubeTime fire;
 	private RunShooterCustom autoShoot;
 	private String gameData;
-	private DrivePath path;
+	private OLD_DrivePath path;
 	private Timer timer;
 	private SetShooterSpeed switchSpeed;
 	private RotateDrivetrainWithGyroPID rotate;
@@ -47,21 +47,21 @@ public class PathAutoPSwitch extends CommandBase {
     	/* Select side based on gameData */
 		switch(gameData.substring(0, 1)) {
 		case "L":
-			leftVelocitiesArray = Constants.leftVelocitiesATrightPosFORleftScale;
-			rightVelocitiesArray = Constants.rightVelocitiesATrightPosFORleftScale;
-			headingsArray = Constants.anglesATrightPosFORleftScale;
+			leftVelocitiesArray = Constants.leftVelocitiesTO_OPPOSITE_SCALE;
+			rightVelocitiesArray = Constants.rightVelocitiesTO_OPPOSITE_SCALE;
+			headingsArray = Constants.headingsTO_OPPOSITE_SCALE;
 			break;
 		case "R":
-			leftVelocitiesArray = Constants.leftVelocitiesATrightPosFORrightSwitch;
-			rightVelocitiesArray = Constants.rightVelocitiesATrightPosFORrightSwtich;
-			headingsArray = Constants.anglesATrightPosFORrightSwitch;
+			leftVelocitiesArray = Constants.leftVelocitiesTO_SWITCH;
+			rightVelocitiesArray = Constants.rightVelocitiesTO_SWITCH;
+			headingsArray = Constants.headingsTO_SWITCH;
 			break;
 		default:
 			System.out.println("Unexpected value for GameSpecificMessage: " + gameData);
 			end();
 			break;
 		}
-		path = new DrivePath(leftVelocitiesArray, rightVelocitiesArray, headingsArray, true,  true);
+		path = new OLD_DrivePath(leftVelocitiesArray, rightVelocitiesArray, headingsArray, true,  true);
 		timer.reset();
 		path.start();
     }
