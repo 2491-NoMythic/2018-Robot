@@ -8,7 +8,6 @@
 
 package com._2491nomythic.tempest;
 
-import com._2491nomythic.tempest.commands.AutomaticIntake;
 import com._2491nomythic.tempest.commands.KillSwitch;
 import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHaltManual;
 import com._2491nomythic.tempest.commands.drivetrain.AdjustmentMode;
@@ -67,7 +66,7 @@ public class OI {
 		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);
 		deployIntake.whenPressed(new ToggleIntakeDeployment());
 		
-		openIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.openIntake);
+		openIntake = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.openIntake, 0.1);
 		openIntake.whileHeld(new ToggleIntakeOpeningHeld());
 		
 		intakeControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, 0.1);
@@ -78,9 +77,6 @@ public class OI {
 		
 		runIntakeRollerless = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.IntakeRollerlessButton);
 		runIntakeRollerless.whileHeld(new RunIntakeRollerless());
-		
-		automaticIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.automaticIntakeButton);
-		automaticIntake.whenPressed(new AutomaticIntake());
 		
 			//Shooter
 		raiseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.raiseShooter);
@@ -98,7 +94,7 @@ public class OI {
 		setSwitchSpeed = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.setSwitchRPS);
 		setSwitchSpeed.whenPressed(new SetShooterSpeed(Constants.shooterSwitchSpeed));
 		
-		runShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton);
+		runShooter = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.shooterButton, 0.1);
 		runShooter.whileHeld(new RunShooterCustom());
 		
 		reverseShooter = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.shooterReverseButton);
