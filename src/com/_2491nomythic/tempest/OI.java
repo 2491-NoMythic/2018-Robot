@@ -37,7 +37,8 @@ public class OI {
 	
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
 	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed, adjustment1, adjustment2;
-	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2, runShooter;
+	Button cubeStorageControl1, cubeStorageControl2, automaticIntake, intakeControl1, intakeControl2;
+	public Button runShooter;
 
 	public enum ControllerType {
 		Standard,
@@ -46,7 +47,7 @@ public class OI {
 	
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
-		controllers[1] = new PS4Controller(ControllerMap.operatorController);
+		controllers[1] = new Joystick(ControllerMap.operatorController);
 		
 		//Main Driver Controls
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
