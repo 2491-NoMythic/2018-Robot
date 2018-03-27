@@ -11,8 +11,10 @@ import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.LocateCube;
 import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
-import com._2491nomythic.tempest.commands.autonomous.PathAutoSelect;
-import com._2491nomythic.tempest.commands.autonomous.PathAutoSelect.*;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Crossing;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Priority;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.StartPosition;
 /*import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchLeft;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchRight;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
@@ -144,7 +146,7 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		Variables.autoDelay = SmartDashboard.getNumber("AutoDelay", 0);
 		
-		m_autonomousCommand = new PathAutoSelect(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
+		m_autonomousCommand = new AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
 		updateLights.start();
 
 		// schedule the autonomous command (example)

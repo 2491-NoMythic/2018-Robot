@@ -14,23 +14,28 @@ import edu.wpi.first.wpilibj.Timer;
 /**
  *
  */
-public class PathAutoSelect extends CommandBase {
+public class AutomaticAuto extends CommandBase {
 	private double mWaitTime;
+	private String mSwitchPosition, mScalePosition;
 	private DrivePath mPath;
 	private SetShooterSpeed mSetSwitchSpeed, mSetScaleSpeed;
 	private TransportCubeTime mFireCube;
 	private RunShooterCustom mRevShoot;
 	private String mGameData;
 	private Timer mTimer;
+	
 	public static enum StartPosition {
 		LEFT, CENTER, RIGHT
 	}
+	
 	public static enum EndPosition {
 		SWITCH, LEFT_SWITCH, RIGHT_SWITCH, OPPOSITE_SWTICH, SCALE, OPPOSITE_SCALE, CROSS_LINE
 	}
+	
 	public static enum Priority {
 		SCALE, SWITCH
 	}
+	
 	public static enum Crossing {
 		OFF, ON, FORCE
 	}
@@ -46,7 +51,7 @@ public class PathAutoSelect extends CommandBase {
 	 * @param priority
 	 * @param crossing
 	 */
-    public PathAutoSelect(StartPosition position, Priority priority, Crossing crossing) {
+    public AutomaticAuto(StartPosition position, Priority priority, Crossing crossing) {
     	this.mStartPosition = position;
         this.mPriority = priority;
     	this.mCrossing = crossing;
@@ -54,111 +59,13 @@ public class PathAutoSelect extends CommandBase {
     	mSetScaleSpeed = new SetShooterSpeed(Constants.shooterMediumScaleSpeed);
     	mRevShoot = new RunShooterCustom();
     	mTimer = new Timer();
-    	mWaitTime = 10;
+    	mWaitTime = 15;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	
-    	/*if (endPosition.name() != EndPosition.LEFT_SWITCH.name() && endPosition.name() != EndPosition.RIGHT_SWITCH.name()) {
-			mSelectedLeftPath = "leftVelocitiesTO_" + EndPosition.LEFT_SWITCH.name();
-        	mSelectedRightPath = "rightVelocitiesTO_" + endPosition.name();
-        	mSelectedHeadings = "headingsTO_"+ endPosition.name();
-		}*/
-    	/* Prepare robot superStructure*/
-    	
-    	/* Retrieve GameData to select direction */
-    	mGameData = DriverStation.getInstance().getGameSpecificMessage();  
-    	
-    	/* Select path based on gameData */
-    	switch(mStartPosition) {
-    	case LEFT:
-    		switch(mGameData.substring(0, 2)) {
-    		case "LL":
-    			if (mPriority == Priority.SCALE) {
-    				mEndPosition = EndPosition.SCALE;
-    			}
-    			else {
-    				mEndPosition = EndPosition.SWITCH;
-    			}
-    			break;
-    		case "LR":
-    			if (mCrossing.equals(Crossing.FORCE) && mPriority.equals(Priority.SCALE)) {
-    				mEndPosition = EndPosition.OPPOSITE_SCALE;
-    			}
-    			else {
-    				mEndPosition = EndPosition.SWITCH;
-    			}	
-    			break;
-    		case "RL":
-    			mEndPosition = EndPosition.SCALE;
-    			break;
-    		case "RR":
-    			if (mCrossing.equals(Crossing.OFF)) {
-    				mEndPosition = EndPosition.CROSS_LINE;
-    			}
-    			else {
-    				mEndPosition = EndPosition.OPPOSITE_SCALE;
-    			}
-    			break;
-    		default:
-    			System.out.println("Unexpected value for GameSpecificMessage: " + mGameData);
-    			end();
-    			break;	
-    		}
-    		break;	
-    	case CENTER:
-    		switch(mGameData.substring(0, 1)) {
-    		case "L":
-    			mEndPosition = EndPosition.LEFT_SWITCH;
-    			break;
-    		case "R":
-    			mEndPosition = EndPosition.RIGHT_SWITCH;
-    			break;
-    		default:
-    			System.out.println("Unexpected value for GameSpecificMessage: " + mGameData);
-    			end();
-    			break;
-    		}
-    		break;
-    	case RIGHT:
-    		switch(mGameData.substring(0, 2)) {
-    		case "LL":
-    			if (mCrossing.equals(Crossing.OFF)) {
-    				mEndPosition = EndPosition.CROSS_LINE;
-    			}
-    			else {
-    				mEndPosition = EndPosition.OPPOSITE_SCALE;
-    			}
-    			break;
-    		case "LR":
-    			mEndPosition = EndPosition.SCALE;
-    			break;
-    		case "RL":
-    			if (mCrossing.equals(Crossing.FORCE) && mPriority.equals(Priority.SCALE)) {
-    				mEndPosition = EndPosition.OPPOSITE_SCALE;
-    			}
-    			else {
-    				mEndPosition = EndPosition.SWITCH;
-    			}		
-    			break;
-    		case "RR":
-    			if (mPriority == Priority.SCALE) {
-    				mEndPosition = EndPosition.SCALE;
-    			}
-    			else {
-    				mEndPosition = EndPosition.SWITCH;
-    			}
-    			break;
-    		default:
-    			System.out.println("Unexpected value for GameSpecificMessage: " + mGameData);
-    			end();
-    			break;
-    			}
-    		break;
-    		}
-    	System.out.println(mStartPosition);
-    	System.out.println(mEndPosition);
+    	selectEndPosition(mStartPosition);
 		mPath = new DrivePath(mStartPosition, mEndPosition);
 		mTimer.reset();
 		mPath.start();	
@@ -166,8 +73,7 @@ public class PathAutoSelect extends CommandBase {
 
     
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	
+    protected void execute() {	
     	if (mPath.isCompleted() && mTimer.get() == 0) {
     		mTimer.start();
     		switch(mEndPosition) {
@@ -229,4 +135,82 @@ public class PathAutoSelect extends CommandBase {
     protected void interrupted() {
     	end();
     }
+    
+    private synchronized void selectEndPosition(StartPosition startPosition) {
+    	switch(mStartPosition) {
+    	case LEFT:
+    		reverseGameData(mGameData);
+    		respondToARCADE(mGameData);
+    		break;	
+    	case CENTER:
+    	case RIGHT:
+    		respondToARCADE(mGameData);
+    		break;
+    	}
+    	System.out.println("Selected Start Position; " + mStartPosition);
+    }
+    
+    private synchronized void respondToARCADE(String gameData) {
+    	getGameData();
+    	switch(mGameData.substring(0, 2)) {
+		case "LL":
+			if (mStartPosition == StartPosition.CENTER) {
+				mEndPosition = EndPosition.LEFT_SWITCH;
+			} 
+			else if (mPriority == Priority.SCALE) {
+				mEndPosition = EndPosition.SCALE;
+			}
+			else {
+				mEndPosition = EndPosition.SWITCH;
+			}
+			break;
+		case "LR":
+			if (mStartPosition == StartPosition.CENTER) {
+				mEndPosition = EndPosition.LEFT_SWITCH;
+			} 
+			else if (mCrossing.equals(Crossing.FORCE) && mPriority.equals(Priority.SCALE)) {
+				mEndPosition = EndPosition.OPPOSITE_SCALE;
+			}
+			else {
+				mEndPosition = EndPosition.SWITCH;
+			}	
+			break;
+		case "RL":
+			if (mStartPosition == StartPosition.CENTER) {
+				mEndPosition = EndPosition.RIGHT_SWITCH;
+			} 
+			else {
+				mEndPosition = EndPosition.SCALE;
+			}
+			break;
+		case "RR":
+			if (mStartPosition == StartPosition.CENTER) {
+				mEndPosition = EndPosition.RIGHT_SWITCH;
+			} 
+			else if (mCrossing.equals(Crossing.OFF)) {
+				mEndPosition = EndPosition.CROSS_LINE;
+			}
+			else {
+				mEndPosition = EndPosition.OPPOSITE_SCALE;
+			}
+			break;
+		default:
+			System.out.println("Unexpected value for GameSpecificMessage: " + mGameData);
+			end();
+			break;	
+		}
+    	System.out.println("Selected EndPosition: " + mEndPosition);
+    }
+    
+    private synchronized String reverseGameData(String gameData) {
+    	mSwitchPosition = mGameData.substring(0, 1);
+    	mScalePosition = mGameData.substring(1, 2);
+    	mGameData = String.join("", mScalePosition, mSwitchPosition);
+    	return mGameData;
+    }
+    
+    private synchronized String getGameData() {
+    	return mGameData = DriverStation.getInstance().getGameSpecificMessage();  
+	}
 }
+	
