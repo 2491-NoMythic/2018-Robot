@@ -135,6 +135,7 @@ public class AutomaticAuto extends CommandBase {
     }
     
     private synchronized void selectEndPosition(StartPosition startPosition) {
+    	getGameData();
     	switch(mStartPosition) {
     	case LEFT:
     		reverseGameData(mGameData);
@@ -149,7 +150,6 @@ public class AutomaticAuto extends CommandBase {
     }
     
     private synchronized void respondToARCADE(String gameData) {
-    	getGameData();
     	switch(mGameData.substring(0, 2)) {
     	case "LL":
 			if (mStartPosition == StartPosition.CENTER) {
@@ -200,11 +200,10 @@ public class AutomaticAuto extends CommandBase {
     	System.out.println("Selected EndPosition: " + mEndPosition);
     }
     
-    private synchronized String reverseGameData(String gameData) {
+    private synchronized void reverseGameData(String gameData) {
     	mSwitchPosition = mGameData.substring(0, 1);
     	mScalePosition = mGameData.substring(1, 2);
     	mGameData = String.join("", mScalePosition, mSwitchPosition);
-    	return mGameData;
     }
     
     private synchronized String getGameData() {
