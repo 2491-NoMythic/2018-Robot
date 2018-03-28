@@ -154,7 +154,7 @@ public class AutomaticAuto extends CommandBase {
     	case "LL":
 			if (mStartPosition == StartPosition.CENTER) {
 				mEndPosition = EndPosition.LEFT_SWITCH;
-			} 
+			}
 			else if (mCrossing.equals(Crossing.OFF)) {
 				mEndPosition = EndPosition.CROSS_LINE;
 			}
@@ -169,7 +169,7 @@ public class AutomaticAuto extends CommandBase {
 		case "LR":
 			if (mStartPosition == StartPosition.CENTER) {
 				mEndPosition = EndPosition.LEFT_SWITCH;
-			} 
+			}
 			else {
 				mEndPosition = EndPosition.SCALE;
 			}
@@ -177,18 +177,18 @@ public class AutomaticAuto extends CommandBase {
 		case "RL":
 			if (mStartPosition == StartPosition.CENTER) {
 				mEndPosition = EndPosition.RIGHT_SWITCH;
-			} 
+			}
 			else if (mCrossing.equals(Crossing.FORCE) && mPriority.equals(Priority.SCALE)) {
 				mEndPosition = EndPosition.OPPOSITE_SCALE;
 			}
 			else {
 				mEndPosition = EndPosition.SWITCH;
-			}	
+			}
 			break;
 		case "RR":
 			if (mStartPosition == StartPosition.CENTER) {
 				mEndPosition = EndPosition.RIGHT_SWITCH;
-			} 
+			}
 			else if (mPriority == Priority.SCALE) {
 				mEndPosition = EndPosition.SCALE;
 			}
@@ -201,8 +201,8 @@ public class AutomaticAuto extends CommandBase {
     }
     
     private synchronized String reverseGameData(String gameData) {
-    	mSwitchPosition = String.valueOf(mGameData.substring(1, 2));
-    	mScalePosition = String.valueOf(mGameData.substring(0, 1));
+    	mSwitchPosition = String.valueOf(gameData.substring(1, 2));
+    	mScalePosition = String.valueOf(gameData.substring(0, 1));
     	mGameData = String.join("", mScalePosition, mSwitchPosition);
     	return mGameData;
     }
