@@ -776,7 +776,12 @@ public class FalconPathPlanner
 			{18-2.75,26},
 			{24-robotLength-1.77,24}
 		};
-		final FalconPathPlanner path = new FalconPathPlanner(scaleRightLeft);
+		
+		double[][] anyPosDriveStrait =  new double[][] {
+			{0,rightStartPos},
+			{14.5,rightStartPos}
+		};
+		final FalconPathPlanner path = new FalconPathPlanner(anyPosDriveStrait);
 		path.calculate(totalTime, timeStep, robotTrackWidth);
 
 		System.out.println("Time in ms: " + (System.currentTimeMillis()-start));
