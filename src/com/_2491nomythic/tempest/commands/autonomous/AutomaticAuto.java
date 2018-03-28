@@ -201,13 +201,23 @@ public class AutomaticAuto extends CommandBase {
     }
     
     private synchronized void reverseGameData(String gameData) {
-        mSwitchPosition = String.valueOf(gameData.substring(1, 2));
-        mScalePosition = String.valueOf(gameData.substring(0, 1));
+        if (gameData.substring(0, 1) == "L") {
+        	mSwitchPosition = "R";
+        }
+        else {
+        	mSwitchPosition = "L";
+        }
+        if (gameData.substring(1, 2) == "L") {
+        	mScalePosition = "R";
+        }
+        else {
+        	mScalePosition = "L";
+        }
     	mGameData = String.join("", mScalePosition, mSwitchPosition);
     }
     
-    private synchronized String getGameData() {
-    	return mGameData = DriverStation.getInstance().getGameSpecificMessage();  
+    private synchronized void getGameData() {
+    	mGameData = DriverStation.getInstance().getGameSpecificMessage();  
 	}
 }
 	
