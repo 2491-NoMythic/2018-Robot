@@ -15,8 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class AutomaticAuto extends CommandBase {
 	private double mWaitTime;
-	private String mSwitchPosition, mScalePosition;
-	private DrivePath mPath;
+	private DrivePath mPath, mBumpCounter;
 	private SetShooterSpeed mSetSwitchSpeed, mSetScaleSpeed;
 	private TransportCubeTime mFireCube;
 	private RunShooterCustom mRevShoot;
@@ -28,7 +27,7 @@ public class AutomaticAuto extends CommandBase {
 	}
 	
 	public static enum EndPosition {
-		SWITCH, LEFT_SWITCH, RIGHT_SWITCH, OPPOSITE_SWTICH, SCALE, OPPOSITE_SCALE, CROSS_LINE
+		SWITCH, LEFT_SWITCH, RIGHT_SWITCH, OPPOSITE_SWTICH, SCALE, OPPOSITE_SCALE, CROSS_LINE, BUMP_COUNTER
 	}
 	
 	public static enum Priority {
@@ -59,6 +58,7 @@ public class AutomaticAuto extends CommandBase {
     	mRevShoot = new RunShooterCustom();
     	mTimer = new Timer();
     	mWaitTime = 15;
+    	mBumpCounter = new DrivePath(StartPosition.CENTER, EndPosition.BUMP_COUNTER);
     }
 
     // Called just before this Command runs the first time
@@ -80,14 +80,14 @@ public class AutomaticAuto extends CommandBase {
         	case OPPOSITE_SWTICH:
         		mWaitTime = 0;
         		mSetSwitchSpeed.start();
-        		intake.deploy();
         		mRevShoot.start();
             	mFireCube = new TransportCubeTime(1, 1.5);
         		break;
         	case LEFT_SWITCH:
         	case RIGHT_SWITCH:
         		mWaitTime = 0;
-            	mFireCube = new TransportCubeTime(-1, 1.5);
+        		mBumpCounter.start();
+            	mFireCube = new TransportCubeTime(-1, 1);
         		break;
         	case SCALE:
         	case OPPOSITE_SCALE:
@@ -138,7 +138,7 @@ public class AutomaticAuto extends CommandBase {
     	getGameData();
     	switch(mStartPosition) {
     	case LEFT:
-    		reverseGameData(mGameData);
+    		reverseGameData();
     		respondToARCADE(mGameData);
     		break;	
     	case CENTER:
@@ -200,20 +200,13 @@ public class AutomaticAuto extends CommandBase {
     	System.out.println("Selected EndPosition: " + mEndPosition);
     }
     
-    private synchronized void reverseGameData(String gameData) {
-        if (gameData.substring(0, 1) == "L") {
-        	mSwitchPosition = "R";
-        }
-        else {
-        	mSwitchPosition = "L";
-        }
-        if (gameData.substring(1, 2) == "L") {
-        	mScalePosition = "R";
-        }
-        else {
-        	mScalePosition = "L";
-        }
-    	mGameData = String.join("", mScalePosition, mSwitchPosition);
+    private synchronized void reverseGameData() {
+       String temp = mGameData;
+       temp = temp.replace("L", "G");
+       temp = temp.replace("R", "L");
+       temp = temp.replace("G", "R");
+       mGameData = temp;
+   	   System.out.println("Rev: " + mGameData);
     }
     
     private synchronized void getGameData() {

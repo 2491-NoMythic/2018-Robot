@@ -91,6 +91,12 @@ public class Pathing extends Subsystem {
 		case "rightVelocitiesTO_CROSS_LINE":
 			mVelocitiesArray = Constants.rightVelocitiesTO_CROSS_LINE;
 			break;
+		case "leftVelocitiesTO_BUMP_COUNTER":
+			mVelocitiesArray = Constants.leftVelocitiesTO_BUMP_COUNTER;
+			break;
+		case "rightVelocitiesTO_BUMP_COUNTER":
+			mVelocitiesArray = Constants.rightVelocitiesTO_BUMP_COUNTER;
+			break;
 		default:
 			DriverStation.reportWarning("Invalid Velocity Path Name!", false);
 		}
@@ -131,6 +137,9 @@ public class Pathing extends Subsystem {
 			break;
 		case "headingsTO_CROSS_LINE":
 			mHeadingsArray = Constants.headingsTO_CROSS_LINE;
+			break;
+		case "headingsTO_BUMP_COUNTER":
+			mHeadingsArray = Constants.headingsTO_BUMP_COUNTER;
 			break;
 		default:
 			DriverStation.reportWarning("Invalid Headings Path Name!", false);
