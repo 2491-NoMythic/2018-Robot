@@ -30,7 +30,7 @@ public class SickLights extends Subsystem {
 	 * Writes a byte (int from -128 to 127) to the serial port to be read by the RIOduino.
 	 * Sending 1 or 2 tells the RIOduino what the robot's alliance color is, the rest change the pattern displayed on the shooter.
 	 * @param data The byte to be sent.
-	 * 0: Basic purple, default
+	 * 0: Purple sparkle, default
 	 * 1: Red Alliance
 	 * 2: Blue Alliance
 	 * 3: Shooter is running in reverse
