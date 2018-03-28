@@ -201,8 +201,8 @@ public class AutomaticAuto extends CommandBase {
     }
     
     private synchronized String reverseGameData(String gameData) {
-    	mSwitchPosition = mGameData.substring(0, 1);
-    	mScalePosition = mGameData.substring(1, 2);
+    	mSwitchPosition = String.valueOf(mGameData.substring(1, 2));
+    	mScalePosition = String.valueOf(mGameData.substring(0, 1));
     	mGameData = String.join("", mScalePosition, mSwitchPosition);
     	return mGameData;
     }
