@@ -60,23 +60,7 @@ public class Shooter extends Subsystem {
 		runLeftShoot(speed);
 		runRightShoot(speed);
 	}
-	
-	/**
-	 * Runs the left shoot motors at a given power
-	 * @param speed The power that the motor is set to run at
-	 */
-	public void runLeftShoot(double speed) {
-		leftShoot.set(ControlMode.PercentOutput, speed);
-	}
-	
-	/**
-	 * Runs the right shoot motors at a given power
-	 * @param speed The power that the motor is set to run at
-	 */
-	public void runRightShoot(double speed) {
-		rightShoot.set(ControlMode.PercentOutput, speed);
-	}
-	
+
 	/**
 	 * 
 	 * @param speed Speed to set the motors
