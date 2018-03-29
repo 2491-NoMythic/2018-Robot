@@ -19,7 +19,7 @@ public class RunShooterCustom extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	shootControl.setTolerance(5);
+    	shootControl.setTolerance(2);
     	shootControl.setSetPoint(Variables.shooterRPS);
     	shootControl.enable();
     }

@@ -9,11 +9,16 @@ import edu.wpi.first.wpilibj.PIDSource;
 import edu.wpi.first.wpilibj.PIDSourceType;
 
 /**
- *
+ * Runs the right shoot motor PID loop
+ * @deprecated
  */
 public class RunRightShootPID extends CommandBase {
 	private PIDController rightShootControl;
 
+	/**
+	 * Runs the right shoot motor PID loop
+	 * @deprecated
+	 */
     public RunRightShootPID() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Keeps track of and adjusts shooter motors for firing consistently
+ * @deprecated
  */
 public class MonitorRPS extends CommandBase {
 	private double tolerance, targetRPS, delayTime, threshold;
@@ -14,6 +15,7 @@ public class MonitorRPS extends CommandBase {
 	
 	/**
 	 * Keeps track of and adjusts shooter motors for firing consistently
+	 * @deprecated
 	 */
 	public MonitorRPS() {
 		setRunWhenDisabled(true);

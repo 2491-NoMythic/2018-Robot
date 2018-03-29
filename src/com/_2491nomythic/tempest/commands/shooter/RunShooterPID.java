@@ -4,12 +4,17 @@ import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.settings.Variables;
 
 /**
- *
+ * Runs both shooter PID Loops
+ * @deprecated
  */
 public class RunShooterPID extends CommandBase {
 	private RunLeftShootPID runLeft;
 	private RunRightShootPID runRight;
 
+	/**
+	 * Runs both shooter PID loops
+	 * @deprecated
+	 */
     public RunShooterPID() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
