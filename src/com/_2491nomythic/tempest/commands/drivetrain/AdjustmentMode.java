@@ -15,11 +15,7 @@ public class AdjustmentMode extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-<<<<<<< HEAD:src/com/_2491nomythic/tempest/commands/drivetrain/AdjustmentMode.java
-    	Variables.driveAdjustmentCoefficient = .25; //experimental
-=======
-    	Variables.driveAdjustmentCoefficient = 0.15; //experimental
->>>>>>> master:src/com/_2491nomythic/tempest/commands/drivetrain/AdjustmentMode.java
+    	Variables.driveAdjustmentCoefficient = .3; //experimental
     }
 
     // Called repeatedly when this Command is scheduled to run
