@@ -6,14 +6,14 @@ import com._2491nomythic.tempest.settings.Variables;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * Keeps track of the readiness of shooter motors for firing consistently
+ * Keeps track of and adjusts shooter motors for firing consistently
  */
 public class MonitorRPS extends CommandBase {
 	private double tolerance, targetRPS, delayTime, threshold;
 	private Timer delay;
 	
 	/**
-	 * Keeps track of the readiness of shooter motors for firing consistently
+	 * Keeps track of and adjusts shooter motors for firing consistently
 	 */
 	public MonitorRPS() {
 		setRunWhenDisabled(true);
@@ -74,7 +74,7 @@ public class MonitorRPS extends CommandBase {
 				}
 			}
 		}
-			if (Math.abs(shooter.getRightShootVelocity() - shooter.getLeftShootVelocity()) <= 0 + tolerance) {
+			if (Math.abs(shooter.getRightShootVelocity() - shooter.getLeftShootVelocity()) <= 0 + tolerance && shooter.getLeftShootVelocity() + shooter.getRightShootVelocity() > 2 * (targetRPS - tolerance)) {
 				Variables.readyToFire = true;
 			}
 			else {

@@ -36,8 +36,6 @@ public class Shooter extends Subsystem {
 		
 		elevator = new DoubleSolenoid(Constants.shooterElevatorChannelForward, Constants.shooterElevatorChannelReverse);
 		
-		leftAccelerate.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
-		rightAccelerate.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		leftShoot.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 		rightShoot.configSelectedFeedbackSensor(FeedbackDevice.QuadEncoder, 0, 0);
 	}
@@ -50,8 +48,8 @@ public class Shooter extends Subsystem {
 	 * @param speed The speed that the motors are set to run at.
 	 */
 	public void runAccelerate(double speed) {
-		leftAccelerate.set(ControlMode.PercentOutput, speed * Variables.reverseCoefficient);
-		rightAccelerate.set(ControlMode.PercentOutput, -speed * Variables.reverseCoefficient);
+		leftAccelerate.set(ControlMode.PercentOutput, speed);
+		rightAccelerate.set(ControlMode.PercentOutput, -speed);
 	}
 	
 	/**
@@ -59,8 +57,24 @@ public class Shooter extends Subsystem {
 	 * @param speed The speed that the motors are set to run at.
 	 */
 	public void runShoot(double speed) {
-		leftShoot.set(ControlMode.PercentOutput, speed * Variables.reverseCoefficient);
-		rightShoot.set(ControlMode.PercentOutput, speed * Variables.reverseCoefficient);
+		runLeftShoot(speed);
+		runRightShoot(speed);
+	}
+	
+	/**
+	 * Runs the left shoot motors at a given power
+	 * @param speed The power that the motor is set to run at
+	 */
+	public void runLeftShoot(double speed) {
+		leftShoot.set(ControlMode.PercentOutput, speed);
+	}
+	
+	/**
+	 * Runs the right shoot motors at a given power
+	 * @param speed The power that the motor is set to run at
+	 */
+	public void runRightShoot(double speed) {
+		rightShoot.set(ControlMode.PercentOutput, speed);
 	}
 	
 	/**
@@ -79,8 +93,8 @@ public class Shooter extends Subsystem {
 	 * @param accelSpeed The speed to run the accelerator motors at
 	 */
 	public void run(double leftShootSpeed, double rightShootSpeed, double accelSpeed) {
-		leftShoot.set(ControlMode.PercentOutput, leftShootSpeed * Variables.reverseCoefficient);
-		rightShoot.set(ControlMode.PercentOutput, rightShootSpeed * Variables.reverseCoefficient);
+		leftShoot.set(ControlMode.PercentOutput, leftShootSpeed);
+		rightShoot.set(ControlMode.PercentOutput, rightShootSpeed);
 		runAccelerate(accelSpeed);
 	}
 	
@@ -103,23 +117,6 @@ public class Shooter extends Subsystem {
 	
 	//Encoders
 	
-	
-	/**
-	 * Gets the encoder velocity of the left accelerate motor
-	 * @return The encoder velocity of the left accelerate motor in RPS
-	 */
-	public double getLeftAccelerateVelocity() {
-		return -leftAccelerate.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
-	}
-	
-	/**
-	 * Gets the encoder velocity of the right accelerate motor
-	 * @return The encoder velocity of the right accelerate motor in RPS
-	 */
-	public double getRightAccelerateVelocity() {
-		return rightAccelerate.getSelectedSensorVelocity(0) * Constants.shootEncoderVelocityToRPS;
-	}
-	
 	/**
 	 * Gets the encoder velocity of the left shoot motor
 	 * @return The encoder velocity of the left shoot motor in RPS
@@ -137,27 +134,11 @@ public class Shooter extends Subsystem {
 	}
 	
 	/**
-	 * Gets the average encoder velocity of the two accelerate motors
-	 * @return The average encoder velocity of the accelerate motors
-	 */
-	public double getAccelerateVelocity() {
-		return (getLeftAccelerateVelocity() + getRightAccelerateVelocity())/2;
-	}
-	
-	/**
 	 * Gets the average encoder velocity of the two shoot motors
 	 * @return The average encoder velocity of the shoot motors
 	 */
 	public double getShootVelocity() {
 		return (getLeftShootVelocity() + getRightShootVelocity())/2;
-	}
-	
-	/**
-	 * Gets the average encoder velocity of all motors within the shooter subsystem
-	 * @return The average encoder velocity of all shooter motors
-	 */
-	public double getAllMotorVelocity() {
-		return (getShootVelocity() + getAccelerateVelocity())/2;
 	}
 	
 	//Solenoid

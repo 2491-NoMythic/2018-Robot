@@ -1,24 +1,20 @@
-package com._2491nomythic.tempest.commands.intake;
+package com._2491nomythic.tempest.commands.buttonboard;
 
 import com._2491nomythic.tempest.commands.CommandBase;
-import com._2491nomythic.tempest.settings.Variables;
 
 /**
- *Runs the intake without the roller, though why we would ever want to do that is beyond me
+ *
  */
-public class RunIntakeRollerless extends CommandBase {
+public class OpenFingers extends CommandBase {
 
-    /**
-     * Runs the intake without the roller, though why we would ever want to do that is beyond me
-     */
-	public RunIntakeRollerless() {
+    public OpenFingers() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Variables.rollerReverseCoefficient = 0;
+    	intake.open();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -32,7 +28,7 @@ public class RunIntakeRollerless extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    	Variables.rollerReverseCoefficient = 1;
+    	intake.close();
     }
 
     // Called when another command which requires one or more of the same

@@ -41,6 +41,7 @@ public class SetShooterSpeed extends CommandBase {
 			Variables.shooterRPS = Constants.shooterHighScaleRPS;
 			Variables.shootFeedForward = Constants.shootFeedForwardHigh;
 		}
+
 	}
 
 	// Called repeatedly when this Command is scheduled to run

@@ -5,16 +5,15 @@ import com._2491nomythic.tempest.settings.ControllerMap;
 import com._2491nomythic.tempest.settings.Variables;
 
 /**
- *Lets the driver control the drivetrain using two controllers
+ * Drives the robot with linear acceleration as according to input from a driver's controller
  */
-public class TwoStickDrive extends CommandBase {
-	private double lastLeftSpeed, currentLeftSpeed, lastRightSpeed, currentRightSpeed;
+public class TankTurnBackward extends CommandBase {
+	private double turnSpeed, currentLeftSpeed, currentRightSpeed, lastLeftSpeed, lastRightSpeed;	
 	
 	/**
-	 * Lets the driver control the drivetrain using two controllers
+	 * Drives the robot with linear acceleration as according to input from a driver's controller
 	 */
-
-	public TwoStickDrive() {
+	public TankTurnBackward() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		requires(drivetrain);
@@ -22,16 +21,17 @@ public class TwoStickDrive extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		
 	}
 
 	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {		
+	protected void execute() {
+		turnSpeed = 0.8 * oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveTurnAxis, 0.05);
+		
 		lastLeftSpeed = currentLeftSpeed;
 		lastRightSpeed = currentRightSpeed;
 		
-		currentLeftSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveMainAxis, 0.05);
-		currentRightSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveSecondaryController, ControllerMap.driveMainAxis, 0.05);
+		currentLeftSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveMainAxis, 0.1) + turnSpeed;
+		currentRightSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.driveController, ControllerMap.driveMainAxis, 0.1) - turnSpeed;
 		
 		if (Variables.useLinearAcceleration) {
 			double leftAcceleration = (currentLeftSpeed - lastLeftSpeed);
@@ -55,8 +55,12 @@ public class TwoStickDrive extends CommandBase {
 			}
 		}
 		
-		
-		drivetrain.drivePercentOutput(currentLeftSpeed, currentRightSpeed);
+		if (turnSpeed > 0) {
+			drivetrain.drivePercentOutput(0, -turnSpeed);
+		}
+		else if (turnSpeed < 0) {
+			drivetrain.drivePercentOutput(turnSpeed, 0);
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

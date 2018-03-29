@@ -25,7 +25,8 @@ public class Variables {
 	public static boolean useGyroPID;
 	
 	//Intake
-	public static double rollerCoefficient = 1;
+	public static boolean isDeployed = false;
+	public static double rollerReverseCoefficient = 1;
 	
 	//CubeStorage
 	public static boolean cubeHalted = false;
@@ -36,8 +37,15 @@ public class Variables {
 	public static double rightShootSpeed = Constants.shooterMediumScaleSpeed;
 	public static double shooterSpeed = Constants.shooterMediumScaleSpeed;
 	public static double shooterRPS = Constants.shooterMediumScaleRPS;
+    public static double reverseCoefficient = 1;
+	public static boolean inSwitchPosition = false;
 	public static boolean useMonitorRPS = false;
-	public static double reverseCoefficient = 1;
+	
+	//Buttonboard
+	public static int motorChoice;
+	
+	//Lights
+	public static boolean useLights = true;
 	
 	//Shooter PID
 	public static double leftShootProportional = .0083;

@@ -21,7 +21,8 @@ import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeSwitch;*/
 import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
-import com._2491nomythic.tempest.commands.lights.UpdateLights;
+import com._2491nomythic.tempest.commands.lights.SendAllianceColor;
+import com._2491nomythic.tempest.commands.lights.UpdateLightsPattern;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
@@ -43,8 +44,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 
 	Command m_autonomousCommand;
-	UpdateLights updateLights;
 	ResetSolenoids resetSolenoids;
+	UpdateLightsPattern updateLights;
+	SendAllianceColor sendColor;
 	UpdateDriverstation updateDriverstation;
 	MonitorRPS monitorRPS;
 	
@@ -62,7 +64,7 @@ public class Robot extends TimedRobot {
 	public void robotInit() { 
 		CommandBase.init();
 		updateDriverstation = new UpdateDriverstation();
-		updateLights = new UpdateLights();
+		updateLights = new UpdateLightsPattern();
 		resetSolenoids = new ResetSolenoids();
 		monitorRPS = new MonitorRPS();
 		
@@ -112,9 +114,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 		SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
 		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
-		SmartDashboard.putData("LocateCubeLeft", new LocateCube(true));
-		SmartDashboard.putData("LocateCubeRight", new LocateCube(false));
-						
 		System.out.println("Boot Successful");
 	}
 
@@ -150,6 +149,7 @@ public class Robot extends TimedRobot {
 		
 		m_autonomousCommand = new AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
 		updateLights.start();
+		sendColor.start();
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
@@ -177,6 +177,7 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		
+		sendColor.start();
 		updateLights.start();
 		isTeleop = true;		
 	}

@@ -68,14 +68,23 @@ public class Intake extends Subsystem {
 	 */
 	public void deploy() {
 		activateIntakeSolenoid.set(Value.kForward);
+		Variables.isDeployed = true;
+		//Variables.driveRestriction = 0.6;
 	}
 	
 	/**
 	 * Sets the intake in the frame perimeter.
 	 */
 	public void retract() {
-		activateIntakeSolenoid.set(Value.kReverse);
-		close();
+		if(Variables.inScalePosition) {
+			
+		}
+		else {
+			activateIntakeSolenoid.set(Value.kReverse);
+			close();
+			Variables.isDeployed = false;
+			//Variables.driveRestriction = 1;
+		}
 	}
 	
 	/**
