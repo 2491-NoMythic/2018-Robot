@@ -3,7 +3,6 @@ package com._2491nomythic.tempest.commands.autonomous;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.cubestorage.TransportCubeTime;
 import com._2491nomythic.tempest.commands.drivetrain.OLD_DrivePath;
-import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.shooter.RunShooterCustom;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.settings.Constants;
@@ -22,28 +21,24 @@ public class PathAutoPSwitch extends CommandBase {
 	private OLD_DrivePath path;
 	private Timer timer;
 	private SetShooterSpeed switchSpeed;
-	private RotateDrivetrainWithGyroPID rotate;
 	private boolean check;
 	
 	/**
 	 * @deprecated
 	 */
-    public PathAutoPSwitch() {
+	public PathAutoPSwitch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	switchSpeed = new SetShooterSpeed(Constants.shooterMediumScaleSpeed);
 		autoShoot = new RunShooterCustom();
    		fire = new TransportCubeTime(1, 1);
     	timer = new Timer();
-    	rotate = new RotateDrivetrainWithGyroPID(-10,false);   	
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {    	
     	/* Reset Variables */
     	switchSpeed.start();
-    	check = false;
-    	
     	/* Retrieve GameData to select direction */
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
     	
