@@ -4,11 +4,13 @@ import edu.wpi.first.wpilibj.command.Command;
 
 /**
  * Literally does absolutely nothing.
+ * @deprecated
  */
 public class DoNothing extends Command {
 	
 	/**
 	 * Literally does absolutely nothing.
+	 * @deprecated
 	 */
 	public DoNothing() {
 		// Use requires() here to declare subsystem dependencies

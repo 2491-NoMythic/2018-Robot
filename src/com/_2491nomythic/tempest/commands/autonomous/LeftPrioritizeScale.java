@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Attempts to place a cube on either the left scale OR switch, prioritizing scale. If both scale and switch are on the right, the robot crosses the auto line.
+ * @deprecated
  */
 public class LeftPrioritizeScale extends CommandBase {
 	private DriveStraightToPositionPID driveToSwitch, driveToScale, approachSwitch, approachScale;
@@ -23,6 +24,7 @@ public class LeftPrioritizeScale extends CommandBase {
 
 	/**
 	 * Attempts to place a cube on either the left scale OR switch, prioritizing scale. If both scale and switch are on the right, the robot crosses the auto line.
+	 * @deprecated
 	 */
 	public LeftPrioritizeScale() {
 		// Use requires() here to declare subsystem dependencies

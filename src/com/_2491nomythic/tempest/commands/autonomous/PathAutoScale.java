@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
+ * @deprecated
  */
 public class PathAutoScale extends CommandBase {
 	private double[][] leftVelocitiesArray, rightVelocitiesArray, headingsArray;
@@ -34,7 +34,9 @@ public class PathAutoScale extends CommandBase {
 	public priority mPriority;
 	public override mOverride;
 	
-
+	/**
+	 * @deprecated
+	 */
     public PathAutoScale() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);

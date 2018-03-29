@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Attempts to cross the AutoLine during autonomous.
+ * @deprecated
  */
 public class CrossAutoLine extends CommandBase {
 	DriveStraightToPosition crossLine;
@@ -15,6 +16,7 @@ public class CrossAutoLine extends CommandBase {
 
 	/**
 	 * Attempts to cross the AutoLine during autonomous.
+	 * @deprecated
 	 */
 	public CrossAutoLine() {
 		// Use requires() here to declare subsystem dependencies

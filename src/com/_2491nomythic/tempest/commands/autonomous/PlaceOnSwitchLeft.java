@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 
 /**
  * Attempts to place a cube on the switch starting in front of the left DriverStation.
+ * @deprecated
  */
 public class PlaceOnSwitchLeft extends CommandBase {
 	private DriveStraightToPositionPID driveToSwitch, drivePastSwitch, driveToCorrectSide, driveBackToWall, approachSwitch; 
@@ -19,6 +20,7 @@ public class PlaceOnSwitchLeft extends CommandBase {
 	
 	/**
 	 * Attempts to place a cube on the switch starting in front of the left DriverStation.
+	 * @deprecated
 	 */
 	public PlaceOnSwitchLeft() {
 		// Use requires() here to declare subsystem dependencies

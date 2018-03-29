@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Attempts to place a cube on the correct side of the Scale during autonomous, starting in front of DriverStation 1.
+ * @deprecated
  */
 public class PlaceOnScaleLeft extends CommandBase {
 	private DriveStraightToPositionPID driveToCenter, driveToNullZone, approachScale, driveToCorrectSide;
@@ -22,6 +23,7 @@ public class PlaceOnScaleLeft extends CommandBase {
 
 	/**
 	 * Attempts to place a cube on the correct side of the Scale during autonomous, starting in front of DriverStation 1.
+	 * @deprecated
 	 */
 	public PlaceOnScaleLeft() {
 		// Use requires() here to declare subsystem dependencies

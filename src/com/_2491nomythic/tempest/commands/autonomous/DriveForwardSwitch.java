@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  *Approaches the switch during autonomous
+ *@deprecated
  */
 public class DriveForwardSwitch extends CommandBase {
 	private DriveStraightToPosition approachSwitch;
@@ -20,6 +21,7 @@ public class DriveForwardSwitch extends CommandBase {
 	 * Approaches the switch during autonomous
 	 * StartingPosition is true for left.
 	 * @param startingPosition
+	 * @deprecated
 	 */
     public DriveForwardSwitch(boolean startingPosition) {
         // Use requires() here to declare subsystem dependencies

@@ -8,7 +8,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
+ * @deprecated
  */
 public class PathAutoSwitch extends CommandBase {
 	private double[][] leftVelocitiesArray, rightVelocitiesArray, headingsArray;
@@ -18,6 +18,9 @@ public class PathAutoSwitch extends CommandBase {
 	private OLD_DrivePath path;
 	private Timer timer;
 
+	/**
+	 * @deprecated
+	 */
     public PathAutoSwitch() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);

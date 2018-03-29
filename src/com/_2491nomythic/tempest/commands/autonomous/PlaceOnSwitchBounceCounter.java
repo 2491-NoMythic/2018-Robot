@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Attempts to place a cube on the correct side of the switch during autonomous.
+ * @deprecated
  */
 public class PlaceOnSwitchBounceCounter extends CommandBase {
 	private DriveStraightToPositionPID approachCubes, moveTowardsWall, approachSwitch;
@@ -23,6 +24,7 @@ public class PlaceOnSwitchBounceCounter extends CommandBase {
 	
 	/**
 	 * Attempts to place a cube on the correct side of the switch during autonomous.
+	 * @deprecated
 	 */
 	public PlaceOnSwitchBounceCounter() {
 		//Use this command if the robot is in front of DriverStation 2.
