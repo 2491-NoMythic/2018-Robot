@@ -19,7 +19,7 @@ public class ControllerMap {
 	public static final int adjustmentButton1 = 11;
 	public static final int adjustmentButton2 = 12;
 	public static final int toggleLightsButton1 = 7;
-	public static final int togglelightButton2 = 8;
+	public static final int togglelightsButton2 = 8;
 	public static final int tankTurnForwardButton = 1;
 	public static final int tankTurnBackwardButton = 2;
     
