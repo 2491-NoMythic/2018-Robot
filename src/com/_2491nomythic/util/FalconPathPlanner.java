@@ -712,13 +712,15 @@ public class FalconPathPlanner
 		double timeStep = 0.1; //period of control loop on Rio, seconds
 		double robotTrackWidth = 2; //distance between left and right wheels, feet
 		
+		@SuppressWarnings("unused")
 		double[][] switchCenterLeft = new double[][]{
 			{0,centerStartPos},
 			{3,centerStartPos},
 			{8,19},
 			{14-3.82667,19}//-3.16667
 		};
-	
+		
+		@SuppressWarnings("unused")
 		double[][] switchCenterRight = new double[][] {
 			{0,centerStartPos},
 			{3,centerStartPos},
@@ -726,6 +728,7 @@ public class FalconPathPlanner
 			{14-3.16667,9}
 		};
 	
+		@SuppressWarnings("unused")
 		double[][]switchLeftLeft = new double[][] {
 			{0,leftStartPos},
 			{5,leftStartPos},
@@ -733,6 +736,7 @@ public class FalconPathPlanner
 			{16,19.5}
 		};
 	
+		@SuppressWarnings("unused")
 		double[][] scaleCenterLeft = new double[][] {
 			{0,centerStartPos},
 			{5,centerStartPos},
@@ -740,6 +744,7 @@ public class FalconPathPlanner
 			{25,25}
 		};
 	
+		@SuppressWarnings("unused")
 		double[][] scaleCenterRight = new double[][]{
 			{0,centerStartPos},
 			{3,centerStartPos},
@@ -748,6 +753,7 @@ public class FalconPathPlanner
 			{24,5}
 		};
 		
+		@SuppressWarnings("unused")
 		double[][] oldScaleRightRight = new double[][] {
 			{0,rightStartPos},
 			{10,2},
@@ -756,6 +762,7 @@ public class FalconPathPlanner
 			{21.5,7-(robotLength/2)}		
 		};
 		
+		@SuppressWarnings("unused")
 		double[][] scaleRightRight = new double[][] {
 			{0,rightStartPos},
 			{5,rightStartPos},
@@ -763,6 +770,7 @@ public class FalconPathPlanner
 			{20.5,7.8}
 		};
 		
+		@SuppressWarnings("unused")
 		double[][] switchRightRight = new double[][] {
 			{0,rightStartPos},
 			{8,rightStartPos},
@@ -770,6 +778,7 @@ public class FalconPathPlanner
 			{10.5,8}
 		};
 		
+		@SuppressWarnings("unused")
 		double[][] scaleRightLeft = new double[][] {
 			{0,rightStartPos},
 			{18-2.75,rightStartPos},
