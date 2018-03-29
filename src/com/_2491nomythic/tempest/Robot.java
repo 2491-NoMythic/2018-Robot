@@ -8,7 +8,6 @@
 package com._2491nomythic.tempest;
 
 import com._2491nomythic.tempest.commands.CommandBase;
-import com._2491nomythic.tempest.commands.LocateCube;
 import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto;
