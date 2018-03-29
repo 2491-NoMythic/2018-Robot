@@ -22,7 +22,6 @@ import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.lights.SendAllianceColor;
 import com._2491nomythic.tempest.commands.lights.UpdateLightsPattern;
-import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
 import com._2491nomythic.tempest.subsystems.Drivetrain;
@@ -47,7 +46,6 @@ public class Robot extends TimedRobot {
 	UpdateLightsPattern updateLights;
 	SendAllianceColor sendColor;
 	UpdateDriverstation updateDriverstation;
-	MonitorRPS monitorRPS;
 	
 	SendableChooser<StartPosition> m_PositionSelector = new SendableChooser<>();
 	SendableChooser<Priority> m_PrioritySelector = new SendableChooser<>();
@@ -65,11 +63,9 @@ public class Robot extends TimedRobot {
 		updateDriverstation = new UpdateDriverstation();
 		updateLights = new UpdateLightsPattern();
 		resetSolenoids = new ResetSolenoids();
-		monitorRPS = new MonitorRPS();
 		
 		updateDriverstation.start();
 		updateLights.start();
-		monitorRPS.start();
 		Drivetrain.getInstance().setCameraMode();
 		
 		m_PositionSelector.addObject("LEFT", StartPosition.LEFT);
