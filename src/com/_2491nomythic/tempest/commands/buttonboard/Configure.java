@@ -40,14 +40,14 @@ public class Configure extends CommandBase {
     	switch(intakeHeight) {
     	case -1:
     		if(shotHeight == -1) {
-    			configuredPosition = !shooter.inScalePosition();
+    			configuredPosition = shooter.inSwitchPosition();
     		}
     		else {
-    			configuredPosition = shooter.inScalePosition();
+    			configuredPosition = !shooter.inSwitchPosition();
     		}
     		break;
     	default:
-    		configuredPosition = !shooter.inScalePosition();
+    		configuredPosition = shooter.inSwitchPosition();
     		break;
     	}
     	
@@ -66,7 +66,7 @@ public class Configure extends CommandBase {
     	if(!configuredPosition) {
     		switch(state) {
     		case 0:
-    			intake.activate();
+    			intake.deploy();
     			timer.start();
     			state++;
     			break;

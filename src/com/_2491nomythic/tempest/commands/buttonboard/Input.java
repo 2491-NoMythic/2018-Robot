@@ -31,10 +31,10 @@ public class Input extends CommandBase {
     	
     	switch(intakeHeight) {
     	case -1:
-    		configuredPosition = shooter.inScalePosition();
+    		configuredPosition = !shooter.inSwitchPosition();
     		break;
     	default:
-    		configuredPosition = !shooter.inScalePosition();
+    		configuredPosition = shooter.inSwitchPosition();
     		break;
     	}
     }
@@ -45,7 +45,7 @@ public class Input extends CommandBase {
     		switch(intakeHeight) {
     		case -1:
     			if(!cubeStorage.isHeld()) {
-    				intake.run(1, 1, 1);
+    				intake.run(1, 1);
     				cubeStorage.run(1);
     			}
     			else {
@@ -62,7 +62,7 @@ public class Input extends CommandBase {
     	else {
     		switch(state) {
     		case 0:
-    			intake.activate();
+    			intake.deploy();
     			timer.start();
     			state++;
     			break;
