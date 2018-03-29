@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 /**
- *
+ *@deprecated
  */
 public class OLD_Pathing extends Subsystem {
 	private static OLD_Pathing instance;
@@ -18,7 +18,9 @@ public class OLD_Pathing extends Subsystem {
 		}
 		return instance;
 	}
-	
+	/**
+	 *@deprecated
+	 */
 	public OLD_Pathing() {
 		
 	}
