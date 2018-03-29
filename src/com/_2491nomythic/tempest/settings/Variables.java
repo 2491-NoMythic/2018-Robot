@@ -38,7 +38,7 @@ public class Variables {
 	public static double shooterSpeed = Constants.shooterMediumScaleSpeed;
 	public static double shooterRPS = Constants.shooterMediumScaleRPS;
     public static double reverseCoefficient = 1;
-	public static boolean inSwitchPosition = false;
+	public static boolean inScalePosition = false;
 	public static boolean useMonitorRPS = false;
 	
 	//Buttonboard
