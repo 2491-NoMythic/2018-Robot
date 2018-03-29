@@ -23,7 +23,7 @@ public class AutomaticAuto extends CommandBase {
 	private Timer mTimer;
 	
 	public static enum StartPosition {
-		LEFT, CENTER, RIGHT
+		LEFT, CENTER, RIGHT, CROSS_LINE
 	}
 	
 	public static enum EndPosition {
@@ -81,7 +81,7 @@ public class AutomaticAuto extends CommandBase {
         		mWaitTime = 0;
         		mSetSwitchSpeed.start();
         		mRevShoot.start();
-            	mFireCube = new TransportCubeTime(1, 1.5);
+            	mFireCube = new TransportCubeTime(1, 1);
         		break;
         	case LEFT_SWITCH:
         	case RIGHT_SWITCH:
@@ -99,7 +99,8 @@ public class AutomaticAuto extends CommandBase {
             	mFireCube = new TransportCubeTime(1, 1.5);
         		break;
         	case CROSS_LINE:
-        		break;	
+        	case BUMP_COUNTER:
+        		break;
         	}
     	}
     }
@@ -144,6 +145,9 @@ public class AutomaticAuto extends CommandBase {
     	case CENTER:
     	case RIGHT:
     		respondToARCADE(mGameData);
+    		break;
+    	case CROSS_LINE:
+    		mEndPosition = EndPosition.CROSS_LINE;
     		break;
     	}
     	System.out.println("Selected Start Position; " + mStartPosition);
