@@ -73,6 +73,7 @@ public class DrivePath extends CommandBase {
     		configurePath(false, false);
     		break;
     	case RIGHT:
+    	case CROSS_LINE:
     		configurePath(false, true);
     		break;
     	}
