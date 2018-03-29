@@ -8,17 +8,13 @@
 package com._2491nomythic.tempest;
 
 import com._2491nomythic.tempest.commands.CommandBase;
+import com._2491nomythic.tempest.commands.LocateCube;
 import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
-import com._2491nomythic.tempest.commands.autonomous.CrossAutoLine;
-import com._2491nomythic.tempest.commands.autonomous.DoNothing;
-/*import com._2491nomythic.tempest.commands.autonomous.DriveForwardSwitch;
-import com._2491nomythic.tempest.commands.autonomous.LeftPrioritizeScale;
-import com._2491nomythic.tempest.commands.autonomous.LeftPrioritizeSwitch;
-import com._2491nomythic.tempest.commands.autonomous.PlaceOnScaleLeft;
-import com._2491nomythic.tempest.commands.autonomous.PlaceOnScaleRight;*/
-import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitch;
-import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchBounceCounter;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Crossing;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Priority;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.StartPosition;
 /*import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchLeft;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchRight;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
@@ -30,6 +26,7 @@ import com._2491nomythic.tempest.commands.lights.UpdateLightsPattern;
 import com._2491nomythic.tempest.commands.shooter.MonitorRPS;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
+import com._2491nomythic.tempest.subsystems.Drivetrain;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -53,9 +50,10 @@ public class Robot extends TimedRobot {
 	UpdateDriverstation updateDriverstation;
 	MonitorRPS monitorRPS;
 	
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
-	
-	
+	SendableChooser<StartPosition> m_PositionSelector = new SendableChooser<>();
+	SendableChooser<Priority> m_PrioritySelector = new SendableChooser<>();
+	SendableChooser<Crossing> m_CrossingSelector = new SendableChooser<>();
+
 	public static boolean isTeleop;
 
 	/**
@@ -71,11 +69,21 @@ public class Robot extends TimedRobot {
 		monitorRPS = new MonitorRPS();
 		
 		updateDriverstation.start();
-		monitorRPS.start();		
+		updateLights.start();
+		monitorRPS.start();
+		Drivetrain.getInstance().setCameraMode();
 		
-		m_chooser.addObject("DoNothing", new DoNothing());
-		m_chooser.addObject("PlaceOnSwitch", new PlaceOnSwitch());
-		m_chooser.addObject("BounceCounter", new PlaceOnSwitchBounceCounter());
+		m_PositionSelector.addObject("LEFT", StartPosition.LEFT);
+		m_PositionSelector.addDefault("CENTER", StartPosition.CENTER);
+		m_PositionSelector.addObject("RIGHT", StartPosition.RIGHT);
+		
+		m_PrioritySelector.addDefault("SWITCH", Priority.SWITCH);
+		m_PrioritySelector.addObject("SCALE", Priority.SCALE);
+		
+		m_CrossingSelector.addDefault("OFF", Crossing.OFF);
+		m_CrossingSelector.addObject("ON", Crossing.ON);
+		m_CrossingSelector.addObject("FORCE", Crossing.FORCE);
+		
 		/*
 		m_chooser.addObject("SwitchLeft", new DriveForwardSwitch(true));
 		m_chooser.addObject("SwitchRight", new DriveForwardSwitch(false));
@@ -85,13 +93,15 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("RightPrioritizeScale", new RightPrioritizeScale());
 		m_chooser.addObject("LeftPrioritizeSwitch", new LeftPrioritizeSwitch());
 		m_chooser.addObject("RightPrioritizeSwitch", new RightPrioritizeSwitch());
-		m_chooser.addObject("LeftSwitchPID", new PlaceOnSwitchLeft());
-		m_chooser.addObject("RightSwitchPID", new PlaceOnSwitchRight());
 		*/
-		m_chooser.addDefault("CrossAutoLine", new CrossAutoLine());
 		
-		SmartDashboard.putData("Auto mode", m_chooser);
+		SmartDashboard.putData("Position", m_PositionSelector);
+		SmartDashboard.putData("Priority", m_PrioritySelector);
+		SmartDashboard.putData("Crossing", m_CrossingSelector);
+		
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-20));
+		SmartDashboard.putData("RotateDrivetrainRelative180", new RotateDrivetrainWithGyroPID(180, false));
+		SmartDashboard.putData("RotateDrivetrainRelative-180", new RotateDrivetrainWithGyroPID(-180, false));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
 		SmartDashboard.putData("RotateDrivetrainRelative-90", new RotateDrivetrainWithGyroPID(-90, false));
 		SmartDashboard.putNumber("ProportionalRotate", Variables.proportionalRotate);
@@ -104,7 +114,6 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 		SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
 		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
-		
 		System.out.println("Boot Successful");
 	}
 
@@ -138,16 +147,9 @@ public class Robot extends TimedRobot {
 	public void autonomousInit() {
 		Variables.autoDelay = SmartDashboard.getNumber("AutoDelay", 0);
 		
-		m_autonomousCommand = m_chooser.getSelected();
+		m_autonomousCommand = new AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
 		updateLights.start();
 		sendColor.start();
-
-		/*
-		 * String autoSelected = SmartDashboard.getString("Auto Selector",
-		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
-		 * = new MyAutoCommand(); break; case "Default Auto": default:
-		 * autonomousCommand = new ExampleCommand(); break; }
-		 */
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {

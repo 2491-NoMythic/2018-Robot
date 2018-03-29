@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class MonitorRPS extends CommandBase {
 	private double tolerance, targetRPS, delayTime, threshold;
 	private Timer delay;
-
+	
 	/**
 	 * Keeps track of and adjusts shooter motors for firing consistently
 	 */
@@ -23,11 +23,11 @@ public class MonitorRPS extends CommandBase {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
 		delay = new Timer();
+		setRunWhenDisabled(true);
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		delay.start();
 	}
 
 	// Called repeatedly when this Command is scheduled to run

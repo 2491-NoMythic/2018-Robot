@@ -1,9 +1,13 @@
 package com._2491nomythic.tempest.commands;
 
 /**
- *
+ *Resets the solenoids to their starting position
  */
 public class ResetSolenoids extends CommandBase {
+	
+	/**
+	 * Resets the solenoids to their starting position
+	 */
 
     public ResetSolenoids() {
         // Use requires() here to declare subsystem dependencies
@@ -15,7 +19,7 @@ public class ResetSolenoids extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
     	System.out.println("Test");
-    	shooter.setSwitchPosition();
+    	shooter.setScalePosition();
     	intake.retract();
     }
 

@@ -17,11 +17,11 @@ public class ToggleIntakeDeployment extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		if(intake.isDeployed()) {
+		if(!intake.isRetracted() && shooter.inSwitchPosition()) {
 			intake.retract();
 		}
 		else {
-			intake.activate();
+			intake.deploy();
 		}
 	}
 

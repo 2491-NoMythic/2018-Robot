@@ -5,10 +5,14 @@ import com._2491nomythic.tempest.settings.ControllerMap;
 import com._2491nomythic.tempest.settings.Variables;
 
 /**
- *
+ *Lets the driver control the drivetrain using two controllers
  */
 public class TwoStickDrive extends CommandBase {
 	private double lastLeftSpeed, currentLeftSpeed, lastRightSpeed, currentRightSpeed;
+	
+	/**
+	 * Lets the driver control the drivetrain using two controllers
+	 */
 
 	public TwoStickDrive() {
 		// Use requires() here to declare subsystem dependencies

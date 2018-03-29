@@ -8,7 +8,10 @@ import com._2491nomythic.tempest.settings.ControllerMap;
  */
 public class UltrasonicCubeHaltManual extends CommandBase {
 	boolean doWeNeedToWorryAboutStoppingOrIsTheUltrasonicSensorAlreadyCovered, nowStopRunningTheMotorsPlease;
-
+	
+	/**
+	 * Runs the cube storage motors until the ultrasonic is activated.
+	 */
 	public UltrasonicCubeHaltManual() {
 		// Use requires() here to declare subsystem dependencies
 		// eg. requires(chassis);
@@ -38,7 +41,7 @@ public class UltrasonicCubeHaltManual extends CommandBase {
 			}
 		}
 		
-		if (!oi.getButton(ControllerMap.operatorController, ControllerMap.shooterButton)) {
+		if (!oi.runShooter.get()) {
 			shooter.runAccelerate(-0.3);
 		}
 	}

@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- * The base for all commands. All atomic commands should subclass CommandBase. CommandBase stores creates and stores each control system. To access a subsystem elsewhere in your code in your code use CommandBase.exampleSubsystem
+ * The base for all commands. All atomic commands should subclass CommandBase. CommandBase creates and stores each control system. To access a subsystem elsewhere in your code in your code use CommandBase.exampleSubsystem
  */
 public abstract class CommandBase extends Command {
 	protected static OI oi;
@@ -16,6 +16,8 @@ public abstract class CommandBase extends Command {
 	protected static Shooter shooter;
 	protected static CubeStorage cubeStorage;
 	protected static SickLights sickLights;
+	protected static OLD_Pathing old_pathing;
+	protected static Pathing pathing;
 	
 	public static void init() {
 		oi = new OI();
@@ -25,6 +27,8 @@ public abstract class CommandBase extends Command {
 		shooter = Shooter.getInstance();
 		cubeStorage = CubeStorage.getInstance();
 		sickLights = SickLights.getInstance();
+		old_pathing = OLD_Pathing.getInstance();
+		pathing = Pathing.getInstance();
 		
 		oi.init();
 		// This MUST be here. If the OI creates Commands (which it very likely

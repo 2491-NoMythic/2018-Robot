@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class CubeStorage extends Subsystem {
 	private static CubeStorage instance;
-	private TalonSRX left, right;
+	private TalonSRX left, right, roller;
 	private Ultrasonic sonic;
 	
 	public static CubeStorage getInstance() {
@@ -28,6 +28,7 @@ public class CubeStorage extends Subsystem {
 	private CubeStorage() {
 		left = new TalonSRX(Constants.cubeStorageTalonLeftChannel);
 		right = new TalonSRX(Constants.cubeStorageTalonRightChannel);
+		roller = new TalonSRX(Constants.intakeTalonBottomChannel);
 		sonic = new Ultrasonic(Constants.ultrasonicPingChannel, Constants.ultrasonicEchoChannel);
 		sonic.setAutomaticMode(true);
 	}
@@ -39,6 +40,12 @@ public class CubeStorage extends Subsystem {
 	 * @param power The power at which the motors are run. Positive values push the cube into the shooter, negative values push it into the intake.
 	 */
 	public void run(double power) {
+		left.set(ControlMode.PercentOutput, -power);
+		right.set(ControlMode.PercentOutput, power);
+		roller.set(ControlMode.PercentOutput, power);
+	}
+	
+	public void runWithoutRoller(double power) {
 		left.set(ControlMode.PercentOutput, -power);
 		right.set(ControlMode.PercentOutput, power);
 	}

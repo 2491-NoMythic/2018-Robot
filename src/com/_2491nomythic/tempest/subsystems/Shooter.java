@@ -86,10 +86,32 @@ public class Shooter extends Subsystem {
 		runShoot(speed);
 	}
 	
+	/**
+	 * Runs the shooter motors at separately identified speeds
+	 * @param leftShootSpeed The speed to run the left shoot motor at
+	 * @param rightShootSpeed The speed to run the right shoot motor at
+	 * @param accelSpeed The speed to run the accelerator motors at
+	 */
 	public void run(double leftShootSpeed, double rightShootSpeed, double accelSpeed) {
 		leftShoot.set(ControlMode.PercentOutput, leftShootSpeed);
 		rightShoot.set(ControlMode.PercentOutput, rightShootSpeed);
 		runAccelerate(accelSpeed);
+	}
+	
+	/**
+	 * Runs the left shoot motor at a given speed
+	 * @param speed The speed to run the left shoot motor at
+	 */
+	public void runLeftShoot(double speed) {
+		leftShoot.set(ControlMode.PercentOutput, speed);
+	}
+	
+	/**
+	 * Runs the right shoot motor at a given speed
+	 * @param speed The speed to run the right shoot motor at
+	 */
+	public void runRightShoot(double speed) {
+		rightShoot.set(ControlMode.PercentOutput, speed);
 	}
 	
 	
@@ -122,32 +144,25 @@ public class Shooter extends Subsystem {
 	//Solenoid
 	
 	/**
-	 * Raises the shooter to shoot Power Cubes into the scale
-	 */
-	public void setScalePosition() {
-		elevator.set(Value.kForward);
-		Variables.inSwitchPosition = false;
-	}
-	
-	/**
 	 * Lowers the shooter to shoot Power Cubes into the switch
 	 */
 	public void setSwitchPosition() {
-		if(!Variables.isDeployed) {
-			System.out.println("You dun goofed");
-		}
-		else {
-			elevator.set(Value.kReverse);
-			Variables.inSwitchPosition = true;
-		}
+		elevator.set(Value.kForward);
+	}
+	
+	/**
+	 * Raises the shooter to shoot Power Cubes into the scale
+	 */
+	public void setScalePosition() {
+		elevator.set(Value.kReverse);
 	}
 	
 	/**
 	 * Checks whether the shooter is raised
 	 * @return The status of whether the shooter is raised
 	 */
-	public boolean inScalePosition() {
-		return elevator.get() == Value.kReverse;
+	public boolean inSwitchPosition() {
+		return elevator.get() == Value.kForward || elevator.get() == Value.kOff;
 	}
 
 	public void initDefaultCommand() {

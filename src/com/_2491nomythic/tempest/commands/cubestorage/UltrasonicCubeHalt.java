@@ -12,6 +12,11 @@ public class UltrasonicCubeHalt extends CommandBase {
 	boolean doWeNeedToWorryAboutStoppingOrIsTheUltrasonicSensorAlreadyCovered, nowStopRunningTheMotorsPlease, wouldYouKindlyRunTheAccelerateMotorsBackwardsToPreventThePowerCubeFromGoingTooFar;
 	private double speed;
 	private Timer timer;
+	
+	/**
+	 * Runs the cube storage motors until the ultrasonic is activated.
+	 * @param power the power at which the cube storage motors run
+	 */
 
 	public UltrasonicCubeHalt(double power) {
 		// Use requires() here to declare subsystem dependencies

@@ -4,11 +4,14 @@ import com._2491nomythic.tempest.commands.CommandBase;
 
 
 /**
- *
+ *Holds the intake open
  */
 public class ToggleIntakeOpeningHeld extends CommandBase {
 
-    public ToggleIntakeOpeningHeld() {
+    /**
+     * Holds the intake open
+     */
+	public ToggleIntakeOpeningHeld() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
