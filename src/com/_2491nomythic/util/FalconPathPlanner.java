@@ -790,7 +790,8 @@ public class FalconPathPlanner
 			{0,rightStartPos},
 			{8,rightStartPos}
 		};
-		final FalconPathPlanner path = new FalconPathPlanner(anyPosDriveStrait);
+		
+		final FalconPathPlanner path = new FalconPathPlanner(scaleRightLeft);
 		path.calculate(totalTime, timeStep, robotTrackWidth);
 
 		System.out.println("Time in ms: " + (System.currentTimeMillis()-start));

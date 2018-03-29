@@ -44,7 +44,7 @@ public class SickLights extends Subsystem {
 	public void writeData(int data) {
 		byte[] shell = new byte[1];
 		shell[0] = (byte) data;
-		port.write(shell, 1);
+		//port.write(shell, 1);
 	}
 	
     // Put methods for controlling this subsystem

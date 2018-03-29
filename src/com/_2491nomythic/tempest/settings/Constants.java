@@ -119,7 +119,7 @@ public class Constants {
 	 */
 	public static final double kVeloctiyUnitConversion = 260.767149451;
 	public static final double kVelocitykF = 0.2922857143;
-	public static final double kVelocitykP = 1.6;
+	public static final double kVelocitykP = 1;
 	public static final double kVelocitykI = 0.001;
 	public static final double kVleocitykD = 0.2;
 }

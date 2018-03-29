@@ -9,11 +9,13 @@ package com._2491nomythic.tempest;
 
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.ResetSolenoids;
+import com._2491nomythic.tempest.commands.SetCameraMode;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Crossing;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Priority;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.StartPosition;
+import com._2491nomythic.tempest.commands.autonomous.VelocityTestAuto;
 /*import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchLeft;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchRight;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
@@ -44,6 +46,7 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	ResetSolenoids resetSolenoids;
 	UpdateLightsPattern updateLights;
+	SetCameraMode setCamera;
 	SendAllianceColor sendColor;
 	UpdateDriverstation updateDriverstation;
 	
@@ -60,6 +63,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() { 
 		CommandBase.init();
+		setCamera = new SetCameraMode();
 		updateDriverstation = new UpdateDriverstation();
 		updateLights = new UpdateLightsPattern();
 		resetSolenoids = new ResetSolenoids();
@@ -143,8 +147,10 @@ public class Robot extends TimedRobot {
 		Variables.autoDelay = SmartDashboard.getNumber("AutoDelay", 0);
 		
 		m_autonomousCommand = new AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
-		updateLights.start();
-		sendColor.start();
+		//m_autonomousCommand = new VelocityTestAuto();
+		//AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
+		//updateLights.start();
+		//sendColor.start();
 
 		// schedule the autonomous command (example)
 		if (m_autonomousCommand != null) {
@@ -172,9 +178,10 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		
-		sendColor.start();
-		updateLights.start();
-		isTeleop = true;		
+		//sendColor.start();
+		//updateLights.start();
+		isTeleop = true;	
+		setCamera.start();
 	}
 
 	/**
