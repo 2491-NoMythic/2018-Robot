@@ -2,7 +2,6 @@ package com._2491nomythic.tempest.commands;
 
 
 import com._2491nomythic.tempest.settings.Constants;
-import com._2491nomythic.tempest.settings.ControllerMap;
 import com._2491nomythic.tempest.settings.Variables;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
