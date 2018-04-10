@@ -23,6 +23,7 @@ import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeSwitch;*/
 import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.lights.SendAllianceColor;
+import com._2491nomythic.tempest.commands.lights.SerialConnectivityTest;
 import com._2491nomythic.tempest.commands.lights.UpdateLightsPattern;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
@@ -46,6 +47,7 @@ public class Robot extends TimedRobot {
 	Command m_autonomousCommand;
 	ResetSolenoids resetSolenoids;
 	UpdateLightsPattern updateLights;
+	SerialConnectivityTest staticPurple;
 	SetCameraMode setCamera;
 	SendAllianceColor sendColor;
 	UpdateDriverstation updateDriverstation;
@@ -64,6 +66,8 @@ public class Robot extends TimedRobot {
 	public void robotInit() { 
 		CommandBase.init();
 		setCamera = new SetCameraMode();
+		staticPurple = new SerialConnectivityTest();
+		sendColor = new SendAllianceColor();
 		updateDriverstation = new UpdateDriverstation();
 		updateLights = new UpdateLightsPattern();
 		resetSolenoids = new ResetSolenoids();
@@ -124,6 +128,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 		isTeleop = false;
+		updateLights.cancel();
+		staticPurple.start();
 	}
 
 	@Override
@@ -145,9 +151,10 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		Variables.autoDelay = SmartDashboard.getNumber("AutoDelay", 0);
+		sendColor.start();
 		
-		m_autonomousCommand = new AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
-		//m_autonomousCommand = new VelocityTestAuto();
+		//m_autonomousCommand = new AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
+		m_autonomousCommand = new VelocityTestAuto();
 		//AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
 		//updateLights.start();
 		//sendColor.start();
@@ -178,9 +185,8 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		
-		//sendColor.start();
-		//updateLights.start();
-		isTeleop = true;	
+		sendColor.start();
+		isTeleop = true;
 		setCamera.start();
 	}
 

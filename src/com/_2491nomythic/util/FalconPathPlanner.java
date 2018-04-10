@@ -708,7 +708,7 @@ public class FalconPathPlanner
 		double rightStartPos = 2.4+0.93;
 		double centerStartPos = 14.5-0.99;
 		double robotLength = 3.16667;
-		double totalTime = 2; //seconds
+		double totalTime = 4; //seconds
 		double timeStep = 0.1; //period of control loop on Rio, seconds
 		double robotTrackWidth = 2; //distance between left and right wheels, feet
 		
@@ -766,8 +766,8 @@ public class FalconPathPlanner
 		double[][] scaleRightRight = new double[][] {
 			{0,rightStartPos},
 			{5,rightStartPos},
-			{14,4.8},
-			{20.5,7.8}
+			{14,3.8},
+			{20.5,6.8}
 		};
 		
 		@SuppressWarnings("unused")
@@ -782,16 +782,17 @@ public class FalconPathPlanner
 		double[][] scaleRightLeft = new double[][] {
 			{0,rightStartPos},
 			{18-2.75,rightStartPos},
-			{18-2.75,26},
-			{24-robotLength-1.77,24}
+			{18-1.75,26},
+			{24-robotLength,24}
 		};
 		
+		@SuppressWarnings("unused")
 		double[][] anyPosDriveStrait =  new double[][] {
 			{0,rightStartPos},
 			{8,rightStartPos}
 		};
 		
-		final FalconPathPlanner path = new FalconPathPlanner(scaleRightLeft);
+		final FalconPathPlanner path = new FalconPathPlanner(scaleRightRight);
 		path.calculate(totalTime, timeStep, robotTrackWidth);
 
 		System.out.println("Time in ms: " + (System.currentTimeMillis()-start));

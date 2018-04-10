@@ -96,7 +96,7 @@ public class AutomaticAuto extends CommandBase {
         		intake.deploy();
         		shooter.setScalePosition();
         		mRevShoot.start();
-            	mFireCube = new TransportCubeTime(1, 1.5);
+            	mFireCube = new TransportCubeTime(1, 1.5); //1, 1.5
         		break;
         	case CROSS_LINE:
         	case BUMP_COUNTER:

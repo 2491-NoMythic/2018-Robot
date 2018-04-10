@@ -19,9 +19,11 @@ public class SendAllianceColor extends CommandBase {
     protected void initialize() {
     	if(DriverStation.getInstance().getAlliance() == Alliance.Red) {
     		sickLights.writeData(1);
+    		System.out.println("Sending red");
     	}
     	else if(DriverStation.getInstance().getAlliance() == Alliance.Blue) {
     		sickLights.writeData(2);
+    		System.out.println("Sending blue");
     	}
     	else {
     		System.out.println("Invalid alliance in SendAllianceColor.");
