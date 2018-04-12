@@ -42,6 +42,9 @@ public class Output extends CommandBase {
     	if(Variables.motorChoice == 3 && !cubeStorage.isHeld()) {
     		timer.start();
     	}
+    	else {
+    		timer.reset();
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
