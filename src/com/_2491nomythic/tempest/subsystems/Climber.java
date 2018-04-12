@@ -85,6 +85,9 @@ public class Climber extends Subsystem {
 		grappleLauncher.set(true);
 	}
 	
+	/**
+	 * Stops the climb
+	 */
 	public void stop() {
 		ascend(0,0);
 		ascend(0);
