@@ -346,6 +346,14 @@ public class Drivetrain extends PIDSubsystem {
 	}
 	
 	/**
+	 * Gets the angle from flat
+	 * @return The roll angle of the gyro, unmodified
+	 */
+	public double getRollAngle() {
+		return gyro.getRoll();
+	}
+	
+	/**
 	 * Gets the master left talon
 	 * @return The master left talon
 	 */
