@@ -73,7 +73,7 @@ public class Climber extends Subsystem {
 	/**
 	 * Deploys the lineup arms to stabilize the robot.
 	 */
-	public void deployLineup() {
+	public void deployLineup() { //Find the state of this
 		lineup.set(true);
 		Variables.lineupDeployed = false;
 	}
@@ -85,6 +85,13 @@ public class Climber extends Subsystem {
 		grappleLauncher.set(true);
 	}
 	
+	public boolean isGrappleHookLaunched() { //Says whether or not it is extended
+		return grappleLauncher.get();
+	}
+	
+	public boolean isLineupDeployed() {
+		return lineup.get();
+	}
 	/**
 	 * Stops the climb
 	 */
