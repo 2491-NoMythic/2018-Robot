@@ -16,6 +16,7 @@ public class Ascend extends CommandBase {
     	this.speedL = speedL;
     	this.speedR = speedR;
     	this.time = time;
+    	timer = new Timer();
         requires(climber);
     }
 
@@ -27,6 +28,15 @@ public class Ascend extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	drivetrain.getRollAngle();
+    	if (drivetrain.getRollAngle() > 5) {
+    		speedL *= 0.9;
+    	}
+    	else if (drivetrain.getRollAngle() < -5) {
+    		speedR *= 0.9;
+    	}
+    	else {
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()

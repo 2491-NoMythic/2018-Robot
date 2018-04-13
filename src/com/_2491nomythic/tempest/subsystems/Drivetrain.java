@@ -346,11 +346,19 @@ public class Drivetrain extends PIDSubsystem {
 	}
 	
 	/**
-	 * Gets the angle from flat
-	 * @return The roll angle of the gyro, unmodified
+	 * Gets the angle from flat along the nose axis.
+	 * @return The roll angle of the gyro from 180 to -180.
 	 */
 	public double getRollAngle() {
 		return gyro.getRoll();
+	}
+	
+	/**
+	 * Gets the angle from flat along the ear axis based on doayawrelroll.tk.
+	 * @return The pitch angle of the gyro, unmodified.
+	 */
+	public double getPitchAngle() {
+		return gyro.getPitch();
 	}
 	
 	/**
