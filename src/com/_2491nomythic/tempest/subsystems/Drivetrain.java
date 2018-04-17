@@ -350,7 +350,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * @return The roll angle of the gyro from 180 to -180.
 	 */
 	public double getRollAngle() {
-		return gyro.getRoll();
+		return -gyro.getRoll();
 	}
 	
 	/**
@@ -358,7 +358,7 @@ public class Drivetrain extends PIDSubsystem {
 	 * @return The pitch angle of the gyro, unmodified.
 	 */
 	public double getPitchAngle() {
-		return gyro.getPitch();
+		return -gyro.getPitch();
 	}
 	
 	/**

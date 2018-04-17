@@ -12,7 +12,7 @@ public class Climb extends CommandBase {
 	
 	private double speedL, speedR;
 	private int timesPressed;
-	private boolean held;
+	private boolean held, released;
 
     /**
      * Has the climber progress through climb preparation and execution phases based on the number of times the button has been pressed.
@@ -20,6 +20,7 @@ public class Climb extends CommandBase {
      * @param speedR The speed the right side climber moves at.
      */
 	public Climb(double speedL, double speedR) {
+		requires(climber);
     	this.speedL = speedL;
     	this.speedR = speedR;
         // Use requires() here to declare subsystem dependencies
@@ -37,12 +38,15 @@ public class Climb extends CommandBase {
     	if(oi.getButton(ControllerMap.driveController, ControllerMap.climberButton)) {
     		held = true;
     		
-    		if(timesPressed != 2) {
-    			timesPressed++;
+    		if(timesPressed != 2 && released) {
+    				timesPressed++;
+    				
     		}
     	}
     	else {
     		held = false;
+    		released = true;
+    		
     	}
     	
     	switch(timesPressed) {
@@ -62,11 +66,11 @@ public class Climb extends CommandBase {
     	
     	case 2:
     		if(DriverStation.getInstance().getMatchTime() < 30 && !DriverStation.getInstance().isAutonomous()) {
-    			if (drivetrain.getRollAngle() > 5) {
+    			if (drivetrain.getPitchAngle() > 5) {
     				speedL = 0.9;
     				System.out.println("Tilting to starboard");
     			}
-    			else if (drivetrain.getRollAngle() < -5) {
+    			else if (drivetrain.getPitchAngle() < -5) {
     				speedR = 0.9;
     				System.out.println("Tilting to port");
     			}

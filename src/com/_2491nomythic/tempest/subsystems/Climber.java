@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 public class Climber extends Subsystem {
 	private static Climber instance;
 	private TalonSRX leftClimber, rightClimber;
-	private Solenoid lineup, grappleLauncher;
+	//private Solenoid lineup, grappleLauncher;
 	
 	private Drivetrain gyroAccess;
 	
@@ -35,8 +35,8 @@ public class Climber extends Subsystem {
 		leftClimber = new TalonSRX(Constants.leftClimber);
 		rightClimber = new TalonSRX(Constants.rightClimber);
 		
-		lineup = new Solenoid(Constants.grappleLauncherSolenoid);
-		grappleLauncher = new Solenoid(Constants.lineupDeploySolenoid);
+		//lineup = new Solenoid(Constants.grappleLauncherSolenoid);
+		//grappleLauncher = new Solenoid(Constants.lineupDeploySolenoid);
 	}
 	
 	/**
@@ -75,23 +75,26 @@ public class Climber extends Subsystem {
 	 * Deploys the lineup arms to stabilize the robot.
 	 */
 	public void deployLineup() { //Find the state of this
-		lineup.set(true);
-		Variables.lineupDeployed = false;
+		//lineup.set(true);
+		Variables.lineupDeployed = true;
 	}
 	
 	/**
 	 * Launches the grappling hook using the totally safe slingshot.
 	 */
 	public void grappleHookLaunch() {
-		grappleLauncher.set(true);
+		//grappleLauncher.set(true);
+		Variables.grappleHookDeployed = true;
 	}
 	
 	public boolean isGrappleHookLaunched() { //Says whether or not it is extended
-		return grappleLauncher.get();
+		//return grappleLauncher.get();
+		return Variables.grappleHookDeployed;
 	}
 	
 	public boolean isLineupDeployed() {
-		return lineup.get();
+		//return lineup.get();
+		return Variables.lineupDeployed;
 	}
 	/**
 	 * Stops the climb
