@@ -32,24 +32,30 @@ public class Configure extends CommandBase {
     	intakeHeight = (int) oi.getAxis(ControllerMap.buttonBoard, ControllerMap.inputAxis);
     	shotHeight = (int) oi.getAxis(ControllerMap.buttonBoard, ControllerMap.outputAxis);
     	
-    	System.out.println("Configuring for " + intakeHeight + " and " + shotHeight);
+    	System.out.println("Configuring for IntakeHeight: " + intakeHeight + " and ShotHeight: " + shotHeight);
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	switch(intakeHeight) {
-    	case -1:
-    		if(shotHeight == -1) {
+    	if(cubeStorage.isHeld()) {
+    		switch(shotHeight) {
+    		case 0:
     			configuredPosition = shooter.inSwitchPosition();
-    		}
-    		else {
+    			break;
+    		default:
     			configuredPosition = !shooter.inSwitchPosition();
     		}
-    		break;
-    	default:
-    		configuredPosition = shooter.inSwitchPosition();
-    		break;
     	}
+    	else {
+    		switch(intakeHeight) {
+        	case -1:
+        		configuredPosition = !shooter.inSwitchPosition();
+        		break;
+        	default:
+        		configuredPosition = shooter.inSwitchPosition();
+        		break;
+        	}
+        }
     	
     	switch(shotHeight) {
     	case -1:
@@ -79,7 +85,12 @@ public class Configure extends CommandBase {
     			break;
     		case 2:
     			if(timer.get() > 0.25) {
-    				if(intakeHeight != -1) {
+    				if(cubeStorage.isHeld()) {
+    					if(shotHeight == 0) {
+    						intake.retract();
+    					}
+    				}
+    				else if(intakeHeight != -1) {
     					intake.retract();
     				}
     				state++;
@@ -98,7 +109,7 @@ public class Configure extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return true;
+    	return configuredPosition;
     }
 
     // Called once after isFinished returns true
