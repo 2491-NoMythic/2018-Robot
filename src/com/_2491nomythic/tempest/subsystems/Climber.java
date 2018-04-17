@@ -1,5 +1,6 @@
 package com._2491nomythic.tempest.subsystems;
 
+import com._2491nomythic.tempest.commands.climber.Climb;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
 import com.ctre.phoenix.motorcontrol.ControlMode;
@@ -101,6 +102,7 @@ public class Climber extends Subsystem {
 	}
 	
 	public void initDefaultCommand() {
+		setDefaultCommand(new Climb(1, 1));
 	}
 	
 	

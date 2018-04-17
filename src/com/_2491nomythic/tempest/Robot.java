@@ -117,6 +117,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
 		SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
 		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
+		SmartDashboard.putNumber("GyroRollMeasure", 0);
 		System.out.println("Boot Successful");
 	}
 

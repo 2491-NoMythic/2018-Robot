@@ -34,7 +34,7 @@ public class Climb extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(oi.getButton(ControllerMap.operatorController, ControllerMap.climberButton)) {
+    	if(oi.getButton(ControllerMap.driveController, ControllerMap.climberButton)) {
     		held = true;
     		
     		if(timesPressed != 2) {

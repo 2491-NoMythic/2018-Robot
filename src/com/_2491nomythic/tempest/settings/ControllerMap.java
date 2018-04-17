@@ -22,6 +22,7 @@ public class ControllerMap {
 	public static final int togglelightsButton2 = 8;
 	public static final int tankTurnForwardButton = 1;
 	public static final int tankTurnBackwardButton = 2;
+	public static final int climberButton = 4; //TODO renumber this later
     
 	//Operator	
 	public static final int setSwitchRPS = 1;//2;
@@ -35,7 +36,6 @@ public class ControllerMap {
 	public static final int cubeStorageAxis = 5;
 	public static final int shooterButton = 3;//8; if 3, is an axis button
 	public static final int shooterReverseButton = 180;
-	public static final int climberButton = 2491; //TODO renumber this later
 	
 	//Probably not going to be used
 
