@@ -49,12 +49,14 @@ public class Climb extends CommandBase {
     	case 0:
     		if(!climber.isLineupDeployed()) {
         		climber.deployLineup();
+        		System.out.println("Deploying lineup system");
     		}
     		break;
     	
     	case 1:
     		if(!climber.isGrappleHookLaunched()) {
         		climber.grappleHookLaunch();
+        		System.out.println("Launching grappling hook");
     		}
     		break;
     	
@@ -62,9 +64,11 @@ public class Climb extends CommandBase {
     		if(DriverStation.getInstance().getMatchTime() < 30 && !DriverStation.getInstance().isAutonomous()) {
     			if (drivetrain.getRollAngle() > 5) {
     				speedL = 0.9;
+    				System.out.println("Tilting to starboard");
     			}
     			else if (drivetrain.getRollAngle() < -5) {
-    				speedR *= 0.9;
+    				speedR = 0.9;
+    				System.out.println("Tilting to port");
     			}
     			else {
     				speedL = 1;
@@ -73,9 +77,11 @@ public class Climb extends CommandBase {
     			
     			if(held) {
     				climber.ascend(speedL, speedR);
+    				System.out.println("Going up");
     			}
     			else {
     				climber.ascend(0);
+    				System.out.println("Not going up");
     			}
     		}
     		break;
@@ -91,10 +97,13 @@ public class Climb extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+    	climber.ascend(0);
+    	System.out.println("We have stopped and now appear to be done. Have a good day.");
     }
 
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
+    	end();
     }
 }
