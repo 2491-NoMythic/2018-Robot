@@ -7,7 +7,10 @@ import com._2491nomythic.tempest.commands.CommandBase;
  */
 public class DeployLineup extends CommandBase {
 
-    public DeployLineup() {
+	/**
+	 *Deploys the lineup pins for the climbing subsystem.
+	 */
+	public DeployLineup() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }

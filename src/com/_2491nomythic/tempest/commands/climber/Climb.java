@@ -6,7 +6,7 @@ import com._2491nomythic.tempest.settings.ControllerMap;
 import edu.wpi.first.wpilibj.DriverStation;
 
 /**
- *
+ *Has the climber progress through climb preparation and execution phases based on the number of times the button has been pressed.
  */
 public class Climb extends CommandBase {
 	
@@ -14,7 +14,12 @@ public class Climb extends CommandBase {
 	private int timesPressed;
 	private boolean held;
 
-    public Climb(double speedL, double speedR) {
+    /**
+     * Has the climber progress through climb preparation and execution phases based on the number of times the button has been pressed.
+     * @param speedL The speed the left side climber moves at.
+     * @param speedR The speed the right side climber moves at.
+     */
+	public Climb(double speedL, double speedR) {
     	this.speedL = speedL;
     	this.speedR = speedR;
         // Use requires() here to declare subsystem dependencies

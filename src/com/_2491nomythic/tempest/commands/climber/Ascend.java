@@ -5,14 +5,20 @@ import com._2491nomythic.tempest.commands.CommandBase;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *Runs the climb motors to raise the robot at a given speed. We probably want to add a time restriction, or some other way to make it stop.
+ *Runs the climb motors to raise the robot at a given speed for a given time.
  */
 public class Ascend extends CommandBase {
 	
 	private double speedL, speedR, time;
 	Timer timer;
 
-    public Ascend(double speedL, double speedR, double time) {
+    /**
+     * Runs the climb motors to raise the robot at a given speed for a given time.
+     * @param speedL The speed the left climb motor runs at
+     * @param speedR The speed the right climb motor runs at
+     * @param time The time the motors will run for
+     */
+	public Ascend(double speedL, double speedR, double time) {
     	this.speedL = speedL;
     	this.speedR = speedR;
     	this.time = time;
