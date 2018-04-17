@@ -122,4 +122,11 @@ public class Constants {
 	public static final double kVelocitykP = 1;
 	public static final double kVelocitykI = 0;
 	public static final double kVleocitykD = 0;
+	
+	//Climber
+	public static final int leftClimber = 2491; //TODO change this to an actual value
+	public static final int rightClimber = 2491; //TODO change this to an actual value
+	public static final int grappleLauncherSolenoid = 2491; //TODO change this to an actual value
+	public static final int lineupDeploySolenoid = 2491; //TODO change this to an actual value
+
 }

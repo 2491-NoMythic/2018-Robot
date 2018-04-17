@@ -35,6 +35,7 @@ public class ControllerMap {
 	public static final int cubeStorageAxis = 5;
 	public static final int shooterButton = 3;//8; if 3, is an axis button
 	public static final int shooterReverseButton = 180;
+	public static final int climberButton = 2491; //TODO renumber this later
 	
 	//Probably not going to be used
 
