@@ -53,15 +53,21 @@ public class Climb extends CommandBase {
     	switch(timesPressed) {
     	case 0:
     		if(!climber.isLineupDeployed()) {
-        		climber.deployLineup();
         		System.out.println("Deploying lineup system");
+        		climber.deployLineup();
+    		}
+    		else {
+    			System.out.println("Lineup Deployed");
     		}
     		break;
     	
     	case 1:
     		if(!climber.isGrappleHookLaunched()) {
+    			System.out.print("Launching grappling hook");
         		climber.grappleHookLaunch();
-        		System.out.println("Launching grappling hook");
+    		}
+    		else {
+    			System.out.println("Hook launched!");
     		}
     		break;
     	
