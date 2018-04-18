@@ -25,7 +25,7 @@ public class Output extends CommandBase {
     protected void initialize() {
     	switch(Variables.motorChoice) {
     	case 1:
-    		intake.run(-0.3, -0.3);
+    		intake.run(-0.8, -0.8);
     		break;
     	case 2:
     		shooter.run(Constants.shooterSwitchSpeed);

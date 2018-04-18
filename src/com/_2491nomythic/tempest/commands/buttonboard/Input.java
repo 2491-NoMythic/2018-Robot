@@ -1,25 +1,19 @@
 package com._2491nomythic.tempest.commands.buttonboard;
 
 import com._2491nomythic.tempest.commands.CommandBase;
-import com._2491nomythic.tempest.commands.shooter.ToggleShooterPosition;
 import com._2491nomythic.tempest.settings.ControllerMap;
-
-import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
  */
 public class Input extends CommandBase {
 	private int intakeHeight;
-	private Timer timer;
-
+	
     public Input() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(intake);
     	requires(cubeStorage);
-    	
-    	timer = new Timer();
     }
 
     // Called just before this Command runs the first time
@@ -38,7 +32,7 @@ public class Input extends CommandBase {
     		}
     		break;
     	default:
-    		shooter.run(-1);
+    		shooter.run(-0.2);
     		break;
     	}
     }
@@ -52,8 +46,7 @@ public class Input extends CommandBase {
     protected void end() {
     	intake.stop();
     	cubeStorage.stop();
-    	timer.stop();
-    	timer.reset();
+    	shooter.stop();
     }
 
     // Called when another command which requires one or more of the same

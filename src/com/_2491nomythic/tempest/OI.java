@@ -9,6 +9,11 @@
 package com._2491nomythic.tempest;
 
 import com._2491nomythic.tempest.commands.KillSwitch;
+import com._2491nomythic.tempest.commands.buttonboard.Configure;
+import com._2491nomythic.tempest.commands.buttonboard.Input;
+import com._2491nomythic.tempest.commands.buttonboard.OpenFingers;
+import com._2491nomythic.tempest.commands.buttonboard.Output;
+import com._2491nomythic.tempest.commands.buttonboard.SpinUp;
 import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHaltManual;
 import com._2491nomythic.tempest.commands.drivetrain.AdjustmentMode;
 import com._2491nomythic.tempest.commands.drivetrain.TankTurnBackward;
@@ -36,7 +41,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	private final Joystick[] controllers = new Joystick[2]; //[4];
+	private final Joystick[] controllers = new Joystick[3]; //[4];
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
 	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed;
 	public Button cubeStorageControl1, cubeStorageControl2, runShooter;
@@ -51,6 +56,8 @@ public class OI {
 	public void init() {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		controllers[1] = new Joystick(ControllerMap.operatorController);
+		//controllers[1] = new PS4Controller(ControllerMap.operatorController);
+		controllers[2] = new Joystick(ControllerMap.buttonBoard);
 		
 		//Main Drive Controller
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
@@ -78,27 +85,27 @@ public class OI {
 		toggleLights2.whenPressed(new ToggleLights());
 		
 		//Button Board
-		/*
+		
 		operatorKillSwitch = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.killSwitchButton);
 		operatorKillSwitch.whenPressed(new KillSwitch());
 		
 		configure = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.configureButton);
-		configure.whenPressed(new Configure());	
+		configure.toggleWhenPressed(new Configure());	
 		
 		fingers = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.fingerButton);
 		fingers.whileHeld(new OpenFingers());
 		
 		spinUp = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.spinUpButton);
-		spinUp.toggleWhenPressed(new SpinUp());
+		spinUp.whenPressed(new SpinUp());
 		
 		input = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.inputButton);
 		input.whileHeld(new Input());
 		
 		output = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.bigRedButton);
 		output.whileHeld(new Output());
-		*/
 		
 		//Operator Controller
+		
 		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);
 		deployIntake.whenPressed(new ToggleIntakeDeployment());
 		

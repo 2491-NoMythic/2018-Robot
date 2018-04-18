@@ -37,6 +37,9 @@ public class Configure extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	System.out.println("Am I still running?");
+    	
+    	//Why do these things have to be in execute? How does this work? Should this be a toggle?
     	if(cubeStorage.isHeld()) {
     		switch(shotHeight) {
     		case 0:
