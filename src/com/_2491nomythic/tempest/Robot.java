@@ -74,7 +74,6 @@ public class Robot extends TimedRobot {
 		
 		updateDriverstation.start();
 		updateLights.start();
-		Drivetrain.getInstance().setCameraMode();
 		
 		m_PositionSelector.addObject("LEFT", StartPosition.LEFT);
 		m_PositionSelector.addDefault("CENTER", StartPosition.CENTER);
@@ -136,6 +135,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
+		
+		setCamera.start();
 	}
 
 	/**
