@@ -31,6 +31,7 @@ public class Climb extends CommandBase {
     protected void initialize() {
     	timesPressed = -1;
     	held = false;
+    	released = true;
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -39,8 +40,8 @@ public class Climb extends CommandBase {
     		held = true;
     		
     		if(timesPressed != 2 && released) {
-    				timesPressed++;
-    				
+    			timesPressed++;
+    			released = false;
     		}
     	}
     	else {
