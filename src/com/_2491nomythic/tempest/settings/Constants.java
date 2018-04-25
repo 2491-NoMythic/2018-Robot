@@ -121,7 +121,7 @@ public class Constants {
 	public static final double kVelocitykF = 0.2922857143;
 	public static final double kVelocitykP = 1;
 	public static final double kVelocitykI = 0;
-	public static final double kVleocitykD = 0;
+	public static final double kVelocitykD = 0;
 	
 	//Climber
 	public static final int leftClimber = 2491; //TODO change this to an actual value

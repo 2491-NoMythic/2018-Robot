@@ -100,15 +100,9 @@ public class Drivetrain extends PIDSubsystem {
 		rightMaster.configPeakOutputReverse(-1, Constants.kTimeoutMs);
 		
 		/* Configures FPID constants for Talon's Velocity mode */
-		leftMaster.config_kF(Constants.kVelocitySlotId, Constants.kVelocitykF, Constants.kTimeoutMs);
-		leftMaster.config_kP(Constants.kVelocitySlotId, Constants.kVelocitykP, Constants.kTimeoutMs);
-		leftMaster.config_kI(Constants.kVelocitySlotId, Constants.kVelocitykI, Constants.kTimeoutMs); 
-		leftMaster.config_kD(Constants.kVelocitySlotId, Constants.kVleocitykD, Constants.kTimeoutMs); 
+		setTalonPID(Constants.kVelocitykP, Constants.kVelocitykI, Constants.kVelocitykD);
 		
-		rightMaster.config_kF(Constants.kVelocitySlotId, Constants.kVelocitykF, Constants.kTimeoutMs);
-		rightMaster.config_kP(Constants.kVelocitySlotId, Constants.kVelocitykP, Constants.kTimeoutMs);
-		rightMaster.config_kI(Constants.kVelocitySlotId, Constants.kVelocitykI, Constants.kTimeoutMs);
-		rightMaster.config_kD(Constants.kVelocitySlotId, Constants.kVleocitykD, Constants.kTimeoutMs);
+		setTalonF(Constants.kVelocitykF);
 		
 		/* Configures Limelight */
 		limeLight = NetworkTableInstance.getDefault().getTable("limelight");
@@ -435,6 +429,21 @@ public class Drivetrain extends PIDSubsystem {
 		return currentPIDOutput;
 	}
 	
+	public void setTalonPID(double proportional, double iterative, double derivative) {
+		leftMaster.config_kP(Constants.kVelocitySlotId, proportional, Constants.kTimeoutMs);
+		rightMaster.config_kP(Constants.kVelocitySlotId, proportional, Constants.kTimeoutMs);
+
+		leftMaster.config_kI(Constants.kVelocitySlotId, iterative, Constants.kTimeoutMs); 
+		rightMaster.config_kI(Constants.kVelocitySlotId, iterative, Constants.kTimeoutMs);
+
+		leftMaster.config_kD(Constants.kVelocitySlotId, derivative, Constants.kTimeoutMs); 
+		rightMaster.config_kD(Constants.kVelocitySlotId, derivative, Constants.kTimeoutMs);
+	}
+	
+	public void setTalonF(double feedForward) {
+		leftMaster.config_kF(Constants.kVelocitySlotId, feedForward, Constants.kTimeoutMs);
+		rightMaster.config_kF(Constants.kVelocitySlotId, feedForward, Constants.kTimeoutMs);
+	}
 	
 	//Limelight
 	public double getX() {
