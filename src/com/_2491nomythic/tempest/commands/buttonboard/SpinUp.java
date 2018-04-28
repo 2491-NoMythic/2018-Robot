@@ -1,6 +1,7 @@
 package com._2491nomythic.tempest.commands.buttonboard;
 
 import com._2491nomythic.tempest.commands.CommandBase;
+import com._2491nomythic.tempest.commands.KillSwitch;
 import com._2491nomythic.tempest.commands.shooter.RunShooterManual;
 import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.ControllerMap;
@@ -14,6 +15,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class SpinUp extends CommandBase {
 	private boolean button1, button2, cancel, released;
 	private RunShooterManual spinUp;
+	private KillSwitch endPlease;
 	private Timer delay;
 
     public SpinUp() {
@@ -21,6 +23,7 @@ public class SpinUp extends CommandBase {
         // eg. requires(chassis);
     	delay = new Timer();
     	spinUp = new RunShooterManual();
+    	endPlease = new KillSwitch();
     }
 
     // Called just before this Command runs the first time
@@ -78,6 +81,8 @@ public class SpinUp extends CommandBase {
     	System.out.println("Running end");
     	spinUp.cancel();
     	shooter.stop();
+    	
+    	endPlease.start();
     }
 
     // Called when another command which requires one or more of the same

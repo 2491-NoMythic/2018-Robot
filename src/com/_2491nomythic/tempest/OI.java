@@ -41,7 +41,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	private final Joystick[] controllers = new Joystick[3]; //[4];
+	private final Joystick[] controllers = new Joystick[2]; //[4];
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
 	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed;
 	public Button cubeStorageControl1, cubeStorageControl2, runShooter;
@@ -57,7 +57,7 @@ public class OI {
 		controllers[0] = new Joystick(ControllerMap.driveController);
 		controllers[1] = new Joystick(ControllerMap.operatorController);
 		//controllers[1] = new PS4Controller(ControllerMap.operatorController);
-		controllers[2] = new Joystick(ControllerMap.buttonBoard);
+		//controllers[2] = new Joystick(ControllerMap.buttonBoard);
 		
 		//Main Drive Controller
 		killSwitch1 = new JoystickButton(controllers[ControllerMap.driveController], ControllerMap.killSwitchButton1);
@@ -85,7 +85,7 @@ public class OI {
 		toggleLights2.whenPressed(new ToggleLights());
 		
 		//Button Board
-		
+		/*
 		operatorKillSwitch = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.killSwitchButton);
 		operatorKillSwitch.whenPressed(new KillSwitch());
 		
@@ -103,7 +103,7 @@ public class OI {
 		
 		output = new JoystickButton(controllers[ControllerMap.buttonBoard], ControllerMap.bigRedButton);
 		output.whileHeld(new Output());
-		
+		*/
 		//Operator Controller
 		
 		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);
