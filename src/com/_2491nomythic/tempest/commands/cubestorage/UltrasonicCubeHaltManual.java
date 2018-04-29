@@ -41,14 +41,17 @@ public class UltrasonicCubeHaltManual extends CommandBase {
 			}
 		}
 		
-		if (!oi.runShooter.get()) {
+		if (!oi.runShooter.get() && !(oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.cubeStorageAxis, 0.05) == 0)) {
 			shooter.runAccelerate(-0.3);
+		}
+		else {
+			shooter.runAccelerate(0);
 		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
-		return oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.cubeStorageAxis, 0.05) == 0;
+		return false;
 	}
 
 	// Called once after isFinished returns true
