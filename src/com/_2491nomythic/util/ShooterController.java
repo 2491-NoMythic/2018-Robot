@@ -290,8 +290,8 @@ public class ShooterController {
 		if (enabled) {
 			loopLeft();
 			loopRight();
-			leftSet(calculateLeftOutput());
-			rightSet(calculateRightOutput());
+			leftSet(calculateRightOutput());
+			rightSet(calculateLeftOutput());
 		}
 	}
 	

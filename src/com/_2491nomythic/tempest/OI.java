@@ -9,11 +9,6 @@
 package com._2491nomythic.tempest;
 
 import com._2491nomythic.tempest.commands.KillSwitch;
-import com._2491nomythic.tempest.commands.buttonboard.Configure;
-import com._2491nomythic.tempest.commands.buttonboard.Input;
-import com._2491nomythic.tempest.commands.buttonboard.OpenFingers;
-import com._2491nomythic.tempest.commands.buttonboard.Output;
-import com._2491nomythic.tempest.commands.buttonboard.SpinUp;
 import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHaltManual;
 import com._2491nomythic.tempest.commands.drivetrain.AdjustmentMode;
 import com._2491nomythic.tempest.commands.drivetrain.TankTurnBackward;
