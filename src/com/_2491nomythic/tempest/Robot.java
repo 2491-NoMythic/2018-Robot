@@ -11,6 +11,7 @@ import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.SetCameraMode;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Crossing;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Priority;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.StartPosition;
@@ -152,8 +153,8 @@ public class Robot extends TimedRobot {
 		Variables.autoDelay = SmartDashboard.getNumber("AutoDelay", 0);
 		sendColor.start();
 		
-		//m_autonomousCommand = new AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
-		m_autonomousCommand = new VelocityTestAuto();
+		m_autonomousCommand = new AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
+		//m_autonomousCommand = new VelocityTestAuto();
 		//AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
 		//updateLights.start();
 		//sendColor.start();
