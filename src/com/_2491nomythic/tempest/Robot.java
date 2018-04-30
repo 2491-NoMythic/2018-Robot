@@ -15,6 +15,8 @@ import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Crossing;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Priority;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.StartPosition;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticTwoCube;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticTwoCube.SecondCube;
 import com._2491nomythic.tempest.commands.autonomous.VelocityTestAuto;
 /*import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchLeft;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchRight;
@@ -53,6 +55,7 @@ public class Robot extends TimedRobot {
 	SendableChooser<StartPosition> m_PositionSelector = new SendableChooser<>();
 	SendableChooser<Priority> m_PrioritySelector = new SendableChooser<>();
 	SendableChooser<Crossing> m_CrossingSelector = new SendableChooser<>();
+	SendableChooser<SecondCube> m_SecondCubeSelector = new SendableChooser<>();
 
 	public static boolean isTeleop;
 
@@ -83,6 +86,9 @@ public class Robot extends TimedRobot {
 		m_CrossingSelector.addDefault("OFF", Crossing.OFF);
 		m_CrossingSelector.addObject("ON", Crossing.ON);
 		m_CrossingSelector.addObject("FORCE", Crossing.FORCE);
+		
+		m_SecondCubeSelector.addDefault("SWITCH", SecondCube.SWITCH);
+		m_SecondCubeSelector.addObject("SCALE", SecondCube.SCALE);
 		
 		/*
 		m_chooser.addObject("SwitchLeft", new DriveForwardSwitch(true));
@@ -155,7 +161,7 @@ public class Robot extends TimedRobot {
 		
 		m_autonomousCommand = new AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
 		//m_autonomousCommand = new VelocityTestAuto();
-		//AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
+		//m_autonomousCommand = new AutomaticTwoCube(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected(), m_SecondCubeSelector.getSelected());
 		//updateLights.start();
 		//sendColor.start();
 
