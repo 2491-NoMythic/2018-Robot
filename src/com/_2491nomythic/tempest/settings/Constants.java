@@ -118,8 +118,8 @@ public class Constants {
 	 */
 	public static final double kVeloctiyUnitConversion = 260.767149451;
 	public static final double kVelocitykF = 0.2960069444;
-	public static final double kVelocitykP = 2.12;
-	public static final double kVelocitykI = 0.002;
+	public static final double kVelocitykP = 1.6;
+	public static final double kVelocitykI = 0.001;
 	public static final double kVelocitykD = 0.2;
 	
 	//Climber
