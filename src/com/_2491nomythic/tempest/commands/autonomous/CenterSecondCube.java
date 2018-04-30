@@ -93,6 +93,7 @@ public class CenterSecondCube extends CommandBase {
     	case 5:
     		if(!aimForSwitch.isRunning() || timer.get() > 1.2) {
     			aimForSwitch.cancel();
+    			intake.retract();
     			timer.reset();
     			approachSwitch.start();
     			state++;
@@ -101,8 +102,7 @@ public class CenterSecondCube extends CommandBase {
     	case 6:
     		if(!approachSwitch.isRunning() || timer.get() > 1) {
     			timer.reset();
-    			shooter.run(0.3);
-    			cubeStorage.run(1);
+    			cubeStorage.run(-1);
     			state++;
     		}
     		break;
