@@ -87,11 +87,19 @@ public class Climber extends Subsystem {
 		Variables.grappleHookDeployed = true;
 	}
 	
+	/**
+	 * Tells whether or not the grappling hook has launched
+	 * @return Returns if it has deployed
+	 */
 	public boolean isGrappleHookLaunched() { //Says whether or not it is extended
 		//return grappleLauncher.get();
 		return Variables.grappleHookDeployed;
 	}
 	
+	/**
+	 * Tells whether or not the lineup pins have been deployed
+	 * @return Returns if it has deployed
+	 */
 	public boolean isLineupDeployed() {
 		//return lineup.get();
 		return Variables.lineupDeployed;

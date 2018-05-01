@@ -42,6 +42,8 @@ public class Ascend extends CommandBase {
     		speedR *= 0.9;
     	}
     	else {
+    		speedL = 1;
+    		speedR = 1;
     	}
     }
 

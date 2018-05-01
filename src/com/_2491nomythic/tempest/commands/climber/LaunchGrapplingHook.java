@@ -7,7 +7,10 @@ import com._2491nomythic.tempest.commands.CommandBase;
  */
 public class LaunchGrapplingHook extends CommandBase {
 
-    public LaunchGrapplingHook() {
+    /**
+     * Launches the grappling hook. Cannot be undone.
+     */
+	public LaunchGrapplingHook() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
