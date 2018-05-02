@@ -36,6 +36,8 @@ public class ControllerMap {
 	public static final int cubeStorageAxis = 5;
 	public static final int shooterButton = 3;//8; if 3, is an axis button
 	public static final int shooterReverseButton = 180;
+	public static final int convertToClimbMode = 7; //TODO renumber this as needed
+	//public static final int climberButton = 9; //Currently on driver controller
 	
 	//Probably not going to be used
 
