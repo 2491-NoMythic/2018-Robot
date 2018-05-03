@@ -74,7 +74,7 @@ public class Robot extends TimedRobot {
 		resetSolenoids = new ResetSolenoids();
 		
 		updateDriverstation.start();
-		updateLights.start();
+		//updateLights.start();
 		
 		m_PositionSelector.addObject("LEFT", StartPosition.LEFT);
 		m_PositionSelector.addDefault("CENTER", StartPosition.CENTER);

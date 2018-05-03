@@ -41,10 +41,13 @@ public class SickLights extends Subsystem {
 	 * 8: Ultrasonic detected a cube
 	 * 9: The shooter is spun up and ready to fire
 	 */
-	public void writeData(int data) {
-		byte[] shell = new byte[1];
-		shell[0] = (byte) data;
-		port.write(shell, 1);
+	
+	/**
+	 * Actually just writes RED or BLUE at the moment.
+	 * @param data RED or BLUE, your alliance color for the match.
+	 */
+	public void writeData(String data) {
+		port.writeString(data);
 	}
 	
     // Put methods for controlling this subsystem

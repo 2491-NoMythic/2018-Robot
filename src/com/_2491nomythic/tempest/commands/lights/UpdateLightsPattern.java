@@ -83,10 +83,10 @@ public class UpdateLightsPattern extends CommandBase {
     	
     	if(RobotController.getBatteryVoltage() <= 7.5 || !Variables.useLights) {
     		data = 100;
-    		sickLights.writeData(data);
+    		//sickLights.writeData(data);
     	}
     	else {
-        	sickLights.writeData(data);
+        	//sickLights.writeData(data);
     	}
     }
 
