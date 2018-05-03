@@ -49,6 +49,10 @@ public class UltrasonicCubeHaltManual extends CommandBase {
 				shooter.runAccelerate(0);
 			}
 		}
+		else {
+			cubeStorage.stop();
+			shooter.stop();
+		}
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

@@ -114,6 +114,7 @@ public class Climber extends Subsystem {
 	
 	public void initDefaultCommand() {
 		setDefaultCommand(new Climb(1, 1));
+		//setDefaultCommand(new ClimbManual());
 	}
 	
 	

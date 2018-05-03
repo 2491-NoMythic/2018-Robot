@@ -24,8 +24,10 @@ public class RunIntakeManual extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		if(!oi.getButton(ControllerMap.operatorController, ControllerMap.convertToClimbMode)) {
-		intake.run(oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.intakeAxis, 0.05));
-	
+			intake.run(oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.intakeAxis, 0.05));
+		}
+		else {
+			intake.stop();
 		}
 	}
 		

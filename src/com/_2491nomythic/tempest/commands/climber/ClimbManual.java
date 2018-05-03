@@ -25,19 +25,10 @@ public class ClimbManual extends CommandBase {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	if(oi.getButton(ControllerMap.operatorController, ControllerMap.convertToClimbMode) && DriverStation.getInstance().getMatchTime() < 30 && !DriverStation.getInstance().isAutonomous()) {
+    		leftSpeed = Math.abs(oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.intakeAxis, 0.1));
+    		rightSpeed = Math.abs(oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.cubeStorageAxis, 0.1));
+    		
     		climber.ascend(leftSpeed, rightSpeed);
-    		if(oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.intakeAxis, 0.05) >= 0 ) {
-    			leftSpeed = oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.intakeAxis, 0.05);
-    		}
-    		else {
-    			leftSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.intakeAxis, 0.05);
-    		}
-    		if(oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.cubeStorageAxis, 0.05) >= 0 ) {
-    			rightSpeed = oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.cubeStorageAxis, 0.05);
-    		}
-    		else {
-    			rightSpeed = -oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.cubeStorageAxis, 0.05);
-    		}
     	}
     }
 
