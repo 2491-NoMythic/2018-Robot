@@ -35,6 +35,7 @@ public class ImprovedAutoIntake extends CommandBase {
     	accelerateTimer.reset();
     	timer.reset();
     	timer.start();
+    	intaking = false;
     	completed = false;
     	intake.run(1);
     	cubeStorage.run(1);
