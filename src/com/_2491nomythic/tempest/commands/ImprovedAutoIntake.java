@@ -3,7 +3,7 @@ package com._2491nomythic.tempest.commands;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- *
+ * Automatic intake command for use with multicube autos. Moves the fingers while intaking.
  */
 public class ImprovedAutoIntake extends CommandBase {
 	private Timer timer, accelerateTimer;
@@ -11,6 +11,11 @@ public class ImprovedAutoIntake extends CommandBase {
 	private boolean completed, intaking;
 	private int state;
 
+	/**
+	 * Automatic intake command for use with multicube autos. Moves the fingers while intaking.
+	 * @param initialWait The time to wait in seconds before moving the fingers.
+	 * @param frequency How often in seconds the fingers should open.
+	 */
     public ImprovedAutoIntake(double initialWait, double frequency) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
