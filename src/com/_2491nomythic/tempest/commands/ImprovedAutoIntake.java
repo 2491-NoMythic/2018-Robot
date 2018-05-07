@@ -21,6 +21,7 @@ public class ImprovedAutoIntake extends CommandBase {
         // eg. requires(chassis);
     	requires(intake);
     	requires(cubeStorage);
+    	requires(shooter);
     	
     	this.initialWait = initialWait;
     	this.frequency = frequency;
