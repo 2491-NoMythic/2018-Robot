@@ -64,7 +64,8 @@ public class Constants {
 	public static final double kVelocitykG = 0.05;
 	public static final String[][][] mOptionsMatrix = {{{"Switch", "Switch", "Scale", "CrossLine"}, {"Scale", "Switch", "Scale", "CrossLine"}},{{"Switch","Switch","Scale","Op Scale"},{"Scale","Switch","Scale","Op Scale"}},{}};
 
-	public static final double[][] leftVelocitiesTO_MAX = {
+	public static final double[][] leftVelocitiesTO_MAX = {{0.023,0.458},{0.114,0.916},{0.32,2.06},{0.664,3.434},{1.145,4.807},{1.763,6.181},{2.495,7.325},{3.296,8.012},{4.109,8.125},{4.875,7.665},{5.55,6.746},{6.099,5.486},{6.51,4.112},{6.784,2.739},{6.932,1.481},{6.989,0.568},{7,0.113},{7,0}};
+	public static final double[][] rightVelocitiesTO_MAX = {{0.023,0.458},{0.114,0.916},{0.32,2.06},{0.664,3.434},{1.145,4.807},{1.763,6.181},{2.495,7.325},{3.296,8.012},{4.109,8.125},{4.875,7.665},{5.55,6.746},{6.099,5.486},{6.51,4.112},{6.784,2.739},{6.932,1.481},{6.989,0.568},{7,0.113},{7,0}};
 	
 	/* CENTER Start Position */
 	//LEFTSWITCH
