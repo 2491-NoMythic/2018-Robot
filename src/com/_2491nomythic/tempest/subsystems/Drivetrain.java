@@ -27,6 +27,7 @@ public class Drivetrain extends PIDSubsystem {
 	private NetworkTable limeLight;
 	private NetworkTableEntry tx, ty, ta, tv;
 	private double currentPIDOutput;
+	public StringBuilder velocity;
 	
 	private static Drivetrain instance;
 	
@@ -114,6 +115,7 @@ public class Drivetrain extends PIDSubsystem {
 		tv = limeLight.getEntry("tv");
 		
 		resetGyro();
+		velocity = new StringBuilder();
 	}
 	
 	/**
@@ -140,6 +142,7 @@ public class Drivetrain extends PIDSubsystem {
 	 */
 	public void driveLeftPercentOutput(double speed){
 		leftMaster.set(ControlMode.PercentOutput, speed * Variables.driveAdjustmentCoefficient);
+		velocity.append(getLeftVelocity() + ", ");
 	}
 	
 	/**
@@ -148,6 +151,7 @@ public class Drivetrain extends PIDSubsystem {
 	 */
 	public void driveRightPercentOutput(double speed){
 		rightMaster.set(ControlMode.PercentOutput, speed * Variables.driveAdjustmentCoefficient);
+		velocity.append(getRightVelocity() + "\n");
 	}
 	
 	/**
@@ -470,6 +474,9 @@ public class Drivetrain extends PIDSubsystem {
 	public void setCameraMode() {
 		limeLight.getEntry("ledMode").setNumber(1);
 		limeLight.getEntry("camMode").setNumber(1);
+	}
+	public String getVelocityGraph() {
+		return velocity.toString();
 	}
 }
 
