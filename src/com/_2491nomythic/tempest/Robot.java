@@ -7,6 +7,7 @@
 
 package com._2491nomythic.tempest;
 
+import com._2491nomythic.tempest.commands.AutomaticIntakeWithFingers;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.SetCameraMode;
@@ -110,6 +111,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("RotateDrivetrainRelative-180", new RotateDrivetrainWithGyroPID(-180, false));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
 		SmartDashboard.putData("RotateDrivetrainRelative-90", new RotateDrivetrainWithGyroPID(-90, false));
+		SmartDashboard.putData("ImprovedAutoIntake", new AutomaticIntakeWithFingers(1, 2));
 		SmartDashboard.putNumber("ProportionalRotate", Variables.proportionalRotate);
 		SmartDashboard.putNumber("DerivativeRotate", Variables.derivativeRotate);
 		SmartDashboard.putNumber("ProportionalForward", Variables.proportionalForward);
