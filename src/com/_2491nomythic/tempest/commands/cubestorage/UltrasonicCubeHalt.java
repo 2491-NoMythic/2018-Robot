@@ -1,8 +1,6 @@
 package com._2491nomythic.tempest.commands.cubestorage;
 
 import com._2491nomythic.tempest.commands.CommandBase;
-import com._2491nomythic.tempest.settings.Variables;
-
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -31,7 +29,6 @@ public class UltrasonicCubeHalt extends CommandBase {
 		doWeNeedToWorryAboutStoppingOrIsTheUltrasonicSensorAlreadyCovered = cubeStorage.isHeld();
 		nowStopRunningTheMotorsPlease = false;
 		wouldYouKindlyRunTheAccelerateMotorsBackwardsToPreventThePowerCubeFromGoingTooFar = false;
-		Variables.cubeHalted = false;
 	}
 
 	// Called repeatedly when this Command is scheduled to run
@@ -64,7 +61,6 @@ public class UltrasonicCubeHalt extends CommandBase {
 		wouldYouKindlyRunTheAccelerateMotorsBackwardsToPreventThePowerCubeFromGoingTooFar = false;
 		cubeStorage.stop();
 		shooter.stop();
-		Variables.cubeHalted = true;
 	}
 
 	// Called when another command which requires one or more of the same
