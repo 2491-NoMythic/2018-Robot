@@ -119,6 +119,10 @@ public class DrivePath extends CommandBase {
 		mAdjustedRightVelocity = mReverseDirection * Pathing.getVelocity(mCurrentStep, mSelectedRightPath) + mTurnAdjustment;
     }
     
+    public int getCurrentStep() {
+    	return mCurrentStep;
+    }
+    
     private synchronized void resetVariables() {
     	mInitialHeading = drivetrain.getRawGyroAngle();
     	mCurrentStep = 0;

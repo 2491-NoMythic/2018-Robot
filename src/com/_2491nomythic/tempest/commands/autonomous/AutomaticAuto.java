@@ -6,6 +6,7 @@ import com._2491nomythic.tempest.commands.drivetrain.DrivePath;
 import com._2491nomythic.tempest.commands.shooter.RunShooterCustom;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.settings.Constants;
+import com._2491nomythic.tempest.subsystems.Pathing;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -73,6 +74,31 @@ public class AutomaticAuto extends CommandBase {
     
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {	
+    	switch(mEndPosition) {
+    	case OPPOSITE_SCALE:
+    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 12) {
+    			intake.deploy();
+    			shooter.setScalePosition();
+    			mSetScaleSpeed.start();
+    			mWaitTime = 0.1;
+    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 17) {
+    			mRevShoot.start();
+    		}
+    		break;
+    	case SCALE:    		
+    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 12) {
+    			intake.deploy();
+    			shooter.setScalePosition();
+    			mSetScaleSpeed.start();
+    			mWaitTime = 0.1;
+    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 17) {
+    			mRevShoot.start();
+    		}
+    		break;
+    	default:
+    		break;
+    	}
+    	
     	if (mPath.isCompleted() && mTimer.get() == 0) {
     		mTimer.start();
     		switch(mEndPosition) {
@@ -91,11 +117,11 @@ public class AutomaticAuto extends CommandBase {
         		break;
         	case SCALE:
         	case OPPOSITE_SCALE:
-        		mWaitTime = 2;
-        		mSetScaleSpeed.start();
+        		//mWaitTime = 2;
+        		//mSetScaleSpeed.start();
         		intake.deploy();
         		shooter.setScalePosition();
-        		mRevShoot.start();
+        		//mRevShoot.start();
             	mFireCube = new TransportCubeTime(1, 1.5); //1, 1.5
         		break;
         	case CROSS_LINE:

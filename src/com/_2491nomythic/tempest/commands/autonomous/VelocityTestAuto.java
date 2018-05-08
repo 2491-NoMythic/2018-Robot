@@ -10,6 +10,7 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class VelocityTestAuto extends CommandBase {
 	Timer timer;
+	private int state;
 
     public VelocityTestAuto() {
         // Use requires() here to declare subsystem dependencies
@@ -20,19 +21,44 @@ public class VelocityTestAuto extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	drivetrain.driveVelocity(2 * Constants.kVeloctiyUnitConversion);
+    	state = 0;
     	timer.reset();
     	timer.start();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    		System.out.println(drivetrain.getRightVelocity() + ", " + drivetrain.getLeftVelocity());
+    	switch(state) {
+    	case 0:
+    		drivetrain.driveVelocity(2 * Constants.kVeloctiyUnitConversion);
+    		state++;
+    		break;
+    	case 1:
+    		if(timer.get() > 1) {
+    			drivetrain.driveVelocity(4 * Constants.kVeloctiyUnitConversion);
+    			state++;
+    			timer.reset();
+    		}
+    		break;
+    	case 2:
+    		if(timer.get() > 1) {
+    			drivetrain.driveVelocity(6 * Constants.kVeloctiyUnitConversion);
+    			timer.reset();
+    			state++;
+    		}
+    		break;
+    	case 3:
+    		break;
+    	default:
+    		break;
+    	}
+    	
+    	System.out.println(drivetrain.getRightVelocity() + ", " + drivetrain.getLeftVelocity());
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return timer.get() >= 3;
+        return timer.get() >= 1 && state == 3;
     }
 
     // Called once after isFinished returns true
