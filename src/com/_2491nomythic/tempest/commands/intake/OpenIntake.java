@@ -17,7 +17,7 @@ public class OpenIntake extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		intake.open();
+		intake.openFingers();
 	}
 
 	// Called repeatedly when this Command is scheduled to run

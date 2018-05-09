@@ -17,11 +17,11 @@ public class ToggleIntakeOpening extends CommandBase {
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		if(intake.isOpened()) {
-			intake.close();
+		if(intake.fingersOpened()) {
+			intake.retractFingers();
 		}
 		else {
-			intake.open();
+			intake.openFingers();
 		}
 	}
 
