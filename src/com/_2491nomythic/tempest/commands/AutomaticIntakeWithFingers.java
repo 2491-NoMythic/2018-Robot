@@ -2,8 +2,6 @@ package com._2491nomythic.tempest.commands;
 
 import com._2491nomythic.tempest.commands.cubestorage.UltrasonicCubeHalt;
 import com._2491nomythic.tempest.commands.intake.RunIntakeUltrasonic;
-import com._2491nomythic.tempest.settings.Variables;
-
 import edu.wpi.first.wpilibj.Timer;
 
 /**
@@ -31,7 +29,6 @@ public class AutomaticIntakeWithFingers extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	Variables.cubeHalted = false;
     	intakeCube.start();
     	loadCube.start();
     	timer.start();
@@ -41,23 +38,23 @@ public class AutomaticIntakeWithFingers extends CommandBase {
     protected void execute() {
     	if (timer.get() > delay) {
     		if (timer.get() % period == 0 && timer.get() % (3 * period) != 0) {
-    			intake.close();
+    			intake.retractFingers();
     		}
     		else if (timer.get() % (3 * period) == 0) {
-    			intake.open();
+    			intake.openFingers();
     		}
     	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return Variables.cubeHalted;
+        return cubeStorage.isHeld();
     }
 
     // Called once after isFinished returns true
     protected void end() {
     	timer.stop();
-    	intake.close();
+    	intake.retractFingers();
     	intakeCube.cancel();
     	loadCube.cancel();
     	

@@ -49,7 +49,7 @@ public class ImprovedAutoIntake extends CommandBase {
     	timer.start();
     	waitTimer.start();
 		getCube.start();
-    	intake.open();
+    	intake.openArms();
     	intaking = false;
     	completed = false;
     	intake.run(1);
@@ -80,7 +80,7 @@ public class ImprovedAutoIntake extends CommandBase {
     		cycleTimeout = 0;
     		intaking = false;
     		intake.stop();
-    		intake.close();
+    		intake.retractFingers();
     		cubeStorage.stop();
     		accelerateTimer.start();
     	}
@@ -124,7 +124,7 @@ public class ImprovedAutoIntake extends CommandBase {
     			
     			if(timer.get() >= 1.5) {
     				timer.reset();
-    				intake.open();
+    				intake.openFingers();
     				state = 1;
     				cycleTimeout++;
     			}
@@ -132,8 +132,9 @@ public class ImprovedAutoIntake extends CommandBase {
     		case 1:
     			if(timer.get() > 0.3) {
     				timer.reset();
-    				intake.close();
+    				intake.retractFingers();
     				intake.run(-0.1);
+
     				state = 0;
     			}
     			break;
@@ -155,7 +156,7 @@ public class ImprovedAutoIntake extends CommandBase {
     	accelerateTimer.stop();
     	timeout.stop();
     	waitTimer.stop();
-    	intake.close();
+    	intake.retractFingers();
     	intake.stop();
     	cubeStorage.stop();
     	shooter.stop();

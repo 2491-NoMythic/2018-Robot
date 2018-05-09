@@ -28,7 +28,7 @@ public class AutomaticAuto extends CommandBase {
 	}
 	
 	public static enum EndPosition {
-		SWITCH, LEFT_SWITCH, RIGHT_SWITCH, OPPOSITE_SWTICH, SCALE, OPPOSITE_SCALE, CROSS_LINE, BUMP_COUNTER
+		SWITCH, LEFT_SWITCH, RIGHT_SWITCH, OPPOSITE_SWTICH, SCALE, OPPOSITE_SCALE, CROSS_LINE, BUMP_COUNTER, MAX
 	}
 	
 	public static enum Priority {
@@ -66,7 +66,7 @@ public class AutomaticAuto extends CommandBase {
     protected void initialize() {
     	
     	selectEndPosition(mStartPosition);
-		mPath = new DrivePath(mStartPosition, mEndPosition);
+		mPath = new DrivePath(mStartPosition, EndPosition.MAX); //mEndPosition
 		mTimer.reset();
 		mPath.start();	
     }
@@ -77,7 +77,7 @@ public class AutomaticAuto extends CommandBase {
     	switch(mEndPosition) {
     	case OPPOSITE_SCALE:
     		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 12) {
-    			intake.deploy();
+    			intake.openArms();
     			shooter.setScalePosition();
     			mSetScaleSpeed.start();
     			mWaitTime = 0.1;
@@ -87,7 +87,7 @@ public class AutomaticAuto extends CommandBase {
     		break;
     	case SCALE:    		
     		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 12) {
-    			intake.deploy();
+    			intake.openArms();
     			shooter.setScalePosition();
     			mSetScaleSpeed.start();
     			mWaitTime = 0.1;
@@ -119,13 +119,15 @@ public class AutomaticAuto extends CommandBase {
         	case OPPOSITE_SCALE:
         		//mWaitTime = 2;
         		//mSetScaleSpeed.start();
-        		intake.deploy();
+        		intake.openArms();
         		shooter.setScalePosition();
         		//mRevShoot.start();
             	mFireCube = new TransportCubeTime(1, 1.5); //1, 1.5
         		break;
         	case CROSS_LINE:
         	case BUMP_COUNTER:
+        		break;
+        	default:
         		break;
         	}
     	}
