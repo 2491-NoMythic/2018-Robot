@@ -1,15 +1,18 @@
 package com._2491nomythic.tempest.commands;
 
+import com._2491nomythic.tempest.commands.drivetrain.DriveTime;
+
 import edu.wpi.first.wpilibj.Timer;
 
 /**
  * Automatic intake command for use with multicube autos. Moves the fingers while intaking.
  */
 public class ImprovedAutoIntake extends CommandBase {
-	private Timer timer, accelerateTimer;
-	private double initialWait, frequency;
+	private Timer timer, accelerateTimer, waitTimer, timeout;
+	private double initialWait;
+	private DriveTime backAway, goBack, getCube;
 	private boolean completed, intaking;
-	private int state;
+	private int state, cycleTimeout, timeoutSafety;
 
 	/**
 	 * Automatic intake command for use with multicube autos. Moves the fingers while intaking.
@@ -24,31 +27,57 @@ public class ImprovedAutoIntake extends CommandBase {
     	requires(shooter);
     	
     	this.initialWait = initialWait;
-    	this.frequency = frequency;
+    	backAway = new DriveTime(-0.4, 1);
+    	goBack = new DriveTime(0.4, 1);
+    	getCube = new DriveTime(0.3, 1);
     	timer = new Timer();
     	accelerateTimer = new Timer();
+    	timeout = new Timer();
+    	waitTimer = new Timer();
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	state = 0;
+    	timeoutSafety = 0;
+    	cycleTimeout = 0;
+    	initialWait = 1;
+    	state = 1;
     	accelerateTimer.reset();
+    	waitTimer.reset();
+    	timeout.reset();
     	timer.reset();
     	timer.start();
+    	waitTimer.start();
+		getCube.start();
+    	intake.open();
     	intaking = false;
     	completed = false;
     	intake.run(1);
     	cubeStorage.run(1);
     	shooter.runAccelerate(-0.2);
+    	
+    	if(cubeStorage.isHeld()) {
+    		completed = true;
+    	}
     }
 
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {
-    	if(accelerateTimer.get() >= 0.5 && !intaking) {
+    protected void execute() {    	
+    	if(accelerateTimer.get() >= 0.5) {
     		completed = true;
+    		shooter.runAccelerate(0);
+    		waitTimer.stop();
+    		waitTimer.reset();
+    	}
+    	
+    	if(waitTimer.get() > initialWait) {
+    		intaking = true;
+    		getCube.cancel();
+    		waitTimer.reset();
     	}
     	
     	if(cubeStorage.isHeld() && intaking) {
+    		cycleTimeout = 0;
     		intaking = false;
     		intake.stop();
     		intake.close();
@@ -56,24 +85,55 @@ public class ImprovedAutoIntake extends CommandBase {
     		accelerateTimer.start();
     	}
     	
-    	if(timer.get() >= initialWait) {
-    		intaking = true;
-    		timer.reset();
+    	if(cycleTimeout > 2) {	
+    		switch(timeoutSafety) {
+    		case 0:
+    			timeout.start();
+    			backAway.start();
+    			timeoutSafety++;
+    			break;
+    		case 1:
+    			if(timeout.get() >= 1) {
+    				backAway.cancel();
+    				goBack.start();
+    				timeout.reset();
+    				timeoutSafety++;
+    			}
+    			break;
+    		case 2:
+    			if(timeout.get() >= 1) {
+    				goBack.cancel();
+    				drivetrain.stop();
+    				timeoutSafety++;
+    			}
+    			break;
+    		case 3:
+    		default:
+    			cycleTimeout = 0;
+    			timeoutSafety = 0;
+    			break;
+    		}
     	}
     	
-    	if(intaking) {
+    	if(intaking) {    		
     		switch(state) {
-    		case 0:
-    			if(timer.get() >= frequency) {
+    		case 0:    			
+    			if(timer.get() > 0.5) {
+    				intake.run(1);
+    			}
+    			
+    			if(timer.get() >= 1.5) {
     				timer.reset();
     				intake.open();
     				state = 1;
+    				cycleTimeout++;
     			}
     			break;
     		case 1:
     			if(timer.get() > 0.3) {
     				timer.reset();
     				intake.close();
+    				intake.run(-0.1);
     				state = 0;
     			}
     			break;
@@ -93,6 +153,8 @@ public class ImprovedAutoIntake extends CommandBase {
     protected void end() {
     	timer.stop();
     	accelerateTimer.stop();
+    	timeout.stop();
+    	waitTimer.stop();
     	intake.close();
     	intake.stop();
     	cubeStorage.stop();
