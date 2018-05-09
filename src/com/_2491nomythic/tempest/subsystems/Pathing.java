@@ -97,6 +97,12 @@ public class Pathing extends Subsystem {
 		case "rightVelocitiesTO_BUMP_COUNTER":
 			mVelocitiesArray = Constants.rightVelocitiesTO_BUMP_COUNTER;
 			break;
+		case "leftVelocitiesTO_MAX":
+			mVelocitiesArray = Constants.leftVelocitiesTO_MAX;
+			break;
+		case "rightVelocitiesTO_MAX":
+			mVelocitiesArray = Constants.rightVelocitiesTO_MAX;
+			break;
 		default:
 			DriverStation.reportWarning("Invalid Velocity Path Name!", false);
 		}
