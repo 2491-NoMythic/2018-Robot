@@ -49,6 +49,7 @@ public class ImprovedAutoIntake extends CommandBase {
     	waitTimer.start();
 		getCube.start();
     	intake.openArms();
+    	intake.openFingers();
     	intaking = false;
     	completed = false;
     	intake.run(1);
@@ -146,7 +147,13 @@ public class ImprovedAutoIntake extends CommandBase {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return completed;
+        if(!backAway.isRunning() && !goBack.isRunning()) {
+        	return completed;
+        }
+        else {
+        	return false;
+
+        }
     }
 
     // Called once after isFinished returns true
