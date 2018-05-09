@@ -28,7 +28,7 @@ public class AutomaticAuto extends CommandBase {
 	}
 	
 	public static enum EndPosition {
-		SWITCH, LEFT_SWITCH, RIGHT_SWITCH, OPPOSITE_SWTICH, SCALE, OPPOSITE_SCALE, CROSS_LINE, BUMP_COUNTER
+		SWITCH, LEFT_SWITCH, RIGHT_SWITCH, OPPOSITE_SWTICH, SCALE, OPPOSITE_SCALE, CROSS_LINE, BUMP_COUNTER, MAX
 	}
 	
 	public static enum Priority {
@@ -126,6 +126,8 @@ public class AutomaticAuto extends CommandBase {
         		break;
         	case CROSS_LINE:
         	case BUMP_COUNTER:
+        		break;
+        	default:
         		break;
         	}
     	}
