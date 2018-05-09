@@ -1,7 +1,6 @@
 package com._2491nomythic.tempest.subsystems;
 
 import com._2491nomythic.tempest.settings.Constants;
-import com._2491nomythic.tempest.settings.Variables;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -67,47 +66,45 @@ public class Intake extends Subsystem {
 	/**
 	 * Sets the intake out of the frame perimeter.
 	 */
-	public void deploy() {
+	public void openArms() {
 		activateIntakeSolenoid.set(Value.kForward);
-		Variables.isDeployed = true;
 	}
 	
 	/**
 	 * Sets the intake in the frame perimeter.
 	 */
-	public void retract() {
+	public void retractArms() {
 		activateIntakeSolenoid.set(Value.kReverse);
-		close();
-		Variables.isDeployed = false;
+		retractFingers();
 	}
 	
 	/**
-	 * Sets the intake to the open state.
+	 * Sets the intake fingers to the open state.
 	 */
-	public void open() {
+	public void openFingers() {
 		intakeOpenSolenoid.set(Value.kForward);
 	}
 	
 	/**
-	 * Sets the intake to the closed state.
+	 * Sets the intake fingers to the closed state.
 	 */
-	public void close() {
+	public void retractFingers() {
 		intakeOpenSolenoid.set(Value.kReverse);
 	}
 	
 	/**
-	 * Returns whether or not the intake is extended.
-	 * @return Whether or not the intake is extended.
+	 * Returns whether or not the intake arms are extended.
+	 * @return Whether or not the intake arms are extended.
 	 */
-	public boolean isRetracted() {
+	public boolean armsRetracted() {
 		return activateIntakeSolenoid.get() == Value.kReverse || activateIntakeSolenoid.get() == Value.kOff;
 	}
 	
 	/**
-	 * Returns whether or not the intake is open.
-	 * @return Whether or not the intake is open.
+	 * Returns whether or not the intake fingers are open.
+	 * @return Whether or not the intake fingers are open.
 	 */
-	public boolean isOpened() {
+	public boolean fingersOpened() {
 		return intakeOpenSolenoid.get() == Value.kForward;
 	}
 	

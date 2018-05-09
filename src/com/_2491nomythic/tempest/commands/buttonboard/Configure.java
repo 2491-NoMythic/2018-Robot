@@ -75,7 +75,7 @@ public class Configure extends CommandBase {
     	if(!configuredPosition) {
     		switch(state) {
     		case 0:
-    			intake.deploy();
+    			intake.openArms();
     			timer.start();
     			state++;
     			break;
@@ -90,11 +90,11 @@ public class Configure extends CommandBase {
     			if(timer.get() > 0.25) {
     				if(cubeStorage.isHeld()) {
     					if(shotHeight == 0) {
-    						intake.retract();
+    						intake.retractArms();
     					}
     				}
     				else if(intakeHeight != -1) {
-    					intake.retract();
+    					intake.retractArms();
     				}
     				state++;
     			}

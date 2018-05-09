@@ -38,10 +38,10 @@ public class AutomaticIntakeWithFingers extends CommandBase {
     protected void execute() {
     	if (timer.get() > delay) {
     		if (timer.get() % period == 0 && timer.get() % (3 * period) != 0) {
-    			intake.close();
+    			intake.retractFingers();
     		}
     		else if (timer.get() % (3 * period) == 0) {
-    			intake.open();
+    			intake.openFingers();
     		}
     	}
     }
@@ -54,7 +54,7 @@ public class AutomaticIntakeWithFingers extends CommandBase {
     // Called once after isFinished returns true
     protected void end() {
     	timer.stop();
-    	intake.close();
+    	intake.retractFingers();
     	intakeCube.cancel();
     	loadCube.cancel();
     	
