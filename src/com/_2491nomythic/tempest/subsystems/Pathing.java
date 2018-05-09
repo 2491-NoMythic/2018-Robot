@@ -147,6 +147,9 @@ public class Pathing extends Subsystem {
 		case "headingsTO_BUMP_COUNTER":
 			mHeadingsArray = Constants.headingsTO_BUMP_COUNTER;
 			break;
+		case "headingsTO_MAX":
+			mHeadingsArray = Constants.headingsTO_MAX;
+			break;
 		default:
 			DriverStation.reportWarning("Invalid Headings Path Name!", false);
 		}

@@ -66,7 +66,7 @@ public class AutomaticAuto extends CommandBase {
     protected void initialize() {
     	
     	selectEndPosition(mStartPosition);
-		mPath = new DrivePath(mStartPosition, mEndPosition);
+		mPath = new DrivePath(mStartPosition, EndPosition.MAX); //mEndPosition
 		mTimer.reset();
 		mPath.start();	
     }
