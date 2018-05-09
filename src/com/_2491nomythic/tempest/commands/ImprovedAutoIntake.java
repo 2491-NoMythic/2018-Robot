@@ -51,7 +51,7 @@ public class ImprovedAutoIntake extends CommandBase {
     	if(cubeStorage.isHeld() && intaking) {
     		intaking = false;
     		intake.stop();
-    		intake.close();
+    		intake.retractFingers();
     		cubeStorage.stop();
     		accelerateTimer.start();
     	}
@@ -66,14 +66,14 @@ public class ImprovedAutoIntake extends CommandBase {
     		case 0:
     			if(timer.get() >= frequency) {
     				timer.reset();
-    				intake.open();
+    				intake.openFingers();
     				state = 1;
     			}
     			break;
     		case 1:
     			if(timer.get() > 0.3) {
     				timer.reset();
-    				intake.close();
+    				intake.retractFingers();
     				state = 0;
     			}
     			break;
@@ -93,7 +93,7 @@ public class ImprovedAutoIntake extends CommandBase {
     protected void end() {
     	timer.stop();
     	accelerateTimer.stop();
-    	intake.close();
+    	intake.retractFingers();
     	intake.stop();
     	cubeStorage.stop();
     	shooter.stop();

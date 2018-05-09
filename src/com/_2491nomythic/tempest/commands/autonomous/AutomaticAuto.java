@@ -77,7 +77,7 @@ public class AutomaticAuto extends CommandBase {
     	switch(mEndPosition) {
     	case OPPOSITE_SCALE:
     		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 12) {
-    			intake.deploy();
+    			intake.openArms();
     			shooter.setScalePosition();
     			mSetScaleSpeed.start();
     			mWaitTime = 0.1;
@@ -87,7 +87,7 @@ public class AutomaticAuto extends CommandBase {
     		break;
     	case SCALE:    		
     		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 12) {
-    			intake.deploy();
+    			intake.openArms();
     			shooter.setScalePosition();
     			mSetScaleSpeed.start();
     			mWaitTime = 0.1;
@@ -119,7 +119,7 @@ public class AutomaticAuto extends CommandBase {
         	case OPPOSITE_SCALE:
         		//mWaitTime = 2;
         		//mSetScaleSpeed.start();
-        		intake.deploy();
+        		intake.openArms();
         		shooter.setScalePosition();
         		//mRevShoot.start();
             	mFireCube = new TransportCubeTime(1, 1.5); //1, 1.5

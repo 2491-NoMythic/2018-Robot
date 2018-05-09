@@ -20,7 +20,7 @@ public class ResetSolenoids extends CommandBase {
     protected void initialize() {
     	System.out.println("Test");
     	shooter.setScalePosition();
-    	intake.retract();
+    	intake.retractArms();
     }
 
     // Called repeatedly when this Command is scheduled to run

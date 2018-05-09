@@ -25,7 +25,6 @@ public class Variables {
 	public static boolean useGyroPID;
 	
 	//Intake
-	public static boolean isDeployed = false;
 	public static double rollerReverseCoefficient = 1;
 	
 	//Shooter

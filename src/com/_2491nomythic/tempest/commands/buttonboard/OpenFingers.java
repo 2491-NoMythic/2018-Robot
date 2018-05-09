@@ -14,7 +14,7 @@ public class OpenFingers extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	intake.open();
+    	intake.openFingers();
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -28,7 +28,7 @@ public class OpenFingers extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
-    	intake.close();
+    	intake.retractFingers();
     }
 
     // Called when another command which requires one or more of the same
