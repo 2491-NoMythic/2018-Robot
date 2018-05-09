@@ -114,7 +114,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
 		SmartDashboard.putData("RotateDrivetrainRelative-90", new RotateDrivetrainWithGyroPID(-90, false));
 
-		SmartDashboard.putData("ImprovedAutoIntake", new ImprovedAutoIntake(1, 2));
+		SmartDashboard.putData("ImprovedAutoIntake", new ImprovedAutoIntake(1));
 		SmartDashboard.putData("Velocity Path", new VelocityPrint());
 
 		SmartDashboard.putNumber("ProportionalRotate", Variables.proportionalRotate);

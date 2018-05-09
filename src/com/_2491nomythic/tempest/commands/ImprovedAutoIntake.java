@@ -19,7 +19,7 @@ public class ImprovedAutoIntake extends CommandBase {
 	 * @param initialWait The time to wait in seconds before moving the fingers.
 	 * @param frequency How often in seconds the fingers should open.
 	 */
-    public ImprovedAutoIntake(double initialWait, double frequency) {
+    public ImprovedAutoIntake(double initialWait) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(intake);
@@ -40,7 +40,6 @@ public class ImprovedAutoIntake extends CommandBase {
     protected void initialize() {
     	timeoutSafety = 0;
     	cycleTimeout = 0;
-    	initialWait = 1;
     	state = 1;
     	accelerateTimer.reset();
     	waitTimer.reset();
