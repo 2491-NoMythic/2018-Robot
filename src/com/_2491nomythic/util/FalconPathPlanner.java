@@ -708,8 +708,8 @@ public class FalconPathPlanner
 		double rightStartPos = 2.4+0.93;
 		double centerStartPos = 14.5-0.99;
 		double robotLength = 3.16667;
-		double totalTime = 4; //seconds
-		double timeStep = 0.1; //period of control loop on Rio, seconds
+		double totalTime = 2; //seconds
+		double timeStep = 0.02; //period of control loop on Rio, seconds
 		double robotTrackWidth = 2; //distance between left and right wheels, feet
 		
 		@SuppressWarnings("unused")
