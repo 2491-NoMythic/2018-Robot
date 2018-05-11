@@ -1,5 +1,6 @@
 package com._2491nomythic.tempest.subsystems;
 
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.EndPosition;
 import com._2491nomythic.tempest.settings.Constants;
 
 import edu.wpi.first.wpilibj.DriverStation;
@@ -15,7 +16,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
  */
 public class Pathing extends Subsystem {
 	private static Pathing instance;
-	private static double[][] mVelocitiesArray, mHeadingsArray;
+	private static double[][] mPathArray;
 	
 	public static Pathing getInstance() {
 		if(instance == null) {
@@ -30,130 +31,54 @@ public class Pathing extends Subsystem {
 	
 	/**
 	 * 
-	 * @param step Desired time vector
-	 * @param pathName The path's name
-	 * @return Velocity in Native Units per 100Ms for current step based on designated path
+	 * @param endPositon
+	 * @return A double[][] of Velocity values in Native Units per 100ms
 	 */
-	public static double getVelocity(int step, String pathName) {
-		return getRawVelocity(step, pathName) * Constants.kVeloctiyUnitConversion;
-	}
-	
-	/**
-	 * 
-	 * @param step Desired time vector
-	 * @param pathName The path's name
-	 * @return Velocity in Ft per Sec for current step based on designated path
-	 */
-	public static double getRawVelocity(int step, String pathName) {
-		return getVelocityArray(pathName)[step][1];
+	public static double[][] getPathArray(EndPosition endPosition) {
+		setPathArray(endPosition);
+		for (double[] u: mPathArray) {
+			u[0] = u[0] * Constants.kVeloctiyUnitConversion;
+			u[1] = u[1] * Constants.kVeloctiyUnitConversion;
+		}
+		return mPathArray;
 	}
 	
 	/**
 	 * 
 	 * @param pathName The desire path array's name
-	 * @return A double[][] of Velocitiy values in Ft per Sec
+	 * @return A double[][] of Velocity values in Ft per Sec
 	 */
-	public static double[][] getVelocityArray(String pathName) {
-		switch(pathName) {
-		case "leftVelocitiesTO_SCALE":
-			mVelocitiesArray = Constants.leftVelocitiesTO_SCALE;
+	public static double[][] getRawPathArray(EndPosition endPosition) {
+		setPathArray(endPosition);
+		return mPathArray;
+	}
+	
+	private static void setPathArray(EndPosition endPosition) {
+		switch(endPosition) {
+		case SCALE:
+			mPathArray = Constants.SCALE;
 			break;
-		case "rightVelocitiesTO_SCALE":
-			mVelocitiesArray = Constants.rightVelocitiesTO_SCALE;
+		case SWITCH:
+			mPathArray = Constants.SWITCH;
 			break;
-		case "leftVelocitiesTO_SWITCH":
-			mVelocitiesArray = Constants.leftVelocitiesTO_SWITCH;
+		case OPPOSITE_SCALE:
+			mPathArray = Constants.OPPOSITE_SCALE;
 			break;
-		case "rightVelocitiesTO_SWITCH":
-			mVelocitiesArray = Constants.rightVelocitiesTO_SWITCH;
+		case LEFT_SWITCH:
+			mPathArray = Constants.LEFT_SWITCH;
 			break;
-		case "leftVelocitiesTO_OPPOSITE_SCALE":
-			mVelocitiesArray = Constants.leftVelocitiesTO_OPPOSITE_SCALE;
+		case RIGHT_SWITCH:
+			mPathArray = Constants.RIGHT_SWITCH;
 			break;
-		case "rightVelocitiesTO_OPPOSITE_SCALE":
-			mVelocitiesArray = Constants.rightVelocitiesTO_OPPOSITE_SCALE;
+		case CROSS_LINE:
+			mPathArray = Constants.CROSS_LINE;
 			break;
-		case "leftVelocitiesTO_LEFT_SWITCH":
-			mVelocitiesArray = Constants.leftVelocitiesTO_LEFT_SWITCH;
-			break;
-		case "rightVelocitiesTO_LEFT_SWITCH":
-			mVelocitiesArray = Constants.rightVelocitiesTO_LEFT_SWITCH;
-			break;
-		case "leftVelocitiesTO_RIGHT_SWITCH":
-			mVelocitiesArray = Constants.leftVelocitiesTO_RIGHT_SWITCH;
-			break;
-		case "rightVelocitiesTO_RIGHT_SWITCH":
-			mVelocitiesArray = Constants.rightVelocitiesTO_RIGHT_SWITCH;
-			break;
-		case "leftVelocitiesTO_CROSS_LINE":
-			mVelocitiesArray = Constants.leftVelocitiesTO_CROSS_LINE;
-			break;
-		case "rightVelocitiesTO_CROSS_LINE":
-			mVelocitiesArray = Constants.rightVelocitiesTO_CROSS_LINE;
-			break;
-		case "leftVelocitiesTO_BUMP_COUNTER":
-			mVelocitiesArray = Constants.leftVelocitiesTO_BUMP_COUNTER;
-			break;
-		case "rightVelocitiesTO_BUMP_COUNTER":
-			mVelocitiesArray = Constants.rightVelocitiesTO_BUMP_COUNTER;
-			break;
-		case "leftVelocitiesTO_MAX":
-			mVelocitiesArray = Constants.leftVelocitiesTO_MAX;
-			break;
-		case "rightVelocitiesTO_MAX":
-			mVelocitiesArray = Constants.rightVelocitiesTO_MAX;
+		case BUMP_COUNTER:
+			mPathArray = Constants.BUMP_COUNTER;
 			break;
 		default:
 			DriverStation.reportWarning("Invalid Velocity Path Name!", false);
 		}
-		return mVelocitiesArray;
-	}
-	
-	/**
-	 * 
-	 * @param step Desired time vector
-	 * @param pathName The path's name
-	 * @return Heading angle for current time step based on designated path
-	 */
-	public static double getHeading(int step, String pathName) {
-		return getHeadingsArray(pathName)[step][1];
-	}
-	
-	/**
-	 * 
-	 * @param pathName The desired path array's name
-	 * @return A double[][] array of heading angles
-	 */
-	public static double[][] getHeadingsArray(String pathName) {
-		switch(pathName) {
-		case "headingsTO_SCALE":
-			mHeadingsArray = Constants.headingsTO_SCALE;
-			break;
-		case "headingsTO_SWITCH":
-			mHeadingsArray = Constants.headingsTO_SWITCH;
-			break;
-		case "headingsTO_OPPOSITE_SCALE":
-			mHeadingsArray = Constants.headingsTO_OPPOSITE_SCALE;
-			break;
-		case "headingsTO_LEFT_SWITCH":
-			mHeadingsArray = Constants.headingsTO_LEFT_SWITCH;
-			break;
-		case "headingsTO_RIGHT_SWITCH":
-			mHeadingsArray = Constants.headingsTO_RIGHT_SWITCH;
-			break;
-		case "headingsTO_CROSS_LINE":
-			mHeadingsArray = Constants.headingsTO_CROSS_LINE;
-			break;
-		case "headingsTO_BUMP_COUNTER":
-			mHeadingsArray = Constants.headingsTO_BUMP_COUNTER;
-			break;
-		case "headingsTO_MAX":
-			mHeadingsArray = Constants.headingsTO_MAX;
-			break;
-		default:
-			DriverStation.reportWarning("Invalid Headings Path Name!", false);
-		}
-		return mHeadingsArray;
 	}
 
 	@Override

@@ -67,6 +67,7 @@ public class FalconPathPlanner
 	double velocityAlpha;
 	double velocityBeta;
 	double velocityTolerance;
+	private String name;
 	
 	static StringBuilder _sb;
 
@@ -91,10 +92,10 @@ public class FalconPathPlanner
 		The units of these coordinates are position units assumed by the user (i.e inch, foot, meters) 
 	 * @param path
 	 */
-	public FalconPathPlanner(double[][] path)
+	public FalconPathPlanner(double[][] path, String pathName)
 	{
 		this.origPath = doubleArrayCopy(path);
-
+		this.name = pathName;
 		//default values DO NOT MODIFY;
 		pathAlpha = 0.7;
 		pathBeta = 0.3;
@@ -141,6 +142,28 @@ public class FalconPathPlanner
 
 		for(double[] u: path)
 			_sb.append("{" + u[0] + "," + u[1] + "},");
+		
+		_sb.deleteCharAt(_sb.length() - 1);
+		_sb.append("};");
+		
+		System.out.println(_sb.toString());
+		
+	}
+	/**
+	 * Take a path and a name and create a full line to copy paste into robot code.
+	 * 
+	 * The array contains left, right, headings in the second dimension, with steps being the first.
+	 * 
+	 * @param path the desired path to print
+	 */
+	public static void carbonPrint(FalconPathPlanner path)
+	{
+		_sb = new StringBuilder();
+		
+		_sb.append("public static final double[][] " + path.name + " = {");
+
+		for(int i = 0; i < path.heading.length; i++)
+			_sb.append("{" + path.smoothLeftVelocity[i][1] + "," + path.smoothRightVelocity[i][1] + "," + path.heading[i][1] + "},");
 		
 		_sb.deleteCharAt(_sb.length() - 1);
 		_sb.append("};");
@@ -709,7 +732,7 @@ public class FalconPathPlanner
 		double centerStartPos = 14.5-0.99;
 		double robotLength = 3.16667;
 		double totalTime = 4; //seconds
-		double timeStep = 0.1; //period of control loop on Rio, seconds
+		double timeStep = 0.02; //period of control loop on Rio, seconds
 		double robotTrackWidth = 2; //distance between left and right wheels, feet
 		
 		@SuppressWarnings("unused")
@@ -787,19 +810,20 @@ public class FalconPathPlanner
 		};
 		
 		@SuppressWarnings("unused")
-		double[][] anyPosDriveStrait =  new double[][] {
+		double[][] anyPosDriveStraight =  new double[][] {
 			{0,rightStartPos},
 			{8,rightStartPos}
 		};
+
 		
-		final FalconPathPlanner path = new FalconPathPlanner(scaleRightRight);
+		final FalconPathPlanner path = new FalconPathPlanner(scaleRightRight, "SCALE");
 		path.calculate(totalTime, timeStep, robotTrackWidth);
+		
 
 		System.out.println("Time in ms: " + (System.currentTimeMillis()-start));
 		
-		FalconPathPlanner.print(path.smoothLeftVelocity, "LEFTV");
-		FalconPathPlanner.print(path.smoothRightVelocity, "RIGHTV");
-		FalconPathPlanner.print(path.heading, "HEADING");
+		FalconPathPlanner.print(path.heading, "headings");
+		FalconPathPlanner.carbonPrint(path);
 
 		if(!GraphicsEnvironment.isHeadless())
 		{
