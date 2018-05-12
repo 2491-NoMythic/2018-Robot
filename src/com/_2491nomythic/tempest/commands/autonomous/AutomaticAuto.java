@@ -32,7 +32,7 @@ public class AutomaticAuto extends CommandBase {
 	private Timer mTimer, turnTimer, raiseTimer;
 	
 	public static enum StartPosition {
-		LEFT, CENTER, RIGHT, CROSS_LINE
+		LEFT, CENTER, RIGHT, CROSS_LINE, LEFT_NULL, RIGHT_NULL;
 	}
 	
 	public static enum EndPosition {
@@ -72,7 +72,6 @@ public class AutomaticAuto extends CommandBase {
     	raiseTimer = new Timer();
     	mWaitTime = 15;
     	
-    	autoIntake = new ImprovedAutoIntake(1.55);
     	aimForCube = new RotateDrivetrainWithGyroPID(62.5, false);
     	aimForScale = new RotateDrivetrainWithGyroPID(-62.5, false);
     	mFireCubeSwitch = new TransportCubeTime(-1, 2);
@@ -88,7 +87,7 @@ public class AutomaticAuto extends CommandBase {
     	state = 0;
     	
     	selectEndPosition(mStartPosition);
-		mPath = new DrivePath(mStartPosition, mEndPosition, 4); //mEndPosition
+		mPath = new DrivePath(StartPosition.RIGHT_NULL, EndPosition.CUBE, 0); //mEndPosition
 		mTimer.reset();
 		turnTimer.reset();
 		

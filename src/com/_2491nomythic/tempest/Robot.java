@@ -108,13 +108,13 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Priority", m_PrioritySelector);
 		SmartDashboard.putData("Crossing", m_CrossingSelector);
 		
-		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(-20));
+		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(5));
 		SmartDashboard.putData("RotateDrivetrainRelative180", new RotateDrivetrainWithGyroPID(180, false));
 		SmartDashboard.putData("RotateDrivetrainRelative-180", new RotateDrivetrainWithGyroPID(-180, false));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
 		SmartDashboard.putData("RotateDrivetrainRelative-90", new RotateDrivetrainWithGyroPID(-90, false));
 
-		SmartDashboard.putData("ImprovedAutoIntake", new ImprovedAutoIntake(1));
+		SmartDashboard.putData("ImprovedAutoIntake", new ImprovedAutoIntake(0, true));
 		SmartDashboard.putData("Velocity Path", new VelocityPrint());
 
 		SmartDashboard.putNumber("ProportionalRotate", Variables.proportionalRotate);

@@ -31,6 +31,7 @@ public class DrivePath extends CommandBase {
 
     protected void initialize() {
     	resetVariables();
+    	mTimeCounter = 0;
     }
 
     protected void execute() {
@@ -76,6 +77,12 @@ public class DrivePath extends CommandBase {
     	case RIGHT:
     	case CROSS_LINE:
     		configurePath(false, true);
+    		break;
+    	case LEFT_NULL:
+    		configurePath(true, false);
+    		break;
+    	case RIGHT_NULL:
+    		configurePath(false, false);
     		break;
     	}
     }
