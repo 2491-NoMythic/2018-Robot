@@ -1,6 +1,7 @@
 package com._2491nomythic.tempest.commands;
 
 import com._2491nomythic.tempest.commands.drivetrain.DriveTime;
+import com._2491nomythic.tempest.settings.Variables;
 
 import edu.wpi.first.wpilibj.Timer;
 
@@ -10,7 +11,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class ImprovedAutoIntake extends CommandBase {
 	private Timer timer, accelerateTimer, waitTimer, timeout;
 	private double initialWait;
-	private DriveTime backAway, goBack, getCube;
+	private DriveTime backAway, goBack, creep;
 	private boolean completed, intaking, startOpened;
 	private int state, cycleTimeout, timeoutSafety;
 
@@ -28,8 +29,9 @@ public class ImprovedAutoIntake extends CommandBase {
     	
     	this.startOpened = startOpened;
     	this.initialWait = initialWait;
-    	backAway = new DriveTime(-0.4, 1);
-    	goBack = new DriveTime(0.4, 1);
+    	backAway = new DriveTime(-0.4, -0.4, 0.5);
+    	goBack = new DriveTime(0.4, 0.4, 0.7);
+    	creep = new DriveTime(0.15, 0.15, 200);
     	timer = new Timer();
     	accelerateTimer = new Timer();
     	timeout = new Timer();
@@ -47,7 +49,6 @@ public class ImprovedAutoIntake extends CommandBase {
     	timer.reset();
     	timer.start();
     	waitTimer.start();
-		getCube.start();
     	intake.openArms();
     	intaking = false;
     	completed = false;
@@ -90,7 +91,7 @@ public class ImprovedAutoIntake extends CommandBase {
     		accelerateTimer.start();
     	}
     	
-    	if(cycleTimeout > 2) {	
+    	if(cycleTimeout > 1) {	
     		switch(timeoutSafety) {
     		case 0:
     			timeout.start();
@@ -98,7 +99,7 @@ public class ImprovedAutoIntake extends CommandBase {
     			timeoutSafety++;
     			break;
     		case 1:
-    			if(timeout.get() >= 1) {
+    			if(timeout.get() >= 0.5) {
     				backAway.cancel();
     				goBack.start();
     				timeout.reset();
@@ -106,7 +107,7 @@ public class ImprovedAutoIntake extends CommandBase {
     			}
     			break;
     		case 2:
-    			if(timeout.get() >= 1) {
+    			if(timeout.get() >= 0.7) {
     				goBack.cancel();
     				drivetrain.stop();
     				timeoutSafety++;
@@ -118,6 +119,9 @@ public class ImprovedAutoIntake extends CommandBase {
     			timeoutSafety = 0;
     			break;
     		}
+    	}
+    	else if(!Variables.isPathRunning) {
+    		creep.start();
     	}
     	
     	if(intaking) {    		

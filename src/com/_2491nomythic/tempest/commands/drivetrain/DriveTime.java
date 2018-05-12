@@ -9,15 +9,16 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class DriveTime extends CommandBase {
 	private Timer timer;
-	private double speed, time;
+	private double leftSpeed, rightSpeed, time;
 
-    public DriveTime(double speed, double time) {
+    public DriveTime(double leftSpeed, double rightSpeed, double time) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(drivetrain);
     	
     	timer = new Timer();
-    	this.speed = speed;
+    	this.leftSpeed = leftSpeed;
+    	this.rightSpeed = rightSpeed;
     	this.time = time;
     }
 
@@ -26,7 +27,7 @@ public class DriveTime extends CommandBase {
     	timer.reset();
     	timer.start();
     	
-    	drivetrain.drivePercentOutput(speed);
+    	drivetrain.drivePercentOutput(leftSpeed, rightSpeed);
     }
 
     // Called repeatedly when this Command is scheduled to run

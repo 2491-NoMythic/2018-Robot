@@ -6,6 +6,7 @@ import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Priority;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.StartPosition;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.Timer;
 
 /**
  *
@@ -18,6 +19,7 @@ public class AutomaticTwoCube extends CommandBase {
 	private boolean isFinishedSafety;
 	private String gameData;
 	private StartPosition position;
+	private Timer timer;
 	
 	public static enum SecondCube {
 		SWITCH, SCALE
@@ -30,14 +32,16 @@ public class AutomaticTwoCube extends CommandBase {
     	this.position = position;
 
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
+    	System.out.println(secondLocation == SecondCube.SWITCH && ((gameData.substring(0, 1).contentEquals("R") && gameData.substring(1, 2).contentEquals("R")) || (gameData.substring(0, 1).contentEquals("L") && gameData.substring(1, 2).contentEquals("L"))));
     	
-    	if(secondLocation == SecondCube.SWITCH && (gameData.substring(0, 1) == gameData.substring(1, 2))) {
+    	if(secondLocation == SecondCube.SWITCH && ((gameData.substring(0, 1).contentEquals("R") && gameData.substring(1, 2).contentEquals("R")) || (gameData.substring(0, 1).contentEquals("L") && gameData.substring(1, 2).contentEquals("L")))) {
     		
     	}
     	else {
     		secondLocation = SecondCube.SCALE;
     	}
     	
+    	timer = new Timer();
     	left = new LeftSecondCube(secondLocation);
     	center = new CenterSecondCube();
     	right = new RightSecondCube(secondLocation);
@@ -47,11 +51,13 @@ public class AutomaticTwoCube extends CommandBase {
     protected void initialize() {   	
     	isFinishedSafety = false;
     	path.start();
+    	timer.start();
+    	timer.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(!path.isRunning()) {  	
+    	if(!path.isRunning() && timer.get() > 0.05) {  	
     		switch(position) {
     		case LEFT:
     			left.start();

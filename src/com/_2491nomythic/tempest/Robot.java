@@ -26,6 +26,7 @@ import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchRight;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeSwitch;*/
 import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
+import com._2491nomythic.tempest.commands.drivetrain.DriveTime;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.lights.SendAllianceColor;
 import com._2491nomythic.tempest.commands.lights.SerialConnectivityTest;
@@ -107,12 +108,14 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putData("Position", m_PositionSelector);
 		SmartDashboard.putData("Priority", m_PrioritySelector);
 		SmartDashboard.putData("Crossing", m_CrossingSelector);
+		SmartDashboard.putData("SecondLocation", m_SecondCubeSelector);
 		
 		SmartDashboard.putData("DriveStraightToPositionPID", new DriveStraightToPositionPID(5));
 		SmartDashboard.putData("RotateDrivetrainRelative180", new RotateDrivetrainWithGyroPID(180, false));
 		SmartDashboard.putData("RotateDrivetrainRelative-180", new RotateDrivetrainWithGyroPID(-180, false));
 		SmartDashboard.putData("RotateDrivetrainRelative90", new RotateDrivetrainWithGyroPID(90, false));
 		SmartDashboard.putData("RotateDrivetrainRelative-90", new RotateDrivetrainWithGyroPID(-90, false));
+		SmartDashboard.putData("HitSwitch", new DriveTime(-0.3, 0.4, 0.8));
 
 		SmartDashboard.putData("ImprovedAutoIntake", new ImprovedAutoIntake(0, true));
 		SmartDashboard.putData("Velocity Path", new VelocityPrint());
@@ -166,9 +169,9 @@ public class Robot extends TimedRobot {
 		Variables.autoDelay = SmartDashboard.getNumber("AutoDelay", 0);
 		sendColor.start();
 		
-		m_autonomousCommand = new AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
+		//m_autonomousCommand = new AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
 		//m_autonomousCommand = new VelocityTestAuto();
-		//m_autonomousCommand = new AutomaticTwoCube(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected(), m_SecondCubeSelector.getSelected());
+		m_autonomousCommand = new AutomaticTwoCube(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected(), m_SecondCubeSelector.getSelected());
 		//updateLights.start();
 		//sendColor.start();
 

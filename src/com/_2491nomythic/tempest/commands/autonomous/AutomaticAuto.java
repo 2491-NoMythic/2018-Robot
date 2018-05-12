@@ -24,19 +24,19 @@ public class AutomaticAuto extends CommandBase {
 	private DriveTime driveToScale, hitSwitch;
 	private ImprovedAutoIntake autoIntake;
 	private SetShooterSpeed mSetSwitchSpeed, mSetScaleSpeed, mSetScaleSpeed2;
-	private TransportCubeTime mFireCube, mFireCubeScale, mFireCubeSwitch;
+	private TransportCubeTime mFireCubeScale, mFireCubeSwitch;
 	private RunShooterCustom mRevShoot, mRevShoot2;
 	private String mGameData;
 	private int state;
-	private boolean multiCube, goForSwitch;
+	private boolean multiCube, goForSwitch, timerSafety;
 	private Timer mTimer, turnTimer, raiseTimer;
 	
 	public static enum StartPosition {
-		LEFT, CENTER, RIGHT, CROSS_LINE, LEFT_NULL, RIGHT_NULL;
+		LEFT, CENTER, RIGHT, CROSS_LINE, LEFT_NULL, RIGHT_NULL, LEFT_CUBE, RIGHT_CUBE;
 	}
 	
 	public static enum EndPosition {
-		SWITCH, LEFT_SWITCH, RIGHT_SWITCH, OPPOSITE_SWTICH, SCALE, OPPOSITE_SCALE, CROSS_LINE, BUMP_COUNTER, MAX, CUBE;
+		SWITCH, LEFT_SWITCH, RIGHT_SWITCH, OPPOSITE_SWTICH, SCALE, OPPOSITE_SCALE, CROSS_LINE, BUMP_COUNTER, MAX, CUBE, NULL;
 	}
 	
 	public static enum Priority {
@@ -76,19 +76,19 @@ public class AutomaticAuto extends CommandBase {
     	aimForScale = new RotateDrivetrainWithGyroPID(-62.5, false);
     	mFireCubeSwitch = new TransportCubeTime(-1, 2);
     	mFireCubeScale = new TransportCubeTime(1, 1);
-    	driveToScale = new DriveTime(-0.45, 1.3);
-    	hitSwitch = new DriveTime(0.4, 1);
     	mBumpCounter = new DrivePath(StartPosition.CENTER, EndPosition.BUMP_COUNTER, 4);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	multiCube = false;
+    	timerSafety = false;
     	state = 0;
     	
     	selectEndPosition(mStartPosition);
 		mPath = new DrivePath(mStartPosition, mEndPosition, 0); //mEndPosition
 		mTimer.reset();
+		mTimer.stop();
 		turnTimer.reset();
 		
 		mPath.start();	
@@ -127,30 +127,28 @@ public class AutomaticAuto extends CommandBase {
 		    		break;
 	    	}
 	  	}
+    	
+    	if(mPath.isCompleted() && !timerSafety) {
+    		mFireCubeScale.start();
+    		timerSafety = true;
+    		mTimer.start();
+    	}
     }
 
     
     // Make this return true when this Command no longer needs to run execute()
-    protected boolean isFinished() {
-    	return state == 5;
-    	/*if (mTimer.get() > 3) {
-    		return true;;	
-    	}
-    	else if (mPath.isCompleted() && mTimer.get() > mWaitTime) {
-    		//mFireCube.start();
-			return false;
-		}
-    	else {
-    		return false;
-    	}*/
+    protected boolean isFinished() {    	
+    	return mTimer.get() > 1;
     }
     
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.println("AutomaticAuto ending");
     	mTimer.stop();
     	mTimer.reset();
     	mRevShoot.cancel();
+    	mFireCubeScale.cancel();
     	drivetrain.stop();
     }
 

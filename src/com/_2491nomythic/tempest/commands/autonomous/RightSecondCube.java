@@ -3,8 +3,11 @@ package com._2491nomythic.tempest.commands.autonomous;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.ImprovedAutoIntake;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Crossing;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.EndPosition;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.StartPosition;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticTwoCube.SecondCube;
 import com._2491nomythic.tempest.commands.cubestorage.TransportCubeTime;
+import com._2491nomythic.tempest.commands.drivetrain.DrivePath;
 import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.commands.drivetrain.DriveTime;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
@@ -23,7 +26,7 @@ public class RightSecondCube extends CommandBase {
 	private String gameData, scaleData;
 	private boolean goForSwitch, completed;
 	private ImprovedAutoIntake autoIntake;
-	private DriveStraightToPositionPID getCube, getToScale;
+	private DrivePath getCube, getToScale;
 	private DriveTime hitSwitch;
 	private RotateDrivetrainWithGyroPID aimForCube, aimForScale;
 	private RunShooterCustom spinUp;
@@ -35,7 +38,7 @@ public class RightSecondCube extends CommandBase {
     public RightSecondCube(SecondCube secondLocation) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	autoIntake = new ImprovedAutoIntake(1.3, false);
+    	autoIntake = new ImprovedAutoIntake(1.9, true);
     	timer = new Timer();
     	
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
@@ -43,9 +46,9 @@ public class RightSecondCube extends CommandBase {
     	fireScale = new TransportCubeTime(1, 1);
     	setSpeed = new SetShooterSpeed(Constants.shooterMediumScaleSpeed);
     	scaleData = gameData.substring(1, 2);
-    	hitSwitch = new DriveTime(0.3, 1.5);
-    	getCube = new DriveStraightToPositionPID(70);
-    	getToScale = new DriveStraightToPositionPID(-70);
+    	getCube = new DrivePath(StartPosition.RIGHT_NULL, EndPosition.CUBE, 0);
+    	getToScale = new DrivePath(StartPosition.RIGHT_CUBE, EndPosition.NULL, 0);
+    	hitSwitch = new DriveTime(-0.35, 0.4, 0.8);
     	spinUp = new RunShooterCustom();
     	
     	if(secondLocation == SecondCube.SWITCH) {
@@ -67,7 +70,7 @@ public class RightSecondCube extends CommandBase {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	state = 0;
+    	state = 1;
     	timer.reset();
     	timer.stop();
     	completed = false;
@@ -75,47 +78,41 @@ public class RightSecondCube extends CommandBase {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(goForSwitch) {
+    	if(goForSwitch) {    		
     		switch(state) {
-    		case 0:
-    			aimForCube.start();
-    			timer.start();
-    			timer.reset();
+    		case 1:
+    			getCube.start();
+    			autoIntake.start();
     			state++;
     			break;
-    		case 1:
-    			if(!aimForCube.isRunning() || timer.get() > 1.5) {
-    				aimForCube.cancel();
-    				getCube.start();
-    				autoIntake.start();
-    				state++;
-    			}
-    			break;
     		case 2:
-    			if((!getCube.isRunning() && !autoIntake.isRunning()) || DriverStation.getInstance().getMatchTime() <= 2.5) {
-    				autoIntake.cancel();
+    			if(!autoIntake.isRunning()) { //|| DriverStation.getInstance().getMatchTime() <= 2.5) {
+    				System.out.println("Intook!");
+    				intake.retractFingers();
     				getCube.cancel();
+    				timer.start();
     				timer.reset();
     				shooter.setSwitchPosition();
     				state++;
     			}
     			break;
     		case 3:
-    			if(timer.get() > 1) {
+    			if(timer.get() > 1.5) {
+    				intake.retractArms();
     				hitSwitch.start();
     				timer.reset();
     				state++;
     			}
     			break;
     		case 4:
-    			if(!hitSwitch.isRunning() || timer.get() > 0.5) {
+    			if(timer.get() > 0.8 || hitSwitch.isCompleted()) {
     				fireSwitch.start();
     				timer.reset();
     				state++;
     			}
     			break;
     		case 5:
-    			if(timer.get() > 0.8) {
+    			if(timer.get() > 2) {
     				state++;
     				completed = true;
     			}
@@ -128,27 +125,21 @@ public class RightSecondCube extends CommandBase {
     		}
     	}
     	else {
+    		
+    		System.out.println("Getting scale.");
+    		
     		switch(state) {
-    		case 0:
-    			aimForCube.start();
-    			state++;
-    			timer.start();
-    			timer.reset();
-    			break;
     		case 1:
-    			if(!aimForCube.isRunning() || timer.get() > 1.2) {
-    				aimForCube.cancel();
-    				getCube.start();
-    				autoIntake.start();
-    				state++;
-    			}
+    			getCube.start();
+    			autoIntake.start();
+    			state++;
     			break;
     		case 2:
-    			if((!getCube.isRunning() && !autoIntake.isRunning()) || DriverStation.getInstance().getMatchTime() <= 3.5) {
+    			if((!getCube.isRunning() && !autoIntake.isRunning())) {// || DriverStation.getInstance().getMatchTime() <= 3.5) {
     				autoIntake.cancel();
     				getCube.cancel();
-    				getToScale.start();
-    				state++;
+    				//getToScale.start();
+    				//state++;
     			}
     			break;
     		case 3:

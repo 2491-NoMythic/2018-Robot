@@ -43,7 +43,7 @@ public class LeftSecondCube extends CommandBase {
     	fireScale = new TransportCubeTime(1, 1);
     	setSpeed = new SetShooterSpeed(Constants.shooterMediumScaleSpeed);
     	scaleData = gameData.substring(1, 2);
-    	hitSwitch = new DriveTime(0.3, 1.5);
+    	hitSwitch = new DriveTime(0.3, 0.3, 1.5);
     	getCube = new DriveStraightToPositionPID(70);
     	getToScale = new DriveStraightToPositionPID(-70);
     	spinUp = new RunShooterCustom();

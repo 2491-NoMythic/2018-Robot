@@ -3,6 +3,7 @@ package com._2491nomythic.tempest.commands.drivetrain;
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.*;
 import com._2491nomythic.tempest.settings.Constants;
+import com._2491nomythic.tempest.settings.Variables;
 import com._2491nomythic.tempest.subsystems.Pathing;
 
 /**
@@ -30,6 +31,8 @@ public class DrivePath extends CommandBase {
     }
 
     protected void initialize() {
+    	Variables.isPathRunning = true;
+    	
     	resetVariables();
     	mTimeCounter = 0;
     }
@@ -56,6 +59,7 @@ public class DrivePath extends CommandBase {
 
     protected void end() {
     	drivetrain.stop();
+    	Variables.isPathRunning = false;
     }
 
     protected void interrupted() {
@@ -83,6 +87,12 @@ public class DrivePath extends CommandBase {
     		break;
     	case RIGHT_NULL:
     		configurePath(false, false);
+    		break;
+    	case RIGHT_CUBE:
+    		configurePath(false, true);
+    		break;
+    	case LEFT_CUBE:
+    		configurePath(true, true);
     		break;
     	}
     }

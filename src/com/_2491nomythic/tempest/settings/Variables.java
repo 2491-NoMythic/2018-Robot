@@ -64,6 +64,8 @@ public class Variables {
     public static double kPID_d = 0;
     public static boolean letsGo = false;
     
+   public static boolean isPathRunning = false;
+    
     //Climber
     public static boolean lineupDeployed = false;
     public static boolean grappleHookDeployed = false;
