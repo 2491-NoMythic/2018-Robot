@@ -87,7 +87,7 @@ public class AutomaticAuto extends CommandBase {
     	state = 0;
     	
     	selectEndPosition(mStartPosition);
-		mPath = new DrivePath(StartPosition.RIGHT_NULL, EndPosition.SCALE, 0); //mEndPosition
+		mPath = new DrivePath(mStartPosition, mEndPosition, 0); //mEndPosition
 		mTimer.reset();
 		turnTimer.reset();
 		
@@ -99,26 +99,27 @@ public class AutomaticAuto extends CommandBase {
     protected void execute() {
     	if(!multiCube) {
     		
-        	System.out.println(drivetrain.getRightVelocity() + ", " + drivetrain.getLeftVelocity());
-
+        	//System.out.println(drivetrain.getRightVelocity() + ", " + drivetrain.getLeftVelocity());    		
 	    	switch(mEndPosition) {
 		    	case OPPOSITE_SCALE:
-		    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 12) {
+		    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 60 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 61) {
 		    			intake.openArms();
 		    			shooter.setScalePosition();
 		    			mSetScaleSpeed.start();
 		    			mWaitTime = 0.1;
-		    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 17) {
+		    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 85 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 86) {
 		    			mRevShoot.start();
 		    		}
 		    		break;
-		    	case SCALE:    		
-		    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 12) {
+		    	case SCALE:
+		    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 60 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 61) {	
+		    			System.out.println("Hello");
 		    			intake.openArms();
 		    			shooter.setScalePosition();
 		    			mSetScaleSpeed.start();
 		    			mWaitTime = 0.1;
-		    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 17) {
+		    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 85 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 86) {
+		    			System.out.println("GoodBye");
 		    			mRevShoot.start();
 		    		}
 		    		break;
