@@ -109,8 +109,13 @@ public class TextFileSerializer implements IPathSerializer {
       		content += segment.heading;
       		break;
       	case HEADINGD:
-      		content += segment.heading * (180/Math.PI);
-      		break;
+      		if(segment.heading * 180/Math.PI > 180) {
+      			content += -(360 - (segment.heading * 180/Math.PI));
+      		}
+      		else {
+      			content += segment.heading * 180/Math.PI;
+      		}
+       		break;
       	case ACCELERATION:
       		content += segment.acc;
       		break;
@@ -118,7 +123,7 @@ public class TextFileSerializer implements IPathSerializer {
       		System.out.println("SOMETHING HAS GONE WRONG");
       }
       if (returntype == RETURNTYPE.HEADINGR || returntype == RETURNTYPE.HEADINGD || returntype == RETURNTYPE.VELOCITY) {
-    	  content += "}";
+    	  content += "},";
       }else {
     	  content += ",";
       }

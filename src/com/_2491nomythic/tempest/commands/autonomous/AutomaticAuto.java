@@ -1,8 +1,11 @@
 package com._2491nomythic.tempest.commands.autonomous;
 
 import com._2491nomythic.tempest.commands.CommandBase;
+import com._2491nomythic.tempest.commands.ImprovedAutoIntake;
 import com._2491nomythic.tempest.commands.cubestorage.TransportCubeTime;
 import com._2491nomythic.tempest.commands.drivetrain.DrivePath;
+import com._2491nomythic.tempest.commands.drivetrain.DriveTime;
+import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.shooter.RunShooterCustom;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.settings.Constants;
@@ -17,18 +20,23 @@ import edu.wpi.first.wpilibj.Timer;
 public class AutomaticAuto extends CommandBase {
 	private double mWaitTime;
 	private DrivePath mPath, mBumpCounter;
-	private SetShooterSpeed mSetSwitchSpeed, mSetScaleSpeed;
-	private TransportCubeTime mFireCube;
-	private RunShooterCustom mRevShoot;
+	private RotateDrivetrainWithGyroPID aimForCube, aimForScale;
+	private DriveTime driveToScale, hitSwitch;
+	private ImprovedAutoIntake autoIntake;
+	private SetShooterSpeed mSetSwitchSpeed, mSetScaleSpeed, mSetScaleSpeed2;
+	private TransportCubeTime mFireCube, mFireCubeScale, mFireCubeSwitch;
+	private RunShooterCustom mRevShoot, mRevShoot2;
 	private String mGameData;
-	private Timer mTimer;
+	private int state;
+	private boolean multiCube, goForSwitch;
+	private Timer mTimer, turnTimer, raiseTimer;
 	
 	public static enum StartPosition {
 		LEFT, CENTER, RIGHT, CROSS_LINE
 	}
 	
 	public static enum EndPosition {
-		SWITCH, LEFT_SWITCH, RIGHT_SWITCH, OPPOSITE_SWTICH, SCALE, OPPOSITE_SCALE, CROSS_LINE, BUMP_COUNTER, MAX
+		SWITCH, LEFT_SWITCH, RIGHT_SWITCH, OPPOSITE_SWTICH, SCALE, OPPOSITE_SCALE, CROSS_LINE, BUMP_COUNTER, MAX, CUBE;
 	}
 	
 	public static enum Priority {
@@ -56,96 +64,85 @@ public class AutomaticAuto extends CommandBase {
     	this.mCrossing = crossing;
     	mSetSwitchSpeed = new SetShooterSpeed(0.2);
     	mSetScaleSpeed = new SetShooterSpeed(Constants.shooterMediumScaleSpeed);
+    	mSetScaleSpeed2 = new SetShooterSpeed(Constants.shooterMediumScaleSpeed);
     	mRevShoot = new RunShooterCustom();
+    	mRevShoot2 = new RunShooterCustom();
     	mTimer = new Timer();
+    	turnTimer = new Timer();
+    	raiseTimer = new Timer();
     	mWaitTime = 15;
-    	mBumpCounter = new DrivePath(StartPosition.CENTER, EndPosition.BUMP_COUNTER);
+    	
+    	autoIntake = new ImprovedAutoIntake(1.55);
+    	aimForCube = new RotateDrivetrainWithGyroPID(62.5, false);
+    	aimForScale = new RotateDrivetrainWithGyroPID(-62.5, false);
+    	mFireCubeSwitch = new TransportCubeTime(-1, 2);
+    	mFireCubeScale = new TransportCubeTime(1, 1);
+    	driveToScale = new DriveTime(-0.45, 1.3);
+    	hitSwitch = new DriveTime(0.4, 1);
+    	mBumpCounter = new DrivePath(StartPosition.CENTER, EndPosition.BUMP_COUNTER, 4);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	multiCube = false;
+    	state = 0;
     	
     	selectEndPosition(mStartPosition);
-		mPath = new DrivePath(mStartPosition, EndPosition.MAX); //mEndPosition
+		mPath = new DrivePath(mStartPosition, mEndPosition, 4); //mEndPosition
 		mTimer.reset();
+		turnTimer.reset();
+		
 		mPath.start();	
     }
 
     
     // Called repeatedly when this Command is scheduled to run
-    protected void execute() {	
-    	switch(mEndPosition) {
-    	case OPPOSITE_SCALE:
-    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 12) {
-    			intake.openArms();
-    			shooter.setScalePosition();
-    			mSetScaleSpeed.start();
-    			mWaitTime = 0.1;
-    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 17) {
-    			mRevShoot.start();
-    		}
-    		break;
-    	case SCALE:    		
-    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 12) {
-    			intake.openArms();
-    			shooter.setScalePosition();
-    			mSetScaleSpeed.start();
-    			mWaitTime = 0.1;
-    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 17) {
-    			mRevShoot.start();
-    		}
-    		break;
-    	default:
-    		break;
-    	}
-    	
-    	if (mPath.isCompleted() && mTimer.get() == 0) {
-    		mTimer.start();
-    		switch(mEndPosition) {
-        	case SWITCH:
-        	case OPPOSITE_SWTICH:
-        		mWaitTime = 0;
-        		mSetSwitchSpeed.start();
-        		mRevShoot.start();
-            	mFireCube = new TransportCubeTime(1, 1);
-        		break;
-        	case LEFT_SWITCH:
-        	case RIGHT_SWITCH:
-        		mWaitTime = 0;
-        		mBumpCounter.start();
-            	mFireCube = new TransportCubeTime(-1, 1);
-        		break;
-        	case SCALE:
-        	case OPPOSITE_SCALE:
-        		//mWaitTime = 2;
-        		//mSetScaleSpeed.start();
-        		intake.openArms();
-        		shooter.setScalePosition();
-        		//mRevShoot.start();
-            	mFireCube = new TransportCubeTime(1, 1.5); //1, 1.5
-        		break;
-        	case CROSS_LINE:
-        	case BUMP_COUNTER:
-        		break;
-        	default:
-        		break;
-        	}
-    	}
+    protected void execute() {
+    	if(!multiCube) {
+    		
+        	System.out.println(drivetrain.getRightVelocity() + ", " + drivetrain.getLeftVelocity());
+
+	    	switch(mEndPosition) {
+		    	case OPPOSITE_SCALE:
+		    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 12) {
+		    			intake.openArms();
+		    			shooter.setScalePosition();
+		    			mSetScaleSpeed.start();
+		    			mWaitTime = 0.1;
+		    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 17) {
+		    			mRevShoot.start();
+		    		}
+		    		break;
+		    	case SCALE:    		
+		    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 12) {
+		    			intake.openArms();
+		    			shooter.setScalePosition();
+		    			mSetScaleSpeed.start();
+		    			mWaitTime = 0.1;
+		    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 17) {
+		    			mRevShoot.start();
+		    		}
+		    		break;
+		    	default:
+		    		break;
+	    	}
+	  	}
     }
 
     
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-    	if (mTimer.get() > 3) {
-    		return true;	
+    	return state == 5;
+    	/*if (mTimer.get() > 3) {
+    		return true;;	
     	}
     	else if (mPath.isCompleted() && mTimer.get() > mWaitTime) {
-    		mFireCube.start();
+    		//mFireCube.start();
 			return false;
 		}
     	else {
     		return false;
-    	}
+    	}*/
     }
     
 

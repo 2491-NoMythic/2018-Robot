@@ -103,6 +103,10 @@ public class Pathing extends Subsystem {
 		case "rightVelocitiesTO_MAX":
 			mVelocitiesArray = Constants.rightVelocitiesTO_MAX;
 			break;
+		case "leftVelocitiesTO_CUBE":
+			break;
+		case "rightVelocitiesTO_CUBE":
+			break;
 		default:
 			DriverStation.reportWarning("Invalid Velocity Path Name!", false);
 		}
@@ -149,6 +153,8 @@ public class Pathing extends Subsystem {
 			break;
 		case "headingsTO_MAX":
 			mHeadingsArray = Constants.headingsTO_MAX;
+			break;
+		case "headingsTO_CUBE":
 			break;
 		default:
 			DriverStation.reportWarning("Invalid Headings Path Name!", false);

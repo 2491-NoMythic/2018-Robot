@@ -1,6 +1,7 @@
 package com._2491nomythic.tempest.commands.autonomous;
 
 import com._2491nomythic.tempest.commands.CommandBase;
+import com._2491nomythic.tempest.commands.ImprovedAutoIntake;
 import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 
@@ -13,6 +14,7 @@ import edu.wpi.first.wpilibj.Timer;
 public class CenterSecondCube extends CommandBase {
 	private DriveStraightToPositionPID backAwayFromSwitch, getCube, getBack, approachSwitch;
 	private RotateDrivetrainWithGyroPID aimForCubes, aimForSwitch;
+	private ImprovedAutoIntake autoIntake;
 	private String gameData;
 	private int state;
 	private Timer timer;
@@ -23,6 +25,7 @@ public class CenterSecondCube extends CommandBase {
     	timer = new Timer();
     	backAwayFromSwitch = new DriveStraightToPositionPID(-10);
     	getCube = new DriveStraightToPositionPID(40);
+    	autoIntake = new ImprovedAutoIntake(0.5);
     	getBack = new DriveStraightToPositionPID(-40);
     	approachSwitch = new DriveStraightToPositionPID(20);
     }
@@ -68,7 +71,7 @@ public class CenterSecondCube extends CommandBase {
     		if(!aimForCubes.isRunning() || timer.get() > 1.2) {
     			aimForCubes.cancel();
     			getCube.start();
-    			//intake.start();
+    			autoIntake.start();
     			state++;
     		}
     		break;
@@ -83,7 +86,7 @@ public class CenterSecondCube extends CommandBase {
     			shooter.setSwitchPosition();
     			timer.reset();
     			aimForSwitch.start();
-    			//intake.cancel();
+    			autoIntake.cancel();
     			state++;
     		}
     		break;
@@ -121,6 +124,7 @@ public class CenterSecondCube extends CommandBase {
     	backAwayFromSwitch.cancel();
     	getCube.cancel();
     	getBack.cancel();
+    	autoIntake.cancel();
     	approachSwitch.cancel();
     	aimForCubes.cancel();
     	aimForSwitch.cancel();
