@@ -76,18 +76,18 @@ public class Constants {
 		RIGHT 		(0, 1, 2, 1, -1), 
 		CROSS_LINE 	(0, 1, 2, 1, -1);
 		
-		private int mLeftChannel, mRightChannel, mHeadingIndex, mHeadingDir, mDriveDir;
+		private int mLeftIndex, mRightIndex, mHeadingIndex, mHeadingDir, mDriveDir;
 		
 		StartPosition(int leftIndex, int rightIndex, int headingIndex, int headingDir, int driveDir) {
-			this.mLeftChannel = leftIndex;
-			this.mRightChannel = rightIndex;
+			this.mLeftIndex = leftIndex;
+			this.mRightIndex = rightIndex;
 			this.mHeadingIndex = headingIndex;
 			this.mHeadingDir = headingDir;
 			this.mDriveDir = driveDir;
 		}
 		
-		public int leftIndex() { return mLeftChannel; }
-		public int rightIndex() { return mRightChannel; }
+		public int leftIndex() { return mLeftIndex; }
+		public int rightIndex() { return mRightIndex; }
 		public int headingIndex() { return mHeadingIndex; }
 		public int headingDir() { return mHeadingDir; }
 		public int driveDir() { return mDriveDir; }
