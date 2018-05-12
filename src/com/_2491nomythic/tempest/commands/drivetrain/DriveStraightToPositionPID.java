@@ -38,6 +38,10 @@ public class DriveStraightToPositionPID extends CommandBase {
 		System.out.println("Setpoint:" + drivetrain.getDistance() + target);
 	}
 
+	protected void execute() {
+		System.out.println(drivetrain.getLeftEncoderDistance() - initialPosition);
+	}
+	
 	// Make this return true when this Command no longer needs to run execute()
 	protected boolean isFinished() {
 		return drivetrain.onTarget();

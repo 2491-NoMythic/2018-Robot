@@ -25,7 +25,7 @@ public class CenterSecondCube extends CommandBase {
     	timer = new Timer();
     	backAwayFromSwitch = new DriveStraightToPositionPID(-10);
     	getCube = new DriveStraightToPositionPID(40);
-    	autoIntake = new ImprovedAutoIntake(0.5);
+    	autoIntake = new ImprovedAutoIntake(0.5, true);
     	getBack = new DriveStraightToPositionPID(-40);
     	approachSwitch = new DriveStraightToPositionPID(20);
     }

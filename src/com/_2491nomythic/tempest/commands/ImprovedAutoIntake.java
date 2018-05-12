@@ -11,7 +11,7 @@ public class ImprovedAutoIntake extends CommandBase {
 	private Timer timer, accelerateTimer, waitTimer, timeout;
 	private double initialWait;
 	private DriveTime backAway, goBack, getCube;
-	private boolean completed, intaking;
+	private boolean completed, intaking, startOpened;
 	private int state, cycleTimeout, timeoutSafety;
 
 	/**
@@ -19,13 +19,14 @@ public class ImprovedAutoIntake extends CommandBase {
 	 * @param initialWait The time to wait in seconds before moving the fingers.
 	 * @param frequency How often in seconds the fingers should open.
 	 */
-    public ImprovedAutoIntake(double initialWait) {
+    public ImprovedAutoIntake(double initialWait, boolean startOpened) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(intake);
     	requires(cubeStorage);
     	requires(shooter);
     	
+    	this.startOpened = startOpened;
     	this.initialWait = initialWait;
     	backAway = new DriveTime(-0.4, 1);
     	goBack = new DriveTime(0.4, 1);
@@ -48,12 +49,18 @@ public class ImprovedAutoIntake extends CommandBase {
     	waitTimer.start();
 		getCube.start();
     	intake.openArms();
-    	intake.openFingers();
     	intaking = false;
     	completed = false;
     	intake.run(1);
     	cubeStorage.run(1);
     	shooter.runAccelerate(-0.2);
+    	
+    	if(startOpened) {
+    		intake.openFingers();
+    	}
+    	else {
+    		intake.retractFingers();
+    	}
     	
     	if(cubeStorage.isHeld()) {
     		completed = true;
