@@ -1,12 +1,12 @@
 package com._2491nomythic.tempest.commands.drivetrain;
 
 import com._2491nomythic.tempest.commands.CommandBase;
-import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.*;
 import com._2491nomythic.tempest.settings.Constants;
-import com._2491nomythic.tempest.subsystems.Pathing;
+import com._2491nomythic.tempest.settings.Constants.EndPosition;
+import com._2491nomythic.tempest.settings.Constants.StartPosition;
 
 /**
- * A command for streaming a selected TalonSRX Velocity mode path at a rate of one point per 20ms
+ * A command for streaming a selected TalonSRX Velocity mode path at a rate of 50hz or step per 20ms
  */
 public class DrivePath extends CommandBase {
 	private int mCurrentStep, mDriveDirection, mHeadingDir, mPathLength, mLeftChannel, mRightChannel, mHeadingChannel;
@@ -23,11 +23,11 @@ public class DrivePath extends CommandBase {
     	
     	requires(drivetrain);
     	
-    	this.mSelectedPath = Pathing.getPathArray(target);  //String.valueOf(endPosition.toString());
+    	this.mSelectedPath = target.extractPath();  //String.valueOf(endPosition.toString());
     	
-    	this.mLeftChannel = origin.leftChannel();
-    	this.mRightChannel = origin.rigthChannel();
-    	this.mHeadingChannel = 2;
+    	this.mLeftChannel = origin.leftIndex();
+    	this.mRightChannel = origin.rightIndex();
+    	this.mHeadingChannel = origin.headingIndex();
     	this.mHeadingDir = origin.headingDir();
     	this.mDriveDirection = origin.driveDir();
     	
@@ -62,10 +62,10 @@ public class DrivePath extends CommandBase {
      */
     private synchronized void adjustVelocities() {
     	mHeadingDiffrence = mHeadingDir * mSelectedPath[mCurrentStep][mHeadingChannel] + drivetrain.getRawGyroAngle() - mInitialHeading;
-		mTurnAdjustment = Constants.kVelocitykG * Constants.kVeloctiyUnitConversion * mHeadingDiffrence; 
+		mTurnAdjustment = Constants.kVelocitykG * mHeadingDiffrence; 
 		
-		mAdjustedLeftVelocity = mDriveDirection * mSelectedPath[mCurrentStep][mLeftChannel] - mTurnAdjustment;
-		mAdjustedRightVelocity = mDriveDirection * mSelectedPath[mCurrentStep][mRightChannel] + mTurnAdjustment;
+		mAdjustedLeftVelocity = Constants.kVeloctiyUnitConversion * (mDriveDirection * mSelectedPath[mCurrentStep][mLeftChannel] - mTurnAdjustment);
+		mAdjustedRightVelocity = Constants.kVeloctiyUnitConversion * (mDriveDirection * mSelectedPath[mCurrentStep][mRightChannel] + mTurnAdjustment);
     }
     
     public int getCurrentStep() {

@@ -6,7 +6,10 @@ import com._2491nomythic.tempest.commands.drivetrain.DrivePath;
 import com._2491nomythic.tempest.commands.shooter.RunShooterCustom;
 import com._2491nomythic.tempest.commands.shooter.SetShooterSpeed;
 import com._2491nomythic.tempest.settings.Constants;
-import com._2491nomythic.tempest.subsystems.Pathing;
+import com._2491nomythic.tempest.settings.Constants.Crossing;
+import com._2491nomythic.tempest.settings.Constants.EndPosition;
+import com._2491nomythic.tempest.settings.Constants.Priority;
+import com._2491nomythic.tempest.settings.Constants.StartPosition;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
@@ -16,46 +19,12 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class AutomaticAuto extends CommandBase {
 	private double mWaitTime;
-	private DrivePath mPath, mBumpCounter;
+	private DrivePath mDrive, mBumpCounter;
 	private SetShooterSpeed mSetSwitchSpeed, mSetScaleSpeed;
 	private TransportCubeTime mFireCube;
 	private RunShooterCustom mRevShoot;
 	private String mGameData;
 	private Timer mTimer;
-	
-	public static enum StartPosition {
-		LEFT (1, 0, -1, -1), 
-		CENTER (0, 1, 1, 1), 
-		RIGHT (0, 1, 1, -1), 
-		CROSS_LINE (0, 1, 1, -1);
-		
-		private int mLeftChannel, mRightChannel, mHeadingDir, mDriveDir;
-		
-		StartPosition(int leftChannel, int rightChannel, int headingDir, int driveDir) {
-			this.mLeftChannel = leftChannel;
-			this.mRightChannel = rightChannel;
-			this.mHeadingDir = headingDir;
-			this.mDriveDir = driveDir;
-		}
-		
-		public int leftChannel() { return mLeftChannel; }
-		public int rigthChannel() { return mRightChannel; }
-		public int headingDir() { return mHeadingDir; }
-		public int driveDir() {return mDriveDir; }
-		
-	}
-	
-	public static enum EndPosition {
-		SWITCH, LEFT_SWITCH, RIGHT_SWITCH, OPPOSITE_SWTICH, SCALE, OPPOSITE_SCALE, CROSS_LINE, BUMP_COUNTER, MAX
-	}
-	
-	public static enum Priority {
-		SCALE, SWITCH
-	}
-	
-	public static enum Crossing {
-		OFF, ON, FORCE
-	}
 	
 	private StartPosition mStartPosition;
 	private Priority mPriority;
@@ -84,9 +53,9 @@ public class AutomaticAuto extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
     	selectEndPosition(mStartPosition);
-		mPath = new DrivePath(mStartPosition, mEndPosition); //mEndPosition
+		mDrive = new DrivePath(mStartPosition, mEndPosition);
 		mTimer.reset();
-		mPath.start();	
+		mDrive.start();	
     }
 
     
@@ -94,22 +63,22 @@ public class AutomaticAuto extends CommandBase {
     protected void execute() {	
     	switch(mEndPosition) {
     	case OPPOSITE_SCALE:
-    		if(mPath.getCurrentStep() == Pathing.getPathArray(mEndPosition).length - 12) {
+    		if(mDrive.getCurrentStep() == mEndPosition.extractPath().length - 12) {
     			intake.openArms();
     			shooter.setScalePosition();
     			mSetScaleSpeed.start();
     			mWaitTime = 0.1;
-    		} else if(mPath.getCurrentStep() == Pathing.getPathArray(mEndPosition).length - 17) {
+    		} else if(mDrive.getCurrentStep() == mEndPosition.extractPath().length - 17) {
     			mRevShoot.start();
     		}
     		break;
     	case SCALE:    		
-    		if(mPath.getCurrentStep() == Pathing.getPathArray(mEndPosition).length - 12) {
+    		if(mDrive.getCurrentStep() == mEndPosition.extractPath().length - 12) {
     			intake.openArms();
     			shooter.setScalePosition();
     			mSetScaleSpeed.start();
     			mWaitTime = 0.1;
-    		} else if(mPath.getCurrentStep() == Pathing.getPathArray(mEndPosition).length - 17) {
+    		} else if(mDrive.getCurrentStep() == mEndPosition.extractPath().length - 17) {
     			mRevShoot.start();
     		}
     		break;
@@ -117,7 +86,7 @@ public class AutomaticAuto extends CommandBase {
     		break;
     	}
     	
-    	if (mPath.isCompleted() && mTimer.get() == 0) {
+    	if (mDrive.isCompleted() && mTimer.get() == 0) {
     		mTimer.start();
     		switch(mEndPosition) {
         	case SWITCH:
@@ -142,9 +111,6 @@ public class AutomaticAuto extends CommandBase {
         		//mRevShoot.start();
             	mFireCube = new TransportCubeTime(1, 1.5); //1, 1.5
         		break;
-        	case CROSS_LINE:
-        	case BUMP_COUNTER:
-        		break;
         	default:
         		break;
         	}
@@ -157,7 +123,7 @@ public class AutomaticAuto extends CommandBase {
     	if (mTimer.get() > 3) {
     		return true;	
     	}
-    	else if (mPath.isCompleted() && mTimer.get() > mWaitTime) {
+    	else if (mDrive.isCompleted() && mTimer.get() > mWaitTime) {
     		mFireCube.start();
 			return false;
 		}
