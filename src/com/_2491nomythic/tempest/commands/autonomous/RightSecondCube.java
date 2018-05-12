@@ -1,8 +1,8 @@
 package com._2491nomythic.tempest.commands.autonomous;
 
-import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Crossing;
-import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Priority;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticTwoCube.SecondCube;
+import com._2491nomythic.tempest.settings.Constants.Crossing;
+import com._2491nomythic.tempest.settings.Constants.Priority;
 
 import edu.wpi.first.wpilibj.command.Command;
 

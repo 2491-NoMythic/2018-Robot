@@ -1,7 +1,6 @@
 package com._2491nomythic.tempest.commands;
 
 
-import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
@@ -53,10 +52,6 @@ public class UpdateDriverstation extends CommandBase {
 			Variables.proportionalForward = SmartDashboard.getNumber("ProportionalForward", Variables.proportionalForward);
 			Variables.derivativeForward = SmartDashboard.getNumber("DerivativeForward", Variables.derivativeForward);
 			Variables.driveDefault = SmartDashboard.getNumber("DriveDefault", 1);
-			Constants.shooterHighScaleRPS = SmartDashboard.getNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
-			Constants.shooterMediumScaleRPS = SmartDashboard.getNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
-			Constants.shooterLowScaleRPS = SmartDashboard.getNumber("LowScaleRPS", Constants.shooterLowScaleRPS);
-			Constants.shooterSwitchRPS = SmartDashboard.getNumber("SwitchRPS", Constants.shooterSwitchRPS);
             
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
 		}

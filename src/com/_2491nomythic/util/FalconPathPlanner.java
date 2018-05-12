@@ -105,7 +105,217 @@ public class FalconPathPlanner
 		velocityBeta = 0.3;
 		velocityTolerance = 0.0000001;
 	}
+	
+	//main program
+	public static void main(String[] args)
+	{
+		long start = System.currentTimeMillis();
+		//System.setProperty("java.awt.headless", "true"); //enable this to true to emulate roboRio environment
+		
+		double leftStartPos = 24.6-0.93;
+		double rightStartPos = 2.4+0.93;
+		double centerStartPos = 14.5-0.99;
+		double robotLength = 3.16667;
+		double totalTime = 4; //seconds
+		double timeStep = 0.02; //period of control loop on Rio, seconds
+		double robotTrackWidth = 2; //distance between left and right wheels, feet
+		
+		@SuppressWarnings("unused")
+		double[][] switchCenterLeft = new double[][]{
+			{0,centerStartPos},
+			{3,centerStartPos},
+			{8,19},
+			{14-3.82667,19}//-3.16667
+		};
+		
+		@SuppressWarnings("unused")
+		double[][] switchCenterRight = new double[][] {
+			{0,centerStartPos},
+			{3,centerStartPos},
+			{8,9},
+			{14-3.16667,9}
+		};
+	
+		@SuppressWarnings("unused")
+		double[][]switchLeftLeft = new double[][] {
+			{0,leftStartPos},
+			{5,leftStartPos},
+			{16,22},
+			{16,19.5}
+		};
+	
+		@SuppressWarnings("unused")
+		double[][] scaleCenterLeft = new double[][] {
+			{0,centerStartPos},
+			{5,centerStartPos},
+			{12,23},
+			{25,25}
+		};
+	
+		@SuppressWarnings("unused")
+		double[][] scaleCenterRight = new double[][]{
+			{0,centerStartPos},
+			{3,centerStartPos},
+			{7,6},
+			{18,5},
+			{24,5}
+		};
+		
+		@SuppressWarnings("unused")
+		double[][] oldScaleRightRight = new double[][] {
+			{0,rightStartPos},
+			{10,2},
+			{18,2},
+			{20,3},
+			{21.5,7-(robotLength/2)}		
+		};
+		
+		@SuppressWarnings("unused")
+		double[][] scaleRightRight = new double[][] {
+			{0,rightStartPos},
+			{5,rightStartPos},
+			{14,3.8},
+			{20.5,6.8}
+		};
+		
+		@SuppressWarnings("unused")
+		double[][] switchRightRight = new double[][] {
+			{0,rightStartPos},
+			{8,rightStartPos},
+			{10.5,7},
+			{10.5,8}
+		};
+		
+		@SuppressWarnings("unused")
+		double[][] scaleRightLeft = new double[][] {
+			{0,rightStartPos},
+			{18-2.75,rightStartPos},
+			{18-1.75,26},
+			{24-robotLength,24}
+		};
+		
+		@SuppressWarnings("unused")
+		double[][] anyPosDriveStraight =  new double[][] {
+			{0,rightStartPos},
+			{8,rightStartPos}
+		};
 
+		
+		final FalconPathPlanner path = new FalconPathPlanner(scaleRightRight, "SCALE");
+		path.calculate(totalTime, timeStep, robotTrackWidth);
+		
+		System.out.println("Time in ms: " + (System.currentTimeMillis()-start) + "\n");
+		
+		FalconPathPlanner.carbonPrint(path);	
+
+
+		if(!GraphicsEnvironment.isHeadless())
+		{
+			/* Lets create a bank image */
+			FalconLinePlot fig1 = new FalconLinePlot(new double[][]{{0.0,0.0}});
+			fig1.yGridOn();
+			fig1.xGridOn();
+			fig1.setYLabel("Y (feet)");
+			fig1.setXLabel("X (feet)");
+			fig1.setTitle("Top Down View of FRC Field (54ft x 27ft) \n shows global position of robot path, along with left and right wheel trajectories");
+
+
+			/* force graph to show field dimensions of 54ft x 27 feet */
+			double fieldWidth = 27;
+			double fieldLength = 54;
+			fig1.setXTic(0, fieldLength, 1);
+			fig1.setYTic(0, fieldWidth, 1);
+
+
+			/* Lets add field markers to help visuals! */	
+			
+			double[][] switchShape = new double[][]{
+				{11.6,19.5},
+				{11.6,7.5},
+				{16.25,7.5},
+				{16.25,19.5},
+				{11.6,19.5}
+			};
+			
+			double[][] fieldOutline = new double[][] {
+				{0,24.6},
+				{0,2.4},
+				{2.9235,0},
+				{51.0765,0},
+				{54,2.4},
+				{54,24.6},
+				{51.0765,27},
+				{2.9235,27},
+				{0,24.6}
+			};
+			
+			double[][] exchangeZone = new double[][] {
+				{0,18.5},
+				{3,18.5},
+				{3,14.5},
+				{0,14.5}
+			};
+			
+			double[][] leftNullZone = new double[][] {
+				{24,27},
+				{24,27-7.91667},
+				{24+5.91667,27-7.91667},
+				{24+5.91667,27}
+			};
+		
+			double[][] rightNullZone = new double[][] {
+				{24,0},
+				{24,0+7.91667},
+				{24+5.91667,0+7.91667},
+				{24+5.91667,0}
+			};
+			
+			double[][] platzone = new double[][] {
+				{16.25+5.4775,27-(97.48/12)},
+				{16.25+5.4775+(54.063/12),27-(97.48/12)},
+				{16.25+5.4775+(54.063/12),27-(97.48/12)-(129.5947/12)},
+				{16.25+5.4775,27-(97.48/12)-(129.5947/12)},
+				{16.25+5.4775,27-(97.48/12)}
+			};
+			
+			double[][] cubeLine = new double[][] {
+				{16.25+(13/12),27},
+				{16.25+(13/12),0}
+			};
+			
+			fig1.addData(switchShape, Color.black);
+			fig1.addData(fieldOutline, Color.black);
+			fig1.addData(exchangeZone, Color.black);
+			fig1.addData(leftNullZone, Color.blue);
+			fig1.addData(rightNullZone, Color.blue);
+			fig1.addData(platzone, Color.red);
+			fig1.addData(cubeLine, Color.yellow);
+
+			/* Waypoint path */
+			fig1.addData(path.nodeOnlyPath,Color.blue,Color.green);
+
+			/* Add all other paths */
+			fig1.addData(path.smoothPath, Color.red, Color.blue);
+			fig1.addData(path.leftPath, Color.magenta);
+			fig1.addData(path.rightPath, Color.magenta);
+			
+			/* Velocity Paths */
+			FalconLinePlot fig2 = new FalconLinePlot(path.smoothCenterVelocity,null,Color.blue);
+			fig2.yGridOn();
+			fig2.xGridOn();
+			fig2.setYLabel("Velocity (ft/sec)");
+			fig2.setXLabel("time (seconds)");
+			fig2.setTitle("Velocity Profile for Left and Right Wheels \n Left = Cyan, Right = Magenta");
+			fig2.addData(path.smoothRightVelocity, Color.magenta);
+			fig2.addData(path.smoothLeftVelocity, Color.cyan);
+			
+			//example on printing useful path information
+			//System.out.println(path.numFinalPoints);
+			//System.out.println(path.pathAlpha);
+			}	
+	}
+
+	
 	public static void print(double[] path)
 	{
 		System.out.println("X: \t Y:");
@@ -159,6 +369,8 @@ public class FalconPathPlanner
 	public static void carbonPrint(FalconPathPlanner path)
 	{
 		_sb = new StringBuilder();
+		
+		System.out.println(path.name + "(Constants." + path.name + "), \n");
 		
 		_sb.append("public static final double[][] " + path.name + " = {");
 
@@ -719,216 +931,6 @@ public class FalconPathPlanner
 		smoothCenterVelocity = velocityFix(smoothCenterVelocity, origCenterVelocity, 0.0000001);
 		smoothLeftVelocity = velocityFix(smoothLeftVelocity, origLeftVelocity, 0.0000001);
 		smoothRightVelocity = velocityFix(smoothRightVelocity, origRightVelocity, 0.0000001);
-	}
-
-	//main program
-	public static void main(String[] args)
-	{
-		long start = System.currentTimeMillis();
-		//System.setProperty("java.awt.headless", "true"); //enable this to true to emulate roboRio environment
-		
-		double leftStartPos = 24.6-0.93;
-		double rightStartPos = 2.4+0.93;
-		double centerStartPos = 14.5-0.99;
-		double robotLength = 3.16667;
-		double totalTime = 4; //seconds
-		double timeStep = 0.02; //period of control loop on Rio, seconds
-		double robotTrackWidth = 2; //distance between left and right wheels, feet
-		
-		@SuppressWarnings("unused")
-		double[][] switchCenterLeft = new double[][]{
-			{0,centerStartPos},
-			{3,centerStartPos},
-			{8,19},
-			{14-3.82667,19}//-3.16667
-		};
-		
-		@SuppressWarnings("unused")
-		double[][] switchCenterRight = new double[][] {
-			{0,centerStartPos},
-			{3,centerStartPos},
-			{8,9},
-			{14-3.16667,9}
-		};
-	
-		@SuppressWarnings("unused")
-		double[][]switchLeftLeft = new double[][] {
-			{0,leftStartPos},
-			{5,leftStartPos},
-			{16,22},
-			{16,19.5}
-		};
-	
-		@SuppressWarnings("unused")
-		double[][] scaleCenterLeft = new double[][] {
-			{0,centerStartPos},
-			{5,centerStartPos},
-			{12,23},
-			{25,25}
-		};
-	
-		@SuppressWarnings("unused")
-		double[][] scaleCenterRight = new double[][]{
-			{0,centerStartPos},
-			{3,centerStartPos},
-			{7,6},
-			{18,5},
-			{24,5}
-		};
-		
-		@SuppressWarnings("unused")
-		double[][] oldScaleRightRight = new double[][] {
-			{0,rightStartPos},
-			{10,2},
-			{18,2},
-			{20,3},
-			{21.5,7-(robotLength/2)}		
-		};
-		
-		@SuppressWarnings("unused")
-		double[][] scaleRightRight = new double[][] {
-			{0,rightStartPos},
-			{5,rightStartPos},
-			{14,3.8},
-			{20.5,6.8}
-		};
-		
-		@SuppressWarnings("unused")
-		double[][] switchRightRight = new double[][] {
-			{0,rightStartPos},
-			{8,rightStartPos},
-			{10.5,7},
-			{10.5,8}
-		};
-		
-		@SuppressWarnings("unused")
-		double[][] scaleRightLeft = new double[][] {
-			{0,rightStartPos},
-			{18-2.75,rightStartPos},
-			{18-1.75,26},
-			{24-robotLength,24}
-		};
-		
-		@SuppressWarnings("unused")
-		double[][] anyPosDriveStraight =  new double[][] {
-			{0,rightStartPos},
-			{8,rightStartPos}
-		};
-
-		
-		final FalconPathPlanner path = new FalconPathPlanner(scaleRightRight, "SCALE");
-		path.calculate(totalTime, timeStep, robotTrackWidth);
-		
-
-		System.out.println("Time in ms: " + (System.currentTimeMillis()-start));
-		
-		FalconPathPlanner.print(path.heading, "headings");
-		FalconPathPlanner.carbonPrint(path);
-
-		if(!GraphicsEnvironment.isHeadless())
-		{
-			/* Lets create a bank image */
-			FalconLinePlot fig1 = new FalconLinePlot(new double[][]{{0.0,0.0}});
-			fig1.yGridOn();
-			fig1.xGridOn();
-			fig1.setYLabel("Y (feet)");
-			fig1.setXLabel("X (feet)");
-			fig1.setTitle("Top Down View of FRC Field (54ft x 27ft) \n shows global position of robot path, along with left and right wheel trajectories");
-
-
-			/* force graph to show field dimensions of 54ft x 27 feet */
-			double fieldWidth = 27;
-			double fieldLength = 54;
-			fig1.setXTic(0, fieldLength, 1);
-			fig1.setYTic(0, fieldWidth, 1);
-
-
-			/* Lets add field markers to help visuals! */	
-			
-			double[][] switchShape = new double[][]{
-				{11.6,19.5},
-				{11.6,7.5},
-				{16.25,7.5},
-				{16.25,19.5},
-				{11.6,19.5}
-			};
-			
-			double[][] fieldOutline = new double[][] {
-				{0,24.6},
-				{0,2.4},
-				{2.9235,0},
-				{51.0765,0},
-				{54,2.4},
-				{54,24.6},
-				{51.0765,27},
-				{2.9235,27},
-				{0,24.6}
-			};
-			
-			double[][] exchangeZone = new double[][] {
-				{0,18.5},
-				{3,18.5},
-				{3,14.5},
-				{0,14.5}
-			};
-			
-			double[][] leftNullZone = new double[][] {
-				{24,27},
-				{24,27-7.91667},
-				{24+5.91667,27-7.91667},
-				{24+5.91667,27}
-			};
-		
-			double[][] rightNullZone = new double[][] {
-				{24,0},
-				{24,0+7.91667},
-				{24+5.91667,0+7.91667},
-				{24+5.91667,0}
-			};
-			
-			double[][] platzone = new double[][] {
-				{16.25+5.4775,27-(97.48/12)},
-				{16.25+5.4775+(54.063/12),27-(97.48/12)},
-				{16.25+5.4775+(54.063/12),27-(97.48/12)-(129.5947/12)},
-				{16.25+5.4775,27-(97.48/12)-(129.5947/12)},
-				{16.25+5.4775,27-(97.48/12)}
-			};
-			
-			double[][] cubeLine = new double[][] {
-				{16.25+(13/12),27},
-				{16.25+(13/12),0}
-			};
-			
-			fig1.addData(switchShape, Color.black);
-			fig1.addData(fieldOutline, Color.black);
-			fig1.addData(exchangeZone, Color.black);
-			fig1.addData(leftNullZone, Color.blue);
-			fig1.addData(rightNullZone, Color.blue);
-			fig1.addData(platzone, Color.red);
-			fig1.addData(cubeLine, Color.yellow);
-
-			/* Waypoint path */
-			fig1.addData(path.nodeOnlyPath,Color.blue,Color.green);
-
-			/* Add all other paths */
-			fig1.addData(path.smoothPath, Color.red, Color.blue);
-			fig1.addData(path.leftPath, Color.magenta);
-			fig1.addData(path.rightPath, Color.magenta);
-			
-			/* Velocity Paths */
-			FalconLinePlot fig2 = new FalconLinePlot(path.smoothCenterVelocity,null,Color.blue);
-			fig2.yGridOn();
-			fig2.xGridOn();
-			fig2.setYLabel("Velocity (ft/sec)");
-			fig2.setXLabel("time (seconds)");
-			fig2.setTitle("Velocity Profile for Left and Right Wheels \n Left = Cyan, Right = Magenta");
-			fig2.addData(path.smoothRightVelocity, Color.magenta);
-			fig2.addData(path.smoothLeftVelocity, Color.cyan);
-			
-			//example on printing useful path information
-			//System.out.println(path.numFinalPoints);
-			//System.out.println(path.pathAlpha);
-			}	
 	}
 }	
 
