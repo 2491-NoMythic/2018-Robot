@@ -67,10 +67,13 @@ public class Main {
       // Description of this auto mode path.
       // Remember that this is for the GO LEFT CASE!
       WaypointSequence p = new WaypointSequence(10);
-      p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
+      /*p.addWaypoint(new WaypointSequence.Waypoint(0, 0, 0));
       p.addWaypoint(new WaypointSequence.Waypoint(7.0, 0, 0));
       p.addWaypoint(new WaypointSequence.Waypoint(9.0, 1.0, Math.PI / 4.0));
       p.addWaypoint(new WaypointSequence.Waypoint(10.5, 7.0, Math.PI / 2.0));
+      */
+      p.addWaypoint(new WaypointSequence.Waypoint(0.0, 0.0, 0.0));
+      p.addWaypoint(new WaypointSequence.Waypoint(23.5/12, -26.0/12, 0.0));
 
       Path path = PathGenerator.makePath(p, config,
           kWheelbaseWidth, path_name);

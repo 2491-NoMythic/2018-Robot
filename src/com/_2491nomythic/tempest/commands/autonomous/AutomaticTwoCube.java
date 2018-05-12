@@ -5,6 +5,8 @@ import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Crossing;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Priority;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.StartPosition;
 
+import edu.wpi.first.wpilibj.DriverStation;
+
 /**
  *
  */
@@ -14,6 +16,7 @@ public class AutomaticTwoCube extends CommandBase {
 	private LeftSecondCube left;
 	private RightSecondCube right;
 	private boolean isFinishedSafety;
+	private String gameData;
 	private StartPosition position;
 	
 	public static enum SecondCube {
@@ -26,9 +29,18 @@ public class AutomaticTwoCube extends CommandBase {
     	path = new AutomaticAuto(position, priority, crossing);
     	this.position = position;
 
-    	left = new LeftSecondCube(priority, crossing, secondLocation);
+    	gameData = DriverStation.getInstance().getGameSpecificMessage();
+    	
+    	if(secondLocation == SecondCube.SWITCH && (gameData.substring(0, 1) == gameData.substring(1, 2))) {
+    		
+    	}
+    	else {
+    		secondLocation = SecondCube.SCALE;
+    	}
+    	
+    	left = new LeftSecondCube(secondLocation);
     	center = new CenterSecondCube();
-    	right = new RightSecondCube(priority, crossing, secondLocation);
+    	right = new RightSecondCube(secondLocation);
     }
 
     // Called just before this Command runs the first time

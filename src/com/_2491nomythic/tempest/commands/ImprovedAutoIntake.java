@@ -29,7 +29,6 @@ public class ImprovedAutoIntake extends CommandBase {
     	this.initialWait = initialWait;
     	backAway = new DriveTime(-0.4, 1);
     	goBack = new DriveTime(0.4, 1);
-    	getCube = new DriveTime(0.3, 1);
     	timer = new Timer();
     	accelerateTimer = new Timer();
     	timeout = new Timer();
@@ -72,7 +71,6 @@ public class ImprovedAutoIntake extends CommandBase {
     	
     	if(waitTimer.get() > initialWait) {
     		intaking = true;
-    		getCube.cancel();
     		waitTimer.reset();
     	}
     	
@@ -133,7 +131,7 @@ public class ImprovedAutoIntake extends CommandBase {
     			if(timer.get() > 0.3) {
     				timer.reset();
     				intake.retractFingers();
-    				intake.run(-0.1);
+    				intake.run(-0.2);
 
     				state = 0;
     			}
