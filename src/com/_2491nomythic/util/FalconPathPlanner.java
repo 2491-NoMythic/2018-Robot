@@ -796,7 +796,7 @@ public class FalconPathPlanner
 		double[][] fromEndToFirstCube =  new double[][] {
 			{0,leftStartPos},
 			{2,leftStartPos},
-			{5,leftStartPos-1.5}
+			{3.8,21}
 		};
 		
 		final FalconPathPlanner path = new FalconPathPlanner(fromEndToFirstCube);
