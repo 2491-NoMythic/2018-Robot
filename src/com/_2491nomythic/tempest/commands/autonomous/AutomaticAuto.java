@@ -87,7 +87,7 @@ public class AutomaticAuto extends CommandBase {
     	state = 0;
     	
     	selectEndPosition(mStartPosition);
-		mPath = new DrivePath(StartPosition.RIGHT_NULL, EndPosition.CUBE, 0); //mEndPosition
+		mPath = new DrivePath(StartPosition.RIGHT_NULL, EndPosition.SCALE, 0); //mEndPosition
 		mTimer.reset();
 		turnTimer.reset();
 		
@@ -172,6 +172,8 @@ public class AutomaticAuto extends CommandBase {
     		break;
     	case CROSS_LINE:
     		mEndPosition = EndPosition.CROSS_LINE;
+    		break;
+    	default:
     		break;
     	}
     	System.out.println("Selected Start Position; " + mStartPosition);
