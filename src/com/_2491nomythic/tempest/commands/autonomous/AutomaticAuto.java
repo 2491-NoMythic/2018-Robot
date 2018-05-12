@@ -47,13 +47,13 @@ public class AutomaticAuto extends CommandBase {
     	mRevShoot = new RunShooterCustom();
     	mTimer = new Timer();
     	mWaitTime = 15;
-    	mBumpCounter = new DrivePath(StartPosition.CENTER, EndPosition.BUMP_COUNTER);
+    	mBumpCounter = new DrivePath(mStartPosition, mEndPosition);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
     	selectEndPosition(mStartPosition);
-		mDrive = new DrivePath(mStartPosition, mEndPosition);
+		mDrive = new DrivePath(mStartPosition, EndPosition.RIGHT_SWITCH);
 		mTimer.reset();
 		mDrive.start();	
     }

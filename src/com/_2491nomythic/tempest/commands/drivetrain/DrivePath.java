@@ -23,7 +23,7 @@ public class DrivePath extends CommandBase {
     	
     	requires(drivetrain);
     	
-    	this.mSelectedPath = target.extractPath();  //String.valueOf(endPosition.toString());
+    	this.mSelectedPath = EndPosition.RIGHT_SWITCH.extractPath();  //String.valueOf(endPosition.toString());
     	
     	this.mLeftChannel = origin.leftIndex();
     	this.mRightChannel = origin.rightIndex();
