@@ -9,7 +9,7 @@ import com._2491nomythic.tempest.subsystems.Pathing;
  * A command for streaming a selected TalonSRX Velocity mode path
  */
 public class DrivePath extends CommandBase {
-	private int mCurrentStep, mTimeCounter, mReverseDirection, mSwaped, mLength;
+	private int mCurrentStep, mTimeCounter, mReverseDirection, mSwaped, mLength, stepCounter;
 	private double mInitialHeading, mHeadingDiffrence, mTurnAdjustment, mAdjustedLeftVelocity, mAdjustedRightVelocity;
 	private String mSelectedLeftPath, mSelectedRightPath, mSelectedHeading, mSelectedEndPosition;
 
@@ -19,10 +19,11 @@ public class DrivePath extends CommandBase {
 	 * @param endPosition a robot {@linkplain EndPosition} with respect to the field
 	 * @author Emilio Lobo
 	 */
-    public DrivePath(StartPosition startPosition, EndPosition endPosition) {
+    public DrivePath(StartPosition startPosition, EndPosition endPosition, int stepCounter) {
     	
     	requires(drivetrain);
     	
+    	this.stepCounter = stepCounter;
     	this.mSelectedEndPosition = String.valueOf(endPosition.toString());
     	
     	setPosition(startPosition);
@@ -33,7 +34,7 @@ public class DrivePath extends CommandBase {
     }
 
     protected void execute() {
-    	if(mTimeCounter == 4) {
+    	if(mTimeCounter == stepCounter) {
     		
     		adjustVelocities();
     		
