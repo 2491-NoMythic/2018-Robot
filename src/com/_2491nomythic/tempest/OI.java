@@ -38,7 +38,7 @@ import edu.wpi.first.wpilibj.buttons.JoystickButton;
 public class OI {
 	private final Joystick[] controllers = new Joystick[2]; //[4];
 	Button killSwitch1, killSwitch2, driverScaleShoot, driverSwitchShoot, driverFeedCube, driverAutoShoot, deployIntake, reverseShooter;
-	Button openIntake, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed;
+	Button openIntakeFingers, raiseShooter, setLowScaleSpeed, setMediumScaleSpeed, setHighScaleSpeed, setSwitchSpeed;
 	public Button cubeStorageControl1, cubeStorageControl2, runShooter;
 	Button automaticIntake, intakeControl1, intakeControl2, tankTurnForward, tankTurnBackward;
 	Button operatorKillSwitch, output, input, configure, spinUp, fingers, adjustmentDrive, adjustmentDrive2, toggleLights1, toggleLights2;
@@ -104,8 +104,8 @@ public class OI {
 		deployIntake = new JoystickButton(controllers[ControllerMap.operatorController], ControllerMap.deployIntake);
 		deployIntake.whenPressed(new ToggleIntakeDeployment());
 		
-		openIntake = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.openIntake, 0.1);
-		openIntake.whileHeld(new ToggleIntakeOpeningHeld());
+		openIntakeFingers = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.openIntakeFingers, 0.1);
+		openIntakeFingers.whileHeld(new ToggleIntakeOpeningHeld());
 		
 		intakeControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.intakeAxis, 0.1);
 		intakeControl1.whileHeld(new RunIntakeManual());

@@ -11,7 +11,7 @@ import com._2491nomythic.tempest.subsystems.Shooter;
  * @author Silas
  */
 public class ShooterController {
-	private double kF, kC, setPoint, tolerance, leftDivisor, rightDivisor;
+	private double kF, kCLeft, kCRight, setPoint, tolerance, leftDivisor, rightDivisor, kDLeft, kDRight, leftOutput, rightOutput;
 	private Shooter source;
 	private boolean hasLeftPassedAbove, hasRightPassedAbove, hasLeftPassedBelow, hasRightPassedBelow, leftStartAbove, rightStartAbove, enabled;
 	private Timer loopTimer;
@@ -32,12 +32,16 @@ public class ShooterController {
 	/**
 	 * The framework that allows processing of shooter values through a custom control loop
 	 * @param shooter The shooter that provides input and output data
-	 * @param C The error coefficient that determines the rate of increase/decrease based on distance from target
+	 * @param leftC The error coefficient that determines the rate of increase/decrease based on distance from target for the left side
+	 * @param rightC The error coefficient that determine sthe rate of increase/decrease based on distance from target for the right side
 	 * @param F The feed forward value that determines a base power to run output motors at
 	 */
-	public ShooterController(Shooter shooter, double C, double F) {
-		kC = C;
+	public ShooterController(Shooter shooter, double leftC, double rightC, double leftD, double rightD, double F) {
+		kCLeft = leftC;
+		kCRight = rightC;
 		kF = F;
+		kDLeft = leftD;
+		kDRight = rightD;
 		source = shooter;
 		leftDivisor = 1;
 		rightDivisor = 1;
@@ -75,7 +79,11 @@ public class ShooterController {
 	 * @return True if both sides are on target
 	 */
 	public boolean onTarget() {
-		return leftOnTarget() && rightOnTarget();
+		return leftOnTarget() && rightOnTarget() && inSync();
+	}
+	
+	public boolean inSync() {
+		return Math.abs(source.getLeftShootVelocity() - source.getRightShootVelocity()) <= 0 + tolerance;
 	}
 	
 	/**
@@ -120,8 +128,16 @@ public class ShooterController {
 	 * Sets the controller's error coefficient constant
 	 * @param C The coefficient to set for the controller
 	 */
-	public void setC(double C) {
-		kC = C;
+	public void setLeftC(double C) {
+		kCLeft = C;
+	}
+	
+	/**
+	 * Sets the controller's error coefficient constant
+	 * @param C The coefficient to set for the controller
+	 */
+	public void setRightC(double C) {
+		kCRight = C;
 	}
 	
 	/**
@@ -153,7 +169,7 @@ public class ShooterController {
 	 * @return The output value to be fed to motors
 	 */
 	public double calculateLeftOutput() {
-		return kF + ((kC * getLeftError()) / leftDivisor);
+		return kF + ((kCLeft * getLeftError()) / leftDivisor);
 	}
 	
 	/**
@@ -161,7 +177,7 @@ public class ShooterController {
 	 * @return The output value to be fed to motors
 	 */
 	public double calculateRightOutput() {
-		return kF + ((kC * getRightError()) / rightDivisor);
+		return kF + ((kCRight * getRightError()) / rightDivisor);
 	}
 	
 	/**
@@ -266,7 +282,7 @@ public class ShooterController {
 	public void loopLeft() {
 		checkLeft();
 		if (isLeftComplete()) {
-			leftDivisor+= Math.pow(kC, 2);
+			leftDivisor+= Math.pow(kDLeft, 2);
 			resetLeftLoopVariables();
 		}
 	}
@@ -277,7 +293,7 @@ public class ShooterController {
 	public void loopRight() {
 		checkRight();
 		if (isRightComplete()) {
-			rightDivisor+= Math.pow(kC, 2);
+			rightDivisor+= Math.pow(kDRight, 2);
 			resetRightLoopVariables();
 		}
 	}
@@ -290,8 +306,16 @@ public class ShooterController {
 		if (enabled) {
 			loopLeft();
 			loopRight();
-			leftSet(calculateLeftOutput());
-			rightSet(calculateRightOutput());
+			leftOutput = calculateLeftOutput();
+			rightOutput = calculateRightOutput();
+			if (source.getLeftShootVelocity() > source.getRightShootVelocity()) {
+				leftOutput -= kDLeft;
+			}
+			if (source.getRightShootVelocity() > source.getRightShootVelocity()) {
+				rightOutput -= kDRight;
+			}
+			leftSet(leftOutput);
+			rightSet(rightOutput);
 		}
 	}
 	

@@ -25,16 +25,16 @@ public class ControllerMap {
 	public static final int climberButton = 4; //TODO renumber this later
     
 	//Operator	
-	public static final int setSwitchRPS = 1;//2;
-	public static final int setLowScaleRPS = 3;//1;
+	public static final int setSwitchRPS = 1;//f310: 1, ps4: 2;
+	public static final int setLowScaleRPS = 3;//f310: 3, ps4: 1;
 	public static final int setMediumScaleRPS = 4;
-	public static final int setHighScaleRPS = 2;//3;
+	public static final int setHighScaleRPS = 2;//f310: 2, ps4: 3;
 	public static final int deployIntake = 5;
-	public static final int openIntake = 2;//7; if 2, is an axis button
+	public static final int openIntakeFingers = 2;//f310: 2, ps4: 3
 	public static final int raiseShooter = 6;
 	public static final int intakeAxis = 1;
 	public static final int cubeStorageAxis = 5;
-	public static final int shooterButton = 3;//8; if 3, is an axis button
+	public static final int shooterButton = 3;//f310: 3, ps4: 4
 	public static final int shooterReverseButton = 180;
 	public static final int convertToClimbMode = 7; //TODO renumber this as needed
 	//public static final int climberButton = 9; //Currently on driver controller
