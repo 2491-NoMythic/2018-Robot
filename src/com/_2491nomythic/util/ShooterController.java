@@ -308,11 +308,15 @@ public class ShooterController {
 			loopRight();
 			leftOutput = calculateLeftOutput();
 			rightOutput = calculateRightOutput();
-			if (source.getLeftShootVelocity() > source.getRightShootVelocity()) {
-				leftOutput -= kDLeft;
-			}
-			if (source.getRightShootVelocity() > source.getRightShootVelocity()) {
-				rightOutput -= kDRight;
+			if (!inSync()) {
+				if (source.getLeftShootVelocity() > source.getRightShootVelocity()) {
+					leftOutput -= kDLeft;
+					rightOutput += kDRight;
+				}
+				if (source.getRightShootVelocity() > source.getRightShootVelocity()) {
+					rightOutput -= kDRight;
+					leftOutput += kDLeft;
+				}
 			}
 			leftSet(leftOutput);
 			rightSet(rightOutput);
