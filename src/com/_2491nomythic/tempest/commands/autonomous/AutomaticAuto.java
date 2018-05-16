@@ -32,11 +32,11 @@ public class AutomaticAuto extends CommandBase {
 	private Timer mTimer, turnTimer, raiseTimer;
 	
 	public static enum StartPosition {
-		LEFT, CENTER, RIGHT, CROSS_LINE, LEFT_NULL, RIGHT_NULL, LEFT_CUBE, RIGHT_CUBE;
+		LEFT, CENTER, RIGHT, CROSS_LINE, LEFT_NULL, RIGHT_NULL, LEFT_CUBE, RIGHT_CUBE, LEFT_SWITCH, RIGHT_SWITCH, LEFT_BACKUP, RIGHT_BACKUP, LEFT_PYRAMID, RIGHT_PYRAMID;
 	}
 	
 	public static enum EndPosition {
-		SWITCH, LEFT_SWITCH, RIGHT_SWITCH, OPPOSITE_SWTICH, SCALE, OPPOSITE_SCALE, CROSS_LINE, BUMP_COUNTER, MAX, CUBE, NULL;
+		SWITCH, LEFT_SWITCH, RIGHT_SWITCH, OPPOSITE_SWTICH, SCALE, OPPOSITE_SCALE, CROSS_LINE, BUMP_COUNTER, MAX, CUBE, NULL, BACKUP, LEFT_PYRAMID, RIGHT_PYRAMID, SECOND_LEFT_SWITCH, SECOND_RIGHT_SWITCH;
 	}
 	
 	public static enum Priority {
@@ -76,7 +76,8 @@ public class AutomaticAuto extends CommandBase {
     	aimForScale = new RotateDrivetrainWithGyroPID(-62.5, false);
     	mFireCubeSwitch = new TransportCubeTime(-1, 2);
     	mFireCubeScale = new TransportCubeTime(1, 1);
-    	mBumpCounter = new DrivePath(StartPosition.CENTER, EndPosition.BUMP_COUNTER, 4);
+    	hitSwitch = new DriveTime(0.2, 0.2, 1);
+    	mBumpCounter = new DrivePath(StartPosition.CENTER, EndPosition.BUMP_COUNTER, 4, false);
     }
 
     // Called just before this Command runs the first time
@@ -86,7 +87,13 @@ public class AutomaticAuto extends CommandBase {
     	state = 0;
     	
     	selectEndPosition(mStartPosition);
-		mPath = new DrivePath(mStartPosition, mEndPosition, 0); //mEndPosition
+    	
+    	if(mEndPosition == EndPosition.OPPOSITE_SCALE || mEndPosition == EndPosition.LEFT_SWITCH || mEndPosition == EndPosition.RIGHT_SWITCH || mEndPosition == EndPosition.CROSS_LINE || mEndPosition == EndPosition.SWITCH) {
+    		mPath = new DrivePath(mStartPosition, mEndPosition, 4, false);
+    	}
+    	else {
+    		mPath = new DrivePath(mStartPosition, mEndPosition, 0, false); //mEndPosition
+    	}
 		mTimer.reset();
 		mTimer.stop();
 		turnTimer.reset();
@@ -100,36 +107,59 @@ public class AutomaticAuto extends CommandBase {
     	if(!multiCube) {
     		
         	//System.out.println(drivetrain.getRightVelocity() + ", " + drivetrain.getLeftVelocity());    		
-	    	switch(mEndPosition) {
+	    	switch(mEndPosition) {	    	
 		    	case OPPOSITE_SCALE:
-		    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 60 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 61) {
+		    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 12 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 13) {
 		    			intake.openArms();
 		    			shooter.setScalePosition();
 		    			mSetScaleSpeed.start();
 		    			mWaitTime = 0.1;
-		    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 85 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 86) {
+		    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 17 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 18) {
 		    			mRevShoot.start();
 		    		}
 		    		break;
 		    	case SCALE:
 		    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 60 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 61) {	
-		    			System.out.println("Hello");
 		    			intake.openArms();
 		    			shooter.setScalePosition();
 		    			mSetScaleSpeed.start();
 		    			mWaitTime = 0.1;
 		    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 85 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 86) {
-		    			System.out.println("GoodBye");
 		    			mRevShoot.start();
 		    		}
 		    		break;
+		    	case NULL:
+		    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_NULL").length - 60 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_NULL").length - 61) {	
+		    			intake.openArms();
+		    			shooter.setScalePosition();
+		    			mSetScaleSpeed.start();
+		    			mWaitTime = 0.1;
+		    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_NULL").length - 85 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_NULL").length - 86) {
+		    			mRevShoot.start();
+		    		}
 		    	default:
 		    		break;
 	    	}
 	  	}
     	
     	if(mPath.isCompleted() && !timerSafety) {
-    		mFireCubeScale.start();
+    		switch(mEndPosition) {
+    		case LEFT_SWITCH:
+    		case RIGHT_SWITCH:
+    			mFireCubeSwitch.start();
+    			hitSwitch.start();
+    			break;
+    		case CROSS_LINE:
+    			break;
+    		case SWITCH:
+    			mSetSwitchSpeed.start();
+    			mRevShoot2.start();
+    			mFireCubeScale.start();
+    			break;
+    		default:
+    			mFireCubeScale.start();
+    			break;
+    		}
     		timerSafety = true;
     		mTimer.start();
     	}
@@ -241,5 +271,9 @@ public class AutomaticAuto extends CommandBase {
     private synchronized void getGameData() {
     	mGameData = DriverStation.getInstance().getGameSpecificMessage();  
 	}
+    
+    public EndPosition getEndPosition() {
+    	return mEndPosition;
+    }
 }
 	

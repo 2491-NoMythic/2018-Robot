@@ -2,10 +2,11 @@ package com._2491nomythic.tempest.commands.autonomous;
 
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.ImprovedAutoIntake;
-import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Crossing;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.EndPosition;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.StartPosition;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticTwoCube.SecondCube;
 import com._2491nomythic.tempest.commands.cubestorage.TransportCubeTime;
-import com._2491nomythic.tempest.commands.drivetrain.DriveStraightToPositionPID;
+import com._2491nomythic.tempest.commands.drivetrain.DrivePath;
 import com._2491nomythic.tempest.commands.drivetrain.DriveTime;
 import com._2491nomythic.tempest.commands.drivetrain.RotateDrivetrainWithGyroPID;
 import com._2491nomythic.tempest.commands.shooter.RunShooterCustom;
@@ -21,11 +22,10 @@ import edu.wpi.first.wpilibj.Timer;
  */
 public class LeftSecondCube extends CommandBase {
 	private String gameData, scaleData;
-	private boolean goForSwitch, completed;
+	private boolean goForSwitch, completed, shooterSafety;
 	private ImprovedAutoIntake autoIntake;
-	private DriveStraightToPositionPID getCube, getToScale;
-	private DriveTime hitSwitch;
-	private RotateDrivetrainWithGyroPID aimForCube, aimForScale;
+	private DrivePath getCube, getToScale;
+	private DriveTime bumpCounter;
 	private RunShooterCustom spinUp;
 	private SetShooterSpeed setSpeed;
 	private TransportCubeTime fireSwitch, fireScale;
@@ -35,18 +35,18 @@ public class LeftSecondCube extends CommandBase {
     public LeftSecondCube(SecondCube secondLocation) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	autoIntake = new ImprovedAutoIntake(1.3, false);
+    	autoIntake = new ImprovedAutoIntake(3.6, true);
     	timer = new Timer();
     	
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
     	fireSwitch = new TransportCubeTime(-1, 1.5);
-    	fireScale = new TransportCubeTime(1, 1);
     	setSpeed = new SetShooterSpeed(Constants.shooterMediumScaleSpeed);
-    	scaleData = gameData.substring(1, 2);
-    	hitSwitch = new DriveTime(0.3, 0.3, 1.5);
-    	getCube = new DriveStraightToPositionPID(70);
-    	getToScale = new DriveStraightToPositionPID(-70);
+    	fireScale = new TransportCubeTime(1, 1);
     	spinUp = new RunShooterCustom();
+    	scaleData = gameData.substring(1, 2);
+    	getCube = new DrivePath(StartPosition.LEFT_NULL, EndPosition.CUBE, 0, false);
+    	getToScale = new DrivePath(StartPosition.LEFT_CUBE, EndPosition.NULL, 0, false);
+    	bumpCounter = new DriveTime(0.3, 0.3, 0.8);
     	
     	if(secondLocation == SecondCube.SWITCH) {
     		goForSwitch = true;
@@ -54,61 +54,48 @@ public class LeftSecondCube extends CommandBase {
     	else {
     		goForSwitch = false;
     	}
-    	
-    	if(scaleData == "L") {
-    		aimForCube = new RotateDrivetrainWithGyroPID(-60, false);
-    		aimForScale = new RotateDrivetrainWithGyroPID(60, false);
-    	}
-    	else {
-    		aimForCube = new RotateDrivetrainWithGyroPID(60, false);
-    		aimForScale = new RotateDrivetrainWithGyroPID(-60, false);
-    	}
+
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	state = 0;
+    	state = 1;
     	timer.reset();
+    	shooterSafety = true;
     	timer.stop();
     	completed = false;
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(goForSwitch) {
+    	if(goForSwitch) {    		
     		switch(state) {
-    		case 0:
-    			aimForCube.start();
-    			timer.start();
-    			timer.reset();
+    		case 1:
+    			getCube.start();
+    			autoIntake.start();
     			state++;
     			break;
-    		case 1:
-    			if(!aimForCube.isRunning() || timer.get() > 1.5) {
-    				aimForCube.cancel();
-    				getCube.start();
-    				autoIntake.start();
-    				state++;
-    			}
-    			break;
     		case 2:
-    			if((!getCube.isRunning() && !autoIntake.isRunning()) || DriverStation.getInstance().getMatchTime() <= 2.5) {
-    				autoIntake.cancel();
+    			if(!autoIntake.isRunning()) { //|| DriverStation.getInstance().getMatchTime() <= 2.5) {
+    				System.out.println("Intook!");
+    				intake.retractFingers();
     				getCube.cancel();
+    				timer.start();
     				timer.reset();
     				shooter.setSwitchPosition();
     				state++;
     			}
     			break;
     		case 3:
-    			if(timer.get() > 1) {
-    				hitSwitch.start();
+    			if(timer.get() > 1.5) {
+    				intake.retractArms();
+    				bumpCounter.start();
     				timer.reset();
     				state++;
     			}
     			break;
     		case 4:
-    			if(!hitSwitch.isRunning() || timer.get() > 0.5) {
+    			if(timer.get() >= 0.8) {
     				fireSwitch.start();
     				timer.reset();
     				state++;
@@ -116,8 +103,8 @@ public class LeftSecondCube extends CommandBase {
     			break;
     		case 5:
     			if(timer.get() > 0.8) {
-    				state++;
     				completed = true;
+    				state++;
     			}
     			break;
     		case 6:
@@ -127,53 +114,42 @@ public class LeftSecondCube extends CommandBase {
     			break;
     		}
     	}
-    	else {
+    	else {    		
     		switch(state) {
-    		case 0:
-    			aimForCube.start();
-    			state++;
-    			timer.start();
-    			timer.reset();
-    			break;
     		case 1:
-    			if(!aimForCube.isRunning() || timer.get() > 1.2) {
-    				aimForCube.cancel();
-    				getCube.start();
-    				autoIntake.start();
-    				state++;
-    			}
+    			getCube.start();
+    			autoIntake.start();
+    			state++;
     			break;
     		case 2:
-    			if((!getCube.isRunning() && !autoIntake.isRunning()) || DriverStation.getInstance().getMatchTime() <= 3.5) {
+    			if(!autoIntake.isRunning()) {// || DriverStation.getInstance().getMatchTime() <= 3.5) {
     				autoIntake.cancel();
     				getCube.cancel();
     				getToScale.start();
-    				state++;
-    			}
-    			break;
-    		case 3:
-    			if(!getToScale.isRunning()) {
-    				aimForScale.start();
-    				setSpeed.start();
-    				spinUp.start();
+    				timer.start();
     				timer.reset();
     				state++;
     			}
     			break;
-    		case 4:
-    			if(!aimForScale.isRunning() || timer.get() > 1.2) {
+    		case 3:
+    			if(timer.get() > 0.5 && shooterSafety) {
+    				shooterSafety = false;
+    				spinUp.start();
+    			}
+    			
+    			if(!getToScale.isRunning()) {
     				fireScale.start();
     				timer.reset();
     				state++;
     			}
     			break;
-    		case 5:
-    			if(!fireScale.isRunning() || timer.get() > 0.6) {
+    		case 4:
+    			if(timer.get() > 1) {
     				completed = true;
     				state++;
     			}
     			break;
-    		case 6:
+    		case 5:
     			break;
     		default:
     			System.out.println("Invalid state in LeftSecondCube/Scale. State: " + state);
@@ -200,12 +176,8 @@ public class LeftSecondCube extends CommandBase {
     protected void interrupted() {
     	getCube.cancel();
     	getToScale.cancel();
-    	hitSwitch.cancel();
+    	bumpCounter.cancel();
     	autoIntake.cancel();
-    	fireScale.cancel();
     	fireSwitch.cancel();
-    	spinUp.cancel();
-    	aimForCube.cancel();
-    	aimForScale.cancel();
     }
 }

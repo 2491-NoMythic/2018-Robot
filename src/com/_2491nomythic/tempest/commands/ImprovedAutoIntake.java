@@ -94,6 +94,7 @@ public class ImprovedAutoIntake extends CommandBase {
     	if(cycleTimeout > 1) {	
     		switch(timeoutSafety) {
     		case 0:
+    			intake.openFingers();
     			timeout.start();
     			backAway.start();
     			timeoutSafety++;
@@ -121,7 +122,7 @@ public class ImprovedAutoIntake extends CommandBase {
     		}
     	}
     	else if(!Variables.isPathRunning) {
-    		creep.start();
+
     	}
     	
     	if(intaking) {    		

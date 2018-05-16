@@ -2,6 +2,7 @@ package com._2491nomythic.tempest.commands.autonomous;
 
 import com._2491nomythic.tempest.commands.CommandBase;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Crossing;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.EndPosition;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Priority;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.StartPosition;
 
@@ -17,9 +18,10 @@ public class AutomaticTwoCube extends CommandBase {
 	private LeftSecondCube left;
 	private RightSecondCube right;
 	private boolean isFinishedSafety;
+	private EndPosition ending;
 	private String gameData;
 	private StartPosition position;
-	private Timer timer;
+	private Timer timer, overallTimer;
 	
 	public static enum SecondCube {
 		SWITCH, SCALE
@@ -32,7 +34,6 @@ public class AutomaticTwoCube extends CommandBase {
     	this.position = position;
 
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
-    	System.out.println(secondLocation == SecondCube.SWITCH && ((gameData.substring(0, 1).contentEquals("R") && gameData.substring(1, 2).contentEquals("R")) || (gameData.substring(0, 1).contentEquals("L") && gameData.substring(1, 2).contentEquals("L"))));
     	
     	if(secondLocation == SecondCube.SWITCH && ((gameData.substring(0, 1).contentEquals("R") && gameData.substring(1, 2).contentEquals("R")) || (gameData.substring(0, 1).contentEquals("L") && gameData.substring(1, 2).contentEquals("L")))) {
     		
@@ -42,6 +43,7 @@ public class AutomaticTwoCube extends CommandBase {
     	}
     	
     	timer = new Timer();
+    	overallTimer = new Timer();
     	left = new LeftSecondCube(secondLocation);
     	center = new CenterSecondCube();
     	right = new RightSecondCube(secondLocation);
@@ -51,44 +53,45 @@ public class AutomaticTwoCube extends CommandBase {
     protected void initialize() {   	
     	isFinishedSafety = false;
     	path.start();
+    	overallTimer.start();
     	timer.start();
     	timer.reset();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if(!path.isRunning() && timer.get() > 0.05) {  	
-    		switch(position) {
-    		case LEFT:
-    			left.start();
-    			break;
-    		case CENTER:
-    			center.start();
-    			break;
-    		case RIGHT:
-    			right.start();
-    			break;
-    		default:
-    			break;
+    	ending = path.getEndPosition();
+    	
+    	if(!path.isRunning() && timer.get() > 0.05) {
+    		System.out.println(ending.toString());
+    		
+    		if(ending == EndPosition.SCALE || ending == EndPosition.OPPOSITE_SCALE) {
+    			System.out.println("Going for second cube!");
+    			
+	    		switch(DriverStation.getInstance().getGameSpecificMessage().substring(1, 2)) {
+	    		case "L":
+	    			left.start();
+	    			break;
+	    		case "R":
+	    			right.start();
+	    			break;
+	    		default:
+	    			break;
+	    		}
+	    		
+	    		isFinishedSafety = true;
     		}
     		
-    		isFinishedSafety = true;
+    		if(ending == EndPosition.LEFT_SWITCH || ending == EndPosition.RIGHT_SWITCH) {
+    			center.start();
+    		}
     	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
         if(isFinishedSafety) {
-        	switch(position) {
-            case LEFT:
-            	return !left.isRunning();
-            case CENTER:
-            	return !center.isRunning();
-            case RIGHT:
-            	return !right.isRunning();
-            default:
-            	return !path.isRunning();
-            }
+        	return !left.isRunning() && !right.isRunning() && !center.isRunning();
         }
         else {
         	return false;
@@ -97,6 +100,8 @@ public class AutomaticTwoCube extends CommandBase {
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.println("Time taken: " + overallTimer.get());
+    	
     	left.cancel();
     	right.cancel();
     	center.cancel();

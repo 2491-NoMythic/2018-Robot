@@ -109,12 +109,37 @@ public class Pathing extends Subsystem {
 		case "rightVelocitiesTO_CUBE":
 			mVelocitiesArray = Constants.rightVelocitiesTO_CUBE;
 			break;
-		case "leftVelocitiesFROM_CUBE":
+		case "leftVelocitiesTO_NULL":
 			mVelocitiesArray = Constants.leftVelocitiesTO_NULL;
 			break;
 		case "rightVelocitiesTO_NULL":
 			mVelocitiesArray = Constants.rightVelocitiesTO_NULL;
 			break;
+		case "leftVelocitiesTO_SECOND_LEFT_SWITCH":
+			break;
+		case "rightVelocitiesTO_SECOND_LEFT_SWITCH":
+			break;
+		case "leftVelocitiesTO_SECOND_RIGHT_SWITCH":
+			break;
+		case "rightVelocitiesTO_SECOND_RIGHT_SWITCH":
+			break;
+		case "leftVelocitiesTO_LEFT_PYRAMID":
+			mVelocitiesArray = Constants.leftVelocitiesTO_LEFT_PYRAMID;
+			break;
+		case "rightVelocitiesTO_LEFT_PYRAMID":
+			mVelocitiesArray = Constants.rightVelocitiesTO_LEFT_PYRAMID;
+			break;
+		case "leftVelocitiesTO_RIGHT_PYRAMID":
+			break;
+		case "rightVelocitiesTO_RIGHT_PYRAMID":
+			break;
+		case "leftVelocitiesTO_BACKUP":
+			mVelocitiesArray = Constants.leftVelocitiesTO_BACKOUT;
+			break;
+		case "rightVelocitiesTO_BACKUP":
+			mVelocitiesArray = Constants.rightVelocitiesTO_BACKOUT;
+			break;
+			
 		default:
 			DriverStation.reportWarning("Invalid Velocity Path Name!", false);
 		}
@@ -168,6 +193,11 @@ public class Pathing extends Subsystem {
 		case "headingsTO_NULL":
 			mHeadingsArray = Constants.headingsTO_NULL;
 			break;
+		case "headingsTO_BACKUP":
+			mHeadingsArray = Constants.headingsTO_BACKOUT;
+			break;
+		case "headingsTO_LEFT_PYRAMID":
+			mHeadingsArray = Constants.headingsTO_LEFT_PYRAMID;
 		default:
 			DriverStation.reportWarning("Invalid Headings Path Name!", false);
 		}

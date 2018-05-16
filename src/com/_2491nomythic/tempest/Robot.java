@@ -13,11 +13,14 @@ import com._2491nomythic.tempest.commands.ResetSolenoids;
 import com._2491nomythic.tempest.commands.SetCameraMode;
 import com._2491nomythic.tempest.commands.UpdateDriverstation;
 import com._2491nomythic.tempest.commands.VelocityPrint;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Crossing;
+import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.EndPosition;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.Priority;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticAuto.StartPosition;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticTwoCube;
 import com._2491nomythic.tempest.commands.autonomous.AutomaticTwoCube.SecondCube;
+import com._2491nomythic.tempest.commands.drivetrain.DrivePath;
 /*import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchLeft;
 import com._2491nomythic.tempest.commands.autonomous.PlaceOnSwitchRight;
 import com._2491nomythic.tempest.commands.autonomous.RightPrioritizeScale;
@@ -128,6 +131,7 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("MedScaleRPS", Constants.shooterMediumScaleRPS);
 		SmartDashboard.putNumber("HighScaleRPS", Constants.shooterHighScaleRPS);
 		SmartDashboard.putNumber("GyroPitchMeasure", 0);
+		SmartDashboard.putData("Backup", new DrivePath(StartPosition.LEFT_SWITCH, EndPosition.BACKUP, 0, false));
 		System.out.println("Boot Successful");
 	}
 

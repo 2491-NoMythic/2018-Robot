@@ -13,19 +13,20 @@ public class DrivePath extends CommandBase {
 	private int mCurrentStep, mTimeCounter, mReverseDirection, mSwaped, mLength, stepCounter;
 	private double mInitialHeading, mHeadingDiffrence, mTurnAdjustment, mAdjustedLeftVelocity, mAdjustedRightVelocity;
 	private String mSelectedLeftPath, mSelectedRightPath, mSelectedHeading, mSelectedEndPosition;
-
+	private boolean mReturn;
 	/**
 	 * 
 	 * @param startPosition an robot {@linkplain StartPosition} with respect to the field  
 	 * @param endPosition a robot {@linkplain EndPosition} with respect to the field
 	 * @author Emilio Lobo
 	 */
-    public DrivePath(StartPosition startPosition, EndPosition endPosition, int stepCounter) {
+    public DrivePath(StartPosition startPosition, EndPosition endPosition, int stepCounter, boolean reverse) {
     	
     	requires(drivetrain);
     	
     	this.stepCounter = stepCounter;
     	this.mSelectedEndPosition = String.valueOf(endPosition.toString());
+    	this.mReturn = reverse;
     	
     	setPosition(startPosition);
     }
@@ -38,19 +39,38 @@ public class DrivePath extends CommandBase {
     }
 
     protected void execute() {
-    	if(mTimeCounter == stepCounter) {
+    	if(mReturn) {
+    		if(mTimeCounter == stepCounter) {
+        		
+    			adjustVelocities();
     		
-    		adjustVelocities();
-    		
-    		drivetrain.driveVelocity(mAdjustedLeftVelocity , mAdjustedRightVelocity);
+    			drivetrain.driveVelocity(mAdjustedLeftVelocity , mAdjustedRightVelocity);
 			        		
-			mTimeCounter = 0;
-			mCurrentStep++;
+				mTimeCounter = 0;
+				mCurrentStep++;
+				mCurrentStep = mLength - mCurrentStep;
 			
-		} 
-		else {
-			mTimeCounter++;
-		}
+			} 
+			else {
+				mTimeCounter++;
+			}
+    		
+    	} else {
+    		
+    		if(mTimeCounter == stepCounter) {
+    		
+    			adjustVelocities();
+    		
+    			drivetrain.driveVelocity(mAdjustedLeftVelocity , mAdjustedRightVelocity);
+			        		
+				mTimeCounter = 0;
+				mCurrentStep++;
+			
+			} 
+			else {
+				mTimeCounter++;
+			}
+    	}
     }
 
     protected boolean isFinished() {
@@ -94,6 +114,26 @@ public class DrivePath extends CommandBase {
     	case LEFT_CUBE:
     		configurePath(true, true);
     		break;
+		case LEFT_BACKUP:
+			configurePath(false, false);
+			break;
+		case LEFT_PYRAMID:
+			configurePath(false, true);
+			break;
+		case LEFT_SWITCH:
+			configurePath(false, true);
+			break;
+		case RIGHT_BACKUP:
+			configurePath(false, false);
+			break;
+		case RIGHT_PYRAMID:
+			configurePath(false, true);
+			break;
+		case RIGHT_SWITCH:
+			configurePath(false, true);
+			break;
+		default:
+			break;
     	}
     }
    
