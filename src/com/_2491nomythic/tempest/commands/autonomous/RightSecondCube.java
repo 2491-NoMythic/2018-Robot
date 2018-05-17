@@ -35,7 +35,7 @@ public class RightSecondCube extends CommandBase {
     public RightSecondCube(SecondCube secondLocation) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
-    	autoIntake = new ImprovedAutoIntake(3.6, true);
+    	autoIntake = new ImprovedAutoIntake(3.6, false);
     	timer = new Timer();
     	
     	gameData = DriverStation.getInstance().getGameSpecificMessage();

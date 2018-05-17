@@ -32,6 +32,8 @@ public class AutomaticTwoCube extends CommandBase {
         // eg. requires(chassis);
     	path = new AutomaticAuto(position, priority, crossing);
     	this.position = position;
+    	
+    	System.out.println("Definitely deployed");
 
     	gameData = DriverStation.getInstance().getGameSpecificMessage();
     	
@@ -83,7 +85,7 @@ public class AutomaticTwoCube extends CommandBase {
     		}
     		
     		if(ending == EndPosition.LEFT_SWITCH || ending == EndPosition.RIGHT_SWITCH) {
-    			center.start();
+    			//center.start();
     		}
     	}
     }

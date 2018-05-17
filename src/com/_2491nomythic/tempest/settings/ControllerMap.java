@@ -24,20 +24,28 @@ public class ControllerMap {
 	public static final int tankTurnBackwardButton = 2;
 	public static final int climberButton = 4; //TODO renumber this later
     
-	//Operator	
+	//Operator	F310
 	public static final int setSwitchRPS = 1;//f310: 1, ps4: 2;
 	public static final int setLowScaleRPS = 3;//f310: 3, ps4: 1;
-	public static final int setMediumScaleRPS = 4;
 	public static final int setHighScaleRPS = 2;//f310: 2, ps4: 3;
-	public static final int deployIntake = 5;
 	public static final int openIntakeFingers = 2;//f310: 2, ps4: 3
+	public static final int shooterButton = 3;//f310: 3, ps4: 4
+	
+	//Operator PS4
+	//public static final int setSwitchRPS = 2;//f310: 1, ps4: 2;
+	//public static final int setLowScaleRPS = 1;//f310: 3, ps4: 1;
+	//public static final int setHighScaleRPS = 3;//f310: 2, ps4: 3;
+	//public static final int openIntakeFingers = 3;//f310: 2, ps4: 3
+	//public static final int shooterButton = 4;//f310: 3, ps4: 4
+	
+	//Operator General
+	public static final int setMediumScaleRPS = 4;
+	public static final int deployIntake = 5;
 	public static final int raiseShooter = 6;
 	public static final int intakeAxis = 1;
 	public static final int cubeStorageAxis = 5;
-	public static final int shooterButton = 3;//f310: 3, ps4: 4
 	public static final int shooterReverseButton = 180;
 	public static final int convertToClimbMode = 7; //TODO renumber this as needed
-	//public static final int climberButton = 9; //Currently on driver controller
 	
 	//Probably not going to be used
 

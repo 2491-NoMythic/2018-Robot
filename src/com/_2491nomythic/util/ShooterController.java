@@ -11,7 +11,7 @@ import com._2491nomythic.tempest.subsystems.Shooter;
  * @author Silas
  */
 public class ShooterController {
-	private double kF, kCLeft, kCRight, setPoint, tolerance, leftDivisor, rightDivisor, kDLeft, kDRight, leftOutput, rightOutput;
+	private double kF, kCLeft, kCRight, setPoint, tolerance, leftDivisor, rightDivisor, kI1Left, kI1Right, kI2Left, kI2Right, leftOutput, rightOutput;
 	private Shooter source;
 	private boolean hasLeftPassedAbove, hasRightPassedAbove, hasLeftPassedBelow, hasRightPassedBelow, leftStartAbove, rightStartAbove, enabled;
 	private Timer loopTimer;
@@ -34,14 +34,20 @@ public class ShooterController {
 	 * @param shooter The shooter that provides input and output data
 	 * @param leftC The error coefficient that determines the rate of increase/decrease based on distance from target for the left side
 	 * @param rightC The error coefficient that determine sthe rate of increase/decrease based on distance from target for the right side
+	 * @param leftI1 The increment constant that controls the rate of increase of left output when behind
+	 * @param rightI1 The increment constant that controls the rate of increase of right output when behind
+	 * @param leftI2 The increment constant that controls the rate of decrease of left output
+	 * @param rightI2 The increment constant that controls the rate of decrease of right output
 	 * @param F The feed forward value that determines a base power to run output motors at
 	 */
-	public ShooterController(Shooter shooter, double leftC, double rightC, double leftD, double rightD, double F) {
+	public ShooterController(Shooter shooter, double leftC, double rightC, double leftI1, double rightI1, double leftI2, double rightI2, double F) {
 		kCLeft = leftC;
 		kCRight = rightC;
 		kF = F;
-		kDLeft = leftD;
-		kDRight = rightD;
+		kI1Left = leftI1;
+		kI1Right = rightI1;
+		kI2Left = leftI2;
+		kI2Right = rightI2;
 		source = shooter;
 		leftDivisor = 1;
 		rightDivisor = 1;
@@ -282,7 +288,7 @@ public class ShooterController {
 	public void loopLeft() {
 		checkLeft();
 		if (isLeftComplete()) {
-			leftDivisor+= Math.pow(kCLeft, 2);
+			leftDivisor+= kI2Left;
 			resetLeftLoopVariables();
 		}
 	}
@@ -293,7 +299,7 @@ public class ShooterController {
 	public void loopRight() {
 		checkRight();
 		if (isRightComplete()) {
-			rightDivisor+= Math.pow(kCRight, 2);
+			rightDivisor+= kI2Right;
 			resetRightLoopVariables();
 		}
 	}
@@ -310,12 +316,12 @@ public class ShooterController {
 			rightOutput = calculateRightOutput();
 			if (!inSync()) {
 				if (source.getLeftShootVelocity() > source.getRightShootVelocity()) {
-					leftOutput -= kDLeft;
-					rightOutput += kDRight;
+					leftOutput -= kI2Left;
+					rightOutput += kI1Right;
 				}
 				if (source.getRightShootVelocity() > source.getRightShootVelocity()) {
-					rightOutput -= kDRight;
-					leftOutput += kDLeft;
+					rightOutput -= kI2Right;
+					leftOutput += kI1Left;
 				}
 			}
 			leftSet(leftOutput);

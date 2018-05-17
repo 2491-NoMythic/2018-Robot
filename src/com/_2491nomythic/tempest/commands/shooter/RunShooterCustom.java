@@ -1,6 +1,7 @@
 package com._2491nomythic.tempest.commands.shooter;
 
 import com._2491nomythic.tempest.commands.CommandBase;
+import com._2491nomythic.tempest.settings.Constants;
 import com._2491nomythic.tempest.settings.Variables;
 import com._2491nomythic.util.ShooterController;
 
@@ -14,7 +15,7 @@ public class RunShooterCustom extends CommandBase {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(shooter);
-    	shootControl = new ShooterController(shooter, .006, .0025/20/*.025/1.5*/, .007/*.008*/, .0045/*.004*/, Variables.shooterSpeed);
+    	shootControl = new ShooterController(shooter, Constants.shootCLeft, Constants.shootCRight, Constants.shootI1Left, Constants.shootI1Right, Constants.shootI2Left, Constants.shootI2Right, Variables.shooterSpeed);
     }
 
     // Called just before this Command runs the first time
