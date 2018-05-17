@@ -23,7 +23,7 @@ public class DrivePath extends CommandBase {
     	
     	requires(drivetrain);
     	
-    	this.mSelectedPath = EndPosition.RIGHT_SWITCH.extractPath();  //String.valueOf(endPosition.toString());
+    	this.mSelectedPath = target.extractPath();  //String.valueOf(endPosition.toString());
     	
     	this.mLeftChannel = origin.leftIndex();
     	this.mRightChannel = origin.rightIndex();
@@ -62,10 +62,10 @@ public class DrivePath extends CommandBase {
      */
     private synchronized void adjustVelocities() {
     	mHeadingDiffrence = mHeadingDir * mSelectedPath[mCurrentStep][mHeadingChannel] + drivetrain.getRawGyroAngle() - mInitialHeading;
-		mTurnAdjustment = Constants.kVelocitykG * mHeadingDiffrence; 
+		mTurnAdjustment = Constants.kVelocitykG * mHeadingDiffrence * Constants.kVeloctiyUnitConversion; 
 		
-		mAdjustedLeftVelocity = Constants.kVeloctiyUnitConversion * (mDriveDirection * mSelectedPath[mCurrentStep][mLeftChannel] - mTurnAdjustment);
-		mAdjustedRightVelocity = Constants.kVeloctiyUnitConversion * (mDriveDirection * mSelectedPath[mCurrentStep][mRightChannel] + mTurnAdjustment);
+		mAdjustedLeftVelocity = Constants.kVeloctiyUnitConversion * mDriveDirection * mSelectedPath[mCurrentStep][mLeftChannel] - mTurnAdjustment;
+		mAdjustedRightVelocity = Constants.kVeloctiyUnitConversion * mDriveDirection * mSelectedPath[mCurrentStep][mRightChannel] + mTurnAdjustment;
     }
     
     public int getCurrentStep() {

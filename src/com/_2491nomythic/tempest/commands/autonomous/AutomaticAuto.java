@@ -33,7 +33,7 @@ public class AutomaticAuto extends CommandBase {
 	
 	/**
 	 * 
-	 * @param position
+	 * @param positionz
 	 * @param priority
 	 * @param crossing
 	 */
@@ -47,7 +47,7 @@ public class AutomaticAuto extends CommandBase {
     	mRevShoot = new RunShooterCustom();
     	mTimer = new Timer();
     	mWaitTime = 15;
-    	mBumpCounter = new DrivePath(mStartPosition, mEndPosition);
+    	mBumpCounter = new DrivePath(mStartPosition, EndPosition.BUMP_COUNTER);
     }
 
     // Called just before this Command runs the first time
