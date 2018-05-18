@@ -25,8 +25,7 @@ public class UltrasonicCubeHaltManual extends CommandBase {
 	}
 
 	// Called repeatedly when this Command is scheduled to run
-	protected void execute() {
-		if(!oi.getButton(ControllerMap.operatorController, ControllerMap.convertToClimbMode)) {
+	protected void execute() {		
 			if (doWeNeedToWorryAboutStoppingOrIsTheUltrasonicSensorAlreadyCovered) {
 				cubeStorage.run(oi.getAxisDeadzonedSquared(ControllerMap.operatorController, ControllerMap.cubeStorageAxis, 0.1));
 			}
@@ -48,11 +47,7 @@ public class UltrasonicCubeHaltManual extends CommandBase {
 			else if (!oi.runShooter.get()) { 
 				shooter.runAccelerate(0);
 			}
-		}
-		else {
-			cubeStorage.stop();
-			shooter.stop();
-		}
+		
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

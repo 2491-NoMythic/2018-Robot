@@ -137,10 +137,10 @@ public class OI {
 		
 		//CubeStorage
 		cubeStorageControl1 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, 0.1);
-		cubeStorageControl1.whenPressed(new UltrasonicCubeHaltManual());
+		cubeStorageControl1.whileHeld(new UltrasonicCubeHaltManual());
 		
 		cubeStorageControl2 = new JoystickAxisButton(controllers[ControllerMap.operatorController], ControllerMap.cubeStorageAxis, -0.1);
-		cubeStorageControl2.whenPressed(new UltrasonicCubeHaltManual());
+		cubeStorageControl2.whileHeld(new UltrasonicCubeHaltManual());
 	}
 	
 	/**
