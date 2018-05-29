@@ -13,5 +13,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="var" path="USERLIBS_DIR/navx_frc.jar" sourcepath="/NAVX_FRC_LIB"/>
+	<classpathentry kind="var" path="USERLIBS_DIR/CTRE_Phoenix-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
