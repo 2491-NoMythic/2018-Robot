@@ -30,6 +30,7 @@ public class AutomaticAuto extends CommandBase {
 	private int state;
 	private boolean multiCube, goForSwitch, timerSafety;
 	private Timer mTimer, turnTimer, raiseTimer;
+	private int[] In;
 	
 	public static enum StartPosition {
 		LEFT, CENTER, RIGHT, CROSS_LINE, LEFT_NULL, RIGHT_NULL, LEFT_CUBE, RIGHT_CUBE, LEFT_SWITCH, RIGHT_SWITCH, LEFT_BACKUP, RIGHT_BACKUP, LEFT_PYRAMID, RIGHT_PYRAMID;

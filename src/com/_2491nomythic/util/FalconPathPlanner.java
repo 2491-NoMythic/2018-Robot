@@ -2,6 +2,9 @@ package com._2491nomythic.util;
 
 import java.awt.Color;
 import java.awt.GraphicsEnvironment;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -104,12 +107,45 @@ public class FalconPathPlanner
 		velocityBeta = 0.3;
 		velocityTolerance = 0.0000001;
 	}
+	
+	 public static int[] answer(int[] data, int n) { 
 
-	public static void print(double[] path)
+		 int mLimit;
+		    int[] mOut;
+		    ArrayList<Integer> mData;		        
+			    mLimit = n;
+				mData = new ArrayList<Integer>();
+				
+				/**
+				 * loops through the array to convert it into a ArrayList.
+				 */
+				for (int i : data) {
+					mData.add(i);
+				}
+				
+				/**
+				 * Loops through the data and removes integers with a recurance count over mLimit.
+				 */
+			    for (int i : data) {
+				    if (Collections.frequency(mData, i) > mLimit) {
+						mData.removeIf(s -> s.equals(i));
+			        }
+				}
+				
+				/**
+				 * Steams and maps the data to convert back into the desired return type of int[].
+				 */
+				mOut = mData.stream().mapToInt(i -> i).toArray();
+				return mOut;
+		        
+	        
+	 }
+
+	public static void print(int[] arrayList)
 	{
 		System.out.println("X: \t Y:");
 
-		for(double u: path)
+		for(int u: arrayList)
 			System.out.println(u);
 	}
 
@@ -829,6 +865,10 @@ public class FalconPathPlanner
 			{3,centerStartPos-2},
 			{4,centerStartPos-5}
 		};
+		
+		int[] test = {10, 1, 22, 2, 22, 3, 22, 4, 8, 10, 22, 22, 22};
+		
+		print(answer(test, 10));
 		
 		final FalconPathPlanner path = new FalconPathPlanner(scaleRightLeft);
 		path.calculate(totalTime, timeStep, robotTrackWidth);
