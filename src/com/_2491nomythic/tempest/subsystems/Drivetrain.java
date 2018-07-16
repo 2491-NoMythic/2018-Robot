@@ -142,7 +142,6 @@ public class Drivetrain extends PIDSubsystem {
 	 */
 	public void driveLeftPercentOutput(double speed){
 		leftMaster.set(ControlMode.PercentOutput, speed * Variables.driveAdjustmentCoefficient);
-		velocity.append(getLeftVelocity() + ", ");
 	}
 	
 	/**
@@ -151,7 +150,6 @@ public class Drivetrain extends PIDSubsystem {
 	 */
 	public void driveRightPercentOutput(double speed){
 		rightMaster.set(ControlMode.PercentOutput, speed * Variables.driveAdjustmentCoefficient);
-		velocity.append(getRightVelocity() + "\n");
 	}
 	
 	/**

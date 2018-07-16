@@ -18,11 +18,11 @@ public class SendAllianceColor extends CommandBase {
     // Called just before this Command runs the first time
     protected void initialize() {
     	if(DriverStation.getInstance().getAlliance() == Alliance.Red) {
-    		sickLights.writeData("RED");
+    		sickLights.writeData("R");
     		System.out.println("Sending red");
     	}
     	else if(DriverStation.getInstance().getAlliance() == Alliance.Blue) {
-    		sickLights.writeData("BLUE");
+    		sickLights.writeData("B");
     		System.out.println("Sending blue");
     	}
     	else {

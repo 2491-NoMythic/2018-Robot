@@ -81,8 +81,9 @@ public class Robot extends TimedRobot {
 		//updateLights.start();
 		
 		m_PositionSelector.addObject("LEFT", StartPosition.LEFT);
-		m_PositionSelector.addDefault("CENTER", StartPosition.CENTER);
+		m_PositionSelector.addObject("CENTER", StartPosition.CENTER);
 		m_PositionSelector.addObject("RIGHT", StartPosition.RIGHT);
+		m_PositionSelector.addDefault("CROSS LINE", StartPosition.CROSS_LINE);
 		
 		m_PrioritySelector.addDefault("SWITCH", Priority.SWITCH);
 		m_PrioritySelector.addObject("SCALE", Priority.SCALE);
