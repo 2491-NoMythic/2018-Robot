@@ -23,13 +23,13 @@ public class AutomaticAuto extends CommandBase {
 	private RotateDrivetrainWithGyroPID aimForCube, aimForScale;
 	private DriveTime driveToScale, hitSwitch;
 	private ImprovedAutoIntake autoIntake;
-	private SetShooterSpeed mSetSwitchSpeed, mSetScaleSpeed, mSetScaleSpeed2;
+	private SetShooterSpeed mSetSwitchSpeed, mSetScaleSpeed, mSetScaleSpeed2, setScaleSpeedLeft;
 	private TransportCubeTime mFireCubeScale, mFireCubeSwitch;
 	private RunShooterCustom mRevShoot, mRevShoot2;
 	private String mGameData;
 	private int state;
 	private boolean multiCube, goForSwitch, timerSafety;
-	private Timer mTimer, turnTimer, raiseTimer;
+	private Timer mTimer, turnTimer, raiseTimer, delayTimer;
 	
 	public static enum StartPosition {
 		LEFT, CENTER, RIGHT, CROSS_LINE, LEFT_NULL, RIGHT_NULL, LEFT_CUBE, RIGHT_CUBE, LEFT_SWITCH, RIGHT_SWITCH, LEFT_BACKUP, RIGHT_BACKUP, LEFT_PYRAMID, RIGHT_PYRAMID;
@@ -65,11 +65,13 @@ public class AutomaticAuto extends CommandBase {
     	mSetSwitchSpeed = new SetShooterSpeed(0.2);
     	mSetScaleSpeed = new SetShooterSpeed(Constants.shooterMediumScaleSpeed);
     	mSetScaleSpeed2 = new SetShooterSpeed(Constants.shooterMediumScaleSpeed);
+    	setScaleSpeedLeft = new SetShooterSpeed(Constants.shooterLowScaleSpeed);
     	mRevShoot = new RunShooterCustom();
     	mRevShoot2 = new RunShooterCustom();
     	mTimer = new Timer();
     	turnTimer = new Timer();
     	raiseTimer = new Timer();
+    	delayTimer = new Timer();
     	mWaitTime = 15;
     	
     	aimForCube = new RotateDrivetrainWithGyroPID(62.5, false);
@@ -87,8 +89,8 @@ public class AutomaticAuto extends CommandBase {
     	state = 0;
     	
     	selectEndPosition(mStartPosition);
-    	
-    	if(mEndPosition == EndPosition.OPPOSITE_SCALE || mEndPosition == EndPosition.LEFT_SWITCH || mEndPosition == EndPosition.RIGHT_SWITCH || mEndPosition == EndPosition.CROSS_LINE || mEndPosition == EndPosition.SWITCH) {
+
+    	if(mEndPosition == EndPosition.LEFT_SWITCH || mEndPosition == EndPosition.RIGHT_SWITCH || mEndPosition == EndPosition.CROSS_LINE || mEndPosition == EndPosition.SWITCH) {
     		mPath = new DrivePath(mStartPosition, mEndPosition, 4, false);
     	}
     	else {
@@ -109,20 +111,25 @@ public class AutomaticAuto extends CommandBase {
         	//System.out.println(drivetrain.getRightVelocity() + ", " + drivetrain.getLeftVelocity());    		
 	    	switch(mEndPosition) {	    	
 		    	case OPPOSITE_SCALE:
-		    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 12 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 13) {
+		    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 60 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 61) {
 		    			intake.openArms();
 		    			shooter.setScalePosition();
 		    			mSetScaleSpeed.start();
 		    			mWaitTime = 0.1;
-		    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 17 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 18) {
+		    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 85 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_OPPOSITE_SCALE").length - 86) {
 		    			mRevShoot.start();
 		    		}
 		    		break;
-		    	case SCALE:
+		    	case SCALE:		    		
 		    		if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 60 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 61) {	
 		    			intake.openArms();
 		    			shooter.setScalePosition();
-		    			mSetScaleSpeed.start();
+		    			if(DriverStation.getInstance().getGameSpecificMessage().substring(1, 2).contentEquals("L")) {
+		    				mSetScaleSpeed.start();
+		    			}
+		    			else {
+			    			mSetScaleSpeed.start();
+		    			}
 		    			mWaitTime = 0.1;
 		    		} else if(mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 85 || mPath.getCurrentStep() == Pathing.getVelocityArray("leftVelocitiesTO_SCALE").length - 86) {
 		    			mRevShoot.start();
@@ -142,7 +149,15 @@ public class AutomaticAuto extends CommandBase {
 	    	}
 	  	}
     	
+    	if(delayTimer.get() > 0.5) {
+			timerSafety = true;
+			mFireCubeScale.start();
+			mTimer.start();
+		}
+    	
     	if(mPath.isCompleted() && !timerSafety) {
+    		delayTimer.start();
+    		
     		switch(mEndPosition) {
     		case LEFT_SWITCH:
     		case RIGHT_SWITCH:
@@ -156,12 +171,14 @@ public class AutomaticAuto extends CommandBase {
     			mRevShoot2.start();
     			mFireCubeScale.start();
     			break;
-    		default:
-    			mFireCubeScale.start();
+    		case OPPOSITE_SCALE:
     			break;
+    		default:
+    			break;    			
     		}
-    		timerSafety = true;
-    		mTimer.start();
+    		
+			timerSafety = true;
+
     	}
     }
 
@@ -209,8 +226,15 @@ public class AutomaticAuto extends CommandBase {
     }
     
     private synchronized void respondToARCADE(String gameData) {
-    	switch(mGameData.substring(0, 2)) {
-    	case "LL":
+    	switch(mGameData.substring(0, 1)) {
+    	case "R":
+    		mEndPosition = EndPosition.SWITCH;
+    		break;
+    	default:
+    		mEndPosition = EndPosition.CROSS_LINE;
+    		break;
+    	
+    	/*case "LL":
 			if (mStartPosition == StartPosition.CENTER) {
 				mEndPosition = EndPosition.LEFT_SWITCH;
 			}
@@ -221,6 +245,7 @@ public class AutomaticAuto extends CommandBase {
 				mEndPosition = EndPosition.OPPOSITE_SCALE;
 			}
 			break;
+			
 		default:
 			System.out.println("Unexpected value for GameSpecificMessage: " + mGameData);
 			end();
@@ -255,6 +280,7 @@ public class AutomaticAuto extends CommandBase {
 				mEndPosition = EndPosition.SWITCH;
 			}
 			break;
+			*/
 		}
     	System.out.println("Selected EndPosition: " + mEndPosition);
     }
