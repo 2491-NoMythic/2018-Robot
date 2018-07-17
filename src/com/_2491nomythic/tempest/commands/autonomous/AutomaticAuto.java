@@ -24,7 +24,7 @@ public class AutomaticAuto extends CommandBase {
 	private RunShooterCustom mRevShoot, mRevShoot2;
 	private String mGameData;
 	private boolean timerSafety;
-	private Timer mTimer, turnTimer;
+	private Timer mTimer;
 	
 	public static enum StartPosition {
 		LEFT, CENTER, RIGHT, CROSS_LINE, LEFT_NULL, RIGHT_NULL, LEFT_CUBE, RIGHT_CUBE, LEFT_SWITCH, RIGHT_SWITCH, LEFT_BACKUP, RIGHT_BACKUP, LEFT_PYRAMID, RIGHT_PYRAMID;
@@ -62,7 +62,6 @@ public class AutomaticAuto extends CommandBase {
     	mRevShoot = new RunShooterCustom();
     	mRevShoot2 = new RunShooterCustom();
     	mTimer = new Timer();
-    	turnTimer = new Timer();
     	mWaitTime = 15;
     	
     	mFireCubeSwitch = new TransportCubeTime(-1, 2);
@@ -84,7 +83,6 @@ public class AutomaticAuto extends CommandBase {
     	}
 		mTimer.reset();
 		mTimer.stop();
-		turnTimer.reset();
 		
 		mPath.start();	
     }
