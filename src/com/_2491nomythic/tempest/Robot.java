@@ -171,9 +171,9 @@ public class Robot extends TimedRobot {
 		Variables.autoDelay = SmartDashboard.getNumber("AutoDelay", 0);
 		sendColor.start();
 		
-		//m_autonomousCommand = new AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
+		m_autonomousCommand = new AutomaticAuto(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected());
 		//m_autonomousCommand = new VelocityTestAuto();
-		m_autonomousCommand = new AutomaticTwoCube(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected(), m_SecondCubeSelector.getSelected());
+		//m_autonomousCommand = new AutomaticTwoCube(m_PositionSelector.getSelected(), m_PrioritySelector.getSelected(), m_CrossingSelector.getSelected(), m_SecondCubeSelector.getSelected());
 		//updateLights.start();
 		//sendColor.start();
 
