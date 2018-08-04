@@ -140,7 +140,7 @@ public class AutomaticAuto extends CommandBase {
     			break;
     		case OPPOSITE_SCALE:
     		case SCALE:
-    			//mFireCubeScale.start();
+    			mFireCubeScale.start();
     			break;
     		default:
     			break;    			

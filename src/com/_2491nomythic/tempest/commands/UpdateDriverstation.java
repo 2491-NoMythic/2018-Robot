@@ -34,13 +34,13 @@ public class UpdateDriverstation extends CommandBase {
 	// Called repeatedly when this Command is scheduled to run
 	protected void execute() {
 		if (timer.get() > nextRun) {
-			nextRun = nextRun + 0.1;
-			if (drivetrain.getEncoderRate() > maximumSpeed) {
-				maximumSpeed = drivetrain.getEncoderRate();
-			}
+			//nextRun = nextRun + 0.1;
+			//if (drivetrain.getEncoderRate() > maximumSpeed) {
+				//maximumSpeed = drivetrain.getEncoderRate();
+			//}
             
-			SmartDashboard.putNumber("Right Encoder TICS", drivetrain.getRightEncoderDistanceRaw());
-			SmartDashboard.putNumber("Left Encoder TICS", drivetrain.getLeftEncoderDistanceRaw());
+			//SmartDashboard.putNumber("Right Encoder TICS", drivetrain.getRightEncoderDistanceRaw());
+			//SmartDashboard.putNumber("Left Encoder TICS", drivetrain.getLeftEncoderDistanceRaw());
 			SmartDashboard.putNumber("Gyro Angle", drivetrain.getGyroAngle());
 			SmartDashboard.putBoolean("ShooterReadyToFire", Variables.readyToFire);
 			SmartDashboard.putNumber("LeftShootRPS", shooter.getLeftShootVelocity());
@@ -61,7 +61,7 @@ public class UpdateDriverstation extends CommandBase {
 			drivetrain.chooseDefaultCommand(Variables.driveDefault);
 		}
 			
-		
+
 			
 			
 	}
